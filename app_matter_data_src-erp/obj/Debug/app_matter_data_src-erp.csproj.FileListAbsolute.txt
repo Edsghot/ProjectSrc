@@ -1,0 +1,13 @@
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\app_matter_data_src-erp.exe.config
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\app_matter_data_src-erp.exe
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\app_matter_data_src-erp.pdb
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.csproj.AssemblyReference.cache
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.csproj.SuggestedBindingRedirects.cache
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Properties.Resources.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.csproj.GenerateResource.cache
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.csproj.CoreCompileInputs.cache
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.exe
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.pdb
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Main.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.UCComprasImportadas.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.UCImportacionesCompra.resources
