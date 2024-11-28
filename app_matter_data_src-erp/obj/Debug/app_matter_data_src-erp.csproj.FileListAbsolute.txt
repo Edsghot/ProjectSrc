@@ -23,3 +23,5 @@ D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.csproj.CoreCompileInputs.cache
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.exe
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.pdb
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\FontAwesome.Sharp.dll
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.csproj.CopyComplete

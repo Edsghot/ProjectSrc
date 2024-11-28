@@ -1,63 +1,60 @@
 ﻿using app_matter_data_src_erp.Forms;
+using FontAwesome.Sharp; 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace app_matter_data_src_erp
 {
     public partial class Main : Form
     {
-        private Button activeButton;
+        private IconButton activeButton; 
         private UserControl activeControl;
+
         public Main()
         {
             InitializeComponent();
             LoadUserControl(new UCImportacionesCompra(), btnOption1);
         }
 
-        private void LoadUserControl(UserControl userControl, Button senderButton)
+        private void LoadUserControl(UserControl userControl, IconButton senderButton)
         {
             if (activeControl != null)
             {
-                pnlContainer.Controls.Remove(activeControl); 
+                pnlContainer.Controls.Remove(activeControl);
             }
 
             activeControl = userControl;
-            activeControl.Dock = DockStyle.Fill; 
+            activeControl.Dock = DockStyle.Fill;
             pnlContainer.Controls.Add(activeControl);
 
             HighlightButton(senderButton);
         }
 
-        private void HighlightButton(Button button)
+        private void HighlightButton(IconButton button)
         {
             if (activeButton != null)
             {
                 activeButton.BackColor = Color.White;
                 activeButton.ForeColor = Color.Black;
+                activeButton.IconColor = Color.Black;
             }
 
             button.BackColor = Color.Blue;
             button.ForeColor = Color.White;
+            button.IconColor = Color.White;
 
-            activeButton = button;
+            activeButton = button; 
         }
-
 
         private void btnOption1_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new UCImportacionesCompra(), (Button)sender);
+            LoadUserControl(new UCImportacionesCompra(), (IconButton)sender);
         }
 
         private void btnOption2_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new UCComprasImportadas(), (Button)sender);
+            LoadUserControl(new UCComprasImportadas(), (IconButton)sender);
         }
     }
 }

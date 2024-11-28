@@ -37,8 +37,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnOption2 = new System.Windows.Forms.Button();
-            this.btnOption1 = new System.Windows.Forms.Button();
+            this.btnOption2 = new FontAwesome.Sharp.IconButton();
+            this.btnOption1 = new FontAwesome.Sharp.IconButton();
             this.pnlContainer = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -154,17 +154,18 @@
             // 
             // btnOption2
             // 
-            this.btnOption2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnOption2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOption2.ForeColor = System.Drawing.Color.Black;
-            this.btnOption2.Image = global::app_matter_data_src_erp.Properties.Resources.icon_save;
-            this.btnOption2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOption2.Location = new System.Drawing.Point(3, 78);
+            this.btnOption2.IconChar = FontAwesome.Sharp.IconChar.FloppyDisk;
+            this.btnOption2.IconColor = System.Drawing.Color.Black;
+            this.btnOption2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnOption2.IconSize = 38;
+            this.btnOption2.Location = new System.Drawing.Point(3, 64);
             this.btnOption2.Name = "btnOption2";
-            this.btnOption2.Size = new System.Drawing.Size(275, 69);
-            this.btnOption2.TabIndex = 1;
-            this.btnOption2.Text = "Compras importadas";
-            this.btnOption2.UseVisualStyleBackColor = false;
+            this.btnOption2.Size = new System.Drawing.Size(278, 63);
+            this.btnOption2.TabIndex = 3;
+            this.btnOption2.Text = "Compras importadas\r\n";
+            this.btnOption2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnOption2.UseVisualStyleBackColor = true;
             this.btnOption2.Click += new System.EventHandler(this.btnOption2_Click);
             // 
             // btnOption1
@@ -172,13 +173,16 @@
             this.btnOption1.BackColor = System.Drawing.Color.MediumBlue;
             this.btnOption1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOption1.ForeColor = System.Drawing.Color.White;
-            this.btnOption1.Image = global::app_matter_data_src_erp.Properties.Resources.icon_logout1;
-            this.btnOption1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOption1.Location = new System.Drawing.Point(3, 3);
+            this.btnOption1.IconChar = FontAwesome.Sharp.IconChar.RightFromBracket;
+            this.btnOption1.IconColor = System.Drawing.Color.White;
+            this.btnOption1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnOption1.IconSize = 44;
+            this.btnOption1.Location = new System.Drawing.Point(0, 0);
             this.btnOption1.Name = "btnOption1";
-            this.btnOption1.Size = new System.Drawing.Size(275, 69);
-            this.btnOption1.TabIndex = 0;
-            this.btnOption1.Text = "Importación de \r\ncompras SRC";
+            this.btnOption1.Size = new System.Drawing.Size(281, 67);
+            this.btnOption1.TabIndex = 2;
+            this.btnOption1.Text = "Importación de \r\ncompras SRC\r\n";
+            this.btnOption1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnOption1.UseVisualStyleBackColor = false;
             this.btnOption1.Click += new System.EventHandler(this.btnOption1_Click);
             // 
@@ -223,9 +227,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnOption1;
-        private System.Windows.Forms.Button btnOption2;
         private System.Windows.Forms.Panel pnlContainer;
+        private FontAwesome.Sharp.IconButton btnOption2;
+        private FontAwesome.Sharp.IconButton btnOption1;
     }
 }
 

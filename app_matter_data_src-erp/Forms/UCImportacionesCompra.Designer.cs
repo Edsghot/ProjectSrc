@@ -47,7 +47,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label1);
             this.Name = "UCImportacionesCompra";
-            this.Size = new System.Drawing.Size(958, 676);
+            this.Size = new System.Drawing.Size(1137, 651);
             this.ResumeLayout(false);
             this.PerformLayout();
 
