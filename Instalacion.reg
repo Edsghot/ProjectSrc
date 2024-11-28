@@ -1,0 +1,4 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\PecanoServiceNotification]
+"ConnectionString"="Data Source=10.10.10.91;Initial Catalog=BDPinpad;User ID=LeyNatural;Password=Perseverante$;TrustServerCertificate=true"

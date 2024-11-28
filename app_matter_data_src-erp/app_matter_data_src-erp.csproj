@@ -104,6 +104,12 @@
     <None Include="Resources\icon_logout.png" />
     <None Include="Resources\logo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AppModulos\LogicErp\Application\" />
+    <Folder Include="AppModulos\LogicErp\InputPort\" />
+    <Folder Include="AppModulos\LogicSrc\Application\" />
+    <Folder Include="AppModulos\LogicSrc\Interface\" />
+    <Folder Include="Forms\ModelView\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
