@@ -1,4 +1,8 @@
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SYSTEM\PecanoServiceNotification]
-"ConnectionString"="Data Source=10.10.10.91;Initial Catalog=BDPinpad;User ID=LeyNatural;Password=Perseverante$;TrustServerCertificate=true"
+"ConnectionString1"="Data Source=10.10.10.91;Initial Catalog=BDPinpad;User ID=LeyNatural;Password=Perseverante$;TrustServerCertificate=true"
+"ConnectionString"="Data Source=10.10.10.91;Initial Catalog=BDPinpad;User ID=pkswp6x4t6l7a9a8z8emtnkea;Password=qEJRjgJNhQ83eH2$;TrustServerCertificate=true"
+"IdComputadora"="1"
+"IdClient"="1d9ab3990c6ab3448b9e50d29d27b95c"
+"IdUsuario"="1"

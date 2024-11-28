@@ -59,5 +59,10 @@ namespace app_matter_data_src_erp
         {
             LoadUserControl(new UCComprasImportadas(), (Button)sender);
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
