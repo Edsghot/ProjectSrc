@@ -1,0 +1,43 @@
+# .NET Framework
+# Archivos y carpetas generados por Visual Studio
+.vs/
+.vscode/
+.idea/
+
+# Archivos de usuario de Visual Studio
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.dbmdl
+
+# Archivos de compilación
+[Dd]ebug/
+[Dd]ebugPublic/
+[Dd]Release/
+[Dd]ReleasePublic/
+[Dd]ebug-/
+[Dd]Release-/
+bin/
+obj/
+
+# Archivos de configuración de usuario
+*.config
+
+# Carpetas de NuGet
+# NuGet package folders
+# .NET Framework no usa el directorio .nuget en la misma forma que .NET Core
+.nuget/
+
+# Archivos temporales generados por el compilador y demás
+*.[Cc]ache
+*.[Pp]db
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+
+# Archivos específicos de Windows Forms
+# Archivos de diseño
+*.Designer.cs
+*.resx
