@@ -122,6 +122,7 @@
     <Folder Include="AppModulos\LogicErp\Port\" />
     <Folder Include="AppModulos\LogicSrc\Application\" />
     <Folder Include="AppModulos\LogicSrc\Port\" />
+    <Folder Include="Forms\ModalView\" />
     <Folder Include="Model\" />
     <Folder Include="Repository\RepositoryErp\Aplication\" />
     <Folder Include="Repository\RepositoryErp\Port\" />
