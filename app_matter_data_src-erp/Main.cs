@@ -14,6 +14,7 @@ namespace app_matter_data_src_erp
         public Main()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
             LoadUserControl(new UCImportacionesCompra(), btnOption1);
         }
 

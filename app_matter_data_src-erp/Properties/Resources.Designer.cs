@@ -63,29 +63,9 @@ namespace app_matter_data_src_erp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon_logout {
+        internal static System.Drawing.Bitmap Left {
             get {
-                object obj = ResourceManager.GetObject("icon_logout", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icon_logout1 {
-            get {
-                object obj = ResourceManager.GetObject("icon_logout1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icon_save {
-            get {
-                object obj = ResourceManager.GetObject("icon_save", resourceCulture);
+                object obj = ResourceManager.GetObject("Left", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -96,6 +76,16 @@ namespace app_matter_data_src_erp.Properties {
         internal static System.Drawing.Bitmap logo {
             get {
                 object obj = ResourceManager.GetObject("logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Rectangle {
+            get {
+                object obj = ResourceManager.GetObject("Rectangle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
