@@ -54,11 +54,59 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Constants\Credentials.cs" />
+    <Compile Include="Forms\DialogView\AsientoTipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogView\AsientoTipo.Designer.cs">
+      <DependentUpon>AsientoTipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DialogView\Importar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogView\Importar.Designer.cs">
+      <DependentUpon>Importar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DialogView\ProductMatch\BuscarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogView\ProductMatch\BuscarProducto.Designer.cs">
+      <DependentUpon>BuscarProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DialogView\ProductMatch\CoincidenciaProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogView\ProductMatch\CoincidenciaProductos.Designer.cs">
+      <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DialogView\ErrorImportacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogView\ErrorImportacion.Designer.cs">
+      <DependentUpon>ErrorImportacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DialogView\ModalDetalleCompra.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\DialogView\ModalDetalleCompra.Designer.cs">
       <DependentUpon>ModalDetalleCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DialogView\ModalDetalleCompraCombustible.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogView\ModalDetalleCompraCombustible.Designer.cs">
+      <DependentUpon>ModalDetalleCompraCombustible.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DialogView\Sucursal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogView\Sucursal.Designer.cs">
+      <DependentUpon>Sucursal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoadData\LoadingPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\LoadData\LoadingPanel.Designer.cs">
+      <DependentUpon>LoadingPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\UCComprasImportadas.cs">
       <SubType>UserControl</SubType>
@@ -86,8 +134,32 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Repository\dbContext\DbContext.cs" />
+    <EmbeddedResource Include="Forms\DialogView\AsientoTipo.resx">
+      <DependentUpon>AsientoTipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DialogView\Importar.resx">
+      <DependentUpon>Importar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DialogView\ProductMatch\BuscarProducto.resx">
+      <DependentUpon>BuscarProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DialogView\ProductMatch\CoincidenciaProductos.resx">
+      <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DialogView\ErrorImportacion.resx">
+      <DependentUpon>ErrorImportacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DialogView\ModalDetalleCompra.resx">
       <DependentUpon>ModalDetalleCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DialogView\ModalDetalleCompraCombustible.resx">
+      <DependentUpon>ModalDetalleCompraCombustible.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DialogView\Sucursal.resx">
+      <DependentUpon>Sucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoadData\LoadingPanel.resx">
+      <DependentUpon>LoadingPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UCComprasImportadas.resx">
       <DependentUpon>UCComprasImportadas.cs</DependentUpon>
@@ -122,7 +194,6 @@
     <Folder Include="AppModulos\LogicErp\Port\" />
     <Folder Include="AppModulos\LogicSrc\Application\" />
     <Folder Include="AppModulos\LogicSrc\Port\" />
-    <Folder Include="Forms\ModalView\" />
     <Folder Include="Model\" />
     <Folder Include="Repository\RepositoryErp\Aplication\" />
     <Folder Include="Repository\RepositoryErp\Port\" />
@@ -131,10 +202,13 @@
     <None Include="Resources\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Left.png" />
+    <None Include="Resources\load.gif" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Rectangle.png" />
+    <None Include="Resources\none.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconEdit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

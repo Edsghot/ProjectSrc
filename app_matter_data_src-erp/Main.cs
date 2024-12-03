@@ -1,4 +1,6 @@
 ﻿using app_matter_data_src_erp.Forms;
+using app_matter_data_src_erp.Forms.DialogView;
+using app_matter_data_src_erp.Forms.DialogView.ProductMatch;
 using FontAwesome.Sharp; 
 using System;
 using System.Drawing;
@@ -14,6 +16,12 @@ namespace app_matter_data_src_erp
         public Main()
         {
             InitializeComponent();
+            //Sucursal modal = new Sucursal();
+            //ErrorImportacion modal = new ErrorImportacion();
+            //CoincidenciaProductos modal = new CoincidenciaProductos();
+            //BuscarProducto modal = new BuscarProducto();
+
+            //modal.ShowDialog();
             this.StartPosition = FormStartPosition.CenterScreen;
             LoadUserControl(new UCImportacionesCompra(), btnOption1);
         }

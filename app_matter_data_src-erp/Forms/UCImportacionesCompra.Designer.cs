@@ -33,7 +33,7 @@ namespace app_matter_data_src_erp.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.dateInicio = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.iconButton3 = new FontAwesome.Sharp.IconButton();
+            this.btnImportar = new FontAwesome.Sharp.IconButton();
             this.iconButton2 = new FontAwesome.Sharp.IconButton();
             this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -75,17 +75,19 @@ namespace app_matter_data_src_erp.Forms
             // 
             // dateInicio
             // 
+            this.dateInicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateInicio.Location = new System.Drawing.Point(15, 43);
             this.dateInicio.Margin = new System.Windows.Forms.Padding(4);
             this.dateInicio.Name = "dateInicio";
-            this.dateInicio.Size = new System.Drawing.Size(273, 22);
+            this.dateInicio.Size = new System.Drawing.Size(174, 30);
             this.dateInicio.TabIndex = 5;
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.iconButton3);
+            this.panel1.Controls.Add(this.btnImportar);
             this.panel1.Controls.Add(this.iconButton2);
             this.panel1.Controls.Add(this.iconButton1);
             this.panel1.Controls.Add(this.comboBox1);
@@ -97,28 +99,31 @@ namespace app_matter_data_src_erp.Forms
             this.panel1.Size = new System.Drawing.Size(1284, 98);
             this.panel1.TabIndex = 6;
             // 
-            // iconButton3
+            // btnImportar
             // 
-            this.iconButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconButton3.BackColor = System.Drawing.Color.Navy;
-            this.iconButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButton3.ForeColor = System.Drawing.Color.White;
-            this.iconButton3.IconChar = FontAwesome.Sharp.IconChar.RightFromBracket;
-            this.iconButton3.IconColor = System.Drawing.Color.White;
-            this.iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton3.IconSize = 35;
-            this.iconButton3.Location = new System.Drawing.Point(1130, 36);
-            this.iconButton3.Name = "iconButton3";
-            this.iconButton3.Size = new System.Drawing.Size(134, 47);
-            this.iconButton3.TabIndex = 10;
-            this.iconButton3.Text = "Importar";
-            this.iconButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconButton3.UseVisualStyleBackColor = false;
+            this.btnImportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnImportar.BackColor = System.Drawing.Color.Navy;
+            this.btnImportar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImportar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImportar.ForeColor = System.Drawing.Color.White;
+            this.btnImportar.IconChar = FontAwesome.Sharp.IconChar.RightFromBracket;
+            this.btnImportar.IconColor = System.Drawing.Color.White;
+            this.btnImportar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnImportar.IconSize = 35;
+            this.btnImportar.Location = new System.Drawing.Point(1130, 36);
+            this.btnImportar.Name = "btnImportar";
+            this.btnImportar.Size = new System.Drawing.Size(134, 47);
+            this.btnImportar.TabIndex = 10;
+            this.btnImportar.Text = "Importar";
+            this.btnImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnImportar.UseVisualStyleBackColor = false;
+            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
             // 
             // iconButton2
             // 
             this.iconButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.iconButton2.BackColor = System.Drawing.Color.MediumBlue;
+            this.iconButton2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.iconButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.iconButton2.ForeColor = System.Drawing.Color.White;
             this.iconButton2.IconChar = FontAwesome.Sharp.IconChar.NfcDirectional;
@@ -136,6 +141,7 @@ namespace app_matter_data_src_erp.Forms
             // iconButton1
             // 
             this.iconButton1.BackColor = System.Drawing.Color.SkyBlue;
+            this.iconButton1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.iconButton1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.ArrowsSpin;
             this.iconButton1.IconColor = System.Drawing.Color.White;
@@ -401,7 +407,7 @@ namespace app_matter_data_src_erp.Forms
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private FontAwesome.Sharp.IconButton iconButton1;
-        private FontAwesome.Sharp.IconButton iconButton3;
+        private FontAwesome.Sharp.IconButton btnImportar;
         private FontAwesome.Sharp.IconButton iconButton2;
         private System.Windows.Forms.Label label3;
         private Panel panelContainerTable;

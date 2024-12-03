@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -38,13 +37,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
+            this.pnlContainer = new System.Windows.Forms.Panel();
             this.btnOption2 = new FontAwesome.Sharp.IconButton();
             this.btnOption1 = new FontAwesome.Sharp.IconButton();
-            this.pnlContainer = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -61,16 +61,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1518, 112);
             this.panel1.TabIndex = 0;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::app_matter_data_src_erp.Properties.Resources.logo;
-            this.pictureBox1.Location = new System.Drawing.Point(28, 21);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(59, 74);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
             // 
             // panel3
             // 
@@ -170,14 +160,28 @@
             this.label6.TabIndex = 4;
             this.label6.Text = "v1.01";
             // 
+            // pnlContainer
+            // 
+            this.pnlContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlContainer.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlContainer.Location = new System.Drawing.Point(283, 116);
+            this.pnlContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pnlContainer.Name = "pnlContainer";
+            this.pnlContainer.Size = new System.Drawing.Size(1236, 756);
+            this.pnlContainer.TabIndex = 2;
+            // 
             // btnOption2
             // 
+            this.btnOption2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOption2.FlatAppearance.BorderSize = 0;
             this.btnOption2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOption2.IconChar = FontAwesome.Sharp.IconChar.FloppyDisk;
             this.btnOption2.IconColor = System.Drawing.Color.Black;
             this.btnOption2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnOption2.IconSize = 38;
-            this.btnOption2.Location = new System.Drawing.Point(-7, 79);
+            this.btnOption2.Location = new System.Drawing.Point(-7, 80);
             this.btnOption2.Margin = new System.Windows.Forms.Padding(4);
             this.btnOption2.Name = "btnOption2";
             this.btnOption2.Size = new System.Drawing.Size(382, 78);
@@ -190,33 +194,33 @@
             // btnOption1
             // 
             this.btnOption1.BackColor = System.Drawing.Color.MediumBlue;
+            this.btnOption1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOption1.FlatAppearance.BorderSize = 0;
             this.btnOption1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOption1.ForeColor = System.Drawing.Color.White;
             this.btnOption1.IconChar = FontAwesome.Sharp.IconChar.RightFromBracket;
             this.btnOption1.IconColor = System.Drawing.Color.White;
             this.btnOption1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnOption1.IconSize = 44;
-            this.btnOption1.Location = new System.Drawing.Point(-7, -11);
+            this.btnOption1.Location = new System.Drawing.Point(-7, 0);
             this.btnOption1.Margin = new System.Windows.Forms.Padding(4);
             this.btnOption1.Name = "btnOption1";
-            this.btnOption1.Size = new System.Drawing.Size(387, 93);
+            this.btnOption1.Size = new System.Drawing.Size(368, 82);
             this.btnOption1.TabIndex = 2;
             this.btnOption1.Text = "Importación de \r\ncompras SRC\r\n";
             this.btnOption1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnOption1.UseVisualStyleBackColor = false;
             this.btnOption1.Click += new System.EventHandler(this.btnOption1_Click);
             // 
-            // pnlContainer
+            // pictureBox1
             // 
-            this.pnlContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlContainer.BackColor = System.Drawing.SystemColors.Control;
-            this.pnlContainer.Location = new System.Drawing.Point(283, 116);
-            this.pnlContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pnlContainer.Name = "pnlContainer";
-            this.pnlContainer.Size = new System.Drawing.Size(1236, 756);
-            this.pnlContainer.TabIndex = 2;
+            this.pictureBox1.Image = global::app_matter_data_src_erp.Properties.Resources.logo;
+            this.pictureBox1.Location = new System.Drawing.Point(28, 21);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(59, 74);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
             // 
             // Main
             // 
@@ -231,11 +235,11 @@
             this.Text = "ERP PECAMP";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

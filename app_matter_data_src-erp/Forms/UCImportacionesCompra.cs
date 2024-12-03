@@ -19,6 +19,7 @@ namespace app_matter_data_src_erp.Forms
             dataTable.CellClick += dataTable_CellClick;
         }
 
+
         private void LoadData()
         {
 
@@ -125,24 +126,52 @@ namespace app_matter_data_src_erp.Forms
             {
                 var columnName = dataTable.Columns[e.ColumnIndex].Name;
 
-                // SIMULACION
                 if (columnName == "Column1")
                 {
                     var codigoCompra = dataTable.Rows[e.RowIndex].Cells["Column1"].Value?.ToString();
 
                     List<List<object>> tablaDatos = new List<List<object>>
                     {
-                        new List<object> { "P001", "Producto 1", "Unidad 1", 10, 100, 50, 200, 1000 },
+                        new List<object> { "02150", "Pollo Freso Entero 2.8 - 3.0", "UNI", 18, 52.14, 52.14, 10.40, 542.26 },
+                        new List<object> { "02162", "Pollo Freso  Brasa 1.85 - 3.0", "UNI", 20, 45.62, 45.62, 12.50, 644.25 },
+                        new List<object> { "03150", "Pechuga pollo 2.8 - 3.0", "UNI", 34, 54.85, 45.62, 14.70, 344.72 },
+
                     };
 
-                    ModalDetalleCompra modal = new ModalDetalleCompra(codigoCompra, tablaDatos);
+                    List<List<object>> tablaDatosCombsutible = new List<List<object>>
+                    {
+                        new List<object> { "41510000", 9, 100.00, "GLL", "Endura super diesel B5", 36.90, 77.10, 10.6997, "-", 0.00 ,"-"},
+
+                    };
+
+                    ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, tablaDatosCombsutible);
+                    //ModalDetalleCompra modal = new ModalDetalleCompra(codigoCompra, tablaDatos);
                     modal.ShowDialog(); 
                 }
 
-                if ((columnName == "Column3" || columnName == "Column4" || columnName == "Column9" || columnName == "Column10") &&
-                    dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString() == "Pendiente")
+                if (columnName == "Column3")
+                {         
+                    Sucursal modal = new Sucursal();
+                    modal.ShowDialog();
+
+                }
+
+                if (columnName == "Column4")
                 {
-                    MessageBox.Show("Has dado clic en 'Pendiente'", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    AsientoTipo modal = new AsientoTipo();
+                    modal.ShowDialog();
+
+                }
+
+                if (columnName == "Column9")
+                {
+                    MessageBox.Show("Aqui sale fecha", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                if (columnName == "Column10")
+                {
+                    CoincidenciaProductos modal = new CoincidenciaProductos();
+                    modal.ShowDialog();
                 }
             }
         }
@@ -153,5 +182,10 @@ namespace app_matter_data_src_erp.Forms
             LoadData();
         }
 
+        private void btnImportar_Click(object sender, EventArgs e)
+        {
+            Importar modal = new Importar();
+            modal.ShowDialog();
+        }
     }
 }

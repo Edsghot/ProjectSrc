@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace app_matter_data_src_erp.Forms.DialogView
 {
-    public partial class ModalDetalleCompra : Form
+    public partial class ModalDetalleCompraCombustible : Form
     {
-        public ModalDetalleCompra(string codigo, List<List<object>> data)
+        public ModalDetalleCompraCombustible(string codigo, List<List<object>> data)
         {
             InitializeComponent();
             this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -16,11 +22,11 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            lblCode.Text =  codigo;
+            lblCode.Text = codigo;
 
             foreach (var row in data)
             {
-                dataGridView1.Rows.Add(row.ToArray());  
+                dataGridView1.Rows.Add(row.ToArray());
             }
         }
 

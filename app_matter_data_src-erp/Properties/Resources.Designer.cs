@@ -63,9 +63,19 @@ namespace app_matter_data_src_erp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Left {
+        internal static System.Drawing.Bitmap iconEdit {
             get {
-                object obj = ResourceManager.GetObject("Left", resourceCulture);
+                object obj = ResourceManager.GetObject("iconEdit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap load {
+            get {
+                object obj = ResourceManager.GetObject("load", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +93,9 @@ namespace app_matter_data_src_erp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Rectangle {
+        internal static System.Drawing.Bitmap none {
             get {
-                object obj = ResourceManager.GetObject("Rectangle", resourceCulture);
+                object obj = ResourceManager.GetObject("none", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

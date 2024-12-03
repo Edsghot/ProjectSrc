@@ -29,3 +29,11 @@ C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\FontAwesome.Sharp.dll
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ModalDetalleCompra.resources
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matt.831D961E.Up2Date
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ModalDetalleCompraCombustible.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ErrorImportacion.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.Sucursal.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.AsientoTipo.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.CoincidenciaProductos.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ProductMatch.BuscarProducto.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.Importar.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.LoadData.LoadingPanel.resources
