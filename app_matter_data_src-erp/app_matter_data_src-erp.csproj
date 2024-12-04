@@ -210,5 +210,20 @@
   <ItemGroup>
     <None Include="Resources\iconEdit.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconCircle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconCircleButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pictureVs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pictureVs1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

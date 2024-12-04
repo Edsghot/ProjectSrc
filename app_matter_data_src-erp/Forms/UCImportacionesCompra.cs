@@ -17,6 +17,15 @@ namespace app_matter_data_src_erp.Forms
             InitializeComponent();
             dataTable.CellFormatting += dataTable_CellFormatting;
             dataTable.CellClick += dataTable_CellClick;
+
+            dateInicio.ValueChanged += (sender, args) =>
+            {
+                lblDateInicio.Text = dateInicio.Value.ToString("dd/MM/yyyy");
+            };
+            dateFin.ValueChanged += (sender, args) =>
+            {
+                lblDateFin.Text = dateFin.Value.ToString("dd/MM/yyyy");
+            };
         }
 
 
@@ -25,8 +34,9 @@ namespace app_matter_data_src_erp.Forms
 
             this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.dataTable.RowTemplate.Height = 35;
+            this.dataTable.RowTemplate.Height = 40;
             this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            
             dataTable.Rows.Clear();
 
             var data = new object[,]
@@ -104,21 +114,26 @@ namespace app_matter_data_src_erp.Forms
             {
                 if (e.Value?.ToString() == "Pendiente")
                 {
-                    e.CellStyle.ForeColor = Color.Orange;
-                    e.CellStyle.SelectionForeColor = Color.Orange;
+                    e.CellStyle.ForeColor = Color.Chocolate;
+                    e.CellStyle.SelectionForeColor = Color.Chocolate;
                 }
                 else
                 {
                     e.CellStyle.ForeColor = Color.Black;
                     e.CellStyle.SelectionForeColor = Color.White;
                 }
+
+                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
             }
 
             if (dataTable.Columns[e.ColumnIndex].Name == "Column1")
             {
-                e.CellStyle.ForeColor = Color.Brown; 
+                e.CellStyle.ForeColor = Color.Chocolate;
+
+                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
             }
         }
+
 
         private void dataTable_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -140,7 +155,7 @@ namespace app_matter_data_src_erp.Forms
 
                     List<List<object>> tablaDatosCombsutible = new List<List<object>>
                     {
-                        new List<object> { "41510000", 9, 100.00, "GLL", "Endura super diesel B5", 36.90, 77.10, 10.6997, "-", 0.00 ,"-"},
+                        new List<object> { "41510000", 9100.00, "GLL", "Endura super diesel B5", 36.90, 77.10, 10.6997, "-", 0.00 ,"-",97367.27,17526.27,126256,114893.84 },
 
                     };
 

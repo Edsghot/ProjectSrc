@@ -63,6 +63,26 @@ namespace app_matter_data_src_erp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap iconCircle {
+            get {
+                object obj = ResourceManager.GetObject("iconCircle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconCircleButton {
+            get {
+                object obj = ResourceManager.GetObject("iconCircleButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iconEdit {
             get {
                 object obj = ResourceManager.GetObject("iconEdit", resourceCulture);
@@ -96,6 +116,36 @@ namespace app_matter_data_src_erp.Properties {
         internal static System.Drawing.Bitmap none {
             get {
                 object obj = ResourceManager.GetObject("none", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pictureVs {
+            get {
+                object obj = ResourceManager.GetObject("pictureVs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pictureVs1 {
+            get {
+                object obj = ResourceManager.GetObject("pictureVs1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Rectangle {
+            get {
+                object obj = ResourceManager.GetObject("Rectangle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

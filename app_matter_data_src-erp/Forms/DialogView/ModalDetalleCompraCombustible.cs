@@ -15,10 +15,10 @@ namespace app_matter_data_src_erp.Forms.DialogView
         public ModalDetalleCompraCombustible(string codigo, List<List<object>> data)
         {
             InitializeComponent();
-            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridView1.RowTemplate.Height = 35;
-            this.dataGridView1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+     
+            this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.dataTable.RowTemplate.Height = 35;
+            this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
@@ -26,11 +26,11 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
             foreach (var row in data)
             {
-                dataGridView1.Rows.Add(row.ToArray());
+                dataTable.Rows.Add(row.ToArray());
             }
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
         }

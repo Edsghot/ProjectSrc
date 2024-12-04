@@ -40,10 +40,12 @@
             this.pnlContainer = new System.Windows.Forms.Panel();
             this.btnOption2 = new FontAwesome.Sharp.IconButton();
             this.btnOption1 = new FontAwesome.Sharp.IconButton();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -141,6 +143,7 @@
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.btnOption2);
             this.panel2.Controls.Add(this.btnOption1);
+            this.panel2.Controls.Add(this.pictureBox2);
             this.panel2.Location = new System.Drawing.Point(-1, 113);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
@@ -152,9 +155,9 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.SystemColors.Control;
+            this.label6.BackColor = System.Drawing.Color.Gainsboro;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(95, 718);
+            this.label6.Location = new System.Drawing.Point(112, 695);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(43, 18);
             this.label6.TabIndex = 4;
@@ -175,7 +178,8 @@
             // btnOption2
             // 
             this.btnOption2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnOption2.FlatAppearance.BorderSize = 0;
+            this.btnOption2.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnOption2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOption2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOption2.IconChar = FontAwesome.Sharp.IconChar.FloppyDisk;
             this.btnOption2.IconColor = System.Drawing.Color.Black;
@@ -195,22 +199,31 @@
             // 
             this.btnOption1.BackColor = System.Drawing.Color.MediumBlue;
             this.btnOption1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnOption1.FlatAppearance.BorderSize = 0;
+            this.btnOption1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOption1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOption1.ForeColor = System.Drawing.Color.White;
             this.btnOption1.IconChar = FontAwesome.Sharp.IconChar.RightFromBracket;
             this.btnOption1.IconColor = System.Drawing.Color.White;
             this.btnOption1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnOption1.IconSize = 44;
-            this.btnOption1.Location = new System.Drawing.Point(-7, 0);
+            this.btnOption1.Location = new System.Drawing.Point(-7, -11);
             this.btnOption1.Margin = new System.Windows.Forms.Padding(4);
             this.btnOption1.Name = "btnOption1";
-            this.btnOption1.Size = new System.Drawing.Size(368, 82);
+            this.btnOption1.Size = new System.Drawing.Size(368, 93);
             this.btnOption1.TabIndex = 2;
             this.btnOption1.Text = "Importación de \r\ncompras SRC\r\n";
             this.btnOption1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnOption1.UseVisualStyleBackColor = false;
             this.btnOption1.Click += new System.EventHandler(this.btnOption1_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::app_matter_data_src_erp.Properties.Resources.pictureVs1;
+            this.pictureBox2.Location = new System.Drawing.Point(98, 687);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(73, 37);
+            this.pictureBox2.TabIndex = 5;
+            this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -239,6 +252,7 @@
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -259,6 +273,7 @@
         private FontAwesome.Sharp.IconButton btnOption1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 

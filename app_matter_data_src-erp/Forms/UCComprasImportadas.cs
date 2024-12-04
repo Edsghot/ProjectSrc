@@ -20,19 +20,25 @@ namespace app_matter_data_src_erp.Forms
             InitializeComponent();
             loadingPanel = new LoadingPanel();  
             this.Controls.Add(loadingPanel);  
-            loadingPanel.ShowLoading(false);  
+            loadingPanel.ShowLoading(false);
+
+            this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.dataTable.RowTemplate.Height = 40;
+            this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
         private void LoadData()
         {
 
-            this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.dataTable.RowTemplate.Height = 35;
-            this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
             dataTable.Rows.Clear();
 
             var data = new object[,]
             {
+                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
+                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
+                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
+                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
                 { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
                 { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
                 { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
@@ -62,10 +68,10 @@ namespace app_matter_data_src_erp.Forms
         private void UpdatePagination()
         {
             int totalPages = (int)Math.Ceiling((double)totalRows / rowsPerPage);
-            pageNumberLabel.Text = currentPage.ToString();
+            label3.Text = currentPage.ToString();
 
-            previousPageButton.Enabled = currentPage > 1;
-            nextPageButton.Enabled = currentPage < totalPages;
+            iconButton4.Enabled = currentPage > 1;
+            iconButton1.Enabled = currentPage < totalPages;
         }
 
         private void previousPageButton_Click(object sender, EventArgs e)
@@ -99,5 +105,6 @@ namespace app_matter_data_src_erp.Forms
                 }));
             });
         }
+
     }
 }
