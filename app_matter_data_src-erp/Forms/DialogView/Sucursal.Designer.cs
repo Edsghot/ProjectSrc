@@ -202,6 +202,7 @@
             this.btnContinuar.TabIndex = 7;
             this.btnContinuar.Text = "Continuar";
             this.btnContinuar.UseVisualStyleBackColor = false;
+            this.btnContinuar.Click += new System.EventHandler(this.btnContinuar_Click);
             // 
             // label2
             // 

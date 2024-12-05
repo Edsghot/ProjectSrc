@@ -18,5 +18,9 @@ namespace app_matter_data_src_erp.Forms.DialogView
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

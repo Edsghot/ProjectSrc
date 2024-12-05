@@ -60,6 +60,12 @@
     <Compile Include="Forms\DialogView\AsientoTipo.Designer.cs">
       <DependentUpon>AsientoTipo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DialogView\DialogModal\DialogModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogView\DialogModal\DialogModal.Designer.cs">
+      <DependentUpon>DialogModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DialogView\Importar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,10 +84,10 @@
     <Compile Include="Forms\DialogView\ProductMatch\CoincidenciaProductos.Designer.cs">
       <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DialogView\ErrorImportacion.cs">
+    <Compile Include="Forms\DialogView\DialogModal\ErrorImportacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogView\ErrorImportacion.Designer.cs">
+    <Compile Include="Forms\DialogView\DialogModal\ErrorImportacion.Designer.cs">
       <DependentUpon>ErrorImportacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DialogView\ModalDetalleCompra.cs">
@@ -101,6 +107,12 @@
     </Compile>
     <Compile Include="Forms\DialogView\Sucursal.Designer.cs">
       <DependentUpon>Sucursal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DialogView\EditarCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogView\EditarCompra.Designer.cs">
+      <DependentUpon>EditarCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LoadData\LoadingPanel.cs">
       <SubType>UserControl</SubType>
@@ -137,6 +149,12 @@
     <EmbeddedResource Include="Forms\DialogView\AsientoTipo.resx">
       <DependentUpon>AsientoTipo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DialogView\DialogModal\DialogModal.resx">
+      <DependentUpon>DialogModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DialogView\EditarCompra.resx">
+      <DependentUpon>EditarCompra.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DialogView\Importar.resx">
       <DependentUpon>Importar.cs</DependentUpon>
     </EmbeddedResource>
@@ -146,7 +164,7 @@
     <EmbeddedResource Include="Forms\DialogView\ProductMatch\CoincidenciaProductos.resx">
       <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DialogView\ErrorImportacion.resx">
+    <EmbeddedResource Include="Forms\DialogView\DialogModal\ErrorImportacion.resx">
       <DependentUpon>ErrorImportacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DialogView\ModalDetalleCompra.resx">

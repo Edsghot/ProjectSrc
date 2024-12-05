@@ -1,6 +1,9 @@
 ﻿
+using app_matter_data_src_erp.Forms.DialogView;
+using app_matter_data_src_erp.Forms.DialogView.DialogModal;
 using app_matter_data_src_erp.Forms.LoadData;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -18,6 +21,7 @@ namespace app_matter_data_src_erp.Forms
         public UCComprasImportadas()
         {
             InitializeComponent();
+            dataTable.CellClick += dataTable_CellClick; dataTable.CellFormatting += dataTable_CellFormatting;
             loadingPanel = new LoadingPanel();  
             this.Controls.Add(loadingPanel);  
             loadingPanel.ShowLoading(false);
@@ -93,10 +97,33 @@ namespace app_matter_data_src_erp.Forms
             }
         }
 
+        private void dataTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < dataTable.Rows.Count && e.ColumnIndex >= 0 && e.ColumnIndex < dataTable.Columns.Count)
+            {
+                var columnName = dataTable.Columns[e.ColumnIndex].Name;
+                var codigoCompra = dataTable.Rows[e.RowIndex].Cells["Column1"].Value?.ToString();
+                if (columnName == "Column8")
+                {
+                    var modal = new DialogModal("¡Importante!", "Al editar esta compra, se eliminará la importación registrada en el ERP y se creara un nuevo registro de importación.", "warning", codigoCompra);
+                    modal.ShowDialog();
+                }
+            }
+        }
+        private void dataTable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataTable.Columns[e.ColumnIndex].Name == "Column8")
+            {
+                e.CellStyle.ForeColor = Color.Chocolate;
+
+                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+            }
+        }
+
         private void iconButton2_Click(object sender, EventArgs e)
         {
             loadingPanel.ShowLoading(true);
-            Task.Delay(3000).ContinueWith(t =>
+            Task.Delay(1000).ContinueWith(t =>
             {
                 this.Invoke((Action)(() =>
                 {

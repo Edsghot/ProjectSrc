@@ -37,3 +37,5 @@ C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ProductMatch.BuscarProducto.resources
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.Importar.resources
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.LoadData.LoadingPanel.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.DialogModal.DialogModal.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.EditarCompra.resources

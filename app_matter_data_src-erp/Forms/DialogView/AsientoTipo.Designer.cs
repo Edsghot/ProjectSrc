@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.cbAsientoTipo = new System.Windows.Forms.ComboBox();
             this.btnContinuar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalir = new FontAwesome.Sharp.IconButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.cbAsientoTipo = new System.Windows.Forms.ComboBox();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -48,6 +48,33 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(279, 146);
             this.panel2.TabIndex = 3;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.cbAsientoTipo);
+            this.panel4.Location = new System.Drawing.Point(20, 15);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(237, 40);
+            this.panel4.TabIndex = 17;
+            // 
+            // cbAsientoTipo
+            // 
+            this.cbAsientoTipo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbAsientoTipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbAsientoTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAsientoTipo.FormattingEnabled = true;
+            this.cbAsientoTipo.Items.AddRange(new object[] {
+            "Asiento tipo 1",
+            "Asiento tipo 2",
+            "Asiento tipo 3",
+            "Asiento tipo 4"});
+            this.cbAsientoTipo.Location = new System.Drawing.Point(16, 6);
+            this.cbAsientoTipo.Name = "cbAsientoTipo";
+            this.cbAsientoTipo.Size = new System.Drawing.Size(202, 30);
+            this.cbAsientoTipo.TabIndex = 7;
+            this.cbAsientoTipo.Text = "Seleccionar";
             // 
             // btnContinuar
             // 
@@ -63,6 +90,7 @@
             this.btnContinuar.TabIndex = 7;
             this.btnContinuar.Text = "Continuar";
             this.btnContinuar.UseVisualStyleBackColor = false;
+            this.btnContinuar.Click += new System.EventHandler(this.btnContinuar_Click);
             // 
             // panel1
             // 
@@ -107,33 +135,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Asiento tipo";
             // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.White;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.cbAsientoTipo);
-            this.panel4.Location = new System.Drawing.Point(20, 15);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(237, 40);
-            this.panel4.TabIndex = 17;
-            // 
-            // cbAsientoTipo
-            // 
-            this.cbAsientoTipo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cbAsientoTipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbAsientoTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbAsientoTipo.FormattingEnabled = true;
-            this.cbAsientoTipo.Items.AddRange(new object[] {
-            "Asiento tipo 1",
-            "Asiento tipo 2",
-            "Asiento tipo 3",
-            "Asiento tipo 4"});
-            this.cbAsientoTipo.Location = new System.Drawing.Point(16, 6);
-            this.cbAsientoTipo.Name = "cbAsientoTipo";
-            this.cbAsientoTipo.Size = new System.Drawing.Size(202, 30);
-            this.cbAsientoTipo.TabIndex = 7;
-            this.cbAsientoTipo.Text = "Seleccionar";
-            // 
             // AsientoTipo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -146,9 +147,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AsientoTipo";
             this.panel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

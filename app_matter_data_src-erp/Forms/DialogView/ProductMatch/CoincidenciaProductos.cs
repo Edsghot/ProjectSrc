@@ -19,22 +19,32 @@ namespace app_matter_data_src_erp.Forms.DialogView
         public CoincidenciaProductos()
         {
             InitializeComponent();
-            LoadData();
             this.StartPosition = FormStartPosition.CenterScreen;
+
             this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.dataTable.RowTemplate.Height = 35;
+            this.dataTable.RowTemplate.Height = 45;
             this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataTable.CellClick += dataTable_CellClick; dataTable.CellPainting += dataTable_CellPainting;
 
+            this.dataTable.Columns[1].DefaultCellStyle.BackColor = Color.WhiteSmoke;
+            this.dataTable.Columns[1].DefaultCellStyle.ForeColor = Color.Chocolate;
+            this.dataTable.Columns[1].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Underline);
+
+            this.dataTable.Columns[2].HeaderCell.Style.BackColor = Color.LightSteelBlue;
+
+            dataTable.CellClick += dataTable_CellClick;
+            dataTable.CellPainting += dataTable_CellPainting;
+
+            LoadData();
         }
+
 
         private void LoadData()
         {
 
             this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.dataTable.RowTemplate.Height = 35;
+            this.dataTable.RowTemplate.Height = 45;
             this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataTable.Rows.Clear();
 
@@ -44,8 +54,8 @@ namespace app_matter_data_src_erp.Forms.DialogView
                 { "046", "Producto 02 ", "diesel db5" },
                 { "046", "Producto 02 ", "diesel db5" },
                 { "046", "Producto 05 ", "diesel db5" },
-                { "046", "Producto 04 ", "diesel db5" },
-                { "046", "Producto 03 ", "diesel db5" },
+                { "047", "Producto 04 ", "diesel db5" },
+                { "047", "Producto 03 ", "diesel db5" },
             };
 
             totalRows = data.GetLength(0);
@@ -97,10 +107,9 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
                 if (columnName == "Column2")
                 {
-                    this.Close();
-                    BuscarProducto modal = new BuscarProducto();
+                    this.Hide();
+                    BuscarProducto modal = new BuscarProducto(this); 
                     modal.ShowDialog();
-
                 }            
             }
         }
@@ -112,7 +121,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                 var icon = Properties.Resources.iconEdit; 
-                int iconX = e.CellBounds.Right - 20; 
+                int iconX = e.CellBounds.Right - 25; 
                 int iconY = e.CellBounds.Top + (e.CellBounds.Height - icon.Height) / 2;
                 e.Graphics.DrawImage(icon, new Point(iconX, iconY));
 
@@ -121,6 +130,11 @@ namespace app_matter_data_src_erp.Forms.DialogView
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnContinuar_Click(object sender, EventArgs e)
         {
             this.Close();
         }

@@ -132,12 +132,18 @@ namespace app_matter_data_src_erp.Forms
 
                 e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
             }
+            if (dataTable.Columns[e.ColumnIndex].Name == "Column11")
+            {
+                e.CellStyle.ForeColor = Color.Red;
+                dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "No listo";
+                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+            }
         }
 
 
         private void dataTable_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && e.RowIndex < dataTable.Rows.Count && e.ColumnIndex >= 0 && e.ColumnIndex < dataTable.Columns.Count)
             {
                 var columnName = dataTable.Columns[e.ColumnIndex].Name;
 

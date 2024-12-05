@@ -10,11 +10,14 @@ using System.Windows.Forms;
 
 namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
 {
+
     public partial class BuscarProducto : Form
     {
-        public BuscarProducto()
+        private CoincidenciaProductos parentForm;
+        public BuscarProducto(CoincidenciaProductos parent)
         {
             InitializeComponent();
+            this.parentForm = parent;
             this.StartPosition = FormStartPosition.CenterScreen;
             SetPlaceholder(txtSearch, "¿Qué deseas buscar?");
         }
@@ -49,8 +52,10 @@ namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
 
         private void btnAtras_Click(object sender, EventArgs e)
         {
-            BuscarProducto modal = new BuscarProducto();
-            modal.ShowDialog();
+            this.Close();
+
+            parentForm.Show(); 
+            parentForm.Activate(); 
         }
     }
 }

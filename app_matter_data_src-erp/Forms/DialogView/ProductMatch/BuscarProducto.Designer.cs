@@ -30,19 +30,22 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnAtras = new FontAwesome.Sharp.IconButton();
+            this.btnSalir = new FontAwesome.Sharp.IconButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.btnBuscar = new FontAwesome.Sharp.IconButton();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.cbAsientoTipo = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            this.btnAtras = new FontAwesome.Sharp.IconButton();
-            this.btnSalir = new FontAwesome.Sharp.IconButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -50,51 +53,150 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(140, 36);
+            this.label1.Location = new System.Drawing.Point(238, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(247, 22);
+            this.label1.Size = new System.Drawing.Size(156, 22);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Coincidencia de productos";
+            this.label1.Text = "Buscar producto";
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.panel1.BackColor = System.Drawing.Color.SteelBlue;
             this.panel1.Controls.Add(this.btnAtras);
             this.panel1.Controls.Add(this.btnSalir);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-5, -7);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(534, 99);
+            this.panel1.Size = new System.Drawing.Size(658, 64);
             this.panel1.TabIndex = 4;
+            // 
+            // btnAtras
+            // 
+            this.btnAtras.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAtras.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnAtras.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAtras.FlatAppearance.BorderSize = 0;
+            this.btnAtras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAtras.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.btnAtras.IconChar = FontAwesome.Sharp.IconChar.AngleLeft;
+            this.btnAtras.IconColor = System.Drawing.SystemColors.HighlightText;
+            this.btnAtras.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnAtras.IconSize = 22;
+            this.btnAtras.Location = new System.Drawing.Point(17, 19);
+            this.btnAtras.Name = "btnAtras";
+            this.btnAtras.Size = new System.Drawing.Size(39, 39);
+            this.btnAtras.TabIndex = 5;
+            this.btnAtras.UseVisualStyleBackColor = false;
+            this.btnAtras.Click += new System.EventHandler(this.btnAtras_Click);
+            // 
+            // btnSalir
+            // 
+            this.btnSalir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSalir.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalir.FlatAppearance.BorderSize = 0;
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.btnSalir.IconChar = FontAwesome.Sharp.IconChar.X;
+            this.btnSalir.IconColor = System.Drawing.SystemColors.HighlightText;
+            this.btnSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnSalir.IconSize = 22;
+            this.btnSalir.Location = new System.Drawing.Point(588, 19);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(39, 28);
+            this.btnSalir.TabIndex = 4;
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.panel5);
+            this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
-            this.panel2.Controls.Add(this.iconPictureBox1);
-            this.panel2.Controls.Add(this.txtSearch);
-            this.panel2.Controls.Add(this.comboBox2);
-            this.panel2.Location = new System.Drawing.Point(12, 98);
+            this.panel2.Location = new System.Drawing.Point(12, 63);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(498, 207);
+            this.panel2.Size = new System.Drawing.Size(610, 242);
             this.panel2.TabIndex = 5;
+            // 
+            // panel5
+            // 
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.btnBuscar);
+            this.panel5.Controls.Add(this.txtSearch);
+            this.panel5.Location = new System.Drawing.Point(295, 24);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(299, 43);
+            this.panel5.TabIndex = 19;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuscar.FlatAppearance.BorderSize = 0;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.btnBuscar.IconColor = System.Drawing.Color.Black;
+            this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnBuscar.IconSize = 24;
+            this.btnBuscar.Location = new System.Drawing.Point(260, 7);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(30, 30);
+            this.btnBuscar.TabIndex = 20;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.Location = new System.Drawing.Point(12, 11);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(242, 23);
+            this.txtSearch.TabIndex = 6;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.cbAsientoTipo);
+            this.panel4.Location = new System.Drawing.Point(14, 24);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(237, 43);
+            this.panel4.TabIndex = 18;
+            // 
+            // cbAsientoTipo
+            // 
+            this.cbAsientoTipo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbAsientoTipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbAsientoTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAsientoTipo.FormattingEnabled = true;
+            this.cbAsientoTipo.Items.AddRange(new object[] {
+            "ID de producto",
+            "Nombre"});
+            this.cbAsientoTipo.Location = new System.Drawing.Point(14, 6);
+            this.cbAsientoTipo.Name = "cbAsientoTipo";
+            this.cbAsientoTipo.Size = new System.Drawing.Size(202, 30);
+            this.cbAsientoTipo.TabIndex = 7;
+            this.cbAsientoTipo.Text = "Tipo de busqueda";
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Location = new System.Drawing.Point(195, 58);
+            this.panel3.Location = new System.Drawing.Point(295, 84);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(288, 123);
+            this.panel3.Size = new System.Drawing.Size(299, 155);
             this.panel3.TabIndex = 8;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(13, 39);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(137, 48);
+            this.label3.Size = new System.Drawing.Size(154, 54);
             this.label3.TabIndex = 1;
             this.label3.Text = "041 Gasolina regular\r\n043 Gasolina Premiun\r\n046 Diesel db5";
             // 
@@ -108,97 +210,25 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Resultados:";
             // 
-            // txtSearch
-            // 
-            this.txtSearch.Location = new System.Drawing.Point(200, 30);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(286, 22);
-            this.txtSearch.TabIndex = 6;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "ID de producto",
-            "Nombre"});
-            this.comboBox2.Location = new System.Drawing.Point(16, 29);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(159, 24);
-            this.comboBox2.TabIndex = 5;
-            this.comboBox2.Text = "Seleccionar";
-            // 
-            // iconPictureBox1
-            // 
-            this.iconPictureBox1.BackColor = System.Drawing.Color.White;
-            this.iconPictureBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Search;
-            this.iconPictureBox1.IconColor = System.Drawing.SystemColors.ControlText;
-            this.iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconPictureBox1.IconSize = 14;
-            this.iconPictureBox1.Location = new System.Drawing.Point(465, 35);
-            this.iconPictureBox1.Name = "iconPictureBox1";
-            this.iconPictureBox1.Size = new System.Drawing.Size(14, 14);
-            this.iconPictureBox1.TabIndex = 7;
-            this.iconPictureBox1.TabStop = false;
-            // 
-            // btnAtras
-            // 
-            this.btnAtras.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAtras.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.btnAtras.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAtras.FlatAppearance.BorderSize = 0;
-            this.btnAtras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAtras.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnAtras.IconChar = FontAwesome.Sharp.IconChar.AngleLeft;
-            this.btnAtras.IconColor = System.Drawing.SystemColors.HighlightText;
-            this.btnAtras.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnAtras.IconSize = 22;
-            this.btnAtras.Location = new System.Drawing.Point(17, 32);
-            this.btnAtras.Name = "btnAtras";
-            this.btnAtras.Size = new System.Drawing.Size(63, 35);
-            this.btnAtras.TabIndex = 5;
-            this.btnAtras.UseVisualStyleBackColor = false;
-            this.btnAtras.Click += new System.EventHandler(this.btnAtras_Click);
-            // 
-            // btnSalir
-            // 
-            this.btnSalir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSalir.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSalir.FlatAppearance.BorderSize = 0;
-            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalir.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnSalir.IconChar = FontAwesome.Sharp.IconChar.X;
-            this.btnSalir.IconColor = System.Drawing.SystemColors.HighlightText;
-            this.btnSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnSalir.IconSize = 22;
-            this.btnSalir.Location = new System.Drawing.Point(440, 32);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(63, 35);
-            this.btnSalir.TabIndex = 4;
-            this.btnSalir.UseVisualStyleBackColor = false;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
-            // 
             // BuscarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(519, 328);
+            this.ClientSize = new System.Drawing.Size(643, 328);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "BuscarProducto";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -213,8 +243,10 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.ComboBox cbAsientoTipo;
+        private FontAwesome.Sharp.IconButton btnBuscar;
     }
 }

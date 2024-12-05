@@ -22,5 +22,10 @@ namespace app_matter_data_src_erp.Forms.DialogView
         {
             this.Close();
         }
+
+        private void btnContinuar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
