@@ -1,7 +1,9 @@
 ﻿using app_matter_data_src_erp.Forms.DialogView;
+using app_matter_data_src_erp.Forms.Overlay;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace app_matter_data_src_erp.Forms
@@ -9,7 +11,7 @@ namespace app_matter_data_src_erp.Forms
     public partial class UCImportacionesCompra : UserControl
     {
         private int currentPage = 1;
-        private int rowsPerPage = 9;
+        private int rowsPerPage = 14;
         private int totalRows;
 
         public UCImportacionesCompra()
@@ -28,10 +30,8 @@ namespace app_matter_data_src_erp.Forms
             };
         }
 
-
         private void LoadData()
         {
-
             this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.dataTable.RowTemplate.Height = 40;
@@ -41,7 +41,7 @@ namespace app_matter_data_src_erp.Forms
 
             var data = new object[,]
             {
-                { "DG5T 279", "2024/11/01", "Pendiente", "Pendiente", "Observación 1...........", 250.00, 18.00, 118.00, "Pendiente", "Pendiente" },
+                { "DG5T 279", "2024/11/01", "Pendiente", "Pendiente", "Com. Tipo A Sum. 3ros Cren. Mn", 250.00, 18.00, 118.00, "Pendiente", "Pendiente" },
                 { "DG5T 279", "2024/11/02", "Pendiente", "Pendiente", "Observación 2...........", 200.00, 36.00, 236.00, "Pendiente", "Pendiente" },
                 { "DG5T 279", "2024/11/03", "Pendiente", "Pendiente", "Observación 3...........", 150.00, 27.00, 177.00, "Pendiente", "Pendiente" },
                 { "DG5T 279", "2024/11/04", "Pendiente", "Pendiente", "Observación 4...........", 120.00, 21.60, 141.60, "Pendiente", "Pendiente" },
@@ -146,7 +146,7 @@ namespace app_matter_data_src_erp.Forms
             if (e.RowIndex >= 0 && e.RowIndex < dataTable.Rows.Count && e.ColumnIndex >= 0 && e.ColumnIndex < dataTable.Columns.Count)
             {
                 var columnName = dataTable.Columns[e.ColumnIndex].Name;
-
+                OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
                 if (columnName == "Column1")
                 {
                     var codigoCompra = dataTable.Rows[e.RowIndex].Cells["Column1"].Value?.ToString();
@@ -167,32 +167,50 @@ namespace app_matter_data_src_erp.Forms
 
                     ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, tablaDatosCombsutible);
                     //ModalDetalleCompra modal = new ModalDetalleCompra(codigoCompra, tablaDatos);
-                    modal.ShowDialog(); 
+                    overlayForm.ShowOverlayWithModal(modal);
                 }
 
                 if (columnName == "Column3")
                 {         
-                    Sucursal modal = new Sucursal();
-                    modal.ShowDialog();
-
+                    Sucursal modal = new Sucursal((Main)this.ParentForm);
+                    overlayForm.ShowOverlayWithModal(modal);
                 }
 
                 if (columnName == "Column4")
                 {
-                    AsientoTipo modal = new AsientoTipo();
-                    modal.ShowDialog();
-
+                    AsientoTipo modal = new AsientoTipo((Main)this.ParentForm);
+                    overlayForm.ShowOverlayWithModal(modal);
                 }
 
                 if (columnName == "Column9")
                 {
-                    MessageBox.Show("Aqui sale fecha", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DateTimePicker dateTimePicker = new DateTimePicker();
+                    dateTimePicker.Format = DateTimePickerFormat.Short; 
+                 
+                    Rectangle rect = dataTable.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
+                    dateTimePicker.Size = new Size(rect.Width, rect.Height);
+                    dateTimePicker.Location = new Point(rect.Left, rect.Top + 6);
+
+                    dataTable.Controls.Add(dateTimePicker);
+
+                    dateTimePicker.ValueChanged += (s, args) =>
+                    {
+                        dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dateTimePicker.Value.ToString("dd/MM/yyyy");
+                        dataTable.Controls.Remove(dateTimePicker);
+                    };
+
+                    dateTimePicker.Leave += (s, args) =>
+                    {
+                        dataTable.Controls.Remove(dateTimePicker);
+                    };
+
+                    dateTimePicker.Focus();
                 }
 
                 if (columnName == "Column10")
                 {
-                    CoincidenciaProductos modal = new CoincidenciaProductos();
-                    modal.ShowDialog();
+                    CoincidenciaProductos modal = new CoincidenciaProductos((Main)this.ParentForm);
+                    overlayForm.ShowOverlayWithModal(modal);
                 }
             }
         }
@@ -203,10 +221,21 @@ namespace app_matter_data_src_erp.Forms
             LoadData();
         }
 
-        private void btnImportar_Click(object sender, EventArgs e)
+        private async void btnImportar_Click(object sender, EventArgs e)
         {
-            Importar modal = new Importar();
+            Importar modal = new Importar((Main)this.ParentForm);
             modal.ShowDialog();
+        }
+
+        private async void btnEscanear_Click(object sender, EventArgs e)
+        {
+            dataTable.Rows.Clear();
+            currentPage = 1;
+            var mainForm = (Main)this.FindForm();
+            mainForm.ShowOverlay(); 
+            await Task.Delay(5000);
+            LoadData();
+            mainForm.HideOverlay(); 
         }
     }
 }

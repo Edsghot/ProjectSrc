@@ -1,12 +1,7 @@
 ﻿using app_matter_data_src_erp.Forms.DialogView.ProductMatch;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace app_matter_data_src_erp.Forms.DialogView
@@ -16,7 +11,9 @@ namespace app_matter_data_src_erp.Forms.DialogView
         private int currentPage = 1;
         private int rowsPerPage = 4;
         private int totalRows;
-        public CoincidenciaProductos()
+
+        private readonly Main mainForm;
+        public CoincidenciaProductos(Main mainForm)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -36,8 +33,8 @@ namespace app_matter_data_src_erp.Forms.DialogView
             dataTable.CellPainting += dataTable_CellPainting;
 
             LoadData();
+            this.mainForm = mainForm;
         }
-
 
         private void LoadData()
         {
@@ -136,6 +133,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
         private void btnContinuar_Click(object sender, EventArgs e)
         {
+            mainForm.ShowToast("Se realizaron los cambios con éxito.", "success");
             this.Close();
         }
     }

@@ -1,6 +1,5 @@
 ﻿using app_matter_data_src_erp.Forms;
-using app_matter_data_src_erp.Forms.DialogView;
-using app_matter_data_src_erp.Forms.DialogView.ProductMatch;
+using app_matter_data_src_erp.Forms.Overlay;
 using FontAwesome.Sharp; 
 using System;
 using System.Drawing;
@@ -13,18 +12,43 @@ namespace app_matter_data_src_erp
         private IconButton activeButton; 
         private UserControl activeControl;
 
+        private OverlayForm overlay;
         public Main()
         {
-            InitializeComponent();
-            //Sucursal modal = new Sucursal();
-            //ErrorImportacion modal = new ErrorImportacion();
-            //CoincidenciaProductos modal = new CoincidenciaProductos();
-            //BuscarProducto modal = new BuscarProducto();
-
-            //modal.ShowDialog();
+            InitializeComponent();         
             this.StartPosition = FormStartPosition.CenterScreen;
             LoadUserControl(new UCImportacionesCompra(), btnOption1);
         }
+        // ------------------------------------------------------------- TOAST
+        public void ShowToast(string message, string type)
+        {
+            var toast = new Toast(message, type)
+            {
+                Location = new Point(this.Width - 630, this.Height - 105),
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
+            };
+
+            this.Controls.Add(toast);
+            toast.BringToFront();
+        }
+
+        // ------------------------------------------------------------- OVERLAY
+        public void ShowOverlay()
+        {
+            if (overlay == null || overlay.IsDisposed)
+            {
+                overlay = new OverlayForm(this);
+            }
+            overlay.Show();
+            overlay.BringToFront();
+        }
+
+        public void HideOverlay()
+        {
+            overlay?.Hide();
+        }
+
+        // ------------------------------------------------------------- SIDEBAR
 
         private void LoadUserControl(UserControl userControl, IconButton senderButton)
         {

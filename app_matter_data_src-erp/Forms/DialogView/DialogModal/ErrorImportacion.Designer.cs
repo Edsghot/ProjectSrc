@@ -43,7 +43,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(61, 88);
+            this.label1.Location = new System.Drawing.Point(80, 108);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(192, 22);
             this.label1.TabIndex = 0;
@@ -52,7 +52,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(62, 119);
+            this.label2.Location = new System.Drawing.Point(81, 142);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 16);
             this.label2.TabIndex = 1;
@@ -61,7 +61,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(155, 119);
+            this.label3.Location = new System.Drawing.Point(174, 142);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(88, 16);
             this.label3.TabIndex = 2;
@@ -71,7 +71,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Location = new System.Drawing.Point(16, 149);
+            this.panel1.Location = new System.Drawing.Point(29, 175);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(274, 138);
             this.panel1.TabIndex = 3;
@@ -83,7 +83,7 @@
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrar.ForeColor = System.Drawing.Color.White;
-            this.btnCerrar.Location = new System.Drawing.Point(16, 302);
+            this.btnCerrar.Location = new System.Drawing.Point(29, 319);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(274, 57);
             this.btnCerrar.TabIndex = 4;
@@ -98,10 +98,11 @@
             this.iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Ban;
             this.iconPictureBox1.IconColor = System.Drawing.Color.Red;
             this.iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconPictureBox1.IconSize = 64;
-            this.iconPictureBox1.Location = new System.Drawing.Point(121, 12);
+            this.iconPictureBox1.IconSize = 77;
+            this.iconPictureBox1.Location = new System.Drawing.Point(130, 28);
             this.iconPictureBox1.Name = "iconPictureBox1";
-            this.iconPictureBox1.Size = new System.Drawing.Size(64, 64);
+            this.iconPictureBox1.Size = new System.Drawing.Size(78, 77);
+            this.iconPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.iconPictureBox1.TabIndex = 5;
             this.iconPictureBox1.TabStop = false;
             // 
@@ -110,7 +111,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(302, 371);
+            this.ClientSize = new System.Drawing.Size(334, 407);
             this.ControlBox = false;
             this.Controls.Add(this.iconPictureBox1);
             this.Controls.Add(this.btnCerrar);

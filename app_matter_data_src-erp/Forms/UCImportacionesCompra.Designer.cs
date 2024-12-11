@@ -30,8 +30,8 @@ namespace app_matter_data_src_erp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.dateInicio = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -42,6 +42,9 @@ namespace app_matter_data_src_erp.Forms
             this.dateFin = new System.Windows.Forms.DateTimePicker();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblDateInicio = new System.Windows.Forms.Label();
+            this.btnImportar = new FontAwesome.Sharp.IconButton();
+            this.btnEscanear = new FontAwesome.Sharp.IconButton();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panelContainerTable = new System.Windows.Forms.Panel();
@@ -62,9 +65,6 @@ namespace app_matter_data_src_erp.Forms
             this.nextPageButton = new FontAwesome.Sharp.IconButton();
             this.previousPageButton = new FontAwesome.Sharp.IconButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnImportar = new FontAwesome.Sharp.IconButton();
-            this.iconButton2 = new FontAwesome.Sharp.IconButton();
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -106,7 +106,7 @@ namespace app_matter_data_src_erp.Forms
             this.panel1.Controls.Add(this.dateFin);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.btnImportar);
-            this.panel1.Controls.Add(this.iconButton2);
+            this.panel1.Controls.Add(this.btnEscanear);
             this.panel1.Controls.Add(this.iconButton1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.dateInicio);
@@ -190,6 +190,66 @@ namespace app_matter_data_src_erp.Forms
             this.lblDateInicio.TabIndex = 0;
             this.lblDateInicio.Text = "Fecha de inicio";
             // 
+            // btnImportar
+            // 
+            this.btnImportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnImportar.BackColor = System.Drawing.Color.Navy;
+            this.btnImportar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImportar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImportar.ForeColor = System.Drawing.Color.White;
+            this.btnImportar.IconChar = FontAwesome.Sharp.IconChar.RightFromBracket;
+            this.btnImportar.IconColor = System.Drawing.Color.White;
+            this.btnImportar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnImportar.IconSize = 35;
+            this.btnImportar.Location = new System.Drawing.Point(1130, 36);
+            this.btnImportar.Name = "btnImportar";
+            this.btnImportar.Size = new System.Drawing.Size(134, 45);
+            this.btnImportar.TabIndex = 10;
+            this.btnImportar.Text = "Importar";
+            this.btnImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnImportar.UseVisualStyleBackColor = false;
+            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
+            // 
+            // btnEscanear
+            // 
+            this.btnEscanear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEscanear.BackColor = System.Drawing.Color.MediumBlue;
+            this.btnEscanear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEscanear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEscanear.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEscanear.ForeColor = System.Drawing.Color.White;
+            this.btnEscanear.IconChar = FontAwesome.Sharp.IconChar.NfcDirectional;
+            this.btnEscanear.IconColor = System.Drawing.Color.White;
+            this.btnEscanear.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnEscanear.IconSize = 35;
+            this.btnEscanear.Location = new System.Drawing.Point(969, 36);
+            this.btnEscanear.Name = "btnEscanear";
+            this.btnEscanear.Size = new System.Drawing.Size(142, 45);
+            this.btnEscanear.TabIndex = 9;
+            this.btnEscanear.Text = "Escanear";
+            this.btnEscanear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnEscanear.UseVisualStyleBackColor = false;
+            this.btnEscanear.Click += new System.EventHandler(this.btnEscanear_Click);
+            // 
+            // iconButton1
+            // 
+            this.iconButton1.BackColor = System.Drawing.Color.SteelBlue;
+            this.iconButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iconButton1.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaption;
+            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButton1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.ArrowsSpin;
+            this.iconButton1.IconColor = System.Drawing.Color.White;
+            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButton1.IconSize = 35;
+            this.iconButton1.Location = new System.Drawing.Point(797, 36);
+            this.iconButton1.Name = "iconButton1";
+            this.iconButton1.Size = new System.Drawing.Size(50, 45);
+            this.iconButton1.TabIndex = 8;
+            this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButton1.UseVisualStyleBackColor = false;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -212,30 +272,32 @@ namespace app_matter_data_src_erp.Forms
             // 
             // panelContainerTable
             // 
-            this.panelContainerTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panelContainerTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelContainerTable.Controls.Add(this.dataTable);
             this.panelContainerTable.Location = new System.Drawing.Point(18, 209);
             this.panelContainerTable.Name = "panelContainerTable";
-            this.panelContainerTable.Size = new System.Drawing.Size(1284, 450);
+            this.panelContainerTable.Size = new System.Drawing.Size(1284, 514);
             this.panelContainerTable.TabIndex = 8;
             // 
             // dataTable
             // 
             this.dataTable.AllowUserToAddRows = false;
-            this.dataTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataTable.BackgroundColor = System.Drawing.SystemColors.InactiveBorder;
             this.dataTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataTable.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -250,21 +312,21 @@ namespace app_matter_data_src_erp.Forms
             this.Column10,
             this.Column11});
             this.dataTable.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataTable.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataTable.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataTable.Location = new System.Drawing.Point(15, 12);
             this.dataTable.Name = "dataTable";
             this.dataTable.ReadOnly = true;
             this.dataTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataTable.RowTemplate.Height = 24;
             this.dataTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataTable.Size = new System.Drawing.Size(1249, 432);
+            this.dataTable.Size = new System.Drawing.Size(1249, 490);
             this.dataTable.TabIndex = 9;
             // 
             // Column1
@@ -357,11 +419,12 @@ namespace app_matter_data_src_erp.Forms
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel2.Controls.Add(this.pageNumberLabel);
             this.panel2.Controls.Add(this.nextPageButton);
             this.panel2.Controls.Add(this.previousPageButton);
             this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Location = new System.Drawing.Point(18, 665);
+            this.panel2.Location = new System.Drawing.Point(18, 729);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(168, 64);
             this.panel2.TabIndex = 9;
@@ -380,8 +443,9 @@ namespace app_matter_data_src_erp.Forms
             // 
             // nextPageButton
             // 
-            this.nextPageButton.BackColor = System.Drawing.SystemColors.Control;
+            this.nextPageButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.nextPageButton.BackgroundImage = global::app_matter_data_src_erp.Properties.Resources.iconCircleButton;
+            this.nextPageButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.nextPageButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.nextPageButton.FlatAppearance.BorderSize = 0;
             this.nextPageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -400,8 +464,9 @@ namespace app_matter_data_src_erp.Forms
             // 
             // previousPageButton
             // 
-            this.previousPageButton.BackColor = System.Drawing.SystemColors.Control;
+            this.previousPageButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.previousPageButton.BackgroundImage = global::app_matter_data_src_erp.Properties.Resources.iconCircleButton;
+            this.previousPageButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.previousPageButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.previousPageButton.FlatAppearance.BorderSize = 0;
             this.previousPageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -428,65 +493,6 @@ namespace app_matter_data_src_erp.Forms
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 14;
             this.pictureBox1.TabStop = false;
-            // 
-            // btnImportar
-            // 
-            this.btnImportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImportar.BackColor = System.Drawing.Color.Navy;
-            this.btnImportar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImportar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportar.ForeColor = System.Drawing.Color.White;
-            this.btnImportar.IconChar = FontAwesome.Sharp.IconChar.RightFromBracket;
-            this.btnImportar.IconColor = System.Drawing.Color.White;
-            this.btnImportar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnImportar.IconSize = 35;
-            this.btnImportar.Location = new System.Drawing.Point(1130, 36);
-            this.btnImportar.Name = "btnImportar";
-            this.btnImportar.Size = new System.Drawing.Size(134, 45);
-            this.btnImportar.TabIndex = 10;
-            this.btnImportar.Text = "Importar";
-            this.btnImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnImportar.UseVisualStyleBackColor = false;
-            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
-            // 
-            // iconButton2
-            // 
-            this.iconButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconButton2.BackColor = System.Drawing.Color.MediumBlue;
-            this.iconButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.iconButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButton2.ForeColor = System.Drawing.Color.White;
-            this.iconButton2.IconChar = FontAwesome.Sharp.IconChar.NfcDirectional;
-            this.iconButton2.IconColor = System.Drawing.Color.White;
-            this.iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton2.IconSize = 35;
-            this.iconButton2.Location = new System.Drawing.Point(969, 36);
-            this.iconButton2.Name = "iconButton2";
-            this.iconButton2.Size = new System.Drawing.Size(142, 45);
-            this.iconButton2.TabIndex = 9;
-            this.iconButton2.Text = "Escanear";
-            this.iconButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconButton2.UseVisualStyleBackColor = false;
-            // 
-            // iconButton1
-            // 
-            this.iconButton1.BackColor = System.Drawing.Color.SteelBlue;
-            this.iconButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.iconButton1.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaption;
-            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.ArrowsSpin;
-            this.iconButton1.IconColor = System.Drawing.Color.White;
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton1.IconSize = 35;
-            this.iconButton1.Location = new System.Drawing.Point(797, 36);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(50, 45);
-            this.iconButton1.TabIndex = 8;
-            this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconButton1.UseVisualStyleBackColor = false;
             // 
             // UCImportacionesCompra
             // 
@@ -528,7 +534,7 @@ namespace app_matter_data_src_erp.Forms
         private System.Windows.Forms.ComboBox comboBox1;
         private FontAwesome.Sharp.IconButton iconButton1;
         private FontAwesome.Sharp.IconButton btnImportar;
-        private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton btnEscanear;
         private System.Windows.Forms.Label label3;
         private Panel panelContainerTable;
         private DataGridView dataTable;

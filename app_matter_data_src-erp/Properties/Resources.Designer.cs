@@ -123,6 +123,16 @@ namespace app_matter_data_src_erp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap overlay {
+            get {
+                object obj = ResourceManager.GetObject("overlay", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pictureVs {
             get {
                 object obj = ResourceManager.GetObject("pictureVs", resourceCulture);

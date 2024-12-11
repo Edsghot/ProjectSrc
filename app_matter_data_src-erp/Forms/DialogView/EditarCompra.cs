@@ -14,17 +14,19 @@ namespace app_matter_data_src_erp.Forms
 {
     public partial class EditarCompra : Form
     {
-        public EditarCompra(string codigo)
+        private readonly Main mainForm;
+        public EditarCompra(string codigo, Main mainForm)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
             lblCode.Text = codigo;
+            this.mainForm = mainForm;
         }
 
         private void lblCoincidencia_Click(object sender, EventArgs e)
         {
-            CoincidenciaProductos modal = new CoincidenciaProductos();
+            CoincidenciaProductos modal = new CoincidenciaProductos((Main)this.ParentForm);
             modal.ShowDialog();
         }
 

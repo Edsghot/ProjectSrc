@@ -114,11 +114,20 @@
     <Compile Include="Forms\DialogView\EditarCompra.Designer.cs">
       <DependentUpon>EditarCompra.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LoadData\LoadingPanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Forms\Overlay\OverlayForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LoadData\LoadingPanel.Designer.cs">
-      <DependentUpon>LoadingPanel.cs</DependentUpon>
+    <Compile Include="Forms\Overlay\OverlayForm.Designer.cs">
+      <DependentUpon>OverlayForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Overlay\OverlayFormModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Overlay\OverlayFormModal.Designer.cs">
+      <DependentUpon>OverlayFormModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Toast.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\UCComprasImportadas.cs">
       <SubType>UserControl</SubType>
@@ -176,8 +185,11 @@
     <EmbeddedResource Include="Forms\DialogView\Sucursal.resx">
       <DependentUpon>Sucursal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LoadData\LoadingPanel.resx">
-      <DependentUpon>LoadingPanel.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Overlay\OverlayForm.resx">
+      <DependentUpon>OverlayForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Overlay\OverlayFormModal.resx">
+      <DependentUpon>OverlayFormModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UCComprasImportadas.resx">
       <DependentUpon>UCComprasImportadas.cs</DependentUpon>
@@ -242,6 +254,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\pictureVs1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\overlay.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
