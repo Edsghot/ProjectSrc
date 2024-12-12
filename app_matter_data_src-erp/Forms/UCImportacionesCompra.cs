@@ -223,8 +223,9 @@ namespace app_matter_data_src_erp.Forms
 
         private async void btnImportar_Click(object sender, EventArgs e)
         {
+            OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
             Importar modal = new Importar((Main)this.ParentForm);
-            modal.ShowDialog();
+            overlayForm.ShowOverlayWithModal(modal);
         }
 
         private async void btnEscanear_Click(object sender, EventArgs e)

@@ -141,6 +141,8 @@
     <Compile Include="Forms\UCImportacionesCompra.Designer.cs">
       <DependentUpon>UCImportacionesCompra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Global\Compra.cs" />
+    <Compile Include="Global\SeleccionesGlobales.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

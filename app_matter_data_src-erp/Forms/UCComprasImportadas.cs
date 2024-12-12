@@ -1,5 +1,6 @@
 ﻿
 using app_matter_data_src_erp.Forms.DialogView.DialogModal;
+using app_matter_data_src_erp.Forms.Overlay;
 using System;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -23,7 +24,15 @@ namespace app_matter_data_src_erp.Forms
             this.dataTable.RowTemplate.Height = 40;
             this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.dataTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dataTable.ColumnHeadersHeight = 45; 
+            this.dataTable.ColumnHeadersHeight = 45;
+
+            cbMes.SelectedItem = SeleccionesGlobales.MesSeleccionado;
+            cbAño.SelectedItem = SeleccionesGlobales.AñoSeleccionado;
+
+            if (DatosGlobales.Compras.Count > 0)
+            {
+                LoadData();
+            }
 
         }
         private void LoadData()
@@ -62,6 +71,23 @@ namespace app_matter_data_src_erp.Forms
 
             totalRows = data.GetLength(0);
 
+            for (int i = 0; i < totalRows; i++)
+            {
+                var compra = new Compra
+                {
+                    Codigo = data[i, 0].ToString(),
+                    Nombre = data[i, 1].ToString(),
+                    Fecha = data[i, 2].ToString(),
+                    Precio = Convert.ToDecimal(data[i, 3]),
+                    Descuento = Convert.ToDecimal(data[i, 4]),
+                    Total = Convert.ToDecimal(data[i, 5]),
+                    Estado = data[i, 6].ToString(),
+                    Accion = data[i, 7].ToString()
+                };
+
+                DatosGlobales.Compras.Add(compra);        
+            }
+
             if (totalRows == 0)
             {
                 pictureNone.Visible = true;
@@ -69,7 +95,7 @@ namespace app_matter_data_src_erp.Forms
             else
             {
                 pictureNone.Visible = false;
-
+                
                 for (int i = (currentPage - 1) * rowsPerPage; i < Math.Min(currentPage * rowsPerPage, totalRows); i++)
                 {
                     dataTable.Rows.Add(data[i, 0], data[i, 1], data[i, 2], data[i, 3], data[i, 4],
@@ -114,10 +140,14 @@ namespace app_matter_data_src_erp.Forms
             {
                 var columnName = dataTable.Columns[e.ColumnIndex].Name;
                 var codigoCompra = dataTable.Rows[e.RowIndex].Cells["Column1"].Value?.ToString();
+
+                OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
+
+
                 if (columnName == "Column8")
                 {
                     var modal = new DialogModal("¡Importante!", "Al editar esta compra, se eliminará la importación registrada en el ERP y se creara un nuevo registro de importación.", "warning", codigoCompra);
-                    modal.ShowDialog();
+                    overlayForm.ShowOverlayWithModal(modal);
                 }
             }
         }
@@ -131,11 +161,15 @@ namespace app_matter_data_src_erp.Forms
             }
         }
 
-
-
         private async void btnLimpiar_Click(object sender, EventArgs e)
         {
             dataTable.Rows.Clear();
+            DatosGlobales.Compras.Clear();
+            SeleccionesGlobales.MesSeleccionado = null; 
+            SeleccionesGlobales.AñoSeleccionado = null;
+            cbMes.Text = "Seleccione el mes";
+            cbAño.Text = "Seleccione el año";
+
             pictureNone.Visible = true;
             currentPage = 1;  
             UpdatePagination(); 
@@ -143,15 +177,36 @@ namespace app_matter_data_src_erp.Forms
 
         private async void btnBuscar_Click(object sender, EventArgs e)
         {
+            var mainForm = (Main)this.FindForm();
             dataTable.Rows.Clear();
             currentPage = 1;
-            pictureNone.Visible = false;
-            var mainForm = (Main)this.FindForm();
-            mainForm.ShowOverlay();
-            await Task.Delay(5000);
+           
+            if (cbMes.Text != "Seleccione el mes" && cbAño.Text != "Seleccione el mes")
+            {
+                pictureNone.Visible = false;
+                mainForm.ShowOverlay();
+                await Task.Delay(3000);
+                LoadData();
+                mainForm.HideOverlay();
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione un mes y un año.",
+                                "Campos vacíos",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+            }
 
-            LoadData();
-            mainForm.HideOverlay();
+        }
+
+        private void cbMes_SelectedIndexChanged(object sender, EventArgs e)
+        {          
+            SeleccionesGlobales.MesSeleccionado = cbMes.SelectedItem.ToString();
+        }
+
+        private void cbAño_SelectedIndexChanged(object sender, EventArgs e)
+        {          
+            SeleccionesGlobales.AñoSeleccionado = cbAño.SelectedItem.ToString();
         }
     }
 }

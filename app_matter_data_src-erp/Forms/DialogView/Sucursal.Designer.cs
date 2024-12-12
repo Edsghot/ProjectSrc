@@ -100,7 +100,7 @@
             this.panel2.Controls.Add(this.label2);
             this.panel2.Location = new System.Drawing.Point(22, 76);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(489, 252);
+            this.panel2.Size = new System.Drawing.Size(489, 256);
             this.panel2.TabIndex = 1;
             // 
             // panel6
@@ -110,17 +110,17 @@
             this.panel6.Controls.Add(this.label3);
             this.panel6.Location = new System.Drawing.Point(17, 103);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(452, 49);
+            this.panel6.Size = new System.Drawing.Size(452, 58);
             this.panel6.TabIndex = 17;
             // 
             // txtDireccion
             // 
             this.txtDireccion.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtDireccion.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDireccion.Location = new System.Drawing.Point(14, 23);
+            this.txtDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDireccion.Location = new System.Drawing.Point(14, 22);
             this.txtDireccion.Name = "txtDireccion";
-            this.txtDireccion.Size = new System.Drawing.Size(272, 17);
+            this.txtDireccion.Size = new System.Drawing.Size(419, 23);
             this.txtDireccion.TabIndex = 7;
             this.txtDireccion.Text = "Av. Arequipa 456 - JLBYR";
             // 
@@ -196,7 +196,7 @@
             this.btnContinuar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContinuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnContinuar.ForeColor = System.Drawing.Color.White;
-            this.btnContinuar.Location = new System.Drawing.Point(113, 171);
+            this.btnContinuar.Location = new System.Drawing.Point(116, 181);
             this.btnContinuar.Name = "btnContinuar";
             this.btnContinuar.Size = new System.Drawing.Size(249, 50);
             this.btnContinuar.TabIndex = 7;
@@ -219,7 +219,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(534, 340);
+            this.ClientSize = new System.Drawing.Size(534, 351);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
