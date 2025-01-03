@@ -30,8 +30,8 @@ namespace app_matter_data_src_erp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.dateInicio = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -79,9 +79,10 @@ namespace app_matter_data_src_erp.Forms
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(27, 21);
+            this.label1.Location = new System.Drawing.Point(20, 17);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(482, 50);
+            this.label1.Size = new System.Drawing.Size(397, 40);
             this.label1.TabIndex = 0;
             this.label1.Text = "Importación de compras\nServicios de Recepción de Comprobantes (SRC)";
             // 
@@ -91,10 +92,10 @@ namespace app_matter_data_src_erp.Forms
             this.dateInicio.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dateInicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateInicio.Location = new System.Drawing.Point(15, 39);
-            this.dateInicio.Margin = new System.Windows.Forms.Padding(15);
+            this.dateInicio.Location = new System.Drawing.Point(11, 32);
+            this.dateInicio.Margin = new System.Windows.Forms.Padding(11, 12, 11, 12);
             this.dateInicio.Name = "dateInicio";
-            this.dateInicio.Size = new System.Drawing.Size(236, 49);
+            this.dateInicio.Size = new System.Drawing.Size(178, 41);
             this.dateInicio.TabIndex = 5;
             // 
             // panel1
@@ -110,9 +111,10 @@ namespace app_matter_data_src_erp.Forms
             this.panel1.Controls.Add(this.iconButton1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.dateInicio);
-            this.panel1.Location = new System.Drawing.Point(18, 89);
+            this.panel1.Location = new System.Drawing.Point(14, 72);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1284, 98);
+            this.panel1.Size = new System.Drawing.Size(963, 80);
             this.panel1.TabIndex = 6;
             // 
             // panel5
@@ -120,9 +122,10 @@ namespace app_matter_data_src_erp.Forms
             this.panel5.BackColor = System.Drawing.Color.White;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.comboBox1);
-            this.panel5.Location = new System.Drawing.Point(542, 37);
+            this.panel5.Location = new System.Drawing.Point(406, 30);
+            this.panel5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(237, 40);
+            this.panel5.Size = new System.Drawing.Size(178, 33);
             this.panel5.TabIndex = 14;
             // 
             // comboBox1
@@ -135,9 +138,10 @@ namespace app_matter_data_src_erp.Forms
             "No está listo",
             "Listo",
             "Error"});
-            this.comboBox1.Location = new System.Drawing.Point(16, 6);
+            this.comboBox1.Location = new System.Drawing.Point(12, 5);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(206, 30);
+            this.comboBox1.Size = new System.Drawing.Size(156, 25);
             this.comboBox1.TabIndex = 7;
             this.comboBox1.Text = "Estado importación";
             // 
@@ -145,18 +149,20 @@ namespace app_matter_data_src_erp.Forms
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.Controls.Add(this.lblDateFin);
-            this.panel4.Location = new System.Drawing.Point(283, 39);
+            this.panel4.Location = new System.Drawing.Point(212, 32);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(189, 36);
+            this.panel4.Size = new System.Drawing.Size(157, 34);
             this.panel4.TabIndex = 13;
             // 
             // lblDateFin
             // 
             this.lblDateFin.AutoSize = true;
             this.lblDateFin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateFin.Location = new System.Drawing.Point(16, 8);
+            this.lblDateFin.Location = new System.Drawing.Point(28, 7);
+            this.lblDateFin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDateFin.Name = "lblDateFin";
-            this.lblDateFin.Size = new System.Drawing.Size(101, 20);
+            this.lblDateFin.Size = new System.Drawing.Size(86, 17);
             this.lblDateFin.TabIndex = 0;
             this.lblDateFin.Text = "Fecha de fin";
             // 
@@ -165,28 +171,30 @@ namespace app_matter_data_src_erp.Forms
             this.dateFin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dateFin.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateFin.Location = new System.Drawing.Point(282, 37);
-            this.dateFin.Margin = new System.Windows.Forms.Padding(15);
+            this.dateFin.Location = new System.Drawing.Point(212, 30);
+            this.dateFin.Margin = new System.Windows.Forms.Padding(11, 12, 11, 12);
             this.dateFin.Name = "dateFin";
-            this.dateFin.Size = new System.Drawing.Size(236, 49);
+            this.dateFin.Size = new System.Drawing.Size(178, 41);
             this.dateFin.TabIndex = 12;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.lblDateInicio);
-            this.panel3.Location = new System.Drawing.Point(16, 41);
+            this.panel3.Location = new System.Drawing.Point(12, 36);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(189, 36);
+            this.panel3.Size = new System.Drawing.Size(156, 35);
             this.panel3.TabIndex = 11;
             // 
             // lblDateInicio
             // 
             this.lblDateInicio.AutoSize = true;
             this.lblDateInicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateInicio.Location = new System.Drawing.Point(16, 8);
+            this.lblDateInicio.Location = new System.Drawing.Point(22, 8);
+            this.lblDateInicio.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDateInicio.Name = "lblDateInicio";
-            this.lblDateInicio.Size = new System.Drawing.Size(122, 20);
+            this.lblDateInicio.Size = new System.Drawing.Size(103, 17);
             this.lblDateInicio.TabIndex = 0;
             this.lblDateInicio.Text = "Fecha de inicio";
             // 
@@ -202,9 +210,10 @@ namespace app_matter_data_src_erp.Forms
             this.btnImportar.IconColor = System.Drawing.Color.White;
             this.btnImportar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnImportar.IconSize = 35;
-            this.btnImportar.Location = new System.Drawing.Point(1130, 36);
+            this.btnImportar.Location = new System.Drawing.Point(848, 29);
+            this.btnImportar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnImportar.Name = "btnImportar";
-            this.btnImportar.Size = new System.Drawing.Size(134, 45);
+            this.btnImportar.Size = new System.Drawing.Size(100, 37);
             this.btnImportar.TabIndex = 10;
             this.btnImportar.Text = "Importar";
             this.btnImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -223,9 +232,10 @@ namespace app_matter_data_src_erp.Forms
             this.btnEscanear.IconColor = System.Drawing.Color.White;
             this.btnEscanear.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnEscanear.IconSize = 35;
-            this.btnEscanear.Location = new System.Drawing.Point(969, 36);
+            this.btnEscanear.Location = new System.Drawing.Point(727, 29);
+            this.btnEscanear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnEscanear.Name = "btnEscanear";
-            this.btnEscanear.Size = new System.Drawing.Size(142, 45);
+            this.btnEscanear.Size = new System.Drawing.Size(106, 37);
             this.btnEscanear.TabIndex = 9;
             this.btnEscanear.Text = "Escanear";
             this.btnEscanear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -243,9 +253,10 @@ namespace app_matter_data_src_erp.Forms
             this.iconButton1.IconColor = System.Drawing.Color.White;
             this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButton1.IconSize = 35;
-            this.iconButton1.Location = new System.Drawing.Point(797, 36);
+            this.iconButton1.Location = new System.Drawing.Point(598, 29);
+            this.iconButton1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(50, 45);
+            this.iconButton1.Size = new System.Drawing.Size(38, 37);
             this.iconButton1.TabIndex = 8;
             this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.iconButton1.UseVisualStyleBackColor = false;
@@ -254,9 +265,10 @@ namespace app_matter_data_src_erp.Forms
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 10);
+            this.label2.Location = new System.Drawing.Point(9, 8);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(231, 16);
+            this.label2.Size = new System.Drawing.Size(184, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Ingrese el rango de fecha de emisión:";
             // 
@@ -264,9 +276,10 @@ namespace app_matter_data_src_erp.Forms
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(30, 190);
+            this.label3.Location = new System.Drawing.Point(22, 154);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(436, 16);
+            this.label3.Size = new System.Drawing.Size(345, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "*Todos lo campos en “pendiente” se deben completar de forma manual.";
             // 
@@ -276,9 +289,10 @@ namespace app_matter_data_src_erp.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelContainerTable.Controls.Add(this.dataTable);
-            this.panelContainerTable.Location = new System.Drawing.Point(18, 209);
+            this.panelContainerTable.Location = new System.Drawing.Point(14, 170);
+            this.panelContainerTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelContainerTable.Name = "panelContainerTable";
-            this.panelContainerTable.Size = new System.Drawing.Size(1284, 514);
+            this.panelContainerTable.Size = new System.Drawing.Size(963, 418);
             this.panelContainerTable.TabIndex = 8;
             // 
             // dataTable
@@ -290,14 +304,14 @@ namespace app_matter_data_src_erp.Forms
             this.dataTable.BackgroundColor = System.Drawing.SystemColors.InactiveBorder;
             this.dataTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataTable.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -312,21 +326,22 @@ namespace app_matter_data_src_erp.Forms
             this.Column10,
             this.Column11});
             this.dataTable.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataTable.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dataTable.Location = new System.Drawing.Point(15, 12);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataTable.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataTable.Location = new System.Drawing.Point(11, 10);
+            this.dataTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataTable.Name = "dataTable";
             this.dataTable.ReadOnly = true;
             this.dataTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataTable.RowTemplate.Height = 24;
             this.dataTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataTable.Size = new System.Drawing.Size(1249, 490);
+            this.dataTable.Size = new System.Drawing.Size(937, 398);
             this.dataTable.TabIndex = 9;
             // 
             // Column1
@@ -424,9 +439,10 @@ namespace app_matter_data_src_erp.Forms
             this.panel2.Controls.Add(this.nextPageButton);
             this.panel2.Controls.Add(this.previousPageButton);
             this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Location = new System.Drawing.Point(18, 729);
+            this.panel2.Location = new System.Drawing.Point(14, 592);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(168, 64);
+            this.panel2.Size = new System.Drawing.Size(126, 52);
             this.panel2.TabIndex = 9;
             // 
             // pageNumberLabel
@@ -435,9 +451,10 @@ namespace app_matter_data_src_erp.Forms
             this.pageNumberLabel.BackColor = System.Drawing.Color.SteelBlue;
             this.pageNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pageNumberLabel.ForeColor = System.Drawing.Color.White;
-            this.pageNumberLabel.Location = new System.Drawing.Point(79, 21);
+            this.pageNumberLabel.Location = new System.Drawing.Point(59, 17);
+            this.pageNumberLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.pageNumberLabel.Name = "pageNumberLabel";
-            this.pageNumberLabel.Size = new System.Drawing.Size(17, 18);
+            this.pageNumberLabel.Size = new System.Drawing.Size(15, 15);
             this.pageNumberLabel.TabIndex = 13;
             this.pageNumberLabel.Text = "0";
             // 
@@ -454,9 +471,10 @@ namespace app_matter_data_src_erp.Forms
             this.nextPageButton.IconColor = System.Drawing.Color.Black;
             this.nextPageButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.nextPageButton.IconSize = 25;
-            this.nextPageButton.Location = new System.Drawing.Point(118, 13);
+            this.nextPageButton.Location = new System.Drawing.Point(88, 11);
+            this.nextPageButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nextPageButton.Name = "nextPageButton";
-            this.nextPageButton.Size = new System.Drawing.Size(36, 36);
+            this.nextPageButton.Size = new System.Drawing.Size(27, 29);
             this.nextPageButton.TabIndex = 11;
             this.nextPageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.nextPageButton.UseVisualStyleBackColor = false;
@@ -475,9 +493,10 @@ namespace app_matter_data_src_erp.Forms
             this.previousPageButton.IconColor = System.Drawing.Color.Black;
             this.previousPageButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.previousPageButton.IconSize = 25;
-            this.previousPageButton.Location = new System.Drawing.Point(16, 13);
+            this.previousPageButton.Location = new System.Drawing.Point(12, 11);
+            this.previousPageButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.previousPageButton.Name = "previousPageButton";
-            this.previousPageButton.Size = new System.Drawing.Size(36, 36);
+            this.previousPageButton.Size = new System.Drawing.Size(27, 29);
             this.previousPageButton.TabIndex = 9;
             this.previousPageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.previousPageButton.UseVisualStyleBackColor = false;
@@ -487,16 +506,17 @@ namespace app_matter_data_src_erp.Forms
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::app_matter_data_src_erp.Properties.Resources.iconCircle;
-            this.pictureBox1.Location = new System.Drawing.Point(69, 13);
+            this.pictureBox1.Location = new System.Drawing.Point(52, 11);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(36, 36);
+            this.pictureBox1.Size = new System.Drawing.Size(27, 29);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 14;
             this.pictureBox1.TabStop = false;
             // 
             // UCImportacionesCompra
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.Controls.Add(this.panel2);
@@ -504,9 +524,9 @@ namespace app_matter_data_src_erp.Forms
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "UCImportacionesCompra";
-            this.Size = new System.Drawing.Size(1324, 796);
+            this.Size = new System.Drawing.Size(993, 647);
             this.Load += new System.EventHandler(this.UCImportacionesCompra_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

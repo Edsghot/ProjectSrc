@@ -40,3 +40,14 @@ C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.EditarCompra.resources
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.Overlay.OverlayForm.resources
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.Overlay.OverlayFormModal.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.AsientoTipo.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.DialogModal.DialogModal.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.EditarCompra.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.Importar.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ProductMatch.BuscarProducto.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.CoincidenciaProductos.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ErrorImportacion.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ModalDetalleCompraCombustible.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.Sucursal.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.Overlay.OverlayForm.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.Overlay.OverlayFormModal.resources
