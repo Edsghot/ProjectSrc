@@ -149,6 +149,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\CompraSRC\Application\Adapter\CompraSrc\CompraSrcAdapter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -226,7 +227,8 @@
     <Folder Include="AppModulos\LogicErp\Port\" />
     <Folder Include="AppModulos\LogicSrc\Application\" />
     <Folder Include="AppModulos\LogicSrc\Port\" />
-    <Folder Include="Model\" />
+    <Folder Include="Modules\CompraSRC\Domain\Dto\" />
+    <Folder Include="Modules\CompraSRC\Infraestructure\View\" />
     <Folder Include="Repository\RepositoryErp\Aplication\" />
     <Folder Include="Repository\RepositoryErp\Port\" />
   </ItemGroup>
