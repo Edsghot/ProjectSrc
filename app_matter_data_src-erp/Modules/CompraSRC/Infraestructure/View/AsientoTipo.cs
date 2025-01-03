@@ -5,9 +5,9 @@ namespace app_matter_data_src_erp.Forms.DialogView
 {
     public partial class AsientoTipo : Form
     {
-        private readonly Main mainForm;
+        private readonly MainComprasSrc mainForm;
 
-        public AsientoTipo(Main main)
+        public AsientoTipo(MainComprasSrc main)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;

@@ -1,21 +1,26 @@
-﻿using app_matter_data_src_erp.Forms;
-using app_matter_data_src_erp.Forms.Overlay;
-using FontAwesome.Sharp; 
+﻿using app_matter_data_src_erp.Forms.Overlay;
+using app_matter_data_src_erp.Forms;
+using FontAwesome.Sharp;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace app_matter_data_src_erp
+namespace app_matter_data_src_erp.Modules
 {
-    public partial class Main : Form
+    public partial class MainValidationSunat : Form
     {
-        private IconButton activeButton; 
         private UserControl activeControl;
-
+        private IconButton activeButton;
         private OverlayForm overlay;
-        public Main()
+        public MainValidationSunat()
         {
-            InitializeComponent();         
+            InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             LoadUserControl(new UCImportacionesCompra(), btnOption1);
         }
@@ -77,7 +82,7 @@ namespace app_matter_data_src_erp
             button.ForeColor = Color.White;
             button.IconColor = Color.White;
 
-            activeButton = button; 
+            activeButton = button;
         }
 
         private void btnOption1_Click(object sender, EventArgs e)

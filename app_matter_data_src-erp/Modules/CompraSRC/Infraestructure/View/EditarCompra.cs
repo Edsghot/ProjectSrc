@@ -14,8 +14,8 @@ namespace app_matter_data_src_erp.Forms
 {
     public partial class EditarCompra : Form
     {
-        private readonly Main mainForm;
-        public EditarCompra(string codigo, Main mainForm)
+        private readonly MainComprasSrc mainForm;
+        public EditarCompra(string codigo, MainComprasSrc mainForm)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -26,7 +26,7 @@ namespace app_matter_data_src_erp.Forms
 
         private void lblCoincidencia_Click(object sender, EventArgs e)
         {
-            CoincidenciaProductos modal = new CoincidenciaProductos((Main)this.ParentForm);
+            CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm);
             modal.ShowDialog();
         }
 

@@ -1,4 +1,5 @@
 ﻿using app_matter_data_src_erp.Configuration.Constants;
+using app_matter_data_src_erp.Modules;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,11 @@ namespace app_matter_data_src_erp
             GetCredentials();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
-
-
+          
+            //MAIN
+            //Application.Run(new MainComprasSrc());
+            Application.Run(new MainValidationSunat());
+            
         }
 
         public static void GetCredentials()

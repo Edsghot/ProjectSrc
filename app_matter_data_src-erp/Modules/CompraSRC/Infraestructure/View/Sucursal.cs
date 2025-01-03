@@ -3,17 +3,16 @@ using System.Windows.Forms;
 
 namespace app_matter_data_src_erp.Forms.DialogView
 {
-    public partial class Importar : Form
+    public partial class Sucursal : Form
     {
 
-        private readonly Main mainForm;
-        public Importar(Main mainForm)
+        private readonly MainComprasSrc mainForm;
+        public Sucursal(MainComprasSrc mainForm)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.mainForm = mainForm;
         }
-
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -21,7 +20,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
         private void btnContinuar_Click(object sender, EventArgs e)
         {
-            mainForm.ShowToast("Datos importados correctamente.", "success");
+            mainForm.ShowToast("Datos de la sucursal añadidos con éxito.", "success");
             this.Close();
         }
     }

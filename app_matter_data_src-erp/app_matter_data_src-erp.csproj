@@ -54,100 +54,106 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Constants\Credentials.cs" />
-    <Compile Include="Forms\DialogView\AsientoTipo.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\AsientoTipo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogView\AsientoTipo.Designer.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\AsientoTipo.Designer.cs">
       <DependentUpon>AsientoTipo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DialogView\DialogModal\DialogModal.cs">
+    <Compile Include="Modules\MainValidationSunat.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogView\DialogModal\DialogModal.Designer.cs">
+    <Compile Include="Modules\MainValidationSunat.Designer.cs">
+      <DependentUpon>MainValidationSunat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\DialogModal\DialogModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Shared\DialogModal\DialogModal.Designer.cs">
       <DependentUpon>DialogModal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DialogView\Importar.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Importar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogView\Importar.Designer.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Importar.Designer.cs">
       <DependentUpon>Importar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DialogView\ProductMatch\BuscarProducto.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\BuscarProducto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogView\ProductMatch\BuscarProducto.Designer.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\BuscarProducto.Designer.cs">
       <DependentUpon>BuscarProducto.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DialogView\ProductMatch\CoincidenciaProductos.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\CoincidenciaProductos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogView\ProductMatch\CoincidenciaProductos.Designer.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\CoincidenciaProductos.Designer.cs">
       <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DialogView\DialogModal\ErrorImportacion.cs">
+    <Compile Include="Shared\DialogModal\ErrorImportacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogView\DialogModal\ErrorImportacion.Designer.cs">
+    <Compile Include="Shared\DialogModal\ErrorImportacion.Designer.cs">
       <DependentUpon>ErrorImportacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DialogView\ModalDetalleCompra.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogView\ModalDetalleCompra.Designer.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompra.Designer.cs">
       <DependentUpon>ModalDetalleCompra.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DialogView\ModalDetalleCompraCombustible.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompraCombustible.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogView\ModalDetalleCompraCombustible.Designer.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompraCombustible.Designer.cs">
       <DependentUpon>ModalDetalleCompraCombustible.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DialogView\Sucursal.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Sucursal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogView\Sucursal.Designer.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Sucursal.Designer.cs">
       <DependentUpon>Sucursal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DialogView\EditarCompra.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\EditarCompra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogView\EditarCompra.Designer.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\EditarCompra.Designer.cs">
       <DependentUpon>EditarCompra.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Overlay\OverlayForm.cs">
+    <Compile Include="Shared\Overlay\OverlayForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Overlay\OverlayForm.Designer.cs">
+    <Compile Include="Shared\Overlay\OverlayForm.Designer.cs">
       <DependentUpon>OverlayForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Overlay\OverlayFormModal.cs">
+    <Compile Include="Shared\Overlay\OverlayFormModal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Overlay\OverlayFormModal.Designer.cs">
+    <Compile Include="Shared\Overlay\OverlayFormModal.Designer.cs">
       <DependentUpon>OverlayFormModal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Toast.cs">
+    <Compile Include="Modules\Toast.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\UCComprasImportadas.cs">
+    <Compile Include="Modules\UCComprasImportadas.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\UCComprasImportadas.Designer.cs">
+    <Compile Include="Modules\UCComprasImportadas.Designer.cs">
       <DependentUpon>UCComprasImportadas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UCImportacionesCompra.cs">
+    <Compile Include="Modules\UCImportacionesCompra.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\UCImportacionesCompra.Designer.cs">
+    <Compile Include="Modules\UCImportacionesCompra.Designer.cs">
       <DependentUpon>UCImportacionesCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="Global\Compra.cs" />
     <Compile Include="Global\SeleccionesGlobales.cs" />
-    <Compile Include="Main.cs">
+    <Compile Include="Modules\MainComprasSrc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
+    <Compile Include="Modules\Main.Designer.cs">
+      <DependentUpon>MainComprasSrc.cs</DependentUpon>
     </Compile>
     <Compile Include="Modules\CompraSRC\Application\Adapter\CompraSrc\CompraSrcAdapter.cs" />
     <Compile Include="Program.cs" />
@@ -158,50 +164,53 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Repository\dbContext\DbContext.cs" />
-    <EmbeddedResource Include="Forms\DialogView\AsientoTipo.resx">
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\AsientoTipo.resx">
       <DependentUpon>AsientoTipo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DialogView\DialogModal\DialogModal.resx">
+    <EmbeddedResource Include="Modules\MainValidationSunat.resx">
+      <DependentUpon>MainValidationSunat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\DialogModal\DialogModal.resx">
       <DependentUpon>DialogModal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DialogView\EditarCompra.resx">
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\EditarCompra.resx">
       <DependentUpon>EditarCompra.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DialogView\Importar.resx">
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Importar.resx">
       <DependentUpon>Importar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DialogView\ProductMatch\BuscarProducto.resx">
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\BuscarProducto.resx">
       <DependentUpon>BuscarProducto.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DialogView\ProductMatch\CoincidenciaProductos.resx">
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\CoincidenciaProductos.resx">
       <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DialogView\DialogModal\ErrorImportacion.resx">
+    <EmbeddedResource Include="Shared\DialogModal\ErrorImportacion.resx">
       <DependentUpon>ErrorImportacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DialogView\ModalDetalleCompra.resx">
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompra.resx">
       <DependentUpon>ModalDetalleCompra.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DialogView\ModalDetalleCompraCombustible.resx">
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompraCombustible.resx">
       <DependentUpon>ModalDetalleCompraCombustible.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DialogView\Sucursal.resx">
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Sucursal.resx">
       <DependentUpon>Sucursal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Overlay\OverlayForm.resx">
+    <EmbeddedResource Include="Shared\Overlay\OverlayForm.resx">
       <DependentUpon>OverlayForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Overlay\OverlayFormModal.resx">
+    <EmbeddedResource Include="Shared\Overlay\OverlayFormModal.resx">
       <DependentUpon>OverlayFormModal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UCComprasImportadas.resx">
+    <EmbeddedResource Include="Modules\UCComprasImportadas.resx">
       <DependentUpon>UCComprasImportadas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UCImportacionesCompra.resx">
+    <EmbeddedResource Include="Modules\UCImportacionesCompra.resx">
       <DependentUpon>UCImportacionesCompra.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
+    <EmbeddedResource Include="Modules\Main.resx">
+      <DependentUpon>MainComprasSrc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -228,7 +237,6 @@
     <Folder Include="AppModulos\LogicSrc\Application\" />
     <Folder Include="AppModulos\LogicSrc\Port\" />
     <Folder Include="Modules\CompraSRC\Domain\Dto\" />
-    <Folder Include="Modules\CompraSRC\Infraestructure\View\" />
     <Folder Include="Repository\RepositoryErp\Aplication\" />
     <Folder Include="Repository\RepositoryErp\Port\" />
   </ItemGroup>

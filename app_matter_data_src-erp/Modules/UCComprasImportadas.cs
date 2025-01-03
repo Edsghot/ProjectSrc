@@ -177,7 +177,7 @@ namespace app_matter_data_src_erp.Forms
 
         private async void btnBuscar_Click(object sender, EventArgs e)
         {
-            var mainForm = (Main)this.FindForm();
+            var mainForm = (MainComprasSrc)this.FindForm();
             dataTable.Rows.Clear();
             currentPage = 1;
            

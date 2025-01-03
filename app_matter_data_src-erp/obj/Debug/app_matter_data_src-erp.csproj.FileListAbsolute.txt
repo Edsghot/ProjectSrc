@@ -8,7 +8,6 @@ C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.csproj.CoreCompileInputs.cache
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.exe
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.pdb
-C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Main.resources
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.UCComprasImportadas.resources
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.UCImportacionesCompra.resources
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\app_matter_data_src-erp.exe.config
@@ -51,3 +50,5 @@ D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.Sucursal.resources
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.Overlay.OverlayForm.resources
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.Overlay.OverlayFormModal.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.MainComprasSrc.resources
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Modules.MainValidationSunat.resources

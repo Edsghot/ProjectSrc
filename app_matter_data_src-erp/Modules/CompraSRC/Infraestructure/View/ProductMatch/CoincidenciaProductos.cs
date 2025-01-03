@@ -12,8 +12,8 @@ namespace app_matter_data_src_erp.Forms.DialogView
         private int rowsPerPage = 4;
         private int totalRows;
 
-        private readonly Main mainForm;
-        public CoincidenciaProductos(Main mainForm)
+        private readonly MainComprasSrc mainForm;
+        public CoincidenciaProductos(MainComprasSrc mainForm)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;

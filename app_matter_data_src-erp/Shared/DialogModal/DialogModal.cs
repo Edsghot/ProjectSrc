@@ -58,7 +58,7 @@ namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
             {
                 case "warning":
                     this.Hide();
-                    EditarCompra warningModal = new EditarCompra(code, (Main)this.ParentForm);
+                    EditarCompra warningModal = new EditarCompra(code, (MainComprasSrc)this.ParentForm);
                     warningModal.ShowDialog();
                     break;
                 case "question":

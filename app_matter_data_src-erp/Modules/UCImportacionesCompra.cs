@@ -172,13 +172,13 @@ namespace app_matter_data_src_erp.Forms
 
                 if (columnName == "Column3")
                 {         
-                    Sucursal modal = new Sucursal((Main)this.ParentForm);
+                    Sucursal modal = new Sucursal((MainComprasSrc)this.ParentForm);
                     overlayForm.ShowOverlayWithModal(modal);
                 }
 
                 if (columnName == "Column4")
                 {
-                    AsientoTipo modal = new AsientoTipo((Main)this.ParentForm);
+                    AsientoTipo modal = new AsientoTipo((MainComprasSrc)this.ParentForm);
                     overlayForm.ShowOverlayWithModal(modal);
                 }
 
@@ -209,7 +209,7 @@ namespace app_matter_data_src_erp.Forms
 
                 if (columnName == "Column10")
                 {
-                    CoincidenciaProductos modal = new CoincidenciaProductos((Main)this.ParentForm);
+                    CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm);
                     overlayForm.ShowOverlayWithModal(modal);
                 }
             }
@@ -224,7 +224,7 @@ namespace app_matter_data_src_erp.Forms
         private async void btnImportar_Click(object sender, EventArgs e)
         {
             OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
-            Importar modal = new Importar((Main)this.ParentForm);
+            Importar modal = new Importar((MainComprasSrc)this.ParentForm);
             overlayForm.ShowOverlayWithModal(modal);
         }
 
@@ -232,7 +232,7 @@ namespace app_matter_data_src_erp.Forms
         {
             dataTable.Rows.Clear();
             currentPage = 1;
-            var mainForm = (Main)this.FindForm();
+            var mainForm = (MainComprasSrc)this.FindForm();
             mainForm.ShowOverlay(); 
             await Task.Delay(5000);
             LoadData();
