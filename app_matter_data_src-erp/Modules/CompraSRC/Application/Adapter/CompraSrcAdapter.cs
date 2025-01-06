@@ -26,7 +26,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             var data = await apiClient.GetApiDataAsync();
             var dataa = data.data;
 
-          //  var errors = ValidateData(dataa[0]);
+            var errors = ValidateData(dataa[0]);
 
             return;
         }
