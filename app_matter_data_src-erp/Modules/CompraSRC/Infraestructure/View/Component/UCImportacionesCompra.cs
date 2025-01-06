@@ -42,27 +42,8 @@ namespace app_matter_data_src_erp.Forms
             var data = new object[,]
             {
                 { "DG5T 279", "2024/11/01", "Pendiente", "Pendiente", "Com. Tipo A Sum. 3ros Cren. Mn", 250.00, 18.00, 118.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/02", "Pendiente", "Pendiente", "Observación 2...........", 200.00, 36.00, 236.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/03", "Pendiente", "Pendiente", "Observación 3...........", 150.00, 27.00, 177.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/04", "Pendiente", "Pendiente", "Observación 4...........", 120.00, 21.60, 141.60, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/05", "Pendiente", "Pendiente", "Observación 5...........", 250.00, 45.00, 295.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/01", "Pendiente", "Pendiente", "Observación 1...........", 250.00, 18.00, 118.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/02", "Pendiente", "Pendiente", "Observación 2...........", 200.00, 36.00, 236.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/03", "Pendiente", "Pendiente", "Observación 3...........", 150.00, 27.00, 177.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/04", "Pendiente", "Pendiente", "Observación 4...........", 120.00, 21.60, 141.60, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/05", "Pendiente", "Pendiente", "Observación 5...........", 250.00, 45.00, 295.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/06", "Pendiente", "Pendiente", "Observación 6...........", 210.00, 19.00, 121.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/01", "Pendiente", "Pendiente", "Observación 1...........", 250.00, 18.00, 118.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/02", "Pendiente", "Pendiente", "Observación 2...........", 200.00, 36.00, 236.00, "Pendiente", "Pendiente" },
-                { "DG5F 279", "2024/11/03", "Pendiente", "Pendiente", "Observación 3...........", 150.00, 27.00, 177.00, "Pendiente", "Pendiente" },
-                { "DG5F 279", "2024/11/04", "Pendiente", "Pendiente", "Observación 4...........", 120.00, 21.60, 141.60, "Pendiente", "Pendiente" },
-                { "DG5F 279", "2024/11/05", "Pendiente", "Pendiente", "Observación 5...........", 250.00, 45.00, 295.00, "Pendiente", "Pendiente" },
-                { "DG5F 279", "2024/11/02", "Pendiente", "Pendiente", "Observación 2...........", 200.00, 36.00, 236.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/03", "Pendiente", "Pendiente", "Observación 3...........", 150.00, 27.00, 177.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/04", "Pendiente", "Pendiente", "Observación 4...........", 120.00, 21.60, 141.60, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/05", "Pendiente", "Pendiente", "Observación 5...........", 250.00, 45.00, 295.00, "Pendiente", "Pendiente" },
-                { "DG5T 279", "2024/11/06", "Pendiente", "Pendiente", "Observación 6...........", 210.00, 19.00, 121.00, "Pendiente", "Pendiente" }
-            };
+                { "DG5T 279", "2024/11/02", "Pendiente", "Pendiente", "Observación ", 200.00, 36.00, 236.00, "Pendiente", "Pendiente" },
+        };
 
             totalRows = data.GetLength(0);
 

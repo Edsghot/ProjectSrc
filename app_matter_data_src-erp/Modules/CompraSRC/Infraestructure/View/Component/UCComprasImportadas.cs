@@ -5,6 +5,9 @@ using System;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
+using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 
 namespace app_matter_data_src_erp.Forms
 {
@@ -13,9 +16,13 @@ namespace app_matter_data_src_erp.Forms
         private int currentPage = 1;
         private int rowsPerPage = 15;
         private int totalRows;
+        private readonly ICompraSrcInputPort _compraSrc;
+        
 
         public UCComprasImportadas()
         {
+            _compraSrc = new CompraSrcAdapter();
+            _compraSrc.ObtenerDataSrc().GetAwaiter().GetResult();
             InitializeComponent();
             dataTable.CellClick += dataTable_CellClick; dataTable.CellFormatting += dataTable_CellFormatting;
 
@@ -26,8 +33,8 @@ namespace app_matter_data_src_erp.Forms
             this.dataTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dataTable.ColumnHeadersHeight = 45;
 
-            cbMes.SelectedItem = SeleccionesGlobales.MesSeleccionado;
-            cbAño.SelectedItem = SeleccionesGlobales.AñoSeleccionado;
+            cbMes.SelectedItem = SeleccionesGlobalesDto.MesSeleccionado;
+            cbAño.SelectedItem = SeleccionesGlobalesDto.AñoSeleccionado;
 
             if (DatosGlobales.Compras.Count > 0)
             {
@@ -38,42 +45,21 @@ namespace app_matter_data_src_erp.Forms
         private void LoadData()
         {
 
-
+            
             dataTable.Rows.Clear();
 
             var data = new object[,]
             {
                 { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
                 { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
+
             };
 
             totalRows = data.GetLength(0);
 
             for (int i = 0; i < totalRows; i++)
             {
-                var compra = new Compra
+                var compra = new CompraRDto
                 {
                     Codigo = data[i, 0].ToString(),
                     Nombre = data[i, 1].ToString(),
@@ -165,8 +151,8 @@ namespace app_matter_data_src_erp.Forms
         {
             dataTable.Rows.Clear();
             DatosGlobales.Compras.Clear();
-            SeleccionesGlobales.MesSeleccionado = null; 
-            SeleccionesGlobales.AñoSeleccionado = null;
+            SeleccionesGlobalesDto.MesSeleccionado = null; 
+            SeleccionesGlobalesDto.AñoSeleccionado = null;
             cbMes.Text = "Seleccione el mes";
             cbAño.Text = "Seleccione el año";
 
@@ -201,12 +187,12 @@ namespace app_matter_data_src_erp.Forms
 
         private void cbMes_SelectedIndexChanged(object sender, EventArgs e)
         {          
-            SeleccionesGlobales.MesSeleccionado = cbMes.SelectedItem.ToString();
+            SeleccionesGlobalesDto.MesSeleccionado = cbMes.SelectedItem.ToString();
         }
 
         private void cbAño_SelectedIndexChanged(object sender, EventArgs e)
         {          
-            SeleccionesGlobales.AñoSeleccionado = cbAño.SelectedItem.ToString();
+            SeleccionesGlobalesDto.AñoSeleccionado = cbAño.SelectedItem.ToString();
         }
     }
 }

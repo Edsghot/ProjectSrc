@@ -36,10 +36,17 @@
     <Reference Include="FontAwesome.Sharp, Version=6.1.1.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
       <HintPath>..\packages\FontAwesome.Sharp.6.1.1\lib\net45\FontAwesome.Sharp.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="RestSharp, Version=106.12.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.12.0\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -54,16 +61,96 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Constants\Credentials.cs" />
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\AsientoTipo.cs">
+    <Compile Include="Configuration\Constants\GetUrlApi.cs" />
+    <Compile Include="Configuration\Enum\Formularios.cs" />
+    <Compile Include="Configuration\Logs\Logs.cs" />
+    <Compile Include="Global\ApiClient\ApiClient.cs" />
+    <Compile Include="Global\ApiClient\IApiClient.cs" />
+    <Compile Include="Global\DataBase\DataBaseHelper.cs" />
+    <Compile Include="Global\DtoGlobales\ApiGenericRequest.cs" />
+    <Compile Include="Global\DtoGlobales\ResponseApiGenericDto.cs" />
+    <Compile Include="Global\DtoGlobales\SeleccionesGlobalesDto.cs" />
+    <Compile Include="Global\Helper\HFunciones.cs" />
+    <Compile Include="Modules\CompraSRC\Application\Adapter\CompraSrcAdapter.cs" />
+    <Compile Include="Modules\CompraSRC\Application\Port\ICompraSrcInputPort.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\CompraDetalleDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\CompraDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\CompraRDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\ValidationError.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\validationErrorDto.cs" />
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Component\Toast.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Component\UCComprasImportadas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Component\UCComprasImportadas.Designer.cs">
+      <DependentUpon>UCComprasImportadas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Component\UCImportacionesCompra.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Component\UCImportacionesCompra.Designer.cs">
+      <DependentUpon>UCImportacionesCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Main\Main.Designer.cs">
+      <DependentUpon>MainComprasSrc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Main\MainComprasSrc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\AsientoTipo.Designer.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\AsientoTipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\AsientoTipo.Designer.cs">
       <DependentUpon>AsientoTipo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\MainValidationSunat.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\EditarCompra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modules\MainValidationSunat.Designer.cs">
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\EditarCompra.Designer.cs">
+      <DependentUpon>EditarCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\Importar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\Importar.Designer.cs">
+      <DependentUpon>Importar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompra.Designer.cs">
+      <DependentUpon>ModalDetalleCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompraCombustible.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompraCombustible.Designer.cs">
+      <DependentUpon>ModalDetalleCompraCombustible.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatch\BuscarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatch\BuscarProducto.Designer.cs">
+      <DependentUpon>BuscarProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatch\CoincidenciaProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatch\CoincidenciaProductos.Designer.cs">
+      <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\Sucursal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\Sucursal.Designer.cs">
+      <DependentUpon>Sucursal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ValidationSunat\Infraestructure\View\Main\MainValidationSunat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ValidationSunat\Infraestructure\View\Main\MainValidationSunat.Designer.cs">
       <DependentUpon>MainValidationSunat.cs</DependentUpon>
     </Compile>
     <Compile Include="Shared\DialogModal\DialogModal.cs">
@@ -72,53 +159,11 @@
     <Compile Include="Shared\DialogModal\DialogModal.Designer.cs">
       <DependentUpon>DialogModal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\Importar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\Importar.Designer.cs">
-      <DependentUpon>Importar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\BuscarProducto.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\BuscarProducto.Designer.cs">
-      <DependentUpon>BuscarProducto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\CoincidenciaProductos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\CoincidenciaProductos.Designer.cs">
-      <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
-    </Compile>
     <Compile Include="Shared\DialogModal\ErrorImportacion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Shared\DialogModal\ErrorImportacion.Designer.cs">
       <DependentUpon>ErrorImportacion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompra.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompra.Designer.cs">
-      <DependentUpon>ModalDetalleCompra.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompraCombustible.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompraCombustible.Designer.cs">
-      <DependentUpon>ModalDetalleCompraCombustible.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\Sucursal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\Sucursal.Designer.cs">
-      <DependentUpon>Sucursal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\EditarCompra.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\EditarCompra.Designer.cs">
-      <DependentUpon>EditarCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="Shared\Overlay\OverlayForm.cs">
       <SubType>Form</SubType>
@@ -132,30 +177,6 @@
     <Compile Include="Shared\Overlay\OverlayFormModal.Designer.cs">
       <DependentUpon>OverlayFormModal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Toast.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Modules\UCComprasImportadas.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Modules\UCComprasImportadas.Designer.cs">
-      <DependentUpon>UCComprasImportadas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\UCImportacionesCompra.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Modules\UCImportacionesCompra.Designer.cs">
-      <DependentUpon>UCImportacionesCompra.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Compra.cs" />
-    <Compile Include="Global\SeleccionesGlobales.cs" />
-    <Compile Include="Modules\MainComprasSrc.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\Main.Designer.cs">
-      <DependentUpon>MainComprasSrc.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Application\Adapter\CompraSrc\CompraSrcAdapter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -163,54 +184,53 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dbContext\DbContext.cs" />
-    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\AsientoTipo.resx">
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Component\UCComprasImportadas.resx">
+      <DependentUpon>UCComprasImportadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Component\UCImportacionesCompra.resx">
+      <DependentUpon>UCImportacionesCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Main\Main.resx">
+      <DependentUpon>MainComprasSrc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\AsientoTipo.resx">
       <DependentUpon>AsientoTipo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\MainValidationSunat.resx">
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\EditarCompra.resx">
+      <DependentUpon>EditarCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\Importar.resx">
+      <DependentUpon>Importar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompra.resx">
+      <DependentUpon>ModalDetalleCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompraCombustible.resx">
+      <DependentUpon>ModalDetalleCompraCombustible.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatch\BuscarProducto.resx">
+      <DependentUpon>BuscarProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatch\CoincidenciaProductos.resx">
+      <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\Sucursal.resx">
+      <DependentUpon>Sucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ValidationSunat\Infraestructure\View\Main\MainValidationSunat.resx">
       <DependentUpon>MainValidationSunat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Shared\DialogModal\DialogModal.resx">
       <DependentUpon>DialogModal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\EditarCompra.resx">
-      <DependentUpon>EditarCompra.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Importar.resx">
-      <DependentUpon>Importar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\BuscarProducto.resx">
-      <DependentUpon>BuscarProducto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\ProductMatch\CoincidenciaProductos.resx">
-      <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Shared\DialogModal\ErrorImportacion.resx">
       <DependentUpon>ErrorImportacion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompra.resx">
-      <DependentUpon>ModalDetalleCompra.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\ModalDetalleCompraCombustible.resx">
-      <DependentUpon>ModalDetalleCompraCombustible.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Sucursal.resx">
-      <DependentUpon>Sucursal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Shared\Overlay\OverlayForm.resx">
       <DependentUpon>OverlayForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Shared\Overlay\OverlayFormModal.resx">
       <DependentUpon>OverlayFormModal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\UCComprasImportadas.resx">
-      <DependentUpon>UCComprasImportadas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\UCImportacionesCompra.resx">
-      <DependentUpon>UCImportacionesCompra.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Main.resx">
-      <DependentUpon>MainComprasSrc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -232,13 +252,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AppModulos\LogicErp\Application\" />
-    <Folder Include="AppModulos\LogicErp\Port\" />
-    <Folder Include="AppModulos\LogicSrc\Application\" />
-    <Folder Include="AppModulos\LogicSrc\Port\" />
-    <Folder Include="Modules\CompraSRC\Domain\Dto\" />
-    <Folder Include="Repository\RepositoryErp\Aplication\" />
-    <Folder Include="Repository\RepositoryErp\Port\" />
+    <Folder Include="Modules\ValidationSunat\Application\" />
+    <Folder Include="Modules\ValidationSunat\Domain\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\logo.png" />

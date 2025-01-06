@@ -1,18 +1,14 @@
-﻿using app_matter_data_src_erp.Configuration.Constants;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
+using app_matter_data_src_erp.Configuration.Constants;
 
-namespace app_matter_data_src_erp.Repository.dbContext
+namespace app_matter_data_src_erp.Global.DataBase
 {
-    public static class DbContext
+    public class DataBaseHelper 
     {
-       
         public static void ExecuteStoredProcedure(string procedureName, Dictionary<string, object> parameters = null)
         {
             try
@@ -97,6 +93,4 @@ namespace app_matter_data_src_erp.Repository.dbContext
             return dataTable;
         }
     }
-
-
 }

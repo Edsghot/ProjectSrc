@@ -9,9 +9,10 @@ namespace app_matter_data_src_erp.Configuration.Constants
     public static class Credentials
     {
         public static string DataBaseConection { get; set; } = string.Empty;
+        public static int IdFormulario { get; set; }
         public static int IdComputadora { get; set; }
         public static string IdClient { get; set; }
         public static string IdUsuario { get; set; }
-
+        
     }
 }

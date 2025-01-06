@@ -16,7 +16,6 @@ D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\app_matter_data
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.csproj.AssemblyReference.cache
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.UCComprasImportadas.resources
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.UCImportacionesCompra.resources
-D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Main.resources
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Properties.Resources.resources
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.csproj.GenerateResource.cache
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.csproj.CoreCompileInputs.cache
@@ -52,3 +51,9 @@ D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.Overlay.OverlayFormModal.resources
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.MainComprasSrc.resources
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Modules.MainValidationSunat.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Modules.MainValidationSunat.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.MainComprasSrc.resources
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\Newtonsoft.Json.dll
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\Newtonsoft.Json.xml
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\RestSharp.dll
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\RestSharp.xml
