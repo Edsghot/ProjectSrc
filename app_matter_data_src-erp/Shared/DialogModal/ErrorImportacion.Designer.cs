@@ -32,8 +32,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblErrores = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,10 +73,19 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.lblErrores);
             this.panel1.Location = new System.Drawing.Point(29, 175);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(274, 138);
             this.panel1.TabIndex = 3;
+            // 
+            // lblErrores
+            // 
+            this.lblErrores.Location = new System.Drawing.Point(13, 10);
+            this.lblErrores.Name = "lblErrores";
+            this.lblErrores.Size = new System.Drawing.Size(247, 115);
+            this.lblErrores.TabIndex = 0;
+            this.lblErrores.Text = "Errores";
             // 
             // btnCerrar
             // 
@@ -123,6 +134,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ErrorImportacion";
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -137,5 +149,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnCerrar;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
+        private System.Windows.Forms.Label lblErrores;
     }
 }

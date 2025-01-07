@@ -16,13 +16,10 @@ namespace app_matter_data_src_erp.Forms
         private int currentPage = 1;
         private int rowsPerPage = 15;
         private int totalRows;
-        private readonly ICompraSrcInputPort _compraSrc;
         
 
         public UCComprasImportadas()
         {
-            _compraSrc = new CompraSrcAdapter();
-            _compraSrc.ObtenerDataSrc().GetAwaiter().GetResult();
             InitializeComponent();
             dataTable.CellClick += dataTable_CellClick; dataTable.CellFormatting += dataTable_CellFormatting;
 

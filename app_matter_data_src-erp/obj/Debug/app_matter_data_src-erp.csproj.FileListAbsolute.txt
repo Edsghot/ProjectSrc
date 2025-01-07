@@ -57,3 +57,7 @@ D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\Newtonsoft.Json
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\Newtonsoft.Json.xml
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\RestSharp.dll
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\RestSharp.xml
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\RestSharp.dll
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\RestSharp.xml
