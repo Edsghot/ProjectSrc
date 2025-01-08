@@ -8,7 +8,5 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Port
     {
         Task<List<CompraDto>> ObtenerDataSrc();
         Task<CompraDto> ObtenerCompraPorCodigo(string codigoCompra);
-
-        List<validationErrorDto> ValidateColumn(int columnIndex, string columnValue);
     }
 }

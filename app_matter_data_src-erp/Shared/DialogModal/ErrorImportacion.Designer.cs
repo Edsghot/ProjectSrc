@@ -45,7 +45,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(80, 108);
+            this.label1.Location = new System.Drawing.Point(159, 109);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(192, 22);
             this.label1.TabIndex = 0;
@@ -54,7 +54,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(81, 142);
+            this.label2.Location = new System.Drawing.Point(160, 143);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 16);
             this.label2.TabIndex = 1;
@@ -63,7 +63,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(174, 142);
+            this.label3.Location = new System.Drawing.Point(253, 143);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(88, 16);
             this.label3.TabIndex = 2;
@@ -76,14 +76,14 @@
             this.panel1.Controls.Add(this.lblErrores);
             this.panel1.Location = new System.Drawing.Point(29, 175);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(274, 138);
+            this.panel1.Size = new System.Drawing.Size(434, 188);
             this.panel1.TabIndex = 3;
             // 
             // lblErrores
             // 
             this.lblErrores.Location = new System.Drawing.Point(13, 10);
             this.lblErrores.Name = "lblErrores";
-            this.lblErrores.Size = new System.Drawing.Size(247, 115);
+            this.lblErrores.Size = new System.Drawing.Size(409, 166);
             this.lblErrores.TabIndex = 0;
             this.lblErrores.Text = "Errores";
             // 
@@ -94,7 +94,7 @@
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrar.ForeColor = System.Drawing.Color.White;
-            this.btnCerrar.Location = new System.Drawing.Point(29, 319);
+            this.btnCerrar.Location = new System.Drawing.Point(102, 380);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(274, 57);
             this.btnCerrar.TabIndex = 4;
@@ -110,7 +110,7 @@
             this.iconPictureBox1.IconColor = System.Drawing.Color.Red;
             this.iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconPictureBox1.IconSize = 77;
-            this.iconPictureBox1.Location = new System.Drawing.Point(130, 28);
+            this.iconPictureBox1.Location = new System.Drawing.Point(209, 29);
             this.iconPictureBox1.Name = "iconPictureBox1";
             this.iconPictureBox1.Size = new System.Drawing.Size(78, 77);
             this.iconPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -122,7 +122,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(334, 407);
+            this.ClientSize = new System.Drawing.Size(494, 460);
             this.ControlBox = false;
             this.Controls.Add(this.iconPictureBox1);
             this.Controls.Add(this.btnCerrar);

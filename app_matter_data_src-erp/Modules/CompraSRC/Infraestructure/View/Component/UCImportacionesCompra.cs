@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Media3D;
 
 namespace app_matter_data_src_erp.Forms
 {
@@ -67,11 +68,12 @@ namespace app_matter_data_src_erp.Forms
                     compra.Sucursal,
                     compra.RazonSocial,
                     compra.Observacion,
-                    compra.TotalGravadas + compra.TotalExoneradas + compra.TotalOtrosTributos + compra.TotalPercepcion,
+                    compra.TotalPagar - compra.TotalIGV,
                     compra.TotalIGV,
                     compra.TotalPagar,
                     compra.FechaVencimiento.ToString("dd/MM/yyyy"),
-                    compra.Scop
+                    compra.RazonSocial,
+                    compra.Errores
                 );
             }
 
@@ -115,8 +117,10 @@ namespace app_matter_data_src_erp.Forms
                 dataTable.Columns[e.ColumnIndex].Name == "Column9" ||
                 dataTable.Columns[e.ColumnIndex].Name == "Column10")
             {
-                if (e.Value?.ToString() == "Pendiente")
+                var columnName = dataTable.Columns[e.ColumnIndex].Name;
+                if (columnName == "Column3" || columnName == "Column4" || columnName == "Column9" || columnName == "Column10")
                 {
+                    e.Value = "Pendiente";
                     e.CellStyle.ForeColor = Color.Chocolate;
                     e.CellStyle.SelectionForeColor = Color.Chocolate;
                 }
@@ -134,26 +138,20 @@ namespace app_matter_data_src_erp.Forms
                 e.CellStyle.ForeColor = Color.Chocolate;
                 e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
             }
-
             if (dataTable.Columns[e.ColumnIndex].Name == "Column11")
             {
-                var row = dataTable.Rows[e.RowIndex];
+                var errores = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
+                e.Value = "Error";
+                CompraDtoS.Estado = "Error";
+                e.CellStyle.ForeColor = Color.Red;
+                e.CellStyle.SelectionForeColor = Color.Red;
 
-                var firstColumnValue = row.Cells["Column1"].Value?.ToString();
-
-                var validationErrors = _compraSrc.ValidateColumn(1, firstColumnValue);
-
-                if (validationErrors.Any())
+                if (!string.IsNullOrEmpty(errores))
                 {
-                    row.Cells["Column11"].Value = "No Listo";
-                    e.CellStyle.ForeColor = Color.Red;
+                    e.Value = errores.Length < 0 ? "Listo" : "No Listo";
+                    e.CellStyle.ForeColor = errores.Length < 0 ? Color.Green : Color.Chocolate;
+                    e.CellStyle.SelectionForeColor = Color.Chocolate;
                 }
-                else
-                {
-                    row.Cells["Column11"].Value = "Listo";
-                    e.CellStyle.ForeColor = Color.Green;
-                }
-
                 e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
             }
         }
@@ -178,10 +176,10 @@ namespace app_matter_data_src_erp.Forms
                         {
                             List<CompraDetalleDto> detallesCompra = compra.Compras;
 
-                            List<List<object>> tablaDatos = detallesCompra.Select(detalle => new List<object>
+                            List<List<object>> tablaDatosCombustible = detallesCompra.Select(detalle => new List<object>
                             {
                                 detalle.Codigo,
-                                1,
+                                detalle.Cantidad,
                                 detalle.Cantidad,
                                 detalle.PrecioUnitario,
                                 detalle.SubTotal,
@@ -198,10 +196,30 @@ namespace app_matter_data_src_erp.Forms
 
                             }).ToList();
 
-                            //ModalDetalleCompra modal = new ModalDetalleCompra(codigoCompra, tablaDatos);
-                            ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, tablaDatos);
+                            List<List<object>> tablaDatos = detallesCompra.Select(detalle => new List<object>
+                            {
+                                detalle.Codigo,
+                                detalle.Descripcion,
+                                detalle.Cantidad,
+                                detalle.Cantidad,
+                                detalle.PrecioUnitario,
+                                detalle.Cantidad,
+                                detalle.PrecioUnitario,
+                                detalle.Total,
+                            }).ToList();
 
-                            overlayForm.ShowOverlayWithModal(modal);
+                            bool validacion = detallesCompra.All(detalle => detalle.Api == 0.00m || detalle.Temp == 0.00m);
+
+                            if (validacion)
+                            {
+                                ModalDetalleCompra modal = new ModalDetalleCompra(codigoCompra, tablaDatos);
+                                overlayForm.ShowOverlayWithModal(modal);
+                            }
+                            else
+                            {
+                                ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, tablaDatosCombustible);
+                                overlayForm.ShowOverlayWithModal(modal);
+                            }
                         }
                         else
                         {
@@ -216,9 +234,12 @@ namespace app_matter_data_src_erp.Forms
 
                 if (columnName == "Column3")
                 {
-                    Sucursal modal = new Sucursal((MainComprasSrc)this.ParentForm);
+                    string direccion = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
+
+                    Sucursal modal = new Sucursal((MainComprasSrc)this.ParentForm, direccion);
                     overlayForm.ShowOverlayWithModal(modal);
                 }
+
 
                 if (columnName == "Column4")
                 {
@@ -230,6 +251,16 @@ namespace app_matter_data_src_erp.Forms
                 {
                     DateTimePicker dateTimePicker = new DateTimePicker();
                     dateTimePicker.Format = DateTimePickerFormat.Short;
+
+                    var cellValue = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
+                    if (DateTime.TryParse(cellValue, out DateTime parsedDate))
+                    {
+                        dateTimePicker.Value = parsedDate;
+                    }
+                    else
+                    {
+                        dateTimePicker.Value = DateTime.Now;
+                    }
 
                     Rectangle rect = dataTable.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
                     dateTimePicker.Size = new Size(rect.Width, rect.Height);
@@ -251,24 +282,29 @@ namespace app_matter_data_src_erp.Forms
                     dateTimePicker.Focus();
                 }
 
+
                 if (columnName == "Column10")
                 {
-                    CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm);
+                    string codigoCompra = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    CompraDto compra = await _compraSrc.ObtenerCompraPorCodigo(codigoCompra);
+
+                    CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.NumCompra, compra.Compras);
                     overlayForm.ShowOverlayWithModal(modal);
                 }
-                if (columnName == "Column11")
-                {
-                    var row = dataTable.Rows[e.RowIndex];
-                    var validationErrors = _compraSrc.ValidateColumn(1, row.Cells["Column1"].Value?.ToString());
 
-                    if (row.Cells["Column11"].Value?.ToString() == "No Listo" && validationErrors.Any())
+
+                if (dataTable.Columns[e.ColumnIndex].Name == "Column11")
+                {
+                    string error = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
+
+                    if (!(error != null && error.Length < 80))
                     {
-                        var errorMessages = string.Join(Environment.NewLine, validationErrors.Select(err => err.Message));
-                        ErrorImportacion modal = new ErrorImportacion(errorMessages);
+                        ErrorImportacion modal = new ErrorImportacion(error);
                         overlayForm.ShowOverlayWithModal(modal);
-                       
                     }
                 }
+
+
             }
         }
 
@@ -278,8 +314,9 @@ namespace app_matter_data_src_erp.Forms
             LoadData();
         }
 
-        private async void btnImportar_Click(object sender, EventArgs e)
+        private void btnImportar_Click(object sender, EventArgs e)
         {
+            MessageBox.Show(CompraDtoS.Estado, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
             Importar modal = new Importar((MainComprasSrc)this.ParentForm);
             overlayForm.ShowOverlayWithModal(modal);
@@ -291,11 +328,71 @@ namespace app_matter_data_src_erp.Forms
             currentPage = 1;
             var mainForm = (MainComprasSrc)this.FindForm();
             mainForm.ShowOverlay();
-            await Task.Delay(5000);
+            await Task.Delay(500);
             LoadData();
             mainForm.HideOverlay();
+        }
+
+        private async void btnFilter_Click(object sender, EventArgs e)
+        {
+            string dateInicio = lblDateInicio.Text;
+            string dateFin = lblDateFin.Text;
+
+            if (string.IsNullOrEmpty(dateInicio) || string.IsNullOrEmpty(dateFin))
+            {
+                MessageBox.Show("Por favor seleccione una fecha de inicio y una fecha de fin.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            dataTable.Rows.Clear();
+            currentPage = 1;
+
+            var data = await _compraSrc.ObtenerDataSrc();
+
+            if (data == null || data.Count == 0)
+            {
+                MessageBox.Show("No se encontraron datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            totalRows = data.Count;
+
+            foreach (var compra in data)
+            {
+                bool withinDateRange = true;
+
+                if (!string.IsNullOrEmpty(dateInicio) && !string.IsNullOrEmpty(dateFin))
+                {
+                    DateTime fechaInicioParsed;
+                    DateTime fechaFinParsed;
+
+                    if (DateTime.TryParse(dateInicio, out fechaInicioParsed) && DateTime.TryParse(dateFin, out fechaFinParsed))
+                    {
+                        withinDateRange = compra.FechaEmision >= fechaInicioParsed && compra.FechaEmision <= fechaFinParsed;
+                    }
+                }
+
+                if (withinDateRange)
+                {
+                    dataTable.Rows.Add(
+                        compra.NumCompra,
+                        compra.FechaEmision.ToString("dd/MM/yyyy"),
+                        compra.Sucursal,
+                        compra.RazonSocial,
+                        compra.Observacion,
+                        compra.TotalPagar - compra.TotalIGV,
+                        compra.TotalIGV,
+                        compra.TotalPagar,
+                        compra.FechaVencimiento.ToString("dd/MM/yyyy"),
+                        compra.RazonSocial
+                    );
+                }
+            }
+
+            UpdatePagination();
         }
     }
 }
 
 
+    

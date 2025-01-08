@@ -26,7 +26,18 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 return new List<CompraDto>();
             }
 
-            return response.data;
+            var compraDtos = response.data;
+            foreach (var compra in compraDtos)
+            {
+                var errors = Validations(compra);
+                if (errors.Any())
+                {
+                    compra.Errores = string.Join(", ", errors.Select(e => $"{e.Field}: {e.Message}"));
+                }
+                compra.Estado = string.IsNullOrEmpty(compra.Errores) ? "Listo" : "No Listo";
+            }
+
+            return compraDtos;
         }
 
         public async Task<CompraDto> ObtenerCompraPorCodigo(string codigoCompra)
@@ -40,71 +51,15 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
             var compra = response.data.FirstOrDefault(c => c.NumCompra == codigoCompra);
 
-            if (compra == null)
-            {
-                return null; 
-            }
-
-            return compra; 
+            return compra;
         }
 
-        public List<validationErrorDto> ValidateColumn(int columnIndex, string columnValue)
-        {
-            var errors = new List<validationErrorDto>();
-
-            if (columnIndex == 1)
-            {
-                if (columnValue != null && columnValue.Length != 10)
-                {
-                    errors.Add(new validationErrorDto
-                    {
-                        Field = "Column1",
-                        Message = "El valor de la columna 1 debe tener exactamente 10 caracteres."
-                    });
-                }
-            }
-            else if (columnIndex == 2)
-            {
-                if (string.IsNullOrEmpty(columnValue) || !columnValue.All(char.IsLetter))
-                {
-                    errors.Add(new validationErrorDto
-                    {
-                        Field = "Column2",
-                        Message = "El valor de la columna 2 debe ser un texto."
-                    });
-                }
-            }
-            else if (columnIndex == 3)
-            {
-                if (columnValue.Length < 5 || columnValue.Length > 150)
-                {
-                    errors.Add(new validationErrorDto
-                    {
-                        Field = "Column3",
-                        Message = "El valor de la columna 3 debe tener entre 5 y 150 caracteres."
-                    });
-                }
-            }
-            else if (columnIndex == 4)
-            {
-                if (!columnValue.StartsWith("5") || !columnValue.EndsWith("JH"))
-                {
-                    errors.Add(new validationErrorDto
-                    {
-                        Field = "Column4",
-                        Message = "El valor de la columna 4 debe comenzar con '5' y terminar con 'JH'."
-                    });
-                }
-            }
-            return errors;
-        }
-
-        public List<validationErrorDto> ValidateCompra(CompraDto data)
+        public List<validationErrorDto> Validations(CompraDto data)
         {
             var errors = new List<validationErrorDto>();
 
             // Validar Condicion (Contado no permitido)
-            if (data.Condicion == "T")
+            if (!string.IsNullOrEmpty(data?.Condicion) && data.Condicion == "T")
             {
                 errors.Add(new validationErrorDto
                 {
@@ -114,10 +69,10 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             }
 
             // Validar que los números decimales tienen máximo dos dígitos
-            decimal[] decimalsToValidate = { data.TotalGravadas, data.TotalExoneradas, data.TotalPercepcion, data.TotalIGV, data.TotalPagar };
+            var decimalsToValidate = new[] { data?.TotalGravadas, data?.TotalExoneradas, data?.TotalPercepcion, data?.TotalIGV, data?.TotalPagar };
             foreach (var dec in decimalsToValidate)
             {
-                if (dec != Math.Round(dec, 2))
+                if (dec.HasValue && dec != Math.Round(dec.Value, 2))
                 {
                     errors.Add(new validationErrorDto
                     {
@@ -128,95 +83,93 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             }
 
             // Validar NomTipoDocumento
-            if (data.NomTipoDocumento.Length < 5 || data.NomTipoDocumento.Length > 20)
+            if (!string.IsNullOrEmpty(data?.NomTipoDocumento) && !(data.NomTipoDocumento.Length > 5 && data.NomTipoDocumento.Length < 20))
             {
                 errors.Add(new validationErrorDto
                 {
                     Field = "NomTipoDocumento",
-                    Message = "NomTipoDocumento debe tener entre 5 y 20 caracteres"
+                    Message = "Debe tener entre 5 y 20 caracteres"
                 });
             }
 
             // Validar AbrevTipoDocumento
-            if (data.AbrevTipoDocumento.Length < 5 || data.AbrevTipoDocumento.Length > 20)
+            if (!string.IsNullOrEmpty(data?.AbrevTipoDocumento) && !(data.AbrevTipoDocumento.Length >= 2 && data.AbrevTipoDocumento.Length < 10))
             {
                 errors.Add(new validationErrorDto
                 {
                     Field = "AbrevTipoDocumento",
-                    Message = "AbrevTipoDocumento debe tener entre 5 y 20 caracteres"
+                    Message = "Debe tener entre 2 y 10 caracteres"
                 });
             }
 
             // Validar SerieCompra
-            if (data.SerieCompra.Length != 4)
+            if (!string.IsNullOrEmpty(data?.SerieCompra) && data.SerieCompra.Length != 4)
             {
                 errors.Add(new validationErrorDto
                 {
                     Field = "SerieCompra",
-                    Message = "SerieCompra debe tener exactamente 4 caracteres"
+                    Message = "Debe tener exactamente 4 caracteres"
                 });
             }
 
-
             // Validar DocumentoProveedor
-            if (data.DocumentoProveedor.Length < 8 || data.DocumentoProveedor.Length > 14)
+            if (!string.IsNullOrEmpty(data?.DocumentoProveedor) && (data.DocumentoProveedor.Length < 8 || data.DocumentoProveedor.Length > 14))
             {
                 errors.Add(new validationErrorDto
                 {
                     Field = "DocumentoProveedor",
-                    Message = "DocumentoProveedor debe tener entre 8 y 14 caracteres"
+                    Message = "Debe tener entre 8 y 14 caracteres"
                 });
             }
 
             // Validar RazonSocial
-            if (data.RazonSocial.Length < 3 || data.RazonSocial.Length > 100)
+            if (!string.IsNullOrEmpty(data?.RazonSocial) && (data.RazonSocial.Length < 3 || data.RazonSocial.Length > 100))
             {
                 errors.Add(new validationErrorDto
                 {
                     Field = "RazonSocial",
-                    Message = "RazonSocial debe tener entre 3 y 100 caracteres"
+                    Message = "Debe tener entre 3 y 100 caracteres"
                 });
             }
 
-
             // Validar Moneda
-            if (data.Moneda != "N" && data.Moneda != "E")
+            if (!string.IsNullOrEmpty(data?.Moneda) && (data.Moneda != "N" && data.Moneda != "E"))
             {
                 errors.Add(new validationErrorDto
                 {
                     Field = "Moneda",
-                    Message = "Moneda debe ser 'N' o 'E'"
+                    Message = "Debe ser 'N' o 'E'"
                 });
             }
 
             // Validar Scop
-            if (data.Scop.Length != 10)
+            if (!string.IsNullOrEmpty(data?.Scop) && data.Scop.Length != 10)
             {
                 errors.Add(new validationErrorDto
                 {
                     Field = "Scop",
-                    Message = "Scop debe tener exactamente 10 caracteres"
+                    Message = "Debe tener exactamente 10 caracteres"
                 });
             }
 
             // Validar Compras
-            foreach (var compra in data.Compras)
+            foreach (var compra in data?.Compras ?? Enumerable.Empty<CompraDetalleDto>())
             {
-                if (compra.Codigo.Length < 1 || compra.Codigo.Length > 15)
+                if (!string.IsNullOrEmpty(compra.Codigo) && (compra.Codigo.Length < 1 || compra.Codigo.Length > 15))
                 {
                     errors.Add(new validationErrorDto
                     {
                         Field = "Compras.codigo",
-                        Message = "Compras.codigo debe tener entre 1 y 15 caracteres"
+                        Message = "Debe tener entre 1 y 15 caracteres"
                     });
                 }
 
-                if (compra.Descripcion.Length < 5 || compra.Descripcion.Length > 200)
+                if (!string.IsNullOrEmpty(compra.Descripcion) && (compra.Descripcion.Length < 5 || compra.Descripcion.Length > 200))
                 {
                     errors.Add(new validationErrorDto
                     {
                         Field = "Compras.descripcion",
-                        Message = "Compras.descripcion debe tener entre 5 y 200 caracteres"
+                        Message = "Descripcion debe tener entre 5 y 200 caracteres"
                     });
                 }
 
@@ -225,7 +178,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                     errors.Add(new validationErrorDto
                     {
                         Field = "Compras.API",
-                        Message = "Compras.API debe estar entre -99.99 y 99.99"
+                        Message = "Debe estar entre -99.99 y 99.99"
                     });
                 }
 
@@ -234,13 +187,12 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                     errors.Add(new validationErrorDto
                     {
                         Field = "Compras.temp",
-                        Message = "Compras.temp debe estar entre -10 y 60 grados"
+                        Message = "Debe estar entre -10 y 60 grados"
                     });
                 }
             }
 
             return errors;
         }
-
     }
 }

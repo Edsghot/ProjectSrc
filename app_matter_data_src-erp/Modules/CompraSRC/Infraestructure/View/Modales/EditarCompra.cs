@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Media3D;
 
 namespace app_matter_data_src_erp.Forms
 {
@@ -26,8 +27,8 @@ namespace app_matter_data_src_erp.Forms
 
         private void lblCoincidencia_Click(object sender, EventArgs e)
         {
-            CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm);
-            modal.ShowDialog();
+            //CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm,"", );
+            //modal.ShowDialog();
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
