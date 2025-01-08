@@ -148,12 +148,14 @@ namespace app_matter_data_src_erp.Forms
             {
                 var errores = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
                 e.Value = "No Listo";
+                DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].Estado = "No Listo";
                 e.CellStyle.ForeColor = Color.Chocolate;
                 e.CellStyle.SelectionForeColor = Color.Chocolate;
 
                 if (!string.IsNullOrEmpty(errores))
                 {
                     e.Value = errores.Length < 0 ? "Listo" : "Error";
+                    DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].Estado = errores.Length < 0 ? "Listo" : "Error";
                     e.CellStyle.ForeColor = errores.Length < 0 ? Color.Green : Color.Red;
                     e.CellStyle.SelectionForeColor = Color.Red;
                 }
@@ -342,10 +344,11 @@ namespace app_matter_data_src_erp.Forms
         {
             string dateInicio = lblDateInicio.Text;
             string dateFin = lblDateFin.Text;
+            string selectC = cbEstadoImportacion.SelectedItem?.ToString(); // Verificar si se seleccionó un estado
 
-            if (string.IsNullOrEmpty(dateInicio) || string.IsNullOrEmpty(dateFin))
+            if (string.IsNullOrEmpty(dateInicio) && string.IsNullOrEmpty(dateFin) && string.IsNullOrEmpty(selectC))
             {
-                MessageBox.Show("Por favor seleccione una fecha de inicio y una fecha de fin.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor seleccione una fecha de inicio, una fecha de fin o un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -365,7 +368,9 @@ namespace app_matter_data_src_erp.Forms
             foreach (var compra in data)
             {
                 bool withinDateRange = true;
+                bool matchesEstado = true;
 
+                // Validar rango de fechas
                 if (!string.IsNullOrEmpty(dateInicio) && !string.IsNullOrEmpty(dateFin))
                 {
                     DateTime fechaInicioParsed;
@@ -377,7 +382,14 @@ namespace app_matter_data_src_erp.Forms
                     }
                 }
 
-                if (withinDateRange)
+                // Validar estado seleccionado
+                if (!string.IsNullOrEmpty(selectC))
+                {
+                    matchesEstado = compra.Estado == selectC;
+                }
+
+                // Agregar fila si cumple las condiciones
+                if (withinDateRange && matchesEstado)
                 {
                     dataTable.Rows.Add(
                         compra.NumCompra,
@@ -389,13 +401,16 @@ namespace app_matter_data_src_erp.Forms
                         compra.TotalIGV,
                         compra.TotalPagar,
                         compra.FechaVencimiento.ToString("dd/MM/yyyy"),
-                        compra.RazonSocial
+                        compra.RazonSocial,
+                        compra.Estado,
+                        compra.Errores
                     );
                 }
             }
 
             UpdatePagination();
         }
+
     }
 }
 

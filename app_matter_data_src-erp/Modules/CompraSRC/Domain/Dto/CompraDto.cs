@@ -32,8 +32,8 @@ public class CompraDto
     public string LicenciaTransportista { get; set; }
     public string MarcaTransportista { get; set; }
     public string Errores { get; set; }
-    public string Estado { get; set; }
     //data src
     public string FechaLlegada { get; set; }
+    public string Estado { get; set; }
 }
 
