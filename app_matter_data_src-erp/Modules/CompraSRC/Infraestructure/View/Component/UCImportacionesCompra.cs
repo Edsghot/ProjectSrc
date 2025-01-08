@@ -123,6 +123,12 @@ namespace app_matter_data_src_erp.Forms
                     e.Value = "Pendiente";
                     e.CellStyle.ForeColor = Color.Chocolate;
                     e.CellStyle.SelectionForeColor = Color.Chocolate;
+                    if(columnName == "Column9" && DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].FechaLlegada != null)
+                    {
+                        e.Value = DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].FechaLlegada;
+                        e.CellStyle.ForeColor = Color.Black;
+                        e.CellStyle.SelectionForeColor = Color.Black;
+                    }
                 }
                 else
                 {
@@ -141,16 +147,15 @@ namespace app_matter_data_src_erp.Forms
             if (dataTable.Columns[e.ColumnIndex].Name == "Column11")
             {
                 var errores = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
-                e.Value = "Error";
-                CompraDtoS.Estado = "Error";
-                e.CellStyle.ForeColor = Color.Red;
-                e.CellStyle.SelectionForeColor = Color.Red;
+                e.Value = "No Listo";
+                e.CellStyle.ForeColor = Color.Chocolate;
+                e.CellStyle.SelectionForeColor = Color.Chocolate;
 
                 if (!string.IsNullOrEmpty(errores))
                 {
-                    e.Value = errores.Length < 0 ? "Listo" : "No Listo";
-                    e.CellStyle.ForeColor = errores.Length < 0 ? Color.Green : Color.Chocolate;
-                    e.CellStyle.SelectionForeColor = Color.Chocolate;
+                    e.Value = errores.Length < 0 ? "Listo" : "Error";
+                    e.CellStyle.ForeColor = errores.Length < 0 ? Color.Green : Color.Red;
+                    e.CellStyle.SelectionForeColor = Color.Red;
                 }
                 e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
             }
@@ -234,9 +239,9 @@ namespace app_matter_data_src_erp.Forms
 
                 if (columnName == "Column3")
                 {
-                    string direccion = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
+                    string direccion = DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].Sucursal;
 
-                    Sucursal modal = new Sucursal((MainComprasSrc)this.ParentForm, direccion);
+                    Sucursal modal = new Sucursal((MainComprasSrc)this.ParentForm, direccion, dataTable.Rows[e.RowIndex].Index);
                     overlayForm.ShowOverlayWithModal(modal);
                 }
 
@@ -271,6 +276,7 @@ namespace app_matter_data_src_erp.Forms
                     dateTimePicker.ValueChanged += (s, args) =>
                     {
                         dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dateTimePicker.Value.ToString("dd/MM/yyyy");
+                        DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].FechaLlegada = dateTimePicker.Value.ToString("dd/MM/yyyy");
                         dataTable.Controls.Remove(dateTimePicker);
                     };
 
@@ -297,7 +303,7 @@ namespace app_matter_data_src_erp.Forms
                 {
                     string error = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
 
-                    if (!(error != null && error.Length < 80))
+                    if (!(error != null && error.Length < 0))
                     {
                         ErrorImportacion modal = new ErrorImportacion(error);
                         overlayForm.ShowOverlayWithModal(modal);
@@ -316,7 +322,6 @@ namespace app_matter_data_src_erp.Forms
 
         private void btnImportar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(CompraDtoS.Estado, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
             Importar modal = new Importar((MainComprasSrc)this.ParentForm);
             overlayForm.ShowOverlayWithModal(modal);
@@ -347,7 +352,7 @@ namespace app_matter_data_src_erp.Forms
             dataTable.Rows.Clear();
             currentPage = 1;
 
-            var data = await _compraSrc.ObtenerDataSrc();
+            var data = DataStaticDto.data;
 
             if (data == null || data.Count == 0)
             {

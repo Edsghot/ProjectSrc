@@ -74,9 +74,9 @@
     <Compile Include="Modules\CompraSRC\Application\Adapter\CompraSrcAdapter.cs" />
     <Compile Include="Modules\CompraSRC\Application\Port\ICompraSrcInputPort.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\CompraDetalleDto.cs" />
-    <Compile Include="Modules\CompraSRC\Domain\Dto\CompraDtoS.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\CompraDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\CompraRDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\DataStaticDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\ValidationError.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\validationErrorDto.cs" />
     <Compile Include="Modules\CompraSRC\Infraestructure\View\Component\Toast.cs">

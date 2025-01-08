@@ -26,7 +26,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 return new List<CompraDto>();
             }
 
-            var compraDtos = response.data;
+            DataStaticDto.data = response.data;
+            var compraDtos = DataStaticDto.data;
             foreach (var compra in compraDtos)
             {
                 var errors = Validations(compra);
@@ -37,19 +38,19 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 compra.Estado = string.IsNullOrEmpty(compra.Errores) ? "Listo" : "No Listo";
             }
 
-            return compraDtos;
+            return DataStaticDto.data;
         }
 
         public async Task<CompraDto> ObtenerCompraPorCodigo(string codigoCompra)
         {
-            var response = await apiClient.GetApiDataAsync();
+     
 
-            if (response == null || response.data == null)
+            if (DataStaticDto.data == null)
             {
                 return null;
             }
 
-            var compra = response.data.FirstOrDefault(c => c.NumCompra == codigoCompra);
+            var compra = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == codigoCompra);
 
             return compra;
         }
