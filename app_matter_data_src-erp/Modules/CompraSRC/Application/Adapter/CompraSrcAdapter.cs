@@ -28,18 +28,26 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
             DataStaticDto.data = response.data;
             var compraDtos = DataStaticDto.data;
+
             foreach (var compra in compraDtos)
             {
                 var errors = Validations(compra);
+
                 if (errors.Any())
                 {
-                    compra.Errores = string.Join(", ", errors.Select(e => $"{e.Field}: {e.Message}"));
+                    compra.Errores = "Error: " + string.Join(", ", errors.Select(e => $"{e.Field}: {e.Message}"));
+                    compra.Estado = "Error";
                 }
-                compra.Estado = string.IsNullOrEmpty(compra.Errores) ? "Listo" : "No Listo";
+                else
+                {
+                    compra.Errores = "No listo";
+                    compra.Estado = "No listo";
+                }
             }
 
             return DataStaticDto.data;
         }
+
 
         public async Task<CompraDto> ObtenerCompraPorCodigo(string codigoCompra)
         {

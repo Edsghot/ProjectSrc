@@ -58,6 +58,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
             UpdatePagination();
         }
+
         // Botones filtrado de tabla
         private void UpdatePagination()
         {
@@ -96,8 +97,9 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
                 if (columnName == "Column2")
                 {
-                    this.Hide();
-                    BuscarProducto modal = new BuscarProducto(this);
+                    var modal = new BuscarProducto();
+                    modal.StartPosition = FormStartPosition.CenterScreen;
+                    modal.TopMost = true;
                     modal.ShowDialog();
                 }
             }

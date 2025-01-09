@@ -146,20 +146,21 @@ namespace app_matter_data_src_erp.Forms
             }
             if (dataTable.Columns[e.ColumnIndex].Name == "Column11")
             {
-                var errores = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
-                e.Value = "No Listo";
-                DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].Estado = "No Listo";
-                e.CellStyle.ForeColor = Color.Chocolate;
-                e.CellStyle.SelectionForeColor = Color.Chocolate;
-
-                if (!string.IsNullOrEmpty(errores))
+                string cellValue = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                if (cellValue.StartsWith("Error"))
                 {
-                    e.Value = errores.Length < 0 ? "Listo" : "Error";
-                    DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].Estado = errores.Length < 0 ? "Listo" : "Error";
-                    e.CellStyle.ForeColor = errores.Length < 0 ? Color.Green : Color.Red;
-                    e.CellStyle.SelectionForeColor = Color.Red;
+                    e.Value = "Error";
+                    e.CellStyle.ForeColor = Color.Chocolate;
+                    e.CellStyle.SelectionForeColor = Color.Chocolate;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
                 }
-                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                else if (cellValue.StartsWith("No listo"))
+                {
+                    e.Value = "No listo";
+                    e.CellStyle.ForeColor = Color.Chocolate;
+                    e.CellStyle.SelectionForeColor = Color.Chocolate;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                }
             }
         }
 
@@ -300,19 +301,17 @@ namespace app_matter_data_src_erp.Forms
                     overlayForm.ShowOverlayWithModal(modal);
                 }
 
-
                 if (dataTable.Columns[e.ColumnIndex].Name == "Column11")
                 {
+                    string codigoCompra = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
                     string error = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
-
-                    if (!(error != null && error.Length < 0))
+                    string cellValue = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                    if (cellValue.StartsWith("Error"))
                     {
-                        ErrorImportacion modal = new ErrorImportacion(error);
+                        ErrorImportacion modal = new ErrorImportacion(error, codigoCompra);
                         overlayForm.ShowOverlayWithModal(modal);
                     }
                 }
-
-
             }
         }
 
@@ -340,11 +339,11 @@ namespace app_matter_data_src_erp.Forms
             mainForm.HideOverlay();
         }
 
-        private async void btnFilter_Click(object sender, EventArgs e)
+        private void btnFilter_Click(object sender, EventArgs e)
         {
             string dateInicio = lblDateInicio.Text;
             string dateFin = lblDateFin.Text;
-            string selectC = cbEstadoImportacion.SelectedItem?.ToString(); // Verificar si se seleccionó un estado
+            string selectC = cbEstadoImportacion.SelectedItem?.ToString(); 
 
             if (string.IsNullOrEmpty(dateInicio) && string.IsNullOrEmpty(dateFin) && string.IsNullOrEmpty(selectC))
             {
@@ -370,7 +369,6 @@ namespace app_matter_data_src_erp.Forms
                 bool withinDateRange = true;
                 bool matchesEstado = true;
 
-                // Validar rango de fechas
                 if (!string.IsNullOrEmpty(dateInicio) && !string.IsNullOrEmpty(dateFin))
                 {
                     DateTime fechaInicioParsed;
@@ -382,13 +380,11 @@ namespace app_matter_data_src_erp.Forms
                     }
                 }
 
-                // Validar estado seleccionado
                 if (!string.IsNullOrEmpty(selectC))
                 {
                     matchesEstado = compra.Estado == selectC;
                 }
 
-                // Agregar fila si cumple las condiciones
                 if (withinDateRange && matchesEstado)
                 {
                     dataTable.Rows.Add(
@@ -402,7 +398,6 @@ namespace app_matter_data_src_erp.Forms
                         compra.TotalPagar,
                         compra.FechaVencimiento.ToString("dd/MM/yyyy"),
                         compra.RazonSocial,
-                        compra.Estado,
                         compra.Errores
                     );
                 }
