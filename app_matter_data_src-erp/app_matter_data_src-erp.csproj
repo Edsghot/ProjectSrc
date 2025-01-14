@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="ExpressMapper, Version=1.9.1.0, Culture=neutral, PublicKeyToken=ac363faa09311ba0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expressmapper.1.9.1\lib\net46\ExpressMapper.dll</HintPath>
+    </Reference>
     <Reference Include="FontAwesome.Sharp, Version=6.1.1.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
       <HintPath>..\packages\FontAwesome.Sharp.6.1.1\lib\net45\FontAwesome.Sharp.dll</HintPath>
     </Reference>
@@ -46,6 +52,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -77,8 +84,15 @@
     <Compile Include="Modules\CompraSRC\Domain\Dto\CompraDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\CompraRDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\DataStaticDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\ProductDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\CoincidenciaProdSrcDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\InsertProdCuencidenciaDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\Sucursal\SucursalDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\ValidationError.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\validationErrorDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\IRepository\ICompraSrcRepository.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Mapper\MapperConfig.cs" />
+    <Compile Include="Modules\CompraSRC\Infraestructure\Repository\CompraSrcRepository.cs" />
     <Compile Include="Modules\CompraSRC\Infraestructure\View\Component\Toast.cs">
       <SubType>UserControl</SubType>
     </Compile>

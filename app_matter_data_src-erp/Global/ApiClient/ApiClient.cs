@@ -53,6 +53,45 @@ namespace app_matter_data_src_erp.Global.ApiClient
             }
         }
 
+        public async Task<ResponseApiGenericDto> GetValidSunat(string ruc)
+        {
+            try
+            {
+                var client = new RestClient("https://api.apis.net.pe");
+                var request = new RestRequest("/v2/sunat/ruc/full?numero="+ruc, Method.GET);
+
+                var response = client.Execute(request);
+
+                if (response.IsSuccessful)
+                {
+                    var apiResponse = JsonConvert.DeserializeObject<ResponseApiGenericDto>(response.Content);
+                    return new ResponseApiGenericDto
+                    {
+                        message = "Success",
+                        success = true,
+                        data = apiResponse.data
+                    };
+                }
+                else
+                {
+                    Console.WriteLine($"Error: {response.StatusCode}");
+                }
+                return new ResponseApiGenericDto
+                {
+                    message = $"Exception",
+                    success = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseApiGenericDto
+                {
+                    message = $"Exception: {ex.Message}",
+                    success = false,
+                };
+            }
+        }
+
 
     }
 }

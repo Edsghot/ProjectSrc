@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using app_matter_data_src_erp.Configuration.Enum;
 using app_matter_data_src_erp.Configuration.Logs;
 using app_matter_data_src_erp.Global.Helper;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
+using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
 
 namespace app_matter_data_src_erp
 {
@@ -21,16 +24,34 @@ namespace app_matter_data_src_erp
         [STAThread]
         static void Main(string[] args)
         {
-            
+
+            MapperConfig.RegisterMappings();
+
             Logs.initLogs("Desarrollo.txt");
             GetCredentialsDesarrollo(args);
+            
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(GlobalExceptionHandler);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-        
-          
-           // Application.Run(new MainValidationSunat());
-           
-           switch (Credentials.IdFormulario)
+
+
+
+            ICompraSrcRepository repo = new CompraSrcRepository();
+
+            var res1 = repo.searchProducts("gaso").GetAwaiter().GetResult();
+            var resultado = repo.InsertProdCuencidencia(new InsertProdCuencidenciaDto
+            {
+                IdProductoErp = "1",
+                NombreProdErp = "Producto 1",
+                NombreProdSrc = "Producto 1",
+                RucEmpresa = "123456789"
+            }).GetAwaiter();
+            var res2 = repo.getAllSucursal().GetAwaiter().GetResult();
+            var res3 = repo.ObtenerCoincidenciasProdSrcPorRuc("123456789").GetAwaiter().GetResult();
+            // Application.Run(new MainValidationSunat());
+
+            switch (Credentials.IdFormulario)
            {
                case (int)Formularios.FormularioCompraSrc:
                    Logs.initLogs("CompraSrc.txt");
@@ -74,6 +95,7 @@ namespace app_matter_data_src_erp
             Logs.WriteLog("INFO", $"IdFormulario: {Credentials.IdFormulario}");
             Logs.WriteLog("INFO", $"DataBaseConection: {Credentials.DataBaseConection}");
         }
+        
         public static void GetCredentialsProduccion(string[] argss)
         {
             try
@@ -100,6 +122,25 @@ namespace app_matter_data_src_erp
             {
                 Logs.WriteLog("ERROR", $"Exception occurred: {ex.Message}");
             }
+        }
+        
+        static void GlobalExceptionHandler(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            HandleException(e.Exception);
+        }
+
+        static void GlobalExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            HandleException(e.ExceptionObject as Exception);
+        }
+
+        static void HandleException(Exception ex)
+        {
+            // Registra la excepción (puedes usar tu mecanismo de registro aquí)
+            Logs.WriteLog("ERROR", $"Ocurrió una excepción: {ex.Message}");
+
+            // Muestra un cuadro de mensaje para informar al usuario
+            MessageBox.Show("Ocurrió un error inesperado. Por favor, contacta al soporte.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 

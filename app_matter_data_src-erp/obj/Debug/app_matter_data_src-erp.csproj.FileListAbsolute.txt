@@ -61,3 +61,8 @@ C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\RestSharp.dll
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\RestSharp.xml
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\AutoMapper.dll
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\ExpressMapper.dll
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\AutoMapper.xml
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\ExpressMapper.pdb
+D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\ExpressMapper.xml

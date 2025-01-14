@@ -7,7 +7,7 @@ using app_matter_data_src_erp.Configuration.Constants;
 
 namespace app_matter_data_src_erp.Global.DataBase
 {
-    public class DataBaseHelper 
+    public static class DataBaseHelper 
     {
         public static void ExecuteStoredProcedure(string procedureName, Dictionary<string, object> parameters = null)
         {

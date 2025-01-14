@@ -3,4 +3,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartArguments>PKSRV-DATABASE-\SQLSERVER2017,LeyNatural,Perseverante%24,BDPinpad,1,54 5.00 N</StartArguments>
   </PropertyGroup>
+  <PropertyGroup>
+    <ReferencePath>PKSRV-DATABASE-\SQLSERVER2017,LeyNatural,Perseverante$,BDPinpad,12,</ReferencePath>
+  </PropertyGroup>
 </Project>
