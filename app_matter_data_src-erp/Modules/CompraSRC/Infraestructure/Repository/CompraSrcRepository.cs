@@ -70,16 +70,15 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
             return coincidencias;
         }
 
-        public async Task ActualizarPuntoVentaYAlmacen(string direccion, int idPuntoVenta, int idAlmacen)
+        public async Task ActualizarPuntoVentaYAlmacen( int idPuntoVenta, int idAlmacen)
         {
             var parameters = new[]
             {
-                    new SqlParameter("@Direccion", direccion),
                     new SqlParameter("@IdPuntoVenta", idPuntoVenta),
                     new SqlParameter("@IdAlmacen", idAlmacen)
                 };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("spActualizarPuntoVentaYAlmacen", parameters);
+            await DataBaseHelper.ExecuteStoredProcedureAsync("spActualizarPuntoVentaYAlmacenSrc", parameters);
         }
 
         public async Task<IEnumerable<ProductDto>> BuscarProductoPorId(string idProducto)

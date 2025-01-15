@@ -15,7 +15,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository
 
         Task<List<CoincidenciaProdSrcDto>> ObtenerCoincidenciasProdSrcPorRuc(string rucEmpresa);
 
-        Task ActualizarPuntoVentaYAlmacen(string direccion, int idPuntoVenta, int idAlmacen);
+        Task ActualizarPuntoVentaYAlmacen( int idPuntoVenta, int idAlmacen);
         Task<IEnumerable<ProductDto>> BuscarProductoPorId(string idProducto);
 
     }

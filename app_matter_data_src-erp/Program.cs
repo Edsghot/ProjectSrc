@@ -36,10 +36,8 @@ namespace app_matter_data_src_erp
             Application.SetCompatibleTextRenderingDefault(false);
 
             
+         
 
-            //ICompraSrcRepository repo = new CompraSrcRepository();
-
-            //var res1 = repo.searchProducts("gaso").GetAwaiter().GetResult();
             //var resultado = repo.InsertProdCuencidencia(new InsertProdCuencidenciaDto
             //{
             //    IdProductoErp = "1",
@@ -49,7 +47,7 @@ namespace app_matter_data_src_erp
             //}).GetAwaiter();
             //var res2 = repo.getAllSucursal().GetAwaiter().GetResult();
             //var res3 = repo.ObtenerCoincidenciasProdSrcPorRuc("123456789").GetAwaiter().GetResult();
-            // Application.Run(new MainValidationSunat());
+             //Application.Run(new MainValidationSunat());
 
             switch (Credentials.IdFormulario)
            {

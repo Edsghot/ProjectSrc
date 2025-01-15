@@ -160,6 +160,7 @@
             this.cbAlmacen.Size = new System.Drawing.Size(179, 30);
             this.cbAlmacen.TabIndex = 7;
             this.cbAlmacen.Text = "Almacen";
+            this.cbAlmacen.SelectedIndexChanged += new System.EventHandler(this.cbAlmacen_SelectedIndexChanged);
             // 
             // panel5
             // 
@@ -187,6 +188,7 @@
             this.cbSucursal.Size = new System.Drawing.Size(181, 30);
             this.cbSucursal.TabIndex = 7;
             this.cbSucursal.Text = "Sucursal ";
+            this.cbSucursal.SelectedIndexChanged += new System.EventHandler(this.cbSucursal_SelectedIndexChanged);
             // 
             // btnContinuar
             // 
@@ -226,6 +228,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Sucursal";
+            this.Load += new System.EventHandler(this.Sucursal_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
