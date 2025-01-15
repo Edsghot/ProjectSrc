@@ -35,20 +35,20 @@ namespace app_matter_data_src_erp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            
 
+            //ICompraSrcRepository repo = new CompraSrcRepository();
 
-            ICompraSrcRepository repo = new CompraSrcRepository();
-
-            var res1 = repo.searchProducts("gaso").GetAwaiter().GetResult();
-            var resultado = repo.InsertProdCuencidencia(new InsertProdCuencidenciaDto
-            {
-                IdProductoErp = "1",
-                NombreProdErp = "Producto 1",
-                NombreProdSrc = "Producto 1",
-                RucEmpresa = "123456789"
-            }).GetAwaiter();
-            var res2 = repo.getAllSucursal().GetAwaiter().GetResult();
-            var res3 = repo.ObtenerCoincidenciasProdSrcPorRuc("123456789").GetAwaiter().GetResult();
+            //var res1 = repo.searchProducts("gaso").GetAwaiter().GetResult();
+            //var resultado = repo.InsertProdCuencidencia(new InsertProdCuencidenciaDto
+            //{
+            //    IdProductoErp = "1",
+            //    NombreProdErp = "Producto 1",
+            //    NombreProdSrc = "Producto 1",
+            //    RucEmpresa = "123456789"
+            //}).GetAwaiter();
+            //var res2 = repo.getAllSucursal().GetAwaiter().GetResult();
+            //var res3 = repo.ObtenerCoincidenciasProdSrcPorRuc("123456789").GetAwaiter().GetResult();
             // Application.Run(new MainValidationSunat());
 
             switch (Credentials.IdFormulario)

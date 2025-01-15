@@ -5,13 +5,15 @@ using app_matter_data_src_erp.Global.ApiClient;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using System.Linq;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
+using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
 
 namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 {
     public class CompraSrcAdapter : ICompraSrcInputPort
     {
         private readonly IApiClient apiClient;
-
+  
         public CompraSrcAdapter()
         {
             this.apiClient = new ApiClient();

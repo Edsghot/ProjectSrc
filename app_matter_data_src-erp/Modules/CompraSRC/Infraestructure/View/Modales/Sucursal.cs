@@ -1,4 +1,6 @@
 ﻿using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
+using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
 using System;
 using System.Windows.Forms;
 
@@ -6,6 +8,9 @@ namespace app_matter_data_src_erp.Forms.DialogView
 {
     public partial class Sucursal : Form
     {
+
+        ICompraSrcRepository repo = new CompraSrcRepository();
+
 
         private readonly MainComprasSrc mainForm;
         private readonly int _index;
@@ -16,6 +21,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
             this.mainForm = mainForm;
             txtDireccion.Text = string.IsNullOrEmpty(direccion) ? "Pendiente" : direccion;
             _index = index;
+            var res2 = repo.getAllSucursal().GetAwaiter().GetResult();
         }
         private void btnSalir_Click(object sender, EventArgs e)
         {
