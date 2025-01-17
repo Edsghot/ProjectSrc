@@ -37,10 +37,10 @@
             this.btnBuscar = new FontAwesome.Sharp.IconButton();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.cbAsientoTipo = new System.Windows.Forms.ComboBox();
+            this.cmbSearchOption = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.lstResults = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -127,9 +127,9 @@
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.btnBuscar);
             this.panel5.Controls.Add(this.txtSearch);
-            this.panel5.Location = new System.Drawing.Point(295, 24);
+            this.panel5.Location = new System.Drawing.Point(263, 24);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(299, 43);
+            this.panel5.Size = new System.Drawing.Size(331, 43);
             this.panel5.TabIndex = 19;
             // 
             // btnBuscar
@@ -146,6 +146,7 @@
             this.btnBuscar.Size = new System.Drawing.Size(30, 30);
             this.btnBuscar.TabIndex = 20;
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // txtSearch
             // 
@@ -160,45 +161,35 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.cbAsientoTipo);
+            this.panel4.Controls.Add(this.cmbSearchOption);
             this.panel4.Location = new System.Drawing.Point(14, 24);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(237, 43);
             this.panel4.TabIndex = 18;
             // 
-            // cbAsientoTipo
+            // cmbSearchOption
             // 
-            this.cbAsientoTipo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cbAsientoTipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbAsientoTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbAsientoTipo.FormattingEnabled = true;
-            this.cbAsientoTipo.Items.AddRange(new object[] {
+            this.cmbSearchOption.AccessibleName = "";
+            this.cmbSearchOption.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmbSearchOption.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbSearchOption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSearchOption.FormattingEnabled = true;
+            this.cmbSearchOption.Items.AddRange(new object[] {
             "ID de producto",
             "Nombre"});
-            this.cbAsientoTipo.Location = new System.Drawing.Point(14, 6);
-            this.cbAsientoTipo.Name = "cbAsientoTipo";
-            this.cbAsientoTipo.Size = new System.Drawing.Size(202, 30);
-            this.cbAsientoTipo.TabIndex = 7;
-            this.cbAsientoTipo.Text = "Tipo de busqueda";
+            this.cmbSearchOption.Location = new System.Drawing.Point(14, 6);
+            this.cmbSearchOption.Name = "cmbSearchOption";
+            this.cmbSearchOption.Size = new System.Drawing.Size(202, 30);
+            this.cmbSearchOption.TabIndex = 7;
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.lstResults);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Location = new System.Drawing.Point(295, 84);
+            this.panel3.Location = new System.Drawing.Point(263, 84);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(299, 155);
+            this.panel3.Size = new System.Drawing.Size(331, 155);
             this.panel3.TabIndex = 8;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(13, 39);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(154, 54);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "041 Gasolina regular\r\n043 Gasolina Premiun\r\n046 Diesel db5";
             // 
             // label2
             // 
@@ -209,6 +200,15 @@
             this.label2.Size = new System.Drawing.Size(90, 16);
             this.label2.TabIndex = 0;
             this.label2.Text = "Resultados:";
+            // 
+            // lstResults
+            // 
+            this.lstResults.FormattingEnabled = true;
+            this.lstResults.ItemHeight = 16;
+            this.lstResults.Location = new System.Drawing.Point(13, 28);
+            this.lstResults.Name = "lstResults";
+            this.lstResults.Size = new System.Drawing.Size(315, 116);
+            this.lstResults.TabIndex = 1;
             // 
             // BuscarProducto
             // 
@@ -241,12 +241,12 @@
         private FontAwesome.Sharp.IconButton btnAtras;
         private FontAwesome.Sharp.IconButton btnSalir;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.ComboBox cbAsientoTipo;
+        private System.Windows.Forms.ComboBox cmbSearchOption;
         private FontAwesome.Sharp.IconButton btnBuscar;
+        private System.Windows.Forms.ListBox lstResults;
     }
 }

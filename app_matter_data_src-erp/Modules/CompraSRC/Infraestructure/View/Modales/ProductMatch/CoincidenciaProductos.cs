@@ -1,9 +1,14 @@
 ﻿using app_matter_data_src_erp.Forms.DialogView.ProductMatch;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
+using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace app_matter_data_src_erp.Forms.DialogView
@@ -13,10 +18,12 @@ namespace app_matter_data_src_erp.Forms.DialogView
         private int currentPage = 1;
         private int rowsPerPage = 4;
         private int totalRows;
+        private string rucRecuperado;
 
         private readonly MainComprasSrc mainForm;
+        private readonly ICompraSrcRepository _repo;
         private readonly List<CompraDetalleDto> detallesCompra;
-        public CoincidenciaProductos(MainComprasSrc mainForm, string codigoCompra, List<CompraDetalleDto> detallesCompra)
+        public CoincidenciaProductos(MainComprasSrc mainForm, string codigoCompra, List<CompraDetalleDto> detallesCompra, string ruc)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -31,16 +38,19 @@ namespace app_matter_data_src_erp.Forms.DialogView
             this.dataTable.Columns[1].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Underline);
 
             this.dataTable.Columns[2].HeaderCell.Style.BackColor = Color.LightSteelBlue;
-
+            _repo = new CompraSrcRepository();
             dataTable.CellClick += dataTable_CellClick;
             dataTable.CellPainting += dataTable_CellPainting;
             lblNumeroCompra.Text = codigoCompra;
-            LoadData(detallesCompra);
+           
+
             this.detallesCompra = detallesCompra;
             this.mainForm = mainForm;
-        }
+            this.rucRecuperado = ruc;
 
-        private void LoadData(List<CompraDetalleDto> detallesCompra)
+            LoadData(detallesCompra);
+        }
+        private async Task LoadData(List<CompraDetalleDto> detallesCompra)
         {
             this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -49,15 +59,51 @@ namespace app_matter_data_src_erp.Forms.DialogView
             dataTable.Rows.Clear();
 
             totalRows = detallesCompra.Count;
+            List<CoincidenciaProdSrcDto> coincidencias = new List<CoincidenciaProdSrcDto>();
+            try
+            {
+                coincidencias = await _repo.ObtenerCoincidenciasProdSrcPorRuc(this.rucRecuperado);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al obtener coincidencias por RUC: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             for (int i = (currentPage - 1) * rowsPerPage; i < Math.Min(currentPage * rowsPerPage, totalRows); i++)
             {
                 var detalle = detallesCompra[i];
-                dataTable.Rows.Add("046", "Bdisel db5", detalle.Descripcion);
+                var coincidencia = coincidencias.FirstOrDefault(c => c.NombreProdSrc == detalle.Descripcion);
+
+                if (coincidencia != null)
+                {
+                    dataTable.Rows.Add(coincidencia.IdProductoErp, coincidencia.NombreProdErp, coincidencia.NombreProdSrc);
+                }
+                else
+                {
+                    try
+                    {
+                        var response = await _repo.searchProducts(detalle.Descripcion);
+                        if (response != null && response.Any())
+                        {
+                            var firstProduct = response.First();
+                            dataTable.Rows.Add(firstProduct.ProductId, firstProduct.ProductName, detalle.Descripcion);
+                        }
+                        else
+                        {
+                            dataTable.Rows.Add("", "", detalle.Descripcion);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al consumir la API: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        dataTable.Rows.Add("", "", detalle.Descripcion);
+                    }
+                }
             }
 
             UpdatePagination();
         }
+
 
         // Botones filtrado de tabla
         private void UpdatePagination()
@@ -97,10 +143,22 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
                 if (columnName == "Column2")
                 {
-                    var modal = new BuscarProducto();
+                    var selectedRow = dataTable.Rows[e.RowIndex];
+                    string productId = selectedRow.Cells[0].Value.ToString();
+                    string productName = selectedRow.Cells[1].Value.ToString();
+
+                    var modal = new BuscarProducto(productId, productName);
                     modal.StartPosition = FormStartPosition.CenterScreen;
                     modal.TopMost = true;
+
                     modal.ShowDialog();
+
+                    if (!string.IsNullOrEmpty(modal.GetSelectedProduct()))
+                    {
+
+                        selectedRow.Cells[1].Value = modal.SelectedProductName;
+                        selectedRow.Cells[0].Value = modal.SelectedProductId;
+                    }
                 }
             }
         }
@@ -125,14 +183,38 @@ namespace app_matter_data_src_erp.Forms.DialogView
             this.Close();
         }
 
-        private void btnContinuar_Click(object sender, EventArgs e)
+        private async void btnContinuar_Click(object sender, EventArgs e)
         {
-            mainForm.ShowToast("Se realizaron los cambios con éxito.", "success");
-            this.Close();
+            try
+            {
+                foreach(DataGridViewRow row in dataTable.Rows)
+                {
+                    if (row.Cells[0].Value != null && row.Cells[1].Value != null && row.Cells[2].Value != null)
+                    {
+                        var idProductoErp = row.Cells[0].Value.ToString();
+                        var nombreProdErp = row.Cells[1].Value.ToString();
+                        var nombreProdSrc = row.Cells[2].Value.ToString();
+
+                        var productoInsertar = new InsertProdCuencidenciaDto
+                        {
+                            IdProductoErp = idProductoErp,
+                            NombreProdErp = nombreProdErp,
+                            NombreProdSrc = nombreProdSrc,
+                            RucEmpresa = rucRecuperado
+                        };
+                        var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();                    
+                        mainForm.ShowToast("Se realizaron los cambios con éxito.", "success");
+                        this.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
 
-  
 
-  
+

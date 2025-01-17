@@ -150,8 +150,8 @@ namespace app_matter_data_src_erp.Forms
                 if (cellValue.StartsWith("Error"))
                 {
                     e.Value = "Error";
-                    e.CellStyle.ForeColor = Color.Chocolate;
-                    e.CellStyle.SelectionForeColor = Color.Chocolate;
+                    e.CellStyle.ForeColor = Color.Red;
+                    e.CellStyle.SelectionForeColor = Color.Red;
                     e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
                 }
                 else if (cellValue.StartsWith("No listo"))
@@ -294,11 +294,13 @@ namespace app_matter_data_src_erp.Forms
 
                 if (columnName == "Column10")
                 {
+                    int rowIndex = e.RowIndex;
                     string codigoCompra = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
                     CompraDto compra = await _compraSrc.ObtenerCompraPorCodigo(codigoCompra);
 
-                    CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.NumCompra, compra.Compras);
+                    CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.NumCompra, compra.Compras, DataStaticDto.data[rowIndex].DocumentoProveedor);
                     overlayForm.ShowOverlayWithModal(modal);
+
                 }
 
                 if (dataTable.Columns[e.ColumnIndex].Name == "Column11")
