@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using Newtonsoft.Json;
 
 public class CompraDto
 {
@@ -12,7 +14,9 @@ public class CompraDto
     public int TipoDocumento { get; set; }
     public string RazonSocial { get; set; }
     public string Sucursal { get; set; }
+
     public DateTime FechaEmision { get; set; }
+
     public DateTime FechaVencimiento { get; set; }
     public string Moneda { get; set; }
     public string Condicion { get; set; }
@@ -27,6 +31,7 @@ public class CompraDto
     public List<CompraDetalleDto> Compras { get; set; }
     public string TipoDocReferencia { get; set; }
     public string CorrelativoReferencia { get; set; }
+    [JsonConverter(typeof(DateTimeConverter), "yyyy-MM-dd")]
     public DateTime FechaEmisionReferencia { get; set; }
     public string PlacaTransportista { get; set; }
     public string LicenciaTransportista { get; set; }

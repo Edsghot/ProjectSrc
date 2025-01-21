@@ -8,8 +8,9 @@ namespace app_matter_data_src_erp.Global.DtoGlobales
 {
     public class ResponseApiGenericDto
     {
-        public List<CompraDto> data { get; set; } = default;
-        public string message { get; set; } = string.Empty;
-        public bool success { get; set; }
+        public List<CompraDto> Resultado { get; set; } = default;
+        public string MensajeError { get; set; } = string.Empty;
+        public bool TieneError { get; set; }
+        public string CodigoError { get; set; }
     }
 }

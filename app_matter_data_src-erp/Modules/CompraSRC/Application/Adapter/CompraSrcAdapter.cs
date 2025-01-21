@@ -7,6 +7,7 @@ using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using System.Linq;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
 using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
+using System.Security.Cryptography.X509Certificates;
 
 namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 {
@@ -23,12 +24,12 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
         {
             var response = await apiClient.GetApiDataAsync();
 
-            if (response == null || response.data == null)
+            if (response == null || response.Resultado == null)
             {
                 return new List<CompraDto>();
             }
 
-            DataStaticDto.data = response.data;
+            DataStaticDto.data = response.Resultado;
             var compraDtos = DataStaticDto.data;
 
             foreach (var compra in compraDtos)
@@ -65,6 +66,29 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             return compra;
         }
 
+        public void Escanear(CompraDto data)
+        {
+         
+            for(var i = 0; i < DataStaticDto.data.Count; i++)
+            {
+                if (data.Moneda != "PEN")
+                {
+                    DataStaticDto.data[i].Moneda = "E";
+                }
+
+                DataStaticDto.data[i].Moneda = "N";
+
+                if (data.Moneda != "PEN")
+                {
+                    DataStaticDto.data[i].Moneda = "E";
+                }
+
+                DataStaticDto.data[i].Moneda = "N";
+            }
+         
+          
+
+        }
         public List<validationErrorDto> Validations(CompraDto data)
         {
             var errors = new List<validationErrorDto>();
@@ -144,7 +168,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             }
 
             // Validar Moneda
-            if (!string.IsNullOrEmpty(data?.Moneda) && (data.Moneda != "N" && data.Moneda != "E"))
+            if (!string.IsNullOrEmpty(data?.Moneda) && (data.Moneda != "PEN" && data.Moneda != "USD"))
             {
                 errors.Add(new validationErrorDto
                 {
@@ -184,23 +208,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                     });
                 }
 
-                if (compra.Api < -99.99m || compra.Api > 99.99m)
-                {
-                    errors.Add(new validationErrorDto
-                    {
-                        Field = "Compras.API",
-                        Message = "Debe estar entre -99.99 y 99.99"
-                    });
-                }
-
-                if (compra.Temp < -10m || compra.Temp > 60m)
-                {
-                    errors.Add(new validationErrorDto
-                    {
-                        Field = "Compras.temp",
-                        Message = "Debe estar entre -10 y 60 grados"
-                    });
-                }
+     
             }
 
             return errors;

@@ -189,8 +189,8 @@ namespace app_matter_data_src_erp.Forms
                                 detalle.Codigo,
                                 detalle.Cantidad,
                                 detalle.Cantidad,
-                                detalle.PrecioUnitario,
-                                detalle.SubTotal,
+                                detalle.PrecioUnitarioConIgv,
+                                detalle.SubTotalConIgv,
                                 detalle.Descripcion,
                                 detalle.Api,
                                 detalle.Temp,
@@ -200,7 +200,7 @@ namespace app_matter_data_src_erp.Forms
                                 detalle.Fise,
                                 detalle.Total,
                                 detalle.Igv,
-                                detalle.SubTotal
+                                detalle.SubTotalConIgv
 
                             }).ToList();
 
@@ -210,24 +210,13 @@ namespace app_matter_data_src_erp.Forms
                                 detalle.Descripcion,
                                 detalle.Cantidad,
                                 detalle.Cantidad,
-                                detalle.PrecioUnitario,
+                                detalle.PrecioUnitarioConIgv,
                                 detalle.Cantidad,
-                                detalle.PrecioUnitario,
+                                detalle.PrecioUnitarioConIgv,
                                 detalle.Total,
                             }).ToList();
 
-                            bool validacion = detallesCompra.All(detalle => detalle.Api == 0.00m || detalle.Temp == 0.00m);
-
-                            if (validacion)
-                            {
-                                ModalDetalleCompra modal = new ModalDetalleCompra(codigoCompra, tablaDatos);
-                                overlayForm.ShowOverlayWithModal(modal);
-                            }
-                            else
-                            {
-                                ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, tablaDatosCombustible);
-                                overlayForm.ShowOverlayWithModal(modal);
-                            }
+                           
                         }
                         else
                         {
