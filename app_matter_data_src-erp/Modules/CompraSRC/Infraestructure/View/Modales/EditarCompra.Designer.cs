@@ -36,9 +36,9 @@
             this.lblCoincidencia = new System.Windows.Forms.Label();
             this.btnContinuar = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbAlmacen = new System.Windows.Forms.ComboBox();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.cbSucursal = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -120,7 +120,7 @@
             this.panel2.Controls.Add(this.label2);
             this.panel2.Location = new System.Drawing.Point(31, 75);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(537, 289);
+            this.panel2.Size = new System.Drawing.Size(537, 317);
             this.panel2.TabIndex = 2;
             // 
             // lblCoincidencia
@@ -128,7 +128,7 @@
             this.lblCoincidencia.AutoSize = true;
             this.lblCoincidencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCoincidencia.ForeColor = System.Drawing.Color.Chocolate;
-            this.lblCoincidencia.Location = new System.Drawing.Point(16, 176);
+            this.lblCoincidencia.Location = new System.Drawing.Point(13, 183);
             this.lblCoincidencia.Name = "lblCoincidencia";
             this.lblCoincidencia.Size = new System.Drawing.Size(234, 16);
             this.lblCoincidencia.TabIndex = 26;
@@ -142,7 +142,7 @@
             this.btnContinuar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContinuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnContinuar.ForeColor = System.Drawing.Color.White;
-            this.btnContinuar.Location = new System.Drawing.Point(146, 213);
+            this.btnContinuar.Location = new System.Drawing.Point(146, 229);
             this.btnContinuar.Name = "btnContinuar";
             this.btnContinuar.Size = new System.Drawing.Size(237, 57);
             this.btnContinuar.TabIndex = 25;
@@ -154,53 +154,53 @@
             // 
             this.panel5.BackColor = System.Drawing.Color.White;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.comboBox2);
+            this.panel5.Controls.Add(this.cbAlmacen);
             this.panel5.ForeColor = System.Drawing.Color.Black;
             this.panel5.Location = new System.Drawing.Point(277, 119);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(237, 40);
             this.panel5.TabIndex = 24;
             // 
-            // comboBox2
+            // cbAlmacen
             // 
-            this.comboBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.cbAlmacen.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbAlmacen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbAlmacen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAlmacen.FormattingEnabled = true;
+            this.cbAlmacen.Items.AddRange(new object[] {
             "Almacen1",
             "Almacen2"});
-            this.comboBox2.Location = new System.Drawing.Point(16, 6);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(202, 30);
-            this.comboBox2.TabIndex = 7;
-            this.comboBox2.Text = "Almacen";
+            this.cbAlmacen.Location = new System.Drawing.Point(16, 6);
+            this.cbAlmacen.Name = "cbAlmacen";
+            this.cbAlmacen.Size = new System.Drawing.Size(202, 30);
+            this.cbAlmacen.TabIndex = 7;
+            this.cbAlmacen.Text = "Almacen";
             // 
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.White;
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.comboBox3);
+            this.panel6.Controls.Add(this.cbSucursal);
             this.panel6.ForeColor = System.Drawing.Color.Black;
             this.panel6.Location = new System.Drawing.Point(16, 119);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(237, 40);
             this.panel6.TabIndex = 23;
             // 
-            // comboBox3
+            // cbSucursal
             // 
-            this.comboBox3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.cbSucursal.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbSucursal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbSucursal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSucursal.FormattingEnabled = true;
+            this.cbSucursal.Items.AddRange(new object[] {
             "Sucursal1",
             "Sucursal2"});
-            this.comboBox3.Location = new System.Drawing.Point(16, 6);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(202, 30);
-            this.comboBox3.TabIndex = 7;
-            this.comboBox3.Text = "Sucursal";
+            this.cbSucursal.Location = new System.Drawing.Point(16, 6);
+            this.cbSucursal.Name = "cbSucursal";
+            this.cbSucursal.Size = new System.Drawing.Size(202, 30);
+            this.cbSucursal.TabIndex = 7;
+            this.cbSucursal.Text = "Sucursal";
             // 
             // label3
             // 
@@ -292,7 +292,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(604, 382);
+            this.ClientSize = new System.Drawing.Size(604, 404);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -321,9 +321,9 @@
         private System.Windows.Forms.Label label2;
         private FontAwesome.Sharp.IconButton btnSalir;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbAlmacen;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox cbSucursal;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ComboBox comboBox1;

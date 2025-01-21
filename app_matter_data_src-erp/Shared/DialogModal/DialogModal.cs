@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Data;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using app_matter_data_src_erp.Forms.DialogView.ProductMatch;
+using app_matter_data_src_erp.Forms.Overlay;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using FontAwesome.Sharp;
 
 namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
@@ -11,8 +14,10 @@ namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
     {
         private string modalType;
         private string code;
+        private int fila;
+        private string documento;
         private EditarCompra parentForm;
-        public DialogModal(string title, string subtitle, string type, string optionalCode = null, EditarCompra parent = null)
+        public DialogModal(string title, string subtitle, string type,string codigo,int row, string docu, EditarCompra parent = null)
         {
                   
             InitializeComponent();
@@ -20,7 +25,9 @@ namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
             this.parentForm= parent;
             lblTitle.Text = title;
             lblSubtitle.Text = subtitle;
-            code = optionalCode;
+            code = codigo;
+            documento = docu;
+            fila = row;
             modalType = type.ToLower(); 
 
             switch (modalType)
@@ -57,9 +64,11 @@ namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
             switch (modalType)
             {
                 case "warning":
-                    this.Hide();
-                    EditarCompra warningModal = new EditarCompra(code, (MainComprasSrc)this.ParentForm);
+  
+                    EditarCompra warningModal = new EditarCompra(code, documento,fila,(MainComprasSrc)this.ParentForm);
+                    warningModal.TopMost = true;
                     warningModal.ShowDialog();
+
                     break;
                 case "question":
                     parentForm.Close();

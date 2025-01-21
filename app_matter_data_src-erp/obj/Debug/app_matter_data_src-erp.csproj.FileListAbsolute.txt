@@ -66,3 +66,7 @@ D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\ExpressMapper.d
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\AutoMapper.xml
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\ExpressMapper.pdb
 D:\Proyectos\Compra\ProjectSrc\app_matter_data_src-erp\bin\Debug\ExpressMapper.xml
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\AutoMapper.dll
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\ExpressMapper.dll
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\AutoMapper.xml
+C:\Users\Jhair\Documents\Programming\C#\app_matter_data_src-erp\app_matter_data_src-erp\bin\Debug\ExpressMapper.xml

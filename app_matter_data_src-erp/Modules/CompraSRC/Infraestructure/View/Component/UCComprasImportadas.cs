@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using app_matter_data_src_erp.Forms.DialogView;
 
 namespace app_matter_data_src_erp.Forms
 {
@@ -16,7 +17,7 @@ namespace app_matter_data_src_erp.Forms
         private int currentPage = 1;
         private int rowsPerPage = 15;
         private int totalRows;
-        
+        private readonly ICompraSrcInputPort _compraSrc;
 
         public UCComprasImportadas()
         {
@@ -32,62 +33,71 @@ namespace app_matter_data_src_erp.Forms
 
             cbMes.SelectedItem = SeleccionesGlobalesDto.MesSeleccionado;
             cbAño.SelectedItem = SeleccionesGlobalesDto.AñoSeleccionado;
-
+            _compraSrc = new CompraSrcAdapter();
             if (DatosGlobales.Compras.Count > 0)
             {
                 LoadData();
             }
 
         }
-        private void LoadData()
+        private async void LoadData()
         {
-
-            
-            dataTable.Rows.Clear();
-
-            var data = new object[,]
+            try
             {
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
-                { "DG5T 279913", "Ejemplo", "29/10/2024",250.00, 45.00, 295.00, "Importado", "Editar" },
+                dataTable.Rows.Clear();
+                DatosGlobales.Compras.Clear();
 
-            };
+                var dataList = await _compraSrc.ObtenerDataSrc();
 
-            totalRows = data.GetLength(0);
-
-            for (int i = 0; i < totalRows; i++)
-            {
-                var compra = new CompraRDto
+                if (dataList == null || dataList.Count == 0)
                 {
-                    Codigo = data[i, 0].ToString(),
-                    Nombre = data[i, 1].ToString(),
-                    Fecha = data[i, 2].ToString(),
-                    Precio = Convert.ToDecimal(data[i, 3]),
-                    Descuento = Convert.ToDecimal(data[i, 4]),
-                    Total = Convert.ToDecimal(data[i, 5]),
-                    Estado = data[i, 6].ToString(),
-                    Accion = data[i, 7].ToString()
-                };
+                    pictureNone.Visible = true;
+                    return;
+                }
 
-                DatosGlobales.Compras.Add(compra);        
-            }
-
-            if (totalRows == 0)
-            {
-                pictureNone.Visible = true;
-            }
-            else
-            {
                 pictureNone.Visible = false;
-                
+
+                foreach (var compra in dataList)
+                {
+                    var compraDto = new CompraRDto
+                    {
+                        Codigo = compra.NumCompra,
+                        Nombre = compra.RazonSocial,
+                        Fecha = compra.FechaEmision.ToString("dd/MM/yyyy"),
+                        Precio = compra.TotalGravadas,
+                        Descuento = compra.TotalPercepcion,
+                        Total = compra.TotalPagar,
+                        Estado = compra.Estado,
+                        Accion = "Editar"
+                    };
+                    DatosGlobales.Compras.Add(compraDto);
+                }
+
+                totalRows = DatosGlobales.Compras.Count;
+
                 for (int i = (currentPage - 1) * rowsPerPage; i < Math.Min(currentPage * rowsPerPage, totalRows); i++)
                 {
-                    dataTable.Rows.Add(data[i, 0], data[i, 1], data[i, 2], data[i, 3], data[i, 4],
-                                       data[i, 5], data[i, 6], data[i, 7]);
+                    var compra = DatosGlobales.Compras[i];
+                    dataTable.Rows.Add(
+                        compra.Codigo,
+                        compra.Nombre,
+                        compra.Fecha,
+                        compra.Precio,
+                        compra.Descuento,
+                        compra.Total,
+                        compra.Estado,
+                        compra.Accion
+                    );
                 }
-            }
 
-            UpdatePagination();
+                UpdatePagination();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
         // Botones filtrado de tabla
         private void UpdatePagination()
         {
@@ -122,14 +132,17 @@ namespace app_matter_data_src_erp.Forms
             if (e.RowIndex >= 0 && e.RowIndex < dataTable.Rows.Count && e.ColumnIndex >= 0 && e.ColumnIndex < dataTable.Columns.Count)
             {
                 var columnName = dataTable.Columns[e.ColumnIndex].Name;
-                var codigoCompra = dataTable.Rows[e.RowIndex].Cells["Column1"].Value?.ToString();
 
                 OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
 
 
                 if (columnName == "Column8")
                 {
-                    var modal = new DialogModal("¡Importante!", "Al editar esta compra, se eliminará la importación registrada en el ERP y se creara un nuevo registro de importación.", "warning", codigoCompra);
+                    int rowIndex = e.RowIndex;
+                    string code = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+
+                    var modal = new DialogModal("¡Importante!", "Al editar esta compra, se eliminará la importación registrada en el ERP y se creara un nuevo registro de importación.", "warning", code, rowIndex, DataStaticDto.data[rowIndex].DocumentoProveedor);
                     overlayForm.ShowOverlayWithModal(modal);
                 }
             }
