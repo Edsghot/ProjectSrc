@@ -129,6 +129,12 @@ namespace app_matter_data_src_erp.Forms
                         e.CellStyle.ForeColor = Color.Black;
                         e.CellStyle.SelectionForeColor = Color.Black;
                     }
+                    if (columnName == "Column3" && DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].NewSucursal != null)
+                    {
+                        e.Value = DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].NewSucursal;
+                        e.CellStyle.ForeColor = Color.Black;
+                        e.CellStyle.SelectionForeColor = Color.Black;
+                    }
                 }
                 else
                 {
@@ -314,9 +320,30 @@ namespace app_matter_data_src_erp.Forms
 
         private void btnImportar_Click(object sender, EventArgs e)
         {
-            OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
-            Importar modal = new Importar((MainComprasSrc)this.ParentForm);
-            overlayForm.ShowOverlayWithModal(modal);
+            if (DataStaticDto.data != null && DataStaticDto.data.Count >= 2)
+            {
+                var primerDato = DataStaticDto.data[0];
+                var segundoDato = DataStaticDto.data[1];
+
+                var mensaje = $"Primer dato:\n" +
+                              $"ID: {primerDato.NewSucursal}\n" +
+                              $"Nombre: {primerDato.FechaLlegada}\n\n" +
+                              $"ID Almacen: {primerDato.IdAlmacen}\n\n" +
+                              $"Segundo dato:\n" +
+                              $"ID: {segundoDato.NewSucursal}\n" +
+                              $"Nombre: {segundoDato.FechaLlegada}\n\n" +
+                              $"ID Almacen: {segundoDato.IdAlmacen}\n\n";
+
+                    MessageBox.Show(mensaje, "Datos Importados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                {
+                    MessageBox.Show("No hay suficientes datos para mostrar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            
+            //OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
+            //Importar modal = new Importar((MainComprasSrc)this.ParentForm);
+            //overlayForm.ShowOverlayWithModal(modal);
         }
 
         private async void btnEscanear_Click(object sender, EventArgs e)

@@ -101,6 +101,8 @@ namespace app_matter_data_src_erp.Forms.DialogView
                 {
                     await _repo.ActualizarPuntoVentaYAlmacen(idPunto, almacen);
                         DataStaticDto.data[_index].Sucursal = txtDireccion.Text;
+                        DataStaticDto.data[_index].NewSucursal = txtDireccion.Text;
+                        DataStaticDto.data[_index].IdAlmacen = almacen;
                         mainForm.ShowToast("Datos de la sucursal añadidos con éxito.", "success");
                         this.Close();
                    

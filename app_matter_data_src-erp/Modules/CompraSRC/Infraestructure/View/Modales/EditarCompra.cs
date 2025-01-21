@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -58,10 +59,24 @@ namespace app_matter_data_src_erp.Forms
             this.Close();
         }
 
-        private void btnContinuar_Click(object sender, EventArgs e)
+        private async void btnContinuar_Click(object sender, EventArgs e)
         {
-           // var modal = new DialogModal("¿Estás seguro?", "Para realizar una nueva modificación tendrás que hacerla directamente desde el ERP de forma manual.", "question", "", this);
-           // modal.ShowDialog();
+            if (cbAlmacen.SelectedItem is SucursalDto almacenSeleccionado)
+            {
+                var idPunto = Convert.ToInt32(almacenSeleccionado.IdPuntoVenta);
+                var almacen = Convert.ToInt32(almacenSeleccionado.IdAlmacen);
+                try
+                {
+                    await _repo.ActualizarPuntoVentaYAlmacen(idPunto, almacen);
+                    mainForm.ShowToast("Datos de la sucursal añadidos con éxito.", "success");
+                    this.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    mainForm.ShowToast($"Error al actualizar los datos: {ex.Message}", "error");
+                }
+            }
         }
 
         private async void Sucursal_Load(object sender, EventArgs e)

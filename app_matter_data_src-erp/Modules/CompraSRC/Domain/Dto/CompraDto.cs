@@ -38,7 +38,9 @@ public class CompraDto
     public string MarcaTransportista { get; set; }
     public string Errores { get; set; }
     //data src
+    public int IdAlmacen { get; set; }
     public string FechaLlegada { get; set; }
+    public string NewSucursal { get; set; }
     public string Estado { get; set; }
 }
 
