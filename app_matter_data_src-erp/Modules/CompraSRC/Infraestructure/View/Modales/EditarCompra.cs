@@ -26,6 +26,7 @@ namespace app_matter_data_src_erp.Forms
         private readonly MainComprasSrc mainForm;
         private int fila;
         private string code;
+        private string docu;
         private readonly ICompraSrcInputPort _compraSrc;
         private readonly ICompraSrcRepository _repo;
         private List<SucursalDto> sucursales;
@@ -37,6 +38,7 @@ namespace app_matter_data_src_erp.Forms
             lblCode.Text = codigo;
             fila = row;
             code = codigo;
+            docu = documento;
             _compraSrc = new CompraSrcAdapter();
             this.mainForm = mainForm;
             _repo = new CompraSrcRepository();
@@ -47,9 +49,22 @@ namespace app_matter_data_src_erp.Forms
 
             int rowIndex = this.fila;
             string codigoCompra = this.code;
+            string documen = this.docu;
+
+          
             CompraDto compra = await _compraSrc.ObtenerCompraPorCodigo(codigoCompra);
 
-            CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.NumCompra, compra.Compras, DataStaticDto.data[rowIndex].DocumentoProveedor);
+            string mensaje = $"Índice de fila: {rowIndex}\n" +
+                             $"Código de Compra: {codigoCompra}\n" +
+                             $"Documento: {documen}\n" +
+                             $"Compra Detalle:\n" +
+                             $"- Id: {compra.NumCompra}\n" +
+                             $"- Fecha: {compra.Compras}\n";
+
+  
+            MessageBox.Show(mensaje, "Detalles de la Compra", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.NumCompra, compra.Compras, documen);
             modal.TopMost = true;
             modal.ShowDialog();
         }
@@ -61,6 +76,7 @@ namespace app_matter_data_src_erp.Forms
 
         private async void btnContinuar_Click(object sender, EventArgs e)
         {
+
             if (cbAlmacen.SelectedItem is SucursalDto almacenSeleccionado)
             {
                 var idPunto = Convert.ToInt32(almacenSeleccionado.IdPuntoVenta);

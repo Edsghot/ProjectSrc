@@ -11,6 +11,8 @@ using RestSharp;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using Newtonsoft.Json.Linq;
 using System.Globalization;
+using app_matter_data_src_erp.Configuration.Constants;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Proveedor;
 
 namespace app_matter_data_src_erp.Global.ApiClient
 {
@@ -22,7 +24,7 @@ namespace app_matter_data_src_erp.Global.ApiClient
             try
             {
                 var client = new RestClient("https://fn-ose-beta.azurewebsites.net");
-                var request = new RestRequest("/api/erp/comprobante?ruc=20412830335", Method.GET);
+                var request = new RestRequest("/api/erp/comprobante?ruc="+Credentials.Ruc, Method.GET);
 
                 var response = client.Execute(request);
 
@@ -62,7 +64,7 @@ namespace app_matter_data_src_erp.Global.ApiClient
                                     TotalPercepcion = resultado["TotalPercepcion"]?.ToObject<decimal>() ?? 0,
                                     TotalIGV = resultado["TotalIGV"]?.ToObject<decimal>() ?? 0,
                                     TotalPagar = resultado["TotalPagar"]?.ToObject<decimal>() ?? 0,
-                                    TipoDocReferencia = resultado["TipoDocReferencia"]?.ToString(),
+                                    GuiaRemisionAsociada = resultado["GuiaRemisionAsociada"]?.ToString(),
                                     CorrelativoReferencia = resultado["CorrelativoReferencia"]?.ToString(),
                                     FechaEmisionReferencia = DateTime.TryParseExact(resultado["FechaEmisionReferencia"]?.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime FechaEmisionReferencia) ? FechaEmisionReferencia : DateTime.MinValue,
                                     PlacaTransportista = resultado["PlacaTransportista"]?.ToString(),
@@ -156,43 +158,31 @@ namespace app_matter_data_src_erp.Global.ApiClient
             }
         }
 
-        public async Task<ResponseApiGenericDto> GetValidSunat(string ruc)
+        public async Task<ProveedorDto> GetValidSunat(string ruc)
         {
             try
             {
-
                 var client = new RestClient("https://api.apis.net.pe");
-                var request = new RestRequest("/v2/sunat/ruc/full?numero="+ruc, Method.GET);
+                var request = new RestRequest($"/v2/sunat/ruc/full?numero={ruc}", Method.GET);
 
-                var response = client.Execute(request);
+                // Añadir el token de autenticación
+                request.AddHeader("Authorization", "Bearer apis-token-12636.0Asvi6Ccr2gs17peOWeh1WApXmvRB8z5");
+
+                var response = await client.ExecuteAsync(request);
 
                 if (response.IsSuccessful)
                 {
-                    var apiResponse = JsonConvert.DeserializeObject<ResponseApiGenericDto>(response.Content);
-                    return new ResponseApiGenericDto
-                    {
-                        MensajeError = "Success",
-                        TieneError = true,
-                        Resultado = apiResponse.Resultado
-                    };
+                    return JsonConvert.DeserializeObject<ProveedorDto>(response.Content);
+                    
                 }
                 else
                 {
-                    Console.WriteLine($"Error: {response.StatusCode}");
+                    return new ProveedorDto();
                 }
-                return new ResponseApiGenericDto
-                {
-                    MensajeError = $"Exception",
-                    TieneError = true,
-                };
             }
             catch (Exception ex)
             {
-                return new ResponseApiGenericDto
-                {
-                    MensajeError = $"Exception: {ex.Message}",
-                    TieneError = false,
-                };
+                return new ProveedorDto();
             }
         }
 

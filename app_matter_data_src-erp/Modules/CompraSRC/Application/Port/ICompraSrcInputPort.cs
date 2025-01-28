@@ -1,4 +1,5 @@
 ﻿using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,5 +9,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Port
     {
         Task<List<CompraDto>> ObtenerDataSrc();
         Task<CompraDto> ObtenerCompraPorCodigo(string codigoCompra);
+        Task<MenuDto> GetMenu();
     }
 }

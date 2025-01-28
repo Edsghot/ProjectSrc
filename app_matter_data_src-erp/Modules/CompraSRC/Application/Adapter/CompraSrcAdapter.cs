@@ -8,16 +8,22 @@ using System.Linq;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
 using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
 using System.Security.Cryptography.X509Certificates;
+using System.Runtime.InteropServices;
+using System.Data;
+using app_matter_data_src_erp.Configuration.Constants;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 
 namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 {
     public class CompraSrcAdapter : ICompraSrcInputPort
     {
         private readonly IApiClient apiClient;
+        private readonly ICompraSrcRepository compraSrcRepository;
   
         public CompraSrcAdapter()
         {
             this.apiClient = new ApiClient();
+            compraSrcRepository = new CompraSrcRepository();
         }
 
         public async Task<List<CompraDto>> ObtenerDataSrc()
@@ -29,11 +35,14 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 return new List<CompraDto>();
             }
 
+
             DataStaticDto.data = response.Resultado;
             var compraDtos = DataStaticDto.data;
 
             foreach (var compra in compraDtos)
             {
+
+              //  await Escanear(compra.NumCompra);
                 var errors = Validations(compra);
 
                 if (errors.Any())
@@ -47,6 +56,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                     compra.Estado = "No listo";
                 }
             }
+
 
             return DataStaticDto.data;
         }
@@ -66,29 +76,81 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             return compra;
         }
 
-        public void Escanear(CompraDto data)
+        public async Task Escanear(string NumCompra)
         {
-         
-            for(var i = 0; i < DataStaticDto.data.Count; i++)
+            var data = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == NumCompra);
+
+            data.Moneda = (data.Moneda != "PEN") ? "E" : "N";
+            var result = await compraSrcRepository.GetCliProByRUCOrRazonComercial(data.DocumentoProveedor, data.RazonSocial);
+
+            if (result != null && result.Count > 0)
             {
-                if (data.Moneda != "PEN")
-                {
-                    DataStaticDto.data[i].Moneda = "E";
-                }
-
-                DataStaticDto.data[i].Moneda = "N";
-
-                if (data.Moneda != "PEN")
-                {
-                    DataStaticDto.data[i].Moneda = "E";
-                }
-
-                DataStaticDto.data[i].Moneda = "N";
+                data.idCliPro = result[0].IdCliPro;
             }
-         
-          
+            else
+            {
+                var dataSunat = await apiClient.GetValidSunat(data.DocumentoProveedor);
+                await compraSrcRepository.InsertarCliPro(dataSunat);
+                var result1 = await compraSrcRepository.GetCliProByRUCOrRazonComercial(data.DocumentoProveedor, data.RazonSocial);
+                data.idCliPro = result1[0].IdCliPro;
+            }
+            data.idClaseDoc = (await compraSrcRepository.GetClaseDocByTipoSunat(data.NomTipoDocumento))[0].IdClaseDoc;
+            data.FechaDig = DateTime.Now;
+            data.FechaOperativa = DateTime.Now;
+            data.TipoCambio = 3.5M;
+            data.NGuiaRemision = data.GuiaRemisionAsociada;
+            // data.idTransportista = 1;
+            //data.idPlaca = 1;
+            //data.idChofer = 1;
+           // data.FechaLlegada = data.FechaEmision.ToString();
+           // data.NewSucursal = (await compraSrcRepository.getAllSucursal()).FirstOrDefault(x => x.SucursalSRC == "True").NomPuntoVenta;
+           // data.IdPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].IdPlantilla;
+           // data.NomPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].NomPlantilla;
+            data.SubTotal = data.TotalPagar;
+            data.Importacion = true;
+            data.Automatica = true;
+            data.IdTurno = Credentials.IdTurno;
+            data.RelGuiaCompra = false;
+            data.PrecioIncluyeIGV = data.TotalIGV > 0 ? true: false;
+            //data.tipoFechaRegCompas
+            //data.fechaEspecialRC
+            data.servicioIntangible = false;
+            data.idTipoOperacion = (await compraSrcRepository.sp_GetTipoOperacion("02"))[0].IdTipoOperacion;
+            data.idDepartamento = Credentials.IdDepartamento;
+            //data.nOrdenCompra 
+            data.detraccion = 0;
+            data.tieneConsignaciones = false;
+            data.fleteTotal = 0;
+            data.distribuir = false;
+            // data.idProcesoAsociado = 0;
+            // data.nProcesoAsociado = 
+            data.guiaRecibida = -1;
+            //data.nPercepcion = 
+            //data.Fecha{Percepcion
+            data.pRetencion = 0;
+            data.nCompraPlus = data.SerieCompra + data.NumCompra;
+            //data.nOrdenCompraProveedor = 
+            data.fiseTotal = 0;
+            data.idClasificacionBienesServicios = 1;
+            data.idTipoFacturacionGuiaRemision = 2;
 
         }
+
+        public async Task<MenuDto> GetMenu()
+        {
+
+            var data = await apiClient.GetValidSunat(Credentials.Ruc);
+            var sucursal = (await compraSrcRepository.getAllSucursal()).ToList().FirstOrDefault(x => x.SucursalSRC == "True");
+
+            return new MenuDto
+            {
+                Ruc = data.NumeroDocumento,
+                NomRuc = data.RazonSocial,
+                NomSucursal = sucursal.NomPuntoVenta
+            };
+        }
+
+
         public List<validationErrorDto> Validations(CompraDto data)
         {
             var errors = new List<validationErrorDto>();
@@ -117,15 +179,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 }
             }
 
-            // Validar NomTipoDocumento
-            if (!string.IsNullOrEmpty(data?.NomTipoDocumento) && !(data.NomTipoDocumento.Length > 5 && data.NomTipoDocumento.Length < 20))
-            {
-                errors.Add(new validationErrorDto
-                {
-                    Field = "NomTipoDocumento",
-                    Message = "Debe tener entre 5 y 20 caracteres"
-                });
-            }
 
             // Validar AbrevTipoDocumento
             if (!string.IsNullOrEmpty(data?.AbrevTipoDocumento) && !(data.AbrevTipoDocumento.Length >= 2 && data.AbrevTipoDocumento.Length < 10))
@@ -167,15 +220,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 });
             }
 
-            // Validar Moneda
-            if (!string.IsNullOrEmpty(data?.Moneda) && (data.Moneda != "PEN" && data.Moneda != "USD"))
-            {
-                errors.Add(new validationErrorDto
-                {
-                    Field = "Moneda",
-                    Message = "Debe ser 'N' o 'E'"
-                });
-            }
 
             // Validar Scop
             if (!string.IsNullOrEmpty(data?.Scop) && data.Scop.Length != 10)

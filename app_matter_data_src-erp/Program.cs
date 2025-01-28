@@ -65,24 +65,34 @@ namespace app_matter_data_src_erp
             
         }
 
-       
-
         private static void GetCredentialsDesarrollo(string[] argss)
         {
+            string argsConcatenados = string.Join(", ", argss);
+
+            // Mostrar la cadena concatenada en un MessageBox
+            MessageBox.Show($"Argumentos recibidos: {argsConcatenados}");
             var args = argss[0].Split(',');
 
-            if (args.Length != 6)
+            if (args.Length != 10)
             {
                 MessageBox.Show("Error: Se esperaban al menos 6 datos en la cadena de entrada.");
                 Logs.WriteLog("ERROR", "Se esperaban al menos 6 datos en la cadena de entrada.");
                 return;
             }
-
             var servidor = args[0];
             var user = args[1];
             var password = args[2];
             var db = args[3];
-            Credentials.IdFormulario = int.Parse(args[4]);
+            //var servidor = HFunciones.Codificar(args[0]);
+            //var user = HFunciones.Codificar(args[1]);
+            //var password = HFunciones.Codificar(args[2]);
+            //var db = HFunciones.Codificar(args[3]);
+            Credentials.Ruc = args[4].ToString();
+            Credentials.IdPuntoVenta = int.Parse(args[5]);
+            Credentials.IdDepartamento = int.Parse(args[6]);
+            Credentials.IdTurno = int.Parse(args[7]);
+            Credentials.IdComputadora = int.Parse(args[8]);
+            Credentials.IdFormulario = int.Parse(args[9]);
             Credentials.DataBaseConection = "Data Source=" + servidor + ";Initial Catalog=" + db + ";User ID=" + user + ";Password=" + password + ";Max Pool Size=200000;TrustServerCertificate=true";
 
             // Logging the values
@@ -90,6 +100,11 @@ namespace app_matter_data_src_erp
             Logs.WriteLog("INFO", $"User: {user}");
             Logs.WriteLog("INFO", $"Password: {password}");
             Logs.WriteLog("INFO", $"Database: {db}");
+            Logs.WriteLog("INFO", $"RUC: {Credentials.Ruc}");
+            Logs.WriteLog("INFO", $"IdPuntoVenta: {Credentials.IdPuntoVenta}");
+            Logs.WriteLog("INFO", $"IdTurno: {Credentials.IdDepartamento}");
+            Logs.WriteLog("INFO", $"IdComputadora: {Credentials.IdTurno}");
+            Logs.WriteLog("INFO", $"IdComputadora: {Credentials.IdComputadora}");
             Logs.WriteLog("INFO", $"IdFormulario: {Credentials.IdFormulario}");
             Logs.WriteLog("INFO", $"DataBaseConection: {Credentials.DataBaseConection}");
         }
@@ -100,10 +115,9 @@ namespace app_matter_data_src_erp
             {
                 var args = argss[0].Split(',');
 
-                if (args.Length != 6)
+                if (args.Length != 10)
                 {
                     MessageBox.Show("Error: Se esperaban al menos 6 datos en la cadena de entrada.");
-                    Logs.WriteLog("ERROR", "Se esperaban al menos 6 datos en la cadena de entrada.");
                     return;
                 }
 
@@ -111,7 +125,13 @@ namespace app_matter_data_src_erp
                 var user = HFunciones.Codificar(args[1]);
                 var password = HFunciones.Codificar(args[2]);
                 var db = HFunciones.Codificar(args[3]);
-                Credentials.IdFormulario = int.Parse(args[4]);
+                Credentials.Ruc =args[4].ToString();
+                Credentials.IdPuntoVenta = int.Parse(args[5]);
+                Credentials.IdDepartamento = int.Parse(args[6]);
+                Credentials.IdTurno = int.Parse(args[7]);
+                Credentials.IdComputadora = int.Parse(args[8]);
+                Credentials.IdFormulario = int.Parse(args[9]);
+
                 Credentials.DataBaseConection = "Data Source=" + servidor + ";Initial Catalog=" + db + ";User ID=" + user + ";Password=" + password + ";Max Pool Size=200000;TrustServerCertificate=true";
 
                 Logs.WriteLog("INFO", "GetCredentialsProduccion executed successfully.");

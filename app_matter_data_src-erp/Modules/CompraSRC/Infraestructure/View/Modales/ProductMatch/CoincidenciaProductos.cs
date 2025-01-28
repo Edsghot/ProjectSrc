@@ -185,10 +185,22 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
         private async void btnContinuar_Click(object sender, EventArgs e)
         {
+   
+           
+           
             try
             {
                 foreach(DataGridViewRow row in dataTable.Rows)
                 {
+                    string idProductoErp2 = row.Cells[0].Value.ToString();
+                    string nombreProdErp2 = row.Cells[1].Value.ToString();
+                    string nombreProdSrc2 = row.Cells[2].Value.ToString();
+
+                    string mensaje = $"Producto ERP ID: {idProductoErp2}\n" +
+                                     $"Nombre Producto ERP: {nombreProdErp2}\n" +
+                                     $"Nombre Producto SRC: {nombreProdSrc2}";
+
+                   // MessageBox.Show(mensaje, "Detalles del Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (row.Cells[0].Value != null && row.Cells[1].Value != null && row.Cells[2].Value != null)
                     {
                         var idProductoErp = row.Cells[0].Value.ToString();
@@ -202,9 +214,10 @@ namespace app_matter_data_src_erp.Forms.DialogView
                             NombreProdSrc = nombreProdSrc,
                             RucEmpresa = rucRecuperado
                         };
-                        var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();                    
-                        mainForm.ShowToast("Se realizaron los cambios con éxito.", "success");
-                        this.Close();
+                        var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();
+                        MessageBox.Show($"se registro con exito!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
                     }
                 }
             }

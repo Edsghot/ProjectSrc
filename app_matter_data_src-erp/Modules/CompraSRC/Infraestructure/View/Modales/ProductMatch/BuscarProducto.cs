@@ -86,7 +86,7 @@ namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
                     {
                         foreach (var product in response)
                         {
-                            lstResults.Items.Add($"{product.ProductName} - {product.ProductId}");
+                            lstResults.Items.Add($"{product.ProductName} ! {product.ProductId}");
                         }
                     }
                     else
@@ -102,7 +102,7 @@ namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
                     {
                         foreach (var product in response)
                         {
-                            lstResults.Items.Add($"{product.ProductName} -  {product.ProductId}");
+                            lstResults.Items.Add($"{product.ProductName} !  {product.ProductId}");
                         }
                     }
                     else
@@ -123,7 +123,7 @@ namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
             {
                 var selectedProduct = lstResults.SelectedItem.ToString();
                 _productName = selectedProduct;
-                _productId = selectedProduct.Split('-')[1].Trim();
+                _productId = selectedProduct.Split('!')[1].Trim();
 
                 MessageBox.Show($"Producto seleccionado: {_productName}", "Selección", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();

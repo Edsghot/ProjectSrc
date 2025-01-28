@@ -123,17 +123,28 @@ namespace app_matter_data_src_erp.Forms
                     e.Value = "Pendiente";
                     e.CellStyle.ForeColor = Color.Chocolate;
                     e.CellStyle.SelectionForeColor = Color.Chocolate;
-                    if(columnName == "Column9" && DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].FechaLlegada != null)
+                    if (e.RowIndex >= 0 && e.RowIndex < DataStaticDto.data.Count)
                     {
-                        e.Value = DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].FechaLlegada;
-                        e.CellStyle.ForeColor = Color.Black;
-                        e.CellStyle.SelectionForeColor = Color.Black;
-                    }
-                    if (columnName == "Column3" && DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].NewSucursal != null)
-                    {
-                        e.Value = DataStaticDto.data[dataTable.Rows[e.RowIndex].Index].NewSucursal;
-                        e.CellStyle.ForeColor = Color.Black;
-                        e.CellStyle.SelectionForeColor = Color.Black;
+                        var dataItem = DataStaticDto.data[e.RowIndex];
+                        // Your existing logic here
+                        if (dataTable.Columns[e.ColumnIndex].Name == "Column9" && dataItem.FechaLlegada != null)
+                        {
+                            e.Value = dataItem.FechaLlegada;
+                            e.CellStyle.ForeColor = Color.Black;
+                            e.CellStyle.SelectionForeColor = Color.Black;
+                        }
+                        if (dataTable.Columns[e.ColumnIndex].Name == "Column3" && dataItem.NewSucursal != null)
+                        {
+                            e.Value = dataItem.NewSucursal;
+                            e.CellStyle.ForeColor = Color.Black;
+                            e.CellStyle.SelectionForeColor = Color.Black;
+                        }
+                        if (dataTable.Columns[e.ColumnIndex].Name == "Column4" && dataItem.IdPlantilla != null)
+                        {
+                            e.Value = dataItem.NomPlantilla;
+                            e.CellStyle.ForeColor = Color.Black;
+                            e.CellStyle.SelectionForeColor = Color.Black;
+                        }
                     }
                 }
                 else
@@ -222,7 +233,18 @@ namespace app_matter_data_src_erp.Forms
                                 detalle.Total,
                             }).ToList();
 
-                           
+                            bool validacion = detallesCompra.All(detalle => detalle.Api == "" || detalle.Temp == "");
+
+                            if (validacion)
+                            {
+                                ModalDetalleCompra modal = new ModalDetalleCompra(codigoCompra, tablaDatos);
+                                overlayForm.ShowOverlayWithModal(modal);
+                            }
+                            else
+                            {
+                                ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, tablaDatosCombustible);
+                                overlayForm.ShowOverlayWithModal(modal);
+                            }
                         }
                         else
                         {
@@ -246,7 +268,7 @@ namespace app_matter_data_src_erp.Forms
 
                 if (columnName == "Column4")
                 {
-                    AsientoTipo modal = new AsientoTipo((MainComprasSrc)this.ParentForm);
+                    AsientoTipo modal = new AsientoTipo((MainComprasSrc)this.ParentForm, dataTable.Rows[e.RowIndex].Index);
                     overlayForm.ShowOverlayWithModal(modal);
                 }
 

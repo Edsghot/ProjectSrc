@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace app_matter_data_src_erp.Forms.DialogView
 {
@@ -18,12 +19,14 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
         private List<SucursalDto> sucursales;
 
-        public Sucursal(MainComprasSrc mainForm, string direccion, int index)
+        public Sucursal(MainComprasSrc mainForm,string direccion, int index)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.mainForm = mainForm;
+
             txtDireccion.Text = string.IsNullOrEmpty(direccion) ? "Pendiente" : direccion;
+
             _index = index;
             _repo = new CompraSrcRepository();
         }

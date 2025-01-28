@@ -11,8 +11,13 @@ namespace app_matter_data_src_erp.Configuration.Constants
         public static string DataBaseConection { get; set; } = string.Empty;
         public static int IdFormulario { get; set; }
         public static int IdComputadora { get; set; }
-        public static string IdClient { get; set; }
-        public static string IdUsuario { get; set; }
-        
+        public static int IdPuntoVenta { get; set; }
+        public static int IdDepartamento { get; set; }
+        public static int IdTurno { get; set; }
+        public static string Ruc { get; set; }
+
+
+
+
     }
 }

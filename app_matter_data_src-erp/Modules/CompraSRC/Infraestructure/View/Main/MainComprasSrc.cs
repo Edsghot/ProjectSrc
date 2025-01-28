@@ -1,5 +1,7 @@
 ﻿using app_matter_data_src_erp.Forms;
 using app_matter_data_src_erp.Forms.Overlay;
+using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
+using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using FontAwesome.Sharp; 
 using System;
 using System.Drawing;
@@ -9,7 +11,8 @@ namespace app_matter_data_src_erp
 {
     public partial class MainComprasSrc : Form
     {
-        private IconButton activeButton; 
+        private IconButton activeButton;
+        private readonly ICompraSrcInputPort compra;
         private UserControl activeControl;
 
         private OverlayForm overlay;
@@ -18,6 +21,7 @@ namespace app_matter_data_src_erp
             InitializeComponent();         
             this.StartPosition = FormStartPosition.CenterScreen;
             LoadUserControl(new UCImportacionesCompra(), btnOption1);
+            compra = new CompraSrcAdapter();
         }
         // ------------------------------------------------------------- TOAST
         public void ShowToast(string message, string type)
@@ -88,6 +92,32 @@ namespace app_matter_data_src_erp
         private void btnOption2_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UCComprasImportadas(), (IconButton)sender);
+        }
+
+        private async void MainComprasSrc_Load(object sender, EventArgs e)
+        {
+
+            var data = await compra.GetMenu();
+
+            lblRuc.Text = lblRuc.Text + data.Ruc;
+            lblEmpresa.Text = lblEmpresa.Text + data.NomRuc;
+            lblSucursal.Text = lblSucursal.Text + data.NomSucursal;
+
+        }
+
+        private void RUC(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
