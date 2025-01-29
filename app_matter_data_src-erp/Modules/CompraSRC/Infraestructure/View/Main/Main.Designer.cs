@@ -56,7 +56,7 @@
             this.lblSucursal.AutoSize = true;
             this.lblSucursal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSucursal.ForeColor = System.Drawing.Color.White;
-            this.lblSucursal.Location = new System.Drawing.Point(1265, 63);
+            this.lblSucursal.Location = new System.Drawing.Point(1265, 77);
             this.lblSucursal.Name = "lblSucursal";
             this.lblSucursal.Size = new System.Drawing.Size(20, 18);
             this.lblSucursal.TabIndex = 8;
@@ -65,12 +65,11 @@
             // lblEmpresa
             // 
             this.lblEmpresa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEmpresa.AutoSize = true;
             this.lblEmpresa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmpresa.ForeColor = System.Drawing.Color.White;
             this.lblEmpresa.Location = new System.Drawing.Point(1265, 9);
             this.lblEmpresa.Name = "lblEmpresa";
-            this.lblEmpresa.Size = new System.Drawing.Size(20, 18);
+            this.lblEmpresa.Size = new System.Drawing.Size(228, 48);
             this.lblEmpresa.TabIndex = 6;
             this.lblEmpresa.Text = "...";
             this.lblEmpresa.Click += new System.EventHandler(this.label3_Click);
@@ -102,7 +101,7 @@
             this.lblRuc.AutoSize = true;
             this.lblRuc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRuc.ForeColor = System.Drawing.Color.White;
-            this.lblRuc.Location = new System.Drawing.Point(1265, 43);
+            this.lblRuc.Location = new System.Drawing.Point(1265, 57);
             this.lblRuc.Name = "lblRuc";
             this.lblRuc.Size = new System.Drawing.Size(20, 18);
             this.lblRuc.TabIndex = 9;
@@ -242,7 +241,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(1198, 43);
+            this.label3.Location = new System.Drawing.Point(1198, 57);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 18);
             this.label3.TabIndex = 10;
@@ -266,7 +265,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(1168, 63);
+            this.label5.Location = new System.Drawing.Point(1168, 77);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(79, 18);
             this.label5.TabIndex = 12;

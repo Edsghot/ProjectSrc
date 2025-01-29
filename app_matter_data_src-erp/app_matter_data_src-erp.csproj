@@ -191,6 +191,9 @@
     <Compile Include="Shared\DialogModal\ErrorImportacion.Designer.cs">
       <DependentUpon>ErrorImportacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Shared\Overlay\LoadingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Shared\Overlay\OverlayForm.cs">
       <SubType>Form</SubType>
     </Compile>

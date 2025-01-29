@@ -36,49 +36,63 @@ namespace app_matter_data_src_erp.Forms
             };
 
             _compraSrc = new CompraSrcAdapter();
-            LoadData();
+      
         }
 
         private async void LoadData()
         {
-            this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.dataTable.RowTemplate.Height = 40;
-            this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            dataTable.Rows.Clear();
-
-            var data = await _compraSrc.ObtenerDataSrc();
-
-            if (data == null || data.Count == 0)
+            using (LoadingForm loadingForm = new LoadingForm())
             {
-                MessageBox.Show("No se encontraron datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                loadingForm.Show();
+                loadingForm.Refresh(); // Para asegurar que se renderice antes de la carga
+
+                try
+                {
+                    this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    this.dataTable.RowTemplate.Height = 40;
+                    this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                    dataTable.Rows.Clear();
+
+                    var data = await _compraSrc.ObtenerDataSrc();
+
+                    if (data == null || data.Count == 0)
+                    {
+                        MessageBox.Show("No se encontraron datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    totalRows = data.Count;
+
+                    for (int i = (currentPage - 1) * rowsPerPage; i < Math.Min(currentPage * rowsPerPage, totalRows); i++)
+                    {
+                        var compra = data[i];
+
+                        dataTable.Rows.Add(
+                            compra.NumCompra,
+                            compra.FechaEmision.ToString("dd/MM/yyyy"),
+                            compra.Sucursal,
+                            compra.RazonSocial,
+                            compra.Observacion,
+                            compra.TotalPagar - compra.TotalIGV,
+                            compra.TotalIGV,
+                            compra.TotalPagar,
+                            compra.FechaVencimiento.ToString("dd/MM/yyyy"),
+                            compra.RazonSocial,
+                            compra.Errores
+                        );
+                    }
+
+                    UpdatePagination();
+                }
+                finally
+                {
+                    loadingForm.Close(); // Cierra el modal al terminar
+                }
             }
-
-            totalRows = data.Count;
-
-            for (int i = (currentPage - 1) * rowsPerPage; i < Math.Min(currentPage * rowsPerPage, totalRows); i++)
-            {
-                var compra = data[i];
-
-                dataTable.Rows.Add(
-                    compra.NumCompra,
-                    compra.FechaEmision.ToString("dd/MM/yyyy"),
-                    compra.Sucursal,
-                    compra.RazonSocial,
-                    compra.Observacion,
-                    compra.TotalPagar - compra.TotalIGV,
-                    compra.TotalIGV,
-                    compra.TotalPagar,
-                    compra.FechaVencimiento.ToString("dd/MM/yyyy"),
-                    compra.RazonSocial,
-                    compra.Errores
-                );
-            }
-
-            UpdatePagination();
         }
+
 
         // Botones filtrado de tabla
         private void UpdatePagination()
@@ -124,22 +138,29 @@ namespace app_matter_data_src_erp.Forms
                 {
                     var dataItem = DataStaticDto.data[e.RowIndex];
 
+                    if (columnName == "Column10" && dataItem.Coicidencia != null)
+                    {
+                        e.Value = dataItem.Coicidencia;
+                        e.CellStyle.ForeColor = Color.Green;
+                        e.CellStyle.SelectionForeColor = Color.Black;
+
+                    }
                     if (columnName == "Column9" && dataItem.FechaLlegada != null)
                     {
                         e.Value = dataItem.FechaLlegada;
-                        e.CellStyle.ForeColor = Color.Black;
+                        e.CellStyle.ForeColor = Color.Green;
                         e.CellStyle.SelectionForeColor = Color.Black;
                     }
                     else if (columnName == "Column3" && dataItem.NewSucursal != null)
                     {
                         e.Value = dataItem.NewSucursal;
-                        e.CellStyle.ForeColor = Color.Black;
+                        e.CellStyle.ForeColor = Color.Green;
                         e.CellStyle.SelectionForeColor = Color.Black;
                     }
                     else if (columnName == "Column4" && dataItem.IdPlantilla != null)
                     {
                         e.Value = dataItem.NomPlantilla;
-                        e.CellStyle.ForeColor = Color.Black;
+                        e.CellStyle.ForeColor = Color.Green;
                         e.CellStyle.SelectionForeColor = Color.Black;
                     }
                 }
@@ -152,24 +173,43 @@ namespace app_matter_data_src_erp.Forms
             else if (columnName == "Column11")
             {
                 var cell = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                if (cell.Value != null)
+                var dataItem = DataStaticDto.data[e.RowIndex];
+                bool allColumnsHaveData =
+                dataItem.NomPlantilla != null &&
+                dataItem.NewSucursal != null &&
+                dataItem.FechaLlegada != null &&
+                dataItem.Coicidencia != null;
+
+                if (allColumnsHaveData)
                 {
-                    string cellValue = cell.Value.ToString();
-                    if (cellValue.StartsWith("Error"))
+                    e.Value = "Listo";
+                    e.CellStyle.ForeColor = Color.Green;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    e.CellStyle.SelectionForeColor = Color.Green;
+                }
+                else
+                {
+                    if (cell.Value != null)
                     {
-                        e.Value = "Error";
-                        e.CellStyle.ForeColor = Color.Red;
-                        e.CellStyle.SelectionForeColor = Color.Red;
-                        e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
-                    }
-                    else if (cellValue.StartsWith("No listo"))
-                    {
-                        e.Value = "No listo";
-                        e.CellStyle.ForeColor = Color.Chocolate;
-                        e.CellStyle.SelectionForeColor = Color.Chocolate;
-                        e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                        string cellValue = cell.Value.ToString();
+                        if (cellValue.StartsWith("Error"))
+                        {
+                            e.Value = "Error";
+                            e.CellStyle.ForeColor = Color.Red;
+                            e.CellStyle.SelectionForeColor = Color.Red;
+                            e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                        }
+                        else if (cellValue.StartsWith("No listo"))
+                        {
+                            e.Value = "No listo";
+                            e.CellStyle.ForeColor = Color.Chocolate;
+                            e.CellStyle.SelectionForeColor = Color.Chocolate;
+                            e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                        }
                     }
                 }
+
+
             }
         }
 
@@ -371,6 +411,7 @@ namespace app_matter_data_src_erp.Forms
 
         private async void btnEscanear_Click(object sender, EventArgs e)
         {
+            btnEscanear.Enabled = false;
             dataTable.Rows.Clear();
             currentPage = 1;
             var mainForm = (MainComprasSrc)this.FindForm();
@@ -378,6 +419,7 @@ namespace app_matter_data_src_erp.Forms
             await Task.Delay(500);
             LoadData();
             mainForm.HideOverlay();
+            btnEscanear.Enabled = true;
         }
 
         private void btnFilter_Click(object sender, EventArgs e)
