@@ -66,20 +66,20 @@ namespace app_matter_data_src_erp.Forms
                 {
                     var compra = data[i];
 
-                    dataTable.Rows.Add(
-                        compra.NumCompra,
-                        compra.FechaEmision.ToString("dd/MM/yyyy"),
-                        compra.Sucursal,
-                        compra.RazonSocial,
-                        compra.RazonSocial,
-                        "s/." + (compra.TotalPagar - compra.TotalIGV),
-                        compra.TotalIGV,
-                         "s/." + (compra.TotalPagar),
-                        compra.FechaVencimiento.ToString("dd/MM/yyyy"),
-                        compra.RazonSocial,
-                        compra.Errores
-                    );
-                }
+                        dataTable.Rows.Add(
+                            compra.NumCompra,
+                            compra.FechaEmision.ToString("dd/MM/yyyy"),
+                            compra.Sucursal,
+                            compra.RazonSocial,
+                            compra.RazonSocial,
+                            "s/."+(compra.TotalPagar - compra.TotalIGV),
+                            compra.TotalIGV,
+                             "s/." + (compra.TotalPagar),
+                            compra.FechaVencimiento.ToString("dd/MM/yyyy"),
+                            compra.RazonSocial,
+                            compra.Errores
+                        );
+                    }
 
                 UpdatePagination();
             }
@@ -124,6 +124,7 @@ namespace app_matter_data_src_erp.Forms
         private void dataTable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             var columnName = dataTable.Columns[e.ColumnIndex].Name;
+
 
 
             if (columnName == "Column3" || columnName == "Column4" || columnName == "Column9" || columnName == "Column10")
@@ -222,6 +223,7 @@ namespace app_matter_data_src_erp.Forms
                 if (columnName == "Column1")
                 {
                     var codigoCompra = dataTable.Rows[e.RowIndex].Cells["Column1"].Value?.ToString();
+                    var empresa = dataTable.Rows[e.RowIndex].Cells["Column5"].Value?.ToString();
 
                     if (!string.IsNullOrEmpty(codigoCompra))
                     {
@@ -233,20 +235,13 @@ namespace app_matter_data_src_erp.Forms
 
                             List<List<object>> tablaDatosCombustible = detallesCompra.Select(detalle => new List<object>
                             {
-                                detalle.Codigo,
-                                detalle.Cantidad,
-                                detalle.Cantidad,
-                                detalle.PrecioUnitarioConIgv,
-                                detalle.SubTotalConIgv,
                                 detalle.Descripcion,
+                                detalle.Cantidad,
+                                detalle.PrecioUnitarioSinIgv,
+                                detalle.PrecioUnitarioConIgv,    
                                 detalle.Api,
                                 detalle.Temp,
-                                detalle.Fise,
-                                detalle.Dscto,
-                                detalle.Isc,
-                                detalle.Fise,
-                                detalle.Total,
-                                detalle.Igv,
+                                detalle.SubTotalSinIgv,
                                 detalle.SubTotalConIgv
 
                             }).ToList();
@@ -267,13 +262,14 @@ namespace app_matter_data_src_erp.Forms
 
                             if (validacion)
                             {
+                        
                                 //ModalDetalleCompra modal = new ModalDetalleCompra(codigoCompra, tablaDatos);
-                                ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, tablaDatosCombustible);
+                                ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, empresa, tablaDatosCombustible);
                                 overlayForm.ShowOverlayWithModal(modal);
                             }
                             else
                             {
-                                ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, tablaDatosCombustible);
+                                ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, empresa,tablaDatosCombustible);
                                 overlayForm.ShowOverlayWithModal(modal);
                             }
                         }

@@ -261,7 +261,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
             new SqlParameter("@tieneConsignaciones", compra.tieneConsignaciones),
             new SqlParameter("@fleteTotal", compra.fleteTotal),
             new SqlParameter("@distribuir", compra.distribuir),
-            new SqlParameter("@idProcesoAsociado", (object)compra.idProcesoAsociado ?? DBNull.Value),
+            new SqlParameter("@idProcesoAsociado",  DBNull.Value),
             new SqlParameter("@nProcesoAsociado", (object)compra.nProcesoAsociado ?? DBNull.Value),
             new SqlParameter("@guiaRecibida", (object)compra.guiaRecibida ?? DBNull.Value),
             new SqlParameter("@nPercepcion", (object)compra.nPercepcion ?? DBNull.Value),

@@ -12,7 +12,8 @@ namespace app_matter_data_src_erp.Forms.DialogView
 {
     public partial class ModalDetalleCompraCombustible : Form
     {
-        public ModalDetalleCompraCombustible(string codigo, List<List<object>> data)
+        private readonly int empresa;
+        public ModalDetalleCompraCombustible(string codigo,string emp, List<List<object>> data)
         {
             InitializeComponent();
      
@@ -22,6 +23,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
+            lblEmpresa.Text = emp;
             lblCode.Text = codigo;
 
             foreach (var row in data)

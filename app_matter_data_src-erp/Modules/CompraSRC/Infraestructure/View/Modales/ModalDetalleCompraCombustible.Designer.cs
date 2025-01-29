@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblEmpresa = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -64,9 +64,9 @@
             this.lblEmpresa.AutoSize = true;
             this.lblEmpresa.Location = new System.Drawing.Point(102, 82);
             this.lblEmpresa.Name = "lblEmpresa";
-            this.lblEmpresa.Size = new System.Drawing.Size(74, 16);
+            this.lblEmpresa.Size = new System.Drawing.Size(16, 16);
             this.lblEmpresa.TabIndex = 6;
-            this.lblEmpresa.Text = "Ejemplo 01";
+            this.lblEmpresa.Text = "...";
             // 
             // label2
             // 
@@ -140,14 +140,14 @@
             this.dataTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataTable.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -164,14 +164,14 @@
             this.Column12,
             this.Column13,
             this.Column14});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataTable.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataTable.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataTable.EnableHeadersVisualStyles = false;
             this.dataTable.Location = new System.Drawing.Point(3, 3);
             this.dataTable.Name = "dataTable";
@@ -185,7 +185,7 @@
             // 
             // Column1
             // 
-            this.Column1.HeaderText = "Código de producto";
+            this.Column1.HeaderText = "Descripcion";
             this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
@@ -201,7 +201,7 @@
             // 
             // Column3
             // 
-            this.Column3.HeaderText = "UM";
+            this.Column3.HeaderText = "Precio Unitario";
             this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
@@ -209,7 +209,7 @@
             // 
             // Column4
             // 
-            this.Column4.HeaderText = "Descripción";
+            this.Column4.HeaderText = "Precio Unitario(Igv)";
             this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
@@ -217,7 +217,7 @@
             // 
             // Column5
             // 
-            this.Column5.HeaderText = "API";
+            this.Column5.HeaderText = "TEMP";
             this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
@@ -225,7 +225,7 @@
             // 
             // Column6
             // 
-            this.Column6.HeaderText = "TEMP.";
+            this.Column6.HeaderText = "API.";
             this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
@@ -233,7 +233,7 @@
             // 
             // Column7
             // 
-            this.Column7.HeaderText = "BÁSICO";
+            this.Column7.HeaderText = "Sub Total";
             this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
@@ -241,7 +241,7 @@
             // 
             // Column8
             // 
-            this.Column8.HeaderText = "DSCTO.";
+            this.Column8.HeaderText = "Sub Total(Igv)";
             this.Column8.MinimumWidth = 6;
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
@@ -249,7 +249,6 @@
             // 
             // Column9
             // 
-            this.Column9.HeaderText = "ISC";
             this.Column9.MinimumWidth = 6;
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
@@ -257,7 +256,6 @@
             // 
             // Column10
             // 
-            this.Column10.HeaderText = "ROD";
             this.Column10.MinimumWidth = 6;
             this.Column10.Name = "Column10";
             this.Column10.ReadOnly = true;
@@ -265,7 +263,6 @@
             // 
             // Column11
             // 
-            this.Column11.HeaderText = "VALOR\nDE VENTA";
             this.Column11.MinimumWidth = 6;
             this.Column11.Name = "Column11";
             this.Column11.ReadOnly = true;
@@ -273,7 +270,6 @@
             // 
             // Column12
             // 
-            this.Column12.HeaderText = "IGV";
             this.Column12.MinimumWidth = 6;
             this.Column12.Name = "Column12";
             this.Column12.ReadOnly = true;
@@ -281,7 +277,6 @@
             // 
             // Column13
             // 
-            this.Column13.HeaderText = "PRECIO\nUNITARIO";
             this.Column13.MinimumWidth = 6;
             this.Column13.Name = "Column13";
             this.Column13.ReadOnly = true;
@@ -289,7 +284,6 @@
             // 
             // Column14
             // 
-            this.Column14.HeaderText = "IMPORTE";
             this.Column14.MinimumWidth = 6;
             this.Column14.Name = "Column14";
             this.Column14.ReadOnly = true;
@@ -308,7 +302,7 @@
             // lblTipoDocumento
             // 
             this.lblTipoDocumento.AutoSize = true;
-            this.lblTipoDocumento.Location = new System.Drawing.Point(371, 82);
+            this.lblTipoDocumento.Location = new System.Drawing.Point(609, 84);
             this.lblTipoDocumento.Name = "lblTipoDocumento";
             this.lblTipoDocumento.Size = new System.Drawing.Size(122, 16);
             this.lblTipoDocumento.TabIndex = 9;
@@ -318,7 +312,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(207, 82);
+            this.label5.Location = new System.Drawing.Point(434, 82);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(158, 18);
             this.label5.TabIndex = 8;
