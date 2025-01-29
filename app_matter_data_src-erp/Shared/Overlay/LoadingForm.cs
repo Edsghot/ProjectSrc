@@ -9,7 +9,6 @@ public partial class LoadingForm : Form
         this.FormBorderStyle = FormBorderStyle.None;
         this.StartPosition = FormStartPosition.CenterScreen;
         this.BackColor = Color.White;
-        this.Opacity = 0.8; 
 
         Label lblLoading = new Label
         {
@@ -28,6 +27,6 @@ public partial class LoadingForm : Form
 
         this.Controls.Add(lblLoading);
         this.Controls.Add(progressBar);
-        this.Size = new Size(300, 120);
+        this.Size = new Size(700, 500);
     }
 }

@@ -29,10 +29,10 @@ namespace app_matter_data_src_erp.Forms.DialogView
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            //this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.dataTable.RowTemplate.Height = 45;
-            this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            //this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             this.dataTable.Columns[1].DefaultCellStyle.BackColor = Color.WhiteSmoke;
             this.dataTable.Columns[1].DefaultCellStyle.ForeColor = Color.Chocolate;

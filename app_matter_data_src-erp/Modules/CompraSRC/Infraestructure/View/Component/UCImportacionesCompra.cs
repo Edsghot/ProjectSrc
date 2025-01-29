@@ -41,12 +41,9 @@ namespace app_matter_data_src_erp.Forms
 
         private async void LoadData()
         {
-            using (LoadingForm loadingForm = new LoadingForm())
-            {
-                loadingForm.Show();
-                loadingForm.Refresh(); // Para asegurar que se renderice antes de la carga
-
-                try
+            var mainForm = (MainComprasSrc)this.FindForm();
+            mainForm.ShowOverlay();
+            try
                 {
                     this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -74,7 +71,7 @@ namespace app_matter_data_src_erp.Forms
                             compra.FechaEmision.ToString("dd/MM/yyyy"),
                             compra.Sucursal,
                             compra.RazonSocial,
-                            compra.Observacion,
+                            compra.RazonSocial,
                             compra.TotalPagar - compra.TotalIGV,
                             compra.TotalIGV,
                             compra.TotalPagar,
@@ -88,9 +85,9 @@ namespace app_matter_data_src_erp.Forms
                 }
                 finally
                 {
-                    loadingForm.Close(); // Cierra el modal al terminar
-                }
+                mainForm.HideOverlay();
             }
+            
         }
 
 
@@ -167,7 +164,7 @@ namespace app_matter_data_src_erp.Forms
             }
             else if (columnName == "Column1")
             {
-                e.CellStyle.ForeColor = Color.Chocolate;
+                e.CellStyle.ForeColor = Color.Green;
                 e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
             }
             else if (columnName == "Column11")
@@ -475,7 +472,7 @@ namespace app_matter_data_src_erp.Forms
                         compra.FechaEmision.ToString("dd/MM/yyyy"),
                         compra.Sucursal,
                         compra.RazonSocial,
-                        compra.Observacion,
+                        compra.RazonSocial,
                         compra.TotalPagar - compra.TotalIGV,
                         compra.TotalIGV,
                         compra.TotalPagar,

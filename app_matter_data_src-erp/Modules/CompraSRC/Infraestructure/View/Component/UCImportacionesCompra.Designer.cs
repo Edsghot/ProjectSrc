@@ -379,7 +379,7 @@ namespace app_matter_data_src_erp.Forms
             // 
             // Column5
             // 
-            this.Column5.HeaderText = "Observación";
+            this.Column5.HeaderText = "Razon Social";
             this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;

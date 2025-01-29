@@ -39,8 +39,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.cmbSearchOption = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.lstResults = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -127,13 +127,14 @@
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.btnBuscar);
             this.panel5.Controls.Add(this.txtSearch);
-            this.panel5.Location = new System.Drawing.Point(263, 24);
+            this.panel5.Location = new System.Drawing.Point(188, 24);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(331, 43);
+            this.panel5.Size = new System.Drawing.Size(406, 43);
             this.panel5.TabIndex = 19;
             // 
             // btnBuscar
             // 
+            this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscar.FlatAppearance.BorderSize = 0;
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -141,7 +142,7 @@
             this.btnBuscar.IconColor = System.Drawing.Color.Black;
             this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscar.IconSize = 24;
-            this.btnBuscar.Location = new System.Drawing.Point(260, 7);
+            this.btnBuscar.Location = new System.Drawing.Point(362, 4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(30, 30);
             this.btnBuscar.TabIndex = 20;
@@ -164,7 +165,7 @@
             this.panel4.Controls.Add(this.cmbSearchOption);
             this.panel4.Location = new System.Drawing.Point(14, 24);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(237, 43);
+            this.panel4.Size = new System.Drawing.Size(168, 43);
             this.panel4.TabIndex = 18;
             // 
             // cmbSearchOption
@@ -179,17 +180,26 @@
             "Nombre"});
             this.cmbSearchOption.Location = new System.Drawing.Point(14, 6);
             this.cmbSearchOption.Name = "cmbSearchOption";
-            this.cmbSearchOption.Size = new System.Drawing.Size(202, 30);
+            this.cmbSearchOption.Size = new System.Drawing.Size(143, 30);
             this.cmbSearchOption.TabIndex = 7;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.lstResults);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Location = new System.Drawing.Point(263, 84);
+            this.panel3.Location = new System.Drawing.Point(188, 73);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(331, 155);
+            this.panel3.Size = new System.Drawing.Size(406, 166);
             this.panel3.TabIndex = 8;
+            // 
+            // lstResults
+            // 
+            this.lstResults.FormattingEnabled = true;
+            this.lstResults.ItemHeight = 16;
+            this.lstResults.Location = new System.Drawing.Point(13, 28);
+            this.lstResults.Name = "lstResults";
+            this.lstResults.Size = new System.Drawing.Size(380, 132);
+            this.lstResults.TabIndex = 1;
             // 
             // label2
             // 
@@ -200,15 +210,6 @@
             this.label2.Size = new System.Drawing.Size(90, 16);
             this.label2.TabIndex = 0;
             this.label2.Text = "Resultados:";
-            // 
-            // lstResults
-            // 
-            this.lstResults.FormattingEnabled = true;
-            this.lstResults.ItemHeight = 16;
-            this.lstResults.Location = new System.Drawing.Point(13, 28);
-            this.lstResults.Name = "lstResults";
-            this.lstResults.Size = new System.Drawing.Size(315, 116);
-            this.lstResults.TabIndex = 1;
             // 
             // BuscarProducto
             // 
