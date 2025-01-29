@@ -69,16 +69,16 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
         private void btnContinuar_Click(object sender, EventArgs e)
         {
-            mainForm.ShowToast("Asiento tipo agregado con éxito.", "success");
-            this.Close();
 
             if (cbAsientoTipo.SelectedItem is PlantillasDto planillaSeleccionada)
             {
                 var idPlantilla = (planillaSeleccionada.IdPlantilla).ToString();
+                var nomPlantilla = (planillaSeleccionada.NomPlantilla).ToString();
                 try
                 {
                     //await _repo.ActualizarPlantilla(idPlantilla);
                     DataStaticDto.data[_index].IdPlantilla = idPlantilla;
+                    DataStaticDto.data[_index].NomPlantilla = nomPlantilla;
                     mainForm.ShowToast("Datos de la plantilla añadidos con éxito.", "success");
                     this.Close();
                 }

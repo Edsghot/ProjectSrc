@@ -29,14 +29,14 @@ namespace app_matter_data_src_erp
 
             Logs.initLogs("Desarrollo.txt");
             GetCredentialsDesarrollo(args);
-            
+
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(GlobalExceptionHandler);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            
-         
+
+
 
             //var resultado = repo.InsertProdCuencidencia(new InsertProdCuencidenciaDto
             //{
@@ -47,22 +47,22 @@ namespace app_matter_data_src_erp
             //}).GetAwaiter();
             //var res2 = repo.getAllSucursal().GetAwaiter().GetResult();
             //var res3 = repo.ObtenerCoincidenciasProdSrcPorRuc("123456789").GetAwaiter().GetResult();
-             //Application.Run(new MainValidationSunat());
+            //Application.Run(new MainValidationSunat());
 
             switch (Credentials.IdFormulario)
-           {
-               case (int)Formularios.FormularioCompraSrc:
-                   Logs.initLogs("CompraSrc.txt");
-                   Application.Run(new MainComprasSrc());
-                   break;
-               case (int)Formularios.FormularioValidation:
-                   Logs.initLogs("ValidationSunat.txt");
-                   Application.Run(new MainValidationSunat());
-                   break;
-               default:
-                   break;
-           }
-            
+            {
+                case (int)Formularios.FormularioCompraSrc:
+                    Logs.initLogs("CompraSrc.txt");
+                    Application.Run(new MainComprasSrc());
+                    break;
+                case (int)Formularios.FormularioValidation:
+                    Logs.initLogs("ValidationSunat.txt");
+                    Application.Run(new MainValidationSunat());
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         private static void GetCredentialsDesarrollo(string[] argss)
@@ -75,8 +75,8 @@ namespace app_matter_data_src_erp
 
             if (args.Length != 10)
             {
-                MessageBox.Show("Error: Se esperaban al menos 6 datos en la cadena de entrada.");
-                Logs.WriteLog("ERROR", "Se esperaban al menos 6 datos en la cadena de entrada.");
+                MessageBox.Show("Error: Se esperaban al menos 10 datos en la cadena de entrada.");
+                Logs.WriteLog("ERROR", "Se esperaban al menos 10 datos en la cadena de entrada.");
                 return;
             }
             var servidor = args[0];
@@ -108,7 +108,7 @@ namespace app_matter_data_src_erp
             Logs.WriteLog("INFO", $"IdFormulario: {Credentials.IdFormulario}");
             Logs.WriteLog("INFO", $"DataBaseConection: {Credentials.DataBaseConection}");
         }
-        
+
         public static void GetCredentialsProduccion(string[] argss)
         {
             try
@@ -125,7 +125,7 @@ namespace app_matter_data_src_erp
                 var user = HFunciones.Codificar(args[1]);
                 var password = HFunciones.Codificar(args[2]);
                 var db = HFunciones.Codificar(args[3]);
-                Credentials.Ruc =args[4].ToString();
+                Credentials.Ruc = args[4].ToString();
                 Credentials.IdPuntoVenta = int.Parse(args[5]);
                 Credentials.IdDepartamento = int.Parse(args[6]);
                 Credentials.IdTurno = int.Parse(args[7]);
@@ -141,7 +141,7 @@ namespace app_matter_data_src_erp
                 Logs.WriteLog("ERROR", $"Exception occurred: {ex.Message}");
             }
         }
-        
+
         static void GlobalExceptionHandler(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             HandleException(e.Exception);
@@ -163,7 +163,7 @@ namespace app_matter_data_src_erp
 
 
 
-      
+
 
 
     }

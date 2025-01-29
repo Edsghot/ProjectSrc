@@ -214,6 +214,67 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
             await DataBaseHelper.ExecuteStoredProcedureAsync("InsertCliPro1", parameters);
         }
 
+        public async Task InsertarCompraAsync(CompraDto compra)
+        {
+            compra.nOrdenCompra = compra.NumCompra;
+            var parameters = new[]
+            {
+                new SqlParameter("@nCompra", compra.NumCompra),
+                new SqlParameter("@idCliPro", compra.idCliPro),
+                new SqlParameter("@idClaseDoc", compra.idClaseDoc),
+                new SqlParameter("@idAlmacen", compra.IdAlmacen),
+                new SqlParameter("@FechaDig", compra.FechaDig),
+                new SqlParameter("@Fecha", compra.FechaEmision),
+                new SqlParameter("@FechaOperativa", compra.FechaOperativa),
+                new SqlParameter("@FechaVenc", compra.FechaVencimiento),
+                new SqlParameter("@idPeriodo", compra.idPeriodo),
+                new SqlParameter("@Moneda", compra.Moneda),
+                new SqlParameter("@TipoCambio", compra.TipoCambio),
+                new SqlParameter("@Condicion", compra.Condicion),
+                new SqlParameter("@NGuiaRemision", compra.NGuiaRemision),
+                new SqlParameter("@idTransportista", compra.idTransportista),
+                new SqlParameter("@idPlaca", compra.idPlaca),
+                new SqlParameter("@idChofer", compra.idChofer),
+                new SqlParameter("@IdPlantilla", compra.IdPlantilla),
+                new SqlParameter("@Obs", compra.Observacion),
+                new SqlParameter("@SubTotal", compra.SubTotal),
+                new SqlParameter("@Igv", compra.TotalIGV),
+                new SqlParameter("@Total", compra.TotalPagar),
+                new SqlParameter("@Importacion", compra.Importacion),
+                new SqlParameter("@Automatica", compra.Automatica),
+                new SqlParameter("@numConstanciaDep", (object)compra.numConstanciaDep ?? DBNull.Value),
+                new SqlParameter("@fecConstanciaDep", (object)compra.fecConstanciaDep ?? DBNull.Value),
+                new SqlParameter("@FechaLlegada", compra.FechaLlegada),
+                new SqlParameter("@IdTurno", compra.IdTurno),
+                new SqlParameter("@RelGuiaCompra", compra.RelGuiaCompra),
+                new SqlParameter("@PrecioIncluyeIGV", compra.PrecioIncluyeIGV),
+                new SqlParameter("@tipoFechaRegCompras", compra.tipoFechaRegCompras),
+                new SqlParameter("@fechaEspecialRC", (object)compra.fechaEspecialRC ?? DBNull.Value),
+                new SqlParameter("@servicioIntangible", compra.servicioIntangible),
+                new SqlParameter("@idTipoOperacion", compra.idTipoOperacion),
+                new SqlParameter("@idDepartamento", compra.idDepartamento),
+                new SqlParameter("@nOrdenCompra", compra.nOrdenCompra),
+                new SqlParameter("@detraccion", compra.detraccion),
+                new SqlParameter("@tieneConsignaciones", compra.tieneConsignaciones),
+                new SqlParameter("@fleteTotal", compra.fleteTotal),
+                new SqlParameter("@distribuir", compra.distribuir),
+                new SqlParameter("@idProcesoAsociado", compra.idProcesoAsociado),
+                new SqlParameter("@nProcesoAsociado", compra.nProcesoAsociado),
+                new SqlParameter("@guiaRecibida", compra.guiaRecibida),
+                new SqlParameter("@nPercepcion", compra.nPercepcion),
+                new SqlParameter("@fechaPercepcion", (object)compra.fechaPercepcion ?? DBNull.Value),
+                new SqlParameter("@percepcionTotal", compra.TotalPercepcion),
+                new SqlParameter("@pRetencion", compra.pRetencion),
+                new SqlParameter("@nCompraPlus", compra.nCompraPlus),
+                new SqlParameter("@nOrdenCompraProveedor", compra.nOrdenCompraProveedor),
+                new SqlParameter("@fiseTotal", compra.fiseTotal),
+                new SqlParameter("@idClasificacionBienesServicios", compra.idClasificacionBienesServicios),
+                new SqlParameter("@idTipoFacturacionGuiaRemision", compra.idTipoFacturacionGuiaRemision)
+             };
+
+            await DataBaseHelper.ExecuteStoredProcedureAsync("InsertCompraErp", parameters);
+        }
+
 
     }
 }

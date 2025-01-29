@@ -99,9 +99,9 @@ namespace app_matter_data_src_erp
 
             var data = await compra.GetMenu();
 
-            lblRuc.Text = lblRuc.Text + data.Ruc;
-            lblEmpresa.Text = lblEmpresa.Text + data.NomRuc;
-            lblSucursal.Text = lblSucursal.Text + data.NomSucursal;
+            lblRuc.Text =  data.Ruc;
+            lblEmpresa.Text =  data.NomRuc;
+            lblSucursal.Text =  data.NomSucursal;
 
         }
 

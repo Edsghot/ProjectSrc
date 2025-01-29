@@ -1,4 +1,6 @@
-﻿using System;
+﻿using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
+using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
+using System;
 using System.Windows.Forms;
 
 namespace app_matter_data_src_erp.Forms.DialogView
@@ -7,11 +9,14 @@ namespace app_matter_data_src_erp.Forms.DialogView
     {
 
         private readonly MainComprasSrc mainForm;
-        public Importar(MainComprasSrc mainForm)
+        private readonly string numCompra;
+        private readonly ICompraSrcInputPort compra;
+        public Importar(string NumCompra)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.mainForm = mainForm;
+            compra = new CompraSrcAdapter();
+            numCompra = NumCompra;
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -19,9 +24,24 @@ namespace app_matter_data_src_erp.Forms.DialogView
             this.Close();
         }
 
-        private void btnContinuar_Click(object sender, EventArgs e)
+        private async void btnContinuar_Click(object sender, EventArgs e)
         {
-            mainForm.ShowToast("Datos importados correctamente.", "success");
+            int mesSeleccionado = cbMes.SelectedIndex + 1;
+
+            // Asegúrate de que cbAño.SelectedValue devuelva el valor correcto
+            int anioSeleccionado = Int32.Parse(cbAño.SelectedItem.ToString());
+
+            var data = await compra.InsertCompra(mesSeleccionado, anioSeleccionado, numCompra);
+
+            if (data)
+            {
+                mainForm.ShowToast("Datos importados correctamente.", "success");
+            }
+            else
+            {
+                mainForm.ShowToast("Error al importar los datos.", "error");
+            }
+
             this.Close();
         }
     }

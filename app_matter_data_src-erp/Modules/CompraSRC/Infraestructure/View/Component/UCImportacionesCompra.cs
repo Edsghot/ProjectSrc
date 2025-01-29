@@ -126,7 +126,13 @@ namespace app_matter_data_src_erp.Forms
                     if (e.RowIndex >= 0 && e.RowIndex < DataStaticDto.data.Count)
                     {
                         var dataItem = DataStaticDto.data[e.RowIndex];
-                        // Your existing logic here
+
+                        if (dataTable.Columns[e.ColumnIndex].Name == "Column10" && dataItem.Coicidencia != null)
+                        {
+                            e.Value = dataItem.Coicidencia;
+                            e.CellStyle.ForeColor = Color.Black;
+                            e.CellStyle.SelectionForeColor = Color.Black;
+                        }
                         if (dataTable.Columns[e.ColumnIndex].Name == "Column9" && dataItem.FechaLlegada != null)
                         {
                             e.Value = dataItem.FechaLlegada;
@@ -139,7 +145,7 @@ namespace app_matter_data_src_erp.Forms
                             e.CellStyle.ForeColor = Color.Black;
                             e.CellStyle.SelectionForeColor = Color.Black;
                         }
-                        if (dataTable.Columns[e.ColumnIndex].Name == "Column4" && dataItem.IdPlantilla != null)
+                        if (dataTable.Columns[e.ColumnIndex].Name == "Column4" && dataItem.NomPlantilla != null)
                         {
                             e.Value = dataItem.NomPlantilla;
                             e.CellStyle.ForeColor = Color.Black;
@@ -163,21 +169,39 @@ namespace app_matter_data_src_erp.Forms
             }
             if (dataTable.Columns[e.ColumnIndex].Name == "Column11")
             {
-                string cellValue = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                if (cellValue.StartsWith("Error"))
+                var dataItem = DataStaticDto.data[e.RowIndex];
+                bool allColumnsHaveData =
+                    dataItem.NomPlantilla != null &&
+                    dataItem.NewSucursal != null &&
+                    dataItem.FechaLlegada != null &&
+                    dataItem.Coicidencia != null;
+
+                if (allColumnsHaveData)
                 {
-                    e.Value = "Error";
-                    e.CellStyle.ForeColor = Color.Red;
-                    e.CellStyle.SelectionForeColor = Color.Red;
-                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                    e.Value = "Listo";
+                    e.CellStyle.ForeColor = Color.Green;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    e.CellStyle.SelectionForeColor = Color.Green;
                 }
-                else if (cellValue.StartsWith("No listo"))
+                else
                 {
-                    e.Value = "No listo";
-                    e.CellStyle.ForeColor = Color.Chocolate;
-                    e.CellStyle.SelectionForeColor = Color.Chocolate;
-                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                    string cellValue = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                    if (cellValue.StartsWith("Error"))
+                    {
+                        e.Value = "Error";
+                        e.CellStyle.ForeColor = Color.Red;
+                        e.CellStyle.SelectionForeColor = Color.Red;
+                        e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                    }
+                    else if (cellValue.StartsWith("No listo"))
+                    {
+                        e.Value = "No listo";
+                        e.CellStyle.ForeColor = Color.Chocolate;
+                        e.CellStyle.SelectionForeColor = Color.Chocolate;
+                        e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                    }
                 }
+               
             }
         }
 
@@ -315,7 +339,7 @@ namespace app_matter_data_src_erp.Forms
                     string codigoCompra = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
                     CompraDto compra = await _compraSrc.ObtenerCompraPorCodigo(codigoCompra);
 
-                    CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.NumCompra, compra.Compras, DataStaticDto.data[rowIndex].DocumentoProveedor);
+                    CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.NumCompra, compra.Compras, DataStaticDto.data[rowIndex].DocumentoProveedor, rowIndex);
                     overlayForm.ShowOverlayWithModal(modal);
 
                 }
@@ -342,31 +366,40 @@ namespace app_matter_data_src_erp.Forms
 
         private void btnImportar_Click(object sender, EventArgs e)
         {
-            if (DataStaticDto.data != null && DataStaticDto.data.Count >= 2)
+            //OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
+            if (dataTable.SelectedRows.Count > 0) 
             {
-                var primerDato = DataStaticDto.data[0];
-                var segundoDato = DataStaticDto.data[1];
+                List<string> codigosCompras = new List<string>();
 
-                var mensaje = $"Primer dato:\n" +
-                              $"ID: {primerDato.NewSucursal}\n" +
-                              $"Nombre: {primerDato.FechaLlegada}\n\n" +
-                              $"ID Almacen: {primerDato.IdAlmacen}\n\n" +
-                              $"Segundo dato:\n" +
-                              $"ID: {segundoDato.NewSucursal}\n" +
-                              $"Nombre: {segundoDato.FechaLlegada}\n\n" +
-                              $"ID Almacen: {segundoDato.IdAlmacen}\n\n";
+                foreach (DataGridViewRow selectedRow in dataTable.SelectedRows)
+                {
+                    var codigoCompra = selectedRow.Cells["Column1"].Value?.ToString();
+                    if (!string.IsNullOrEmpty(codigoCompra))
+                    {
+                        codigosCompras.Add(codigoCompra);
+                    }
+                }
 
-                    MessageBox.Show(mensaje, "Datos Importados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (codigosCompras.Count > 0)
+                {
+                    //var modal = new Importar(codigoCompra);
+                    //overlayForm.ShowOverlayWithModal(modal);
+
+                    string mensaje = "Códigos de compra seleccionados:\n" + string.Join("\n", codigosCompras);
+                    MessageBox.Show(mensaje);
+                }
+                else
+                {
+                    MessageBox.Show("No se encontraron códigos de compra en las filas seleccionadas.");
+                }
             }
             else
-                {
-                    MessageBox.Show("No hay suficientes datos para mostrar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            
-            //OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
-            //Importar modal = new Importar((MainComprasSrc)this.ParentForm);
-            //overlayForm.ShowOverlayWithModal(modal);
+            {
+                MessageBox.Show("No hay ninguna fila seleccionada.");
+            }
         }
+
+
 
         private async void btnEscanear_Click(object sender, EventArgs e)
         {

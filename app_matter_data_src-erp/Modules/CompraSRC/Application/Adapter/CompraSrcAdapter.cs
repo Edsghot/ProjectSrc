@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Data;
 using app_matter_data_src_erp.Configuration.Constants;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
+using System.Windows.Markup;
 
 namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 {
@@ -19,7 +20,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
     {
         private readonly IApiClient apiClient;
         private readonly ICompraSrcRepository compraSrcRepository;
-  
+
         public CompraSrcAdapter()
         {
             this.apiClient = new ApiClient();
@@ -35,14 +36,24 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 return new List<CompraDto>();
             }
 
-
             DataStaticDto.data = response.Resultado;
             var compraDtos = DataStaticDto.data;
 
+            // Crear una lista de tareas para Escanear
+            var escanearTasks = new List<Task>();
+
             foreach (var compra in compraDtos)
             {
+                // Añadir cada tarea Escanear a la lista
+                escanearTasks.Add(Escanear(compra.NumCompra));
+            }
 
-              //  await Escanear(compra.NumCompra);
+            // Esperar a que todas las tareas de Escanear terminen
+            await Task.WhenAll(escanearTasks);
+
+            // Procesar después de que todas las tareas hayan terminado
+            foreach (var compra in compraDtos)
+            {
                 var errors = Validations(compra);
 
                 if (errors.Any())
@@ -57,14 +68,13 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 }
             }
 
-
             return DataStaticDto.data;
         }
 
 
         public async Task<CompraDto> ObtenerCompraPorCodigo(string codigoCompra)
         {
-     
+
 
             if (DataStaticDto.data == null)
             {
@@ -94,25 +104,26 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 var result1 = await compraSrcRepository.GetCliProByRUCOrRazonComercial(data.DocumentoProveedor, data.RazonSocial);
                 data.idCliPro = result1[0].IdCliPro;
             }
+
+            data.idCliPro = "0040";
             data.idClaseDoc = (await compraSrcRepository.GetClaseDocByTipoSunat(data.NomTipoDocumento))[0].IdClaseDoc;
             data.FechaDig = DateTime.Now;
             data.FechaOperativa = DateTime.Now;
             data.TipoCambio = 3.5M;
             data.NGuiaRemision = data.GuiaRemisionAsociada;
-            // data.idTransportista = 1;
-            //data.idPlaca = 1;
-            //data.idChofer = 1;
-           // data.FechaLlegada = data.FechaEmision.ToString();
-           // data.NewSucursal = (await compraSrcRepository.getAllSucursal()).FirstOrDefault(x => x.SucursalSRC == "True").NomPuntoVenta;
-           // data.IdPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].IdPlantilla;
-           // data.NomPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].NomPlantilla;
+            data.idTransportista = 1;
+            data.idPlaca = 1;
+            data.idChofer = 1;
+            // data.FechaLlegada = data.FechaEmision.ToString();
+            // data.NewSucursal = (await compraSrcRepository.getAllSucursal()).FirstOrDefault(x => x.SucursalSRC == "True").NomPuntoVenta;
+            // data.IdPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].IdPlantilla;
+            // data.NomPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].NomPlantilla;
             data.SubTotal = data.TotalPagar;
             data.Importacion = true;
             data.Automatica = true;
             data.IdTurno = Credentials.IdTurno;
             data.RelGuiaCompra = false;
-            data.PrecioIncluyeIGV = data.TotalIGV > 0 ? true: false;
-            //data.tipoFechaRegCompas
+            data.PrecioIncluyeIGV = data.TotalIGV > 0 ? true : false;
             //data.fechaEspecialRC
             data.servicioIntangible = false;
             data.idTipoOperacion = (await compraSrcRepository.sp_GetTipoOperacion("02"))[0].IdTipoOperacion;
@@ -122,17 +133,17 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             data.tieneConsignaciones = false;
             data.fleteTotal = 0;
             data.distribuir = false;
-            // data.idProcesoAsociado = 0;
-            // data.nProcesoAsociado = 
+            data.idProcesoAsociado = 0;
             data.guiaRecibida = -1;
-            //data.nPercepcion = 
+            data.nPercepcion = "0";
             //data.Fecha{Percepcion
             data.pRetencion = 0;
             data.nCompraPlus = data.SerieCompra + data.NumCompra;
-            //data.nOrdenCompraProveedor = 
+            data.nOrdenCompraProveedor = "0";
             data.fiseTotal = 0;
             data.idClasificacionBienesServicios = 1;
             data.idTipoFacturacionGuiaRemision = 2;
+            data.nProcesoAsociado = "0";
 
         }
 
@@ -252,10 +263,22 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                     });
                 }
 
-     
+
             }
 
             return errors;
+        }
+
+        public async Task<bool> InsertCompra(int mes, int anio, string numCompra)
+        {
+            var idPeriodo = (await compraSrcRepository.ObtenerPeriodosPorFecha(anio, mes))[0].IdPeriodo;
+
+            var compra = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == numCompra);
+            compra.idPeriodo = idPeriodo;
+
+            await compraSrcRepository.InsertarCompraAsync(compra);
+
+            return true;
         }
     }
 }

@@ -23,7 +23,8 @@ namespace app_matter_data_src_erp.Forms.DialogView
         private readonly MainComprasSrc mainForm;
         private readonly ICompraSrcRepository _repo;
         private readonly List<CompraDetalleDto> detallesCompra;
-        public CoincidenciaProductos(MainComprasSrc mainForm, string codigoCompra, List<CompraDetalleDto> detallesCompra, string ruc)
+        private readonly int _index;
+        public CoincidenciaProductos(MainComprasSrc main, string codigoCompra, List<CompraDetalleDto> detallesCompra, string ruc, int index)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -39,13 +40,14 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
             this.dataTable.Columns[2].HeaderCell.Style.BackColor = Color.LightSteelBlue;
             _repo = new CompraSrcRepository();
+            _index = index;
             dataTable.CellClick += dataTable_CellClick;
             dataTable.CellPainting += dataTable_CellPainting;
             lblNumeroCompra.Text = codigoCompra;
            
 
             this.detallesCompra = detallesCompra;
-            this.mainForm = mainForm;
+            this.mainForm = main;
             this.rucRecuperado = ruc;
 
             LoadData(detallesCompra);
@@ -185,9 +187,6 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
         private async void btnContinuar_Click(object sender, EventArgs e)
         {
-   
-           
-           
             try
             {
                 foreach(DataGridViewRow row in dataTable.Rows)
@@ -215,15 +214,32 @@ namespace app_matter_data_src_erp.Forms.DialogView
                             RucEmpresa = rucRecuperado
                         };
                         var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();
-                        MessageBox.Show($"se registro con exito!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
+                        DataStaticDto.data[_index].Coicidencia = "Revisado";
+                       
+                        if (mainForm != null)
+                        {
+                            mainForm.ShowToast("Se registro con exito.", "success");
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Se registro con exito!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                        }
                     }
                 }
             }
             catch (Exception ex)
-            {
-                MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {                        
+                if (mainForm != null)
+                {
+                    mainForm.ShowToast($"Ocurrió un error: {ex.Message}", "error");
+
+                }
+                else
+                {
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

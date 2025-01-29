@@ -19,11 +19,11 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
         private List<SucursalDto> sucursales;
 
-        public Sucursal(MainComprasSrc mainForm,string direccion, int index)
+        public Sucursal(MainComprasSrc main, string direccion, int index)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.mainForm = mainForm;
+            this.mainForm = main;
 
             txtDireccion.Text = string.IsNullOrEmpty(direccion) ? "Pendiente" : direccion;
 

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using Newtonsoft.Json;
 
+
 public class CompraDto
 {
     public string NomTipoDocumento { get; set; }
@@ -15,9 +16,9 @@ public class CompraDto
     public string RazonSocial { get; set; }
     public string Sucursal { get; set; }
 
-    public DateTime FechaEmision { get; set; }
+    public DateTime FechaEmision { get; set; } = new DateTime(2000, 1, 1);
 
-    public DateTime FechaVencimiento { get; set; }
+    public DateTime FechaVencimiento { get; set; } = new DateTime(2000, 1, 1);
     public string Moneda { get; set; }
     public string Condicion { get; set; }
     public string Observacion { get; set; }
@@ -32,7 +33,7 @@ public class CompraDto
     public string GuiaRemisionAsociada { get; set; }
     public string CorrelativoReferencia { get; set; }
     [JsonConverter(typeof(DateTimeConverter), "yyyy-MM-dd")]
-    public DateTime FechaEmisionReferencia { get; set; }
+    public DateTime FechaEmisionReferencia { get; set; } = new DateTime(2000, 1, 1);
     public string PlacaTransportista { get; set; }
     public string LicenciaTransportista { get; set; }
     public string MarcaTransportista { get; set; }
@@ -42,12 +43,12 @@ public class CompraDto
     public string FechaLlegada { get; set; }
     public string NewSucursal { get; set; }
     public string Estado { get; set; }
-
+    public string Coicidencia { get; set; }
     // Propiedades adicionales
     public string idCliPro { get; set; }
     public string idClaseDoc { get; set; }
-    public DateTime FechaDig { get; set; }
-    public DateTime FechaOperativa { get; set; }
+    public DateTime FechaDig { get; set; } = new DateTime(2000, 1, 1);
+    public DateTime FechaOperativa { get; set; } = new DateTime(2000, 1, 1);
     public int idPeriodo { get; set; }
     public decimal TipoCambio { get; set; }
     public string NGuiaRemision { get; set; }
@@ -60,12 +61,12 @@ public class CompraDto
     public bool Importacion { get; set; }
     public bool Automatica { get; set; }
     public string numConstanciaDep { get; set; }
-    public DateTime? fecConstanciaDep { get; set; }
+    public DateTime? fecConstanciaDep { get; set; } = new DateTime(2000, 1, 1);
     public int IdTurno { get; set; }
     public bool RelGuiaCompra { get; set; }
     public bool PrecioIncluyeIGV { get; set; }
     public int tipoFechaRegCompras { get; set; }
-    public DateTime? fechaEspecialRC { get; set; }
+    public DateTime? fechaEspecialRC { get; set; } = new DateTime(2000, 1, 1);
     public bool servicioIntangible { get; set; }
     public int idTipoOperacion { get; set; }
     public int idDepartamento { get; set; }
@@ -78,13 +79,16 @@ public class CompraDto
     public string nProcesoAsociado { get; set; }
     public int guiaRecibida { get; set; }
     public string nPercepcion { get; set; }
-    public DateTime? fechaPercepcion { get; set; }
+    public DateTime? fechaPercepcion { get; set; } = new DateTime(2000, 1, 1);
     public decimal pRetencion { get; set; }
     public string nCompraPlus { get; set; }
     public string nOrdenCompraProveedor { get; set; }
     public decimal fiseTotal { get; set; }
     public int idClasificacionBienesServicios { get; set; }
     public int idTipoFacturacionGuiaRemision { get; set; }
-
 }
+
+
+
+
 

@@ -14,7 +14,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository
         Task InsertProdCuencidencia(InsertProdCuencidenciaDto data);
         Task<IEnumerable<SucursalDto>> getAllSucursal();
         Task<List<CoincidenciaProdSrcDto>> ObtenerCoincidenciasProdSrcPorRuc(string rucEmpresa);
-        Task ActualizarPuntoVentaYAlmacen( int idPuntoVenta, int idAlmacen);
+        Task ActualizarPuntoVentaYAlmacen(int idPuntoVenta, int idAlmacen);
         Task<IEnumerable<ProductDto>> BuscarProductoPorId(string idProducto);
         Task<List<CliProveedorDto>> GetCliProByRUCOrRazonComercial(string rucEmpresa, string razonSocial);
         Task<List<ClaseTipoSunatDto>> GetClaseDocByTipoSunat(string tipoSunat);
@@ -22,5 +22,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository
         Task<List<PlantillasDto>> spListarEspecificasCompras();
         Task<List<TipoOperacionDto>> sp_GetTipoOperacion(string codSunat);
         Task InsertarCliPro(ProveedorDto proveedor);
+        Task InsertarCompraAsync(CompraDto compra);
     }
 }
