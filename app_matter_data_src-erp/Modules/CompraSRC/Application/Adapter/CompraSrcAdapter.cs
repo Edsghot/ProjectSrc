@@ -114,10 +114,10 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             data.idTransportista = 1;
             data.idPlaca = 1;
             data.idChofer = 1;
-            // data.FechaLlegada = data.FechaEmision.ToString();
-            // data.NewSucursal = (await compraSrcRepository.getAllSucursal()).FirstOrDefault(x => x.SucursalSRC == "True").NomPuntoVenta;
-            // data.IdPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].IdPlantilla;
-            // data.NomPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].NomPlantilla;
+            data.FechaLlegada = data.FechaEmision.ToString();
+            data.NewSucursal = (await compraSrcRepository.getAllSucursal()).FirstOrDefault(x => x.SucursalSRC == "True").NomPuntoVenta;
+            data.IdPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].IdPlantilla;
+            data.NomPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].NomPlantilla;
             data.SubTotal = data.TotalPagar;
             data.Importacion = true;
             data.Automatica = true;

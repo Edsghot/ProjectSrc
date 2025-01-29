@@ -112,80 +112,49 @@ namespace app_matter_data_src_erp.Forms
         // TABLA FORMATO
         private void dataTable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dataTable.Columns[e.ColumnIndex].Name == "Column3" ||
-                dataTable.Columns[e.ColumnIndex].Name == "Column4" ||
-                dataTable.Columns[e.ColumnIndex].Name == "Column9" ||
-                dataTable.Columns[e.ColumnIndex].Name == "Column10")
-            {
-                var columnName = dataTable.Columns[e.ColumnIndex].Name;
-                if (columnName == "Column3" || columnName == "Column4" || columnName == "Column9" || columnName == "Column10")
-                {
-                    e.Value = "Pendiente";
-                    e.CellStyle.ForeColor = Color.Chocolate;
-                    e.CellStyle.SelectionForeColor = Color.Chocolate;
-                    if (e.RowIndex >= 0 && e.RowIndex < DataStaticDto.data.Count)
-                    {
-                        var dataItem = DataStaticDto.data[e.RowIndex];
+            var columnName = dataTable.Columns[e.ColumnIndex].Name;
 
-                        if (dataTable.Columns[e.ColumnIndex].Name == "Column10" && dataItem.Coicidencia != null)
-                        {
-                            e.Value = dataItem.Coicidencia;
-                            e.CellStyle.ForeColor = Color.Black;
-                            e.CellStyle.SelectionForeColor = Color.Black;
-                        }
-                        if (dataTable.Columns[e.ColumnIndex].Name == "Column9" && dataItem.FechaLlegada != null)
-                        {
-                            e.Value = dataItem.FechaLlegada;
-                            e.CellStyle.ForeColor = Color.Black;
-                            e.CellStyle.SelectionForeColor = Color.Black;
-                        }
-                        if (dataTable.Columns[e.ColumnIndex].Name == "Column3" && dataItem.NewSucursal != null)
-                        {
-                            e.Value = dataItem.NewSucursal;
-                            e.CellStyle.ForeColor = Color.Black;
-                            e.CellStyle.SelectionForeColor = Color.Black;
-                        }
-                        if (dataTable.Columns[e.ColumnIndex].Name == "Column4" && dataItem.NomPlantilla != null)
-                        {
-                            e.Value = dataItem.NomPlantilla;
-                            e.CellStyle.ForeColor = Color.Black;
-                            e.CellStyle.SelectionForeColor = Color.Black;
-                        }
+            if (columnName == "Column3" || columnName == "Column4" || columnName == "Column9" || columnName == "Column10")
+            {
+                e.Value = "Pendiente";
+                e.CellStyle.ForeColor = Color.Chocolate;
+                e.CellStyle.SelectionForeColor = Color.Chocolate;
+
+                if (e.RowIndex >= 0 && e.RowIndex < DataStaticDto.data.Count)
+                {
+                    var dataItem = DataStaticDto.data[e.RowIndex];
+
+                    if (columnName == "Column9" && dataItem.FechaLlegada != null)
+                    {
+                        e.Value = dataItem.FechaLlegada;
+                        e.CellStyle.ForeColor = Color.Black;
+                        e.CellStyle.SelectionForeColor = Color.Black;
+                    }
+                    else if (columnName == "Column3" && dataItem.NewSucursal != null)
+                    {
+                        e.Value = dataItem.NewSucursal;
+                        e.CellStyle.ForeColor = Color.Black;
+                        e.CellStyle.SelectionForeColor = Color.Black;
+                    }
+                    else if (columnName == "Column4" && dataItem.IdPlantilla != null)
+                    {
+                        e.Value = dataItem.NomPlantilla;
+                        e.CellStyle.ForeColor = Color.Black;
+                        e.CellStyle.SelectionForeColor = Color.Black;
                     }
                 }
-                else
-                {
-                    e.CellStyle.ForeColor = Color.Blue;
-                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
-                }
-
-                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
             }
-
-            if (dataTable.Columns[e.ColumnIndex].Name == "Column1")
+            else if (columnName == "Column1")
             {
                 e.CellStyle.ForeColor = Color.Chocolate;
                 e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
             }
-            if (dataTable.Columns[e.ColumnIndex].Name == "Column11")
+            else if (columnName == "Column11")
             {
-                var dataItem = DataStaticDto.data[e.RowIndex];
-                bool allColumnsHaveData =
-                    dataItem.NomPlantilla != null &&
-                    dataItem.NewSucursal != null &&
-                    dataItem.FechaLlegada != null &&
-                    dataItem.Coicidencia != null;
-
-                if (allColumnsHaveData)
+                var cell = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (cell.Value != null)
                 {
-                    e.Value = "Listo";
-                    e.CellStyle.ForeColor = Color.Green;
-                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
-                    e.CellStyle.SelectionForeColor = Color.Green;
-                }
-                else
-                {
-                    string cellValue = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                    string cellValue = cell.Value.ToString();
                     if (cellValue.StartsWith("Error"))
                     {
                         e.Value = "Error";
@@ -201,7 +170,6 @@ namespace app_matter_data_src_erp.Forms
                         e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
                     }
                 }
-               
             }
         }
 
@@ -366,7 +334,7 @@ namespace app_matter_data_src_erp.Forms
 
         private void btnImportar_Click(object sender, EventArgs e)
         {
-            //OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
+            OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
             if (dataTable.SelectedRows.Count > 0) 
             {
                 List<string> codigosCompras = new List<string>();
@@ -382,8 +350,8 @@ namespace app_matter_data_src_erp.Forms
 
                 if (codigosCompras.Count > 0)
                 {
-                    //var modal = new Importar(codigoCompra);
-                    //overlayForm.ShowOverlayWithModal(modal);
+                    var modal = new Importar(codigosCompras[0]);
+                    overlayForm.ShowOverlayWithModal(modal);
 
                     string mensaje = "Códigos de compra seleccionados:\n" + string.Join("\n", codigosCompras);
                     MessageBox.Show(mensaje);
