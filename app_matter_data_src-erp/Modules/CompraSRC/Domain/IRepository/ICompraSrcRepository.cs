@@ -23,5 +23,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository
         Task<List<TipoOperacionDto>> sp_GetTipoOperacion(string codSunat);
         Task InsertarCliPro(ProveedorDto proveedor);
         Task InsertarCompraAsync(CompraDto compra);
+        Task InsertarDCompra(CompraDetalleDto dCompra);
     }
 }

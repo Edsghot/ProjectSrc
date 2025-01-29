@@ -1,6 +1,7 @@
 ﻿using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace app_matter_data_src_erp.Forms.DialogView
@@ -9,15 +10,15 @@ namespace app_matter_data_src_erp.Forms.DialogView
     {
 
         private readonly MainComprasSrc mainForm;
-        private readonly string numCompra;
+        private readonly List<string> numCompras;
         private readonly ICompraSrcInputPort compra;
-        public Importar(MainComprasSrc main,string NumCompra)
+        public Importar(MainComprasSrc main, List<string> NumCompras)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             mainForm = main;
             compra = new CompraSrcAdapter();
-            numCompra = NumCompra;
+            numCompras = NumCompras;
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -32,15 +33,18 @@ namespace app_matter_data_src_erp.Forms.DialogView
             // Asegúrate de que cbAño.SelectedValue devuelva el valor correcto
             int anioSeleccionado = Int32.Parse(cbAño.SelectedItem.ToString());
 
-            var data = await compra.InsertCompra(mesSeleccionado, anioSeleccionado, numCompra);
+            foreach (var numCompra in numCompras)
+            {
+                var data = await compra.InsertCompra(mesSeleccionado, anioSeleccionado, numCompra);
 
-            if (data)
-            {
-                mainForm.ShowToast("Datos importados correctamente.", "success");
-            }
-            else
-            {
-                mainForm.ShowToast("Error al importar los datos.", "error");
+                if (data)
+                {
+                    mainForm.ShowToast($"Datos de la compra {numCompra} importados correctamente.", "success");
+                }
+                else
+                {
+                    mainForm.ShowToast($"Error al importar los datos de la compra {numCompra}.", "error");
+                }
             }
 
             this.Close();

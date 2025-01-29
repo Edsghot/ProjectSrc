@@ -182,6 +182,40 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
             return products;
         }
 
+        public async Task InsertarDCompra(CompraDetalleDto dCompra)
+        {
+            var parameters = new[]
+            {
+        new SqlParameter("@nCompra", dCompra.nCompra ?? (object)DBNull.Value),
+        new SqlParameter("@idProducto", dCompra.IdProducto ),
+        new SqlParameter("@Cantidad", dCompra.Cantidad),
+        new SqlParameter("@Bultos", dCompra.Bultos), // Valor por defecto
+        new SqlParameter("@Precio", dCompra.PrecioUnitarioSinIgv),
+        new SqlParameter("@idTipoIgv", 28), // Valor por defecto
+        new SqlParameter("@pIgv", dCompra.Igv),
+        new SqlParameter("@Flete", 1), // Valor por defecto
+        new SqlParameter("@FechaVenc", new DateTime(1900, 1, 1)),
+            // Se asegura que acepte NULL
+        new SqlParameter("@Bonificacion", false), // Valor por defecto
+        new SqlParameter("@CUR", Guid.NewGuid()), // Valor por defecto
+        new SqlParameter("@PrecioBase", dCompra.PrecioUnitarioSinIgv),
+        new SqlParameter("@Descuento1", 0), // Si Dscto es NULL, usa 0
+        new SqlParameter("@Descuento2", 1), // Valor por defecto
+        new SqlParameter("@Descuento3", 1), // Valor por defecto
+        new SqlParameter("@Descuento4", 1), // Valor por defecto
+        new SqlParameter("@API", decimal.TryParse(dCompra.Api, out decimal apiValue) ? (object)apiValue : 0.00m),
+        new SqlParameter("@temperatura", (object)dCompra.Temp ?? DBNull.Value),
+           new SqlParameter("@DT",  DateTime.Now ),
+
+        new SqlParameter("@cantidadRecibidaGuia", 0), // Valor por defecto
+        new SqlParameter("@pPercepcionCompTeso", 0), // Valor por defecto
+        new SqlParameter("@esOrdenCompraGuiaCompra", false), // Valor por defecto
+        new SqlParameter("@fise", (object)dCompra.fise ?? 0) // Si fise es NULL, usa 0
+    };
+
+            await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertDCompraErp", parameters);
+        }
+
 
         public async Task InsertarCliPro(ProveedorDto proveedor)
         {

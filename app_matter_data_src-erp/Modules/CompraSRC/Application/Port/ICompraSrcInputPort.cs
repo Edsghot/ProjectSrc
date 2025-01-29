@@ -11,5 +11,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Port
         Task<CompraDto> ObtenerCompraPorCodigo(string codigoCompra);
         Task<MenuDto> GetMenu();
         Task<bool> InsertCompra(int mes, int anio, string numCompra);
+        Task EscanearDCompra(string IdProduct, string NombreProducto);
     }
 }

@@ -1,4 +1,6 @@
 ﻿using app_matter_data_src_erp.Forms.DialogView.ProductMatch;
+using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
+using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
@@ -23,11 +25,13 @@ namespace app_matter_data_src_erp.Forms.DialogView
         private readonly MainComprasSrc mainForm;
         private readonly ICompraSrcRepository _repo;
         private readonly List<CompraDetalleDto> detallesCompra;
+        private readonly ICompraSrcInputPort compra;
         private readonly int _index;
         public CoincidenciaProductos(MainComprasSrc main, string codigoCompra, List<CompraDetalleDto> detallesCompra, string ruc, int index)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
+            compra = new CompraSrcAdapter();
 
             //this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -213,6 +217,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
                             NombreProdSrc = nombreProdSrc,
                             RucEmpresa = rucRecuperado
                         };
+                        await compra.EscanearDCompra(idProductoErp, nombreProdSrc);
                         var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();
                         DataStaticDto.data[_index].Coicidencia = "Revisado";
                        

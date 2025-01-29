@@ -409,7 +409,7 @@ namespace app_matter_data_src_erp.Forms
 
             if (codigosCompras.Count > 0)
             {
-                var modal = new Importar((MainComprasSrc)this.ParentForm, codigosCompras[0]);
+                var modal = new Importar((MainComprasSrc)this.ParentForm, codigosCompras);
                 overlayForm.ShowOverlayWithModal(modal);
 
                 string mensaje = "Códigos de compra seleccionados:\n" + string.Join("\n", codigosCompras);

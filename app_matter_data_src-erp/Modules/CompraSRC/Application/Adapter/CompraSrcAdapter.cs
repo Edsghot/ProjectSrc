@@ -13,6 +13,7 @@ using System.Data;
 using app_matter_data_src_erp.Configuration.Constants;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using System.Windows.Markup;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 {
@@ -86,6 +87,19 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             return compra;
         }
 
+        public async Task EscanearDCompra(string IdProduct, string NombreProducto)
+        {
+            foreach (var compra in DataStaticDto.data)
+            {
+                foreach (var detalle in compra.Compras)
+                {
+                    if (detalle.Descripcion == NombreProducto)
+                    {
+                        detalle.IdProducto = IdProduct;
+                    }
+                }
+            }
+        }
         public async Task Escanear(string NumCompra)
         {
             var data = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == NumCompra);
@@ -277,8 +291,14 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             compra.idPeriodo = idPeriodo;
 
             await compraSrcRepository.InsertarCompraAsync(compra);
+            foreach (var detalle in compra.Compras)
+            {
+                detalle.nCompra = compra.NumCompra;
+                await compraSrcRepository.InsertarDCompra(detalle);
+            }
 
             return true;
         }
+
     }
 }
