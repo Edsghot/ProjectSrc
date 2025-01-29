@@ -11,10 +11,11 @@ namespace app_matter_data_src_erp.Forms.DialogView
         private readonly MainComprasSrc mainForm;
         private readonly string numCompra;
         private readonly ICompraSrcInputPort compra;
-        public Importar(string NumCompra)
+        public Importar(MainComprasSrc main,string NumCompra)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
+            mainForm = main;
             compra = new CompraSrcAdapter();
             numCompra = NumCompra;
         }

@@ -181,6 +181,7 @@ namespace app_matter_data_src_erp.Forms
 
                 if (allColumnsHaveData)
                 {
+                    DataStaticDto.data[e.RowIndex].Estado = "Listo";
                     e.Value = "Listo";
                     e.CellStyle.ForeColor = Color.Green;
                     e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
@@ -193,6 +194,8 @@ namespace app_matter_data_src_erp.Forms
                         string cellValue = cell.Value.ToString();
                         if (cellValue.StartsWith("Error"))
                         {
+
+                            DataStaticDto.data[e.RowIndex].Estado = "Error";
                             e.Value = "Error";
                             e.CellStyle.ForeColor = Color.Red;
                             e.CellStyle.SelectionForeColor = Color.Red;
@@ -200,6 +203,7 @@ namespace app_matter_data_src_erp.Forms
                         }
                         else if (cellValue.StartsWith("No listo"))
                         {
+                            DataStaticDto.data[e.RowIndex].Estado = "No listo";
                             e.Value = "No listo";
                             e.CellStyle.ForeColor = Color.Chocolate;
                             e.CellStyle.SelectionForeColor = Color.Chocolate;
@@ -238,7 +242,7 @@ namespace app_matter_data_src_erp.Forms
                                 detalle.Descripcion,
                                 detalle.Cantidad,
                                 detalle.PrecioUnitarioSinIgv,
-                                detalle.PrecioUnitarioConIgv,    
+                                detalle.PrecioUnitarioConIgv,
                                 detalle.Api,
                                 detalle.Temp,
                                 detalle.SubTotalSinIgv,
@@ -262,14 +266,13 @@ namespace app_matter_data_src_erp.Forms
 
                             if (validacion)
                             {
-                        
                                 //ModalDetalleCompra modal = new ModalDetalleCompra(codigoCompra, tablaDatos);
                                 ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, empresa, tablaDatosCombustible);
                                 overlayForm.ShowOverlayWithModal(modal);
                             }
                             else
                             {
-                                ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, empresa,tablaDatosCombustible);
+                                ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, empresa, tablaDatosCombustible);
                                 overlayForm.ShowOverlayWithModal(modal);
                             }
                         }
@@ -360,6 +363,19 @@ namespace app_matter_data_src_erp.Forms
                 }
             }
         }
+        private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Evitar encabezados
+            {
+                string estado = DataStaticDto.data[e.RowIndex].Estado;
+
+                if (estado == "No listo" || estado == "Error")
+                {
+                    dataTable.ClearSelection(); // Desseleccionar fila
+
+                }
+            }
+        }
 
         // DATA LOADING
         private void UCImportacionesCompra_Load(object sender, EventArgs e)
@@ -367,38 +383,41 @@ namespace app_matter_data_src_erp.Forms
             LoadData();
         }
 
+   
+
         private void btnImportar_Click(object sender, EventArgs e)
         {
             OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
-            if (dataTable.SelectedRows.Count > 0)
+
+            List<string> codigosCompras = new List<string>();
+
+            foreach (DataGridViewRow selectedRow in dataTable.SelectedRows)
             {
-                List<string> codigosCompras = new List<string>();
+                string estado = DataStaticDto.data[selectedRow.Index].Estado;
 
-                foreach (DataGridViewRow selectedRow in dataTable.SelectedRows)
+                if (estado == "No listo" || estado == "Error")
                 {
-                    var codigoCompra = selectedRow.Cells["Column1"].Value?.ToString();
-                    if (!string.IsNullOrEmpty(codigoCompra))
-                    {
-                        codigosCompras.Add(codigoCompra);
-                    }
+                    MessageBox.Show($"No se puede seleccionar la fila con código de compra {selectedRow.Cells["Column1"].Value} porque está en estado '{estado}'.");
+                    return;
                 }
+                var codigoCompra = selectedRow.Cells["Column1"].Value?.ToString();
+                if (!string.IsNullOrEmpty(codigoCompra))
+                {
+                    codigosCompras.Add(codigoCompra);
+                }
+            }
 
-                if (codigosCompras.Count > 0)
-                {
-                    var modal = new Importar(codigosCompras[0]);
-                    overlayForm.ShowOverlayWithModal(modal);
+            if (codigosCompras.Count > 0)
+            {
+                var modal = new Importar((MainComprasSrc)this.ParentForm, codigosCompras[0]);
+                overlayForm.ShowOverlayWithModal(modal);
 
-                    string mensaje = "Códigos de compra seleccionados:\n" + string.Join("\n", codigosCompras);
-                    MessageBox.Show(mensaje);
-                }
-                else
-                {
-                    MessageBox.Show("No se encontraron códigos de compra en las filas seleccionadas.");
-                }
+                string mensaje = "Códigos de compra seleccionados:\n" + string.Join("\n", codigosCompras);
+                MessageBox.Show(mensaje);
             }
             else
             {
-                MessageBox.Show("No hay ninguna fila seleccionada.");
+                MessageBox.Show("No se encontraron códigos de compra en las filas seleccionadas.");
             }
         }
 

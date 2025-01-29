@@ -344,6 +344,7 @@ namespace app_matter_data_src_erp.Forms
             this.dataTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataTable.Size = new System.Drawing.Size(937, 398);
             this.dataTable.TabIndex = 9;
+            this.dataTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
             // 
             // Column1
             // 

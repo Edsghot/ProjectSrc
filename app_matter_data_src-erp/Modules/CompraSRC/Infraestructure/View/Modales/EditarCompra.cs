@@ -30,7 +30,7 @@ namespace app_matter_data_src_erp.Forms
         private readonly ICompraSrcInputPort _compraSrc;
         private readonly ICompraSrcRepository _repo;
         private List<SucursalDto> sucursales;
-        public EditarCompra(string codigo,string documento,int row, MainComprasSrc mainForm)
+        public EditarCompra(string codigo,string documento,int row, MainComprasSrc mainForm1)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -40,7 +40,7 @@ namespace app_matter_data_src_erp.Forms
             code = codigo;
             docu = documento;
             _compraSrc = new CompraSrcAdapter();
-            this.mainForm = mainForm;
+            this.mainForm = mainForm1;
             _repo = new CompraSrcRepository();
         }
 
@@ -84,13 +84,12 @@ namespace app_matter_data_src_erp.Forms
                 try
                 {
                     await _repo.ActualizarPuntoVentaYAlmacen(idPunto, almacen);
-                    mainForm.ShowToast("Datos de la sucursal añadidos con éxito.", "success");
                     this.Close();
 
                 }
                 catch (Exception ex)
                 {
-                    mainForm.ShowToast($"Error al actualizar los datos: {ex.Message}", "error");
+                    //mainForm.ShowToast($"Error al actualizar los datos: {ex.Message}", "error");
                 }
             }
         }

@@ -13,10 +13,10 @@ namespace app_matter_data_src_erp.Forms.DialogView
     public partial class ModalDetalleCompraCombustible : Form
     {
         private readonly int empresa;
-        public ModalDetalleCompraCombustible(string codigo,string emp, List<List<object>> data)
+        public ModalDetalleCompraCombustible(string codigo, string emp, List<List<object>> data)
         {
             InitializeComponent();
-     
+
             this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.dataTable.RowTemplate.Height = 35;
             this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;

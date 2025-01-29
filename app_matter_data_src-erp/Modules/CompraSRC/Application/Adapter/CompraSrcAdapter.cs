@@ -105,7 +105,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 data.idCliPro = result1[0].IdCliPro;
             }
 
-            data.idCliPro = "0040";
             data.idClaseDoc = (await compraSrcRepository.GetClaseDocByTipoSunat(data.NomTipoDocumento))[0].IdClaseDoc;
             data.FechaDig = DateTime.Now;
             data.FechaOperativa = DateTime.Now;
@@ -116,6 +115,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             data.idChofer = 1;
             data.FechaLlegada = data.FechaEmision.ToString();
             data.NewSucursal = (await compraSrcRepository.getAllSucursal()).FirstOrDefault(x => x.SucursalSRC == "True").NomPuntoVenta;
+            data.IdAlmacen = Int32.Parse((await compraSrcRepository.getAllSucursal()).FirstOrDefault(x => x.SucursalSRC == "True").IdAlmacen);
             data.IdPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].IdPlantilla;
             data.NomPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].NomPlantilla;
             data.SubTotal = data.TotalPagar;
