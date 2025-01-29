@@ -112,7 +112,7 @@ namespace app_matter_data_src_erp.Forms
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.dateInicio);
             this.panel1.Location = new System.Drawing.Point(14, 72);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(963, 80);
             this.panel1.TabIndex = 6;
@@ -123,9 +123,9 @@ namespace app_matter_data_src_erp.Forms
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.cbEstadoImportacion);
             this.panel5.Location = new System.Drawing.Point(406, 30);
-            this.panel5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel5.Margin = new System.Windows.Forms.Padding(2);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(178, 33);
+            this.panel5.Size = new System.Drawing.Size(178, 41);
             this.panel5.TabIndex = 14;
             // 
             // cbEstadoImportacion
@@ -139,7 +139,7 @@ namespace app_matter_data_src_erp.Forms
             "Listo",
             "Error"});
             this.cbEstadoImportacion.Location = new System.Drawing.Point(12, 5);
-            this.cbEstadoImportacion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbEstadoImportacion.Margin = new System.Windows.Forms.Padding(2);
             this.cbEstadoImportacion.Name = "cbEstadoImportacion";
             this.cbEstadoImportacion.Size = new System.Drawing.Size(156, 25);
             this.cbEstadoImportacion.TabIndex = 7;
@@ -150,7 +150,7 @@ namespace app_matter_data_src_erp.Forms
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.Controls.Add(this.lblDateFin);
             this.panel4.Location = new System.Drawing.Point(213, 32);
-            this.panel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(161, 34);
             this.panel4.TabIndex = 13;
@@ -182,7 +182,7 @@ namespace app_matter_data_src_erp.Forms
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.lblDateInicio);
             this.panel3.Location = new System.Drawing.Point(12, 32);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(161, 34);
             this.panel3.TabIndex = 11;
@@ -211,9 +211,9 @@ namespace app_matter_data_src_erp.Forms
             this.btnImportar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnImportar.IconSize = 35;
             this.btnImportar.Location = new System.Drawing.Point(848, 29);
-            this.btnImportar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnImportar.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportar.Name = "btnImportar";
-            this.btnImportar.Size = new System.Drawing.Size(100, 37);
+            this.btnImportar.Size = new System.Drawing.Size(100, 42);
             this.btnImportar.TabIndex = 10;
             this.btnImportar.Text = "Importar";
             this.btnImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -233,9 +233,9 @@ namespace app_matter_data_src_erp.Forms
             this.btnEscanear.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnEscanear.IconSize = 35;
             this.btnEscanear.Location = new System.Drawing.Point(727, 29);
-            this.btnEscanear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnEscanear.Margin = new System.Windows.Forms.Padding(2);
             this.btnEscanear.Name = "btnEscanear";
-            this.btnEscanear.Size = new System.Drawing.Size(106, 37);
+            this.btnEscanear.Size = new System.Drawing.Size(106, 42);
             this.btnEscanear.TabIndex = 9;
             this.btnEscanear.Text = "Escanear";
             this.btnEscanear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -254,9 +254,9 @@ namespace app_matter_data_src_erp.Forms
             this.btnFilter.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnFilter.IconSize = 35;
             this.btnFilter.Location = new System.Drawing.Point(598, 29);
-            this.btnFilter.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnFilter.Margin = new System.Windows.Forms.Padding(2);
             this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(38, 37);
+            this.btnFilter.Size = new System.Drawing.Size(44, 42);
             this.btnFilter.TabIndex = 8;
             this.btnFilter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnFilter.UseVisualStyleBackColor = false;
@@ -291,7 +291,7 @@ namespace app_matter_data_src_erp.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelContainerTable.Controls.Add(this.dataTable);
             this.panelContainerTable.Location = new System.Drawing.Point(14, 170);
-            this.panelContainerTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelContainerTable.Margin = new System.Windows.Forms.Padding(2);
             this.panelContainerTable.Name = "panelContainerTable";
             this.panelContainerTable.Size = new System.Drawing.Size(963, 418);
             this.panelContainerTable.TabIndex = 8;
@@ -336,7 +336,7 @@ namespace app_matter_data_src_erp.Forms
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataTable.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataTable.Location = new System.Drawing.Point(11, 10);
-            this.dataTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataTable.Margin = new System.Windows.Forms.Padding(2);
             this.dataTable.Name = "dataTable";
             this.dataTable.ReadOnly = true;
             this.dataTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
@@ -441,7 +441,7 @@ namespace app_matter_data_src_erp.Forms
             this.panel2.Controls.Add(this.previousPageButton);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Location = new System.Drawing.Point(14, 592);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(126, 52);
             this.panel2.TabIndex = 9;
@@ -473,7 +473,7 @@ namespace app_matter_data_src_erp.Forms
             this.nextPageButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.nextPageButton.IconSize = 25;
             this.nextPageButton.Location = new System.Drawing.Point(88, 11);
-            this.nextPageButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nextPageButton.Margin = new System.Windows.Forms.Padding(2);
             this.nextPageButton.Name = "nextPageButton";
             this.nextPageButton.Size = new System.Drawing.Size(27, 29);
             this.nextPageButton.TabIndex = 11;
@@ -495,7 +495,7 @@ namespace app_matter_data_src_erp.Forms
             this.previousPageButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.previousPageButton.IconSize = 25;
             this.previousPageButton.Location = new System.Drawing.Point(12, 11);
-            this.previousPageButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.previousPageButton.Margin = new System.Windows.Forms.Padding(2);
             this.previousPageButton.Name = "previousPageButton";
             this.previousPageButton.Size = new System.Drawing.Size(27, 29);
             this.previousPageButton.TabIndex = 9;
@@ -508,7 +508,7 @@ namespace app_matter_data_src_erp.Forms
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::app_matter_data_src_erp.Properties.Resources.iconCircle;
             this.pictureBox1.Location = new System.Drawing.Point(52, 11);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(27, 29);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -525,7 +525,7 @@ namespace app_matter_data_src_erp.Forms
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "UCImportacionesCompra";
             this.Size = new System.Drawing.Size(993, 647);
             this.Load += new System.EventHandler(this.UCImportacionesCompra_Load);

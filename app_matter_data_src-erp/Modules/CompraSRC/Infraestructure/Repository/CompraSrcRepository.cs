@@ -216,65 +216,109 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
 
         public async Task InsertarCompraAsync(CompraDto compra)
         {
-            compra.nOrdenCompra = compra.NumCompra;
-            var parameters = new[]
+            try
             {
-                new SqlParameter("@nCompra", compra.NumCompra),
-                new SqlParameter("@idCliPro", compra.idCliPro),
-                new SqlParameter("@idClaseDoc", compra.idClaseDoc),
-                new SqlParameter("@idAlmacen", compra.IdAlmacen),
-                new SqlParameter("@FechaDig", compra.FechaDig),
-                new SqlParameter("@Fecha", compra.FechaEmision),
-                new SqlParameter("@FechaOperativa", compra.FechaOperativa),
-                new SqlParameter("@FechaVenc", compra.FechaVencimiento),
-                new SqlParameter("@idPeriodo", compra.idPeriodo),
-                new SqlParameter("@Moneda", compra.Moneda),
-                new SqlParameter("@TipoCambio", compra.TipoCambio),
-                new SqlParameter("@Condicion", compra.Condicion),
-                new SqlParameter("@NGuiaRemision", compra.NGuiaRemision),
-                new SqlParameter("@idTransportista", compra.idTransportista),
-                new SqlParameter("@idPlaca", compra.idPlaca),
-                new SqlParameter("@idChofer", compra.idChofer),
-                new SqlParameter("@IdPlantilla", compra.IdPlantilla),
-                new SqlParameter("@Obs", compra.Observacion),
-                new SqlParameter("@SubTotal", compra.SubTotal),
-                new SqlParameter("@Igv", compra.TotalIGV),
-                new SqlParameter("@Total", compra.TotalPagar),
-                new SqlParameter("@Importacion", compra.Importacion),
-                new SqlParameter("@Automatica", compra.Automatica),
-                new SqlParameter("@numConstanciaDep", (object)compra.numConstanciaDep ?? DBNull.Value),
-                new SqlParameter("@fecConstanciaDep", (object)compra.fecConstanciaDep ?? DBNull.Value),
-                new SqlParameter("@FechaLlegada", compra.FechaLlegada),
-                new SqlParameter("@IdTurno", compra.IdTurno),
-                new SqlParameter("@RelGuiaCompra", compra.RelGuiaCompra),
-                new SqlParameter("@PrecioIncluyeIGV", compra.PrecioIncluyeIGV),
-                new SqlParameter("@tipoFechaRegCompras", compra.tipoFechaRegCompras),
-                new SqlParameter("@fechaEspecialRC", (object)compra.fechaEspecialRC ?? DBNull.Value),
-                new SqlParameter("@servicioIntangible", compra.servicioIntangible),
-                new SqlParameter("@idTipoOperacion", compra.idTipoOperacion),
-                new SqlParameter("@idDepartamento", compra.idDepartamento),
-                new SqlParameter("@nOrdenCompra", compra.nOrdenCompra),
-                new SqlParameter("@detraccion", compra.detraccion),
-                new SqlParameter("@tieneConsignaciones", compra.tieneConsignaciones),
-                new SqlParameter("@fleteTotal", compra.fleteTotal),
-                new SqlParameter("@distribuir", compra.distribuir),
-                new SqlParameter("@idProcesoAsociado", compra.idProcesoAsociado),
-                new SqlParameter("@nProcesoAsociado", compra.nProcesoAsociado),
-                new SqlParameter("@guiaRecibida", compra.guiaRecibida),
-                new SqlParameter("@nPercepcion", compra.nPercepcion),
-                new SqlParameter("@fechaPercepcion", (object)compra.fechaPercepcion ?? DBNull.Value),
-                new SqlParameter("@percepcionTotal", compra.TotalPercepcion),
-                new SqlParameter("@pRetencion", compra.pRetencion),
-                new SqlParameter("@nCompraPlus", compra.nCompraPlus),
-                new SqlParameter("@nOrdenCompraProveedor", compra.nOrdenCompraProveedor),
-                new SqlParameter("@fiseTotal", compra.fiseTotal),
-                new SqlParameter("@idClasificacionBienesServicios", compra.idClasificacionBienesServicios),
-                new SqlParameter("@idTipoFacturacionGuiaRemision", compra.idTipoFacturacionGuiaRemision)
-             };
+                compra.nOrdenCompra = null; // Asegurar que tiene un valor dentro del rango permitido
+                compra.Condicion = "T";
+                var parameters = new[]
+                {
+            new SqlParameter("@nCompra", compra.NumCompra),
+            new SqlParameter("@idCliPro", compra.idCliPro),
+            new SqlParameter("@idClaseDoc", compra.idClaseDoc),
+            new SqlParameter("@idAlmacen", compra.IdAlmacen),
+            new SqlParameter("@FechaDig", compra.FechaDig),
+            new SqlParameter("@Fecha", compra.FechaEmision),
+            new SqlParameter("@FechaOperativa", compra.FechaOperativa),
+            new SqlParameter("@FechaVenc", compra.FechaVencimiento),
+            new SqlParameter("@idPeriodo", compra.idPeriodo),
+            new SqlParameter("@Moneda", compra.Moneda),
+            new SqlParameter("@TipoCambio", compra.TipoCambio),
+            new SqlParameter("@Condicion", compra.Condicion),
+            new SqlParameter("@NGuiaRemision", compra.NGuiaRemision),
+            new SqlParameter("@idTransportista", (object)compra.idTransportista ?? DBNull.Value),
+            new SqlParameter("@idPlaca", (object)compra.idPlaca ?? DBNull.Value),
+            new SqlParameter("@idChofer", (object)compra.idChofer ?? DBNull.Value),
+            new SqlParameter("@IdPlantilla", compra.IdPlantilla),
+            new SqlParameter("@Obs", compra.Observacion),
+            new SqlParameter("@SubTotal", compra.SubTotal),
+            new SqlParameter("@Igv", compra.TotalIGV),
+            new SqlParameter("@Total", compra.TotalPagar),
+            new SqlParameter("@Importacion", compra.Importacion),
+            new SqlParameter("@Automatica", compra.Automatica),
+            new SqlParameter("@numConstanciaDep", (object)compra.numConstanciaDep ?? DBNull.Value),
+            new SqlParameter("@fecConstanciaDep", (object)compra.fecConstanciaDep ?? DBNull.Value),
+            new SqlParameter("@FechaLlegada", (object)compra.FechaLlegada ?? DBNull.Value),
+            new SqlParameter("@IdTurno", (object)compra.IdTurno ?? DBNull.Value),
+            new SqlParameter("@RelGuiaCompra", compra.RelGuiaCompra),
+            new SqlParameter("@PrecioIncluyeIGV", compra.PrecioIncluyeIGV),
+            new SqlParameter("@tipoFechaRegCompras", (object)compra.tipoFechaRegCompras ?? DBNull.Value),
+            new SqlParameter("@fechaEspecialRC", (object)compra.fechaEspecialRC ?? DBNull.Value),
+            new SqlParameter("@servicioIntangible", compra.servicioIntangible),
+            new SqlParameter("@idTipoOperacion", (object)compra.idTipoOperacion ?? DBNull.Value),
+            new SqlParameter("@idDepartamento", compra.idDepartamento),
+            new SqlParameter("@nOrdenCompra", compra.nOrdenCompra),
+            new SqlParameter("@detraccion", compra.detraccion),
+            new SqlParameter("@tieneConsignaciones", compra.tieneConsignaciones),
+            new SqlParameter("@fleteTotal", compra.fleteTotal),
+            new SqlParameter("@distribuir", compra.distribuir),
+            new SqlParameter("@idProcesoAsociado", (object)compra.idProcesoAsociado ?? DBNull.Value),
+            new SqlParameter("@nProcesoAsociado", (object)compra.nProcesoAsociado ?? DBNull.Value),
+            new SqlParameter("@guiaRecibida", (object)compra.guiaRecibida ?? DBNull.Value),
+            new SqlParameter("@nPercepcion", (object)compra.nPercepcion ?? DBNull.Value),
+            new SqlParameter("@fechaPercepcion", (object)compra.fechaPercepcion ?? DBNull.Value),
+            new SqlParameter("@percepcionTotal", compra.TotalPercepcion),
+            new SqlParameter("@pRetencion", compra.pRetencion),
+            new SqlParameter("@nCompraPlus", compra.nCompraPlus),
+            new SqlParameter("@nOrdenCompraProveedor", (object)compra.nOrdenCompraProveedor ?? DBNull.Value),
+            new SqlParameter("@fiseTotal", compra.fiseTotal),
+            new SqlParameter("@idClasificacionBienesServicios", (object)compra.idClasificacionBienesServicios ?? DBNull.Value),
+            new SqlParameter("@idTipoFacturacionGuiaRemision", compra.idTipoFacturacionGuiaRemision)
+        };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("InsertCompraErp", parameters);
+                // 🔍 **Verificar si algún parámetro está excediendo la longitud permitida**
+                foreach (var param in parameters)
+                {
+                    if (param.Value != DBNull.Value && param.Value is string strValue)
+                    {
+                        int maxLength = GetMaxLength(param.ParameterName);
+                        if (maxLength > 0 && strValue.Length > maxLength)
+                        {
+                            throw new Exception($"⚠️ El parámetro {param.ParameterName} excede el límite de {maxLength} caracteres. Valor recibido: '{strValue}'");
+                        }
+                    }
+                }
+
+                // 📌 **Ejecutar el procedimiento almacenado**
+                await DataBaseHelper.ExecuteStoredProcedureAsync("InsertCompraErp", parameters);
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception($"❌ Error ejecutando el procedimiento almacenado 'InsertCompraErp': {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"❌ Error en la inserción: {ex.Message}");
+            }
         }
 
-
+        private int GetMaxLength(string paramName)
+        {
+            switch (paramName)
+            {
+                case "@nCompra": return 15;
+                case "@idCliPro": return 30;
+                case "@idClaseDoc": return 1;
+                case "@Moneda": return 1;
+                case "@Condicion": return 1;
+                case "@NGuiaRemision": return 20;
+                case "@numConstanciaDep": return 20;
+                case "@nOrdenCompra": return 15;
+                case "@nProcesoAsociado": return 15;
+                case "@nPercepcion": return 15;
+                case "@nCompraPlus": return 20;
+                case "@nOrdenCompraProveedor": return 17;
+                default: return -1; // Retorna -1 si no hay un límite definido
+            }
+        }
     }
 }

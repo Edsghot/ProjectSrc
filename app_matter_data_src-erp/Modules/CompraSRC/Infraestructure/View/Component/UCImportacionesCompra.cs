@@ -36,7 +36,7 @@ namespace app_matter_data_src_erp.Forms
             };
 
             _compraSrc = new CompraSrcAdapter();
-      
+
         }
 
         private async void LoadData()
@@ -44,50 +44,50 @@ namespace app_matter_data_src_erp.Forms
             var mainForm = (MainComprasSrc)this.FindForm();
             mainForm.ShowOverlay();
             try
+            {
+                this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                this.dataTable.RowTemplate.Height = 40;
+                this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                dataTable.Rows.Clear();
+
+                var data = await _compraSrc.ObtenerDataSrc();
+
+                if (data == null || data.Count == 0)
                 {
-                    this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    this.dataTable.RowTemplate.Height = 40;
-                    this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                    dataTable.Rows.Clear();
-
-                    var data = await _compraSrc.ObtenerDataSrc();
-
-                    if (data == null || data.Count == 0)
-                    {
-                        MessageBox.Show("No se encontraron datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-
-                    totalRows = data.Count;
-
-                    for (int i = (currentPage - 1) * rowsPerPage; i < Math.Min(currentPage * rowsPerPage, totalRows); i++)
-                    {
-                        var compra = data[i];
-
-                        dataTable.Rows.Add(
-                            compra.NumCompra,
-                            compra.FechaEmision.ToString("dd/MM/yyyy"),
-                            compra.Sucursal,
-                            compra.RazonSocial,
-                            compra.RazonSocial,
-                            compra.TotalPagar - compra.TotalIGV,
-                            compra.TotalIGV,
-                            compra.TotalPagar,
-                            compra.FechaVencimiento.ToString("dd/MM/yyyy"),
-                            compra.RazonSocial,
-                            compra.Errores
-                        );
-                    }
-
-                    UpdatePagination();
+                    MessageBox.Show("No se encontraron datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
-                finally
+
+                totalRows = data.Count;
+
+                for (int i = (currentPage - 1) * rowsPerPage; i < Math.Min(currentPage * rowsPerPage, totalRows); i++)
                 {
+                    var compra = data[i];
+
+                    dataTable.Rows.Add(
+                        compra.NumCompra,
+                        compra.FechaEmision.ToString("dd/MM/yyyy"),
+                        compra.Sucursal,
+                        compra.RazonSocial,
+                        compra.RazonSocial,
+                        "s/." + (compra.TotalPagar - compra.TotalIGV),
+                        compra.TotalIGV,
+                         "s/." + (compra.TotalPagar),
+                        compra.FechaVencimiento.ToString("dd/MM/yyyy"),
+                        compra.RazonSocial,
+                        compra.Errores
+                    );
+                }
+
+                UpdatePagination();
+            }
+            finally
+            {
                 mainForm.HideOverlay();
             }
-            
+
         }
 
 
@@ -124,6 +124,7 @@ namespace app_matter_data_src_erp.Forms
         private void dataTable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             var columnName = dataTable.Columns[e.ColumnIndex].Name;
+
 
             if (columnName == "Column3" || columnName == "Column4" || columnName == "Column9" || columnName == "Column10")
             {
@@ -266,7 +267,8 @@ namespace app_matter_data_src_erp.Forms
 
                             if (validacion)
                             {
-                                ModalDetalleCompra modal = new ModalDetalleCompra(codigoCompra, tablaDatos);
+                                //ModalDetalleCompra modal = new ModalDetalleCompra(codigoCompra, tablaDatos);
+                                ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigoCompra, tablaDatosCombustible);
                                 overlayForm.ShowOverlayWithModal(modal);
                             }
                             else
@@ -372,7 +374,7 @@ namespace app_matter_data_src_erp.Forms
         private void btnImportar_Click(object sender, EventArgs e)
         {
             OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
-            if (dataTable.SelectedRows.Count > 0) 
+            if (dataTable.SelectedRows.Count > 0)
             {
                 List<string> codigosCompras = new List<string>();
 
@@ -423,7 +425,7 @@ namespace app_matter_data_src_erp.Forms
         {
             string dateInicio = lblDateInicio.Text;
             string dateFin = lblDateFin.Text;
-            string selectC = cbEstadoImportacion.SelectedItem?.ToString(); 
+            string selectC = cbEstadoImportacion.SelectedItem?.ToString();
 
             if (string.IsNullOrEmpty(dateInicio) && string.IsNullOrEmpty(dateFin) && string.IsNullOrEmpty(selectC))
             {
@@ -473,9 +475,9 @@ namespace app_matter_data_src_erp.Forms
                         compra.Sucursal,
                         compra.RazonSocial,
                         compra.RazonSocial,
-                        compra.TotalPagar - compra.TotalIGV,
+                        "s/." + (compra.TotalPagar - compra.TotalIGV),
                         compra.TotalIGV,
-                        compra.TotalPagar,
+                        "s/." + (compra.TotalPagar),
                         compra.FechaVencimiento.ToString("dd/MM/yyyy"),
                         compra.RazonSocial,
                         compra.Errores
@@ -488,6 +490,3 @@ namespace app_matter_data_src_erp.Forms
 
     }
 }
-
-
-    
