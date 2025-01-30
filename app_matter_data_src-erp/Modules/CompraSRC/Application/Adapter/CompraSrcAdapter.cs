@@ -293,7 +293,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             await compraSrcRepository.InsertarCompraAsync(compra);
             foreach (var detalle in compra.Compras)
             {
-                detalle.nCompra = compra.NumCompra;
+                detalle.nCompra = compra.SerieCompra + compra.NumCompra;
                 await compraSrcRepository.InsertarDCompra(detalle);
             }
 

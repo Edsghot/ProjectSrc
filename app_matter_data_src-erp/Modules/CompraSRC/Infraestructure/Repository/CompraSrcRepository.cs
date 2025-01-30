@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 using app_matter_data_src_erp.Global.DataBase;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Proveedor;
@@ -222,7 +223,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
             var parameters = new[]
             {
                 new SqlParameter("@NomCliPro", proveedor.RazonSocial),
-                new SqlParameter("@Tipo", 'C'),
+                new SqlParameter("@Tipo", 'P'),
                 new SqlParameter("@RazonComercial", proveedor.RazonSocial),
                 new SqlParameter("@IdClaseDocDef", 1), // Valor por defecto
                 new SqlParameter("@RUC", proveedor.NumeroDocumento),
@@ -253,10 +254,11 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
             try
             {
                 compra.nOrdenCompra = null; // Asegurar que tiene un valor dentro del rango permitido
-                compra.Condicion = "T";
+                compra.Condicion = "R";
+               
                 var parameters = new[]
                 {
-            new SqlParameter("@nCompra", compra.NumCompra),
+            new SqlParameter("@nCompra", compra.SerieCompra+compra.NumCompra),
             new SqlParameter("@idCliPro", compra.idCliPro),
             new SqlParameter("@idClaseDoc", compra.idClaseDoc),
             new SqlParameter("@idAlmacen", compra.IdAlmacen),

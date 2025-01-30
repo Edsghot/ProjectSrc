@@ -82,7 +82,7 @@ namespace app_matter_data_src_erp
             var servidor = args[0];
             var user = args[1];
             var password = args[2];
-            var db = args[3];
+             var db = args[3];
             //var servidor = HFunciones.Codificar(args[0]);
             //var user = HFunciones.Codificar(args[1]);
             //var password = HFunciones.Codificar(args[2]);
