@@ -46,7 +46,17 @@ namespace app_matter_data_src_erp.Forms.DialogView
                     mainForm.ShowToast($"Error al importar los datos de la compra {numCompra}.", "error");
                 }
             }
+            var resultado = MessageBox.Show(
+       "¿Desea reiniciar la importación o continuar con el formulario actual?",
+       "Confirmación",
+       MessageBoxButtons.YesNo,
+       MessageBoxIcon.Question
+   );
 
+            if (resultado == DialogResult.Yes)
+            {
+                this.Close();
+            }
             this.Close();
         }
     }

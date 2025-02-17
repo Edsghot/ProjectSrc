@@ -15,6 +15,7 @@ public class CompraDto
     public int TipoDocumento { get; set; }
     public string RazonSocial { get; set; }
     public string Sucursal { get; set; }
+    public string SucursalId { get; set; }
 
     public DateTime FechaEmision { get; set; } = new DateTime(2000, 1, 1);
 
@@ -26,6 +27,7 @@ public class CompraDto
     public decimal TotalGravadas { get; set; }
     public decimal TotalExoneradas { get; set; }
     public decimal TotalOtrosTributos { get; set; }
+    public decimal TotalInafecta { get; set; }
     public decimal TotalPercepcion { get; set; }
     public decimal TotalIGV { get; set; }
     public decimal TotalPagar { get; set; }
@@ -38,6 +40,7 @@ public class CompraDto
     public string LicenciaTransportista { get; set; }
     public string MarcaTransportista { get; set; }
     public string Errores { get; set; }
+    public string IdRecepcion { get; set; }
     //data src
     public int IdAlmacen { get; set; }
     public string FechaLlegada { get; set; }
@@ -86,6 +89,8 @@ public class CompraDto
     public decimal fiseTotal { get; set; }
     public int idClasificacionBienesServicios { get; set; }
     public int idTipoFacturacionGuiaRemision { get; set; }
+
+    public int cantidad { get; set; }
 }
 
 

@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Markup;
+using app_matter_data_src_erp.Configuration.Constants;
 using app_matter_data_src_erp.Global.DataBase;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Proveedor;
@@ -228,28 +229,28 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@IdClaseDocDef", 1), // Valor por defecto
                 new SqlParameter("@RUC", proveedor.NumeroDocumento),
                 new SqlParameter("@IdTipoDI", "RUC"), // Valor por defecto
-                new SqlParameter("@DNI", string.Empty), // Valor por defecto
-                new SqlParameter("@Sexo", DBNull.Value), // Valor por defecto
-                new SqlParameter("@IdDepa", DBNull.Value), // Valor por defecto
-                new SqlParameter("@IdProv", DBNull.Value), // Valor por defecto
-                new SqlParameter("@IdDistrito", DBNull.Value), // Valor por defecto
-                new SqlParameter("@IdPuntoVenta", DBNull.Value), // Valor por defecto
-                new SqlParameter("@IdRuta", DBNull.Value), // Valor por defecto
+                new SqlParameter("@DNI", proveedor.NumeroDocumento), // Valor por defecto
+                new SqlParameter("@Sexo", 'S'), // Valor por defecto
+                new SqlParameter("@IdDepa", 15), // Valor por defecto
+                new SqlParameter("@IdProv", 128), // Valor por defecto
+                new SqlParameter("@IdDistrito", 1295), // Valor por defecto
+                new SqlParameter("@IdPuntoVenta", Credentials.IdPuntoVenta), // Valor por defecto
+                new SqlParameter("@IdRuta", 1), // Valor por defecto
                 new SqlParameter("@IdGiroNeg", 1), // Valor por defecto
-                new SqlParameter("@IdTipoNeg", DBNull.Value), // Valor por defecto
-                new SqlParameter("@NroDiasCredito", DBNull.Value), // Valor por defecto
-                new SqlParameter("@CreditoMN", DBNull.Value), // Valor por defecto
-                new SqlParameter("@CreditoME", DBNull.Value), // Valor por defecto
-                new SqlParameter("@Clasificacion","$"), // Valor por defecto
-                new SqlParameter("@CreditoCant", DBNull.Value), // Valor por defecto
-                new SqlParameter("@lineaCredito", 1), // Valor por defecto
-                new SqlParameter("@idSubCondicion", DBNull.Value) // Valor por defecto
+                new SqlParameter("@IdTipoNeg", 1), // Valor por defecto
+                new SqlParameter("@NroDiasCredito", 15), // Valor por defecto
+                new SqlParameter("@CreditoMN",415000), // Valor por defecto
+                new SqlParameter("@CreditoME", 0), // Valor por defecto
+                new SqlParameter("@Clasificacion","%"), // Valor por defecto
+                new SqlParameter("@CreditoCant", 0), // Valor por defecto
+                new SqlParameter("@lineaCredito", 415000), // Valor por defecto
+                new SqlParameter("@idSubCondicion", 4) // Valor por defecto
             };
 
             await DataBaseHelper.ExecuteStoredProcedureAsync("InsertCliPro1", parameters);
         }
 
-        public async Task InsertarCompraAsync(CompraDto compra)
+        public async Task  InsertarCompraAsync(CompraDto compra)
         {
             try
             {
@@ -335,6 +336,64 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
             {
                 throw new Exception($"❌ Error en la inserción: {ex.Message}");
             }
+        }
+
+        public async Task InsertarCompraTemporal(CompraDto compra)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@idComputadora", Credentials.IdComputadora),
+                new SqlParameter("@tipoDoc", "FAC"),
+                new SqlParameter("@serieCompra", compra.SerieCompra ?? string.Empty),
+                new SqlParameter("@numCompra", compra.NumCompra ?? string.Empty),
+                new SqlParameter("@rucPersona", compra.DocumentoProveedor ?? string.Empty),
+                new SqlParameter("@nomPersona", compra.RazonSocial ?? string.Empty),
+                new SqlParameter("@sucursal", compra.Sucursal ?? string.Empty),
+                new SqlParameter("@fecha", compra.FechaEmision),
+                new SqlParameter("@fechaVenc", compra.FechaVencimiento),
+                new SqlParameter("@moneda", compra.Moneda ?? string.Empty),
+                new SqlParameter("@tcCompra", compra.TipoCambio),
+                new SqlParameter("@condicion", compra.Condicion ?? string.Empty),
+                new SqlParameter("@nomTransportista", compra.LicenciaTransportista ?? string.Empty),
+                new SqlParameter("@rucTransportista", string.Empty),
+                new SqlParameter("@dirTransportista", string.Empty),
+                new SqlParameter("@placaTransportista", compra.PlacaTransportista ?? string.Empty),
+                new SqlParameter("@marcaTransportista", compra.MarcaTransportista ?? string.Empty),
+                new SqlParameter("@certInscripcion", string.Empty),
+                new SqlParameter("@configuracionVeh", string.Empty),
+                new SqlParameter("@cubicacion", string.Empty),
+                new SqlParameter("@nomChofer", string.Empty),
+                new SqlParameter("@breveteChofer", string.Empty),
+                new SqlParameter("@destinoRC", compra.guiaRecibida),
+                new SqlParameter("@obs", compra.Observacion ?? string.Empty),
+                new SqlParameter("@subTotal", compra.SubTotal),
+                new SqlParameter("@igv", compra.TotalIGV),
+                new SqlParameter("@total", compra.TotalPagar),
+                new SqlParameter("@nDetraccion", string.Empty),
+                new SqlParameter("@fDetraccion", compra.fechaPercepcion ?? (object)DBNull.Value),
+                new SqlParameter("@fechaLlegada", compra.FechaLlegada ?? (object)DBNull.Value),
+                new SqlParameter("@precioIncluyeIGV", compra.PrecioIncluyeIGV),
+                new SqlParameter("@tipoOperacion", compra.idTipoOperacion),
+                new SqlParameter("@centroCostos", compra.idDepartamento),
+                new SqlParameter("@seriePer", string.Empty),
+                new SqlParameter("@numPer", string.Empty),
+                new SqlParameter("@fechaPercepcion", compra.fechaPercepcion ?? (object)DBNull.Value),
+                new SqlParameter("@perTotal", compra.TotalPercepcion),
+                new SqlParameter("@pRetencion", compra.pRetencion),
+                new SqlParameter("@validarTotales", false),
+                new SqlParameter("@idProductoExt", string.Empty),
+                new SqlParameter("@cantidad", 0.00m),
+                new SqlParameter("@precio", 0.00m),
+                new SqlParameter("@tipoIGV", 28),
+                new SqlParameter("@pIGV", 0.18),
+                new SqlParameter("@fechaVencProducto", (object)compra.fechaEspecialRC ?? DBNull.Value),
+                new SqlParameter("@api", 0.00m),
+                new SqlParameter("@temperatura", 0.00m),
+                new SqlParameter("@igvCosto", 0.00m),
+                new SqlParameter("@serieProducto", string.Empty)
+            };
+
+            await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertCompraTemporal", parameters);
         }
 
         private int GetMaxLength(string paramName)

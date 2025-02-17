@@ -1,4 +1,4 @@
-﻿using System.Net;
+﻿using System.Net;   
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -53,6 +53,7 @@ namespace app_matter_data_src_erp.Global.ApiClient
                                     TipoDocumento = resultado["TipoDocumento"]?.ToObject<int>() ?? 0,
                                     RazonSocial = resultado["RazonSocial"]?.ToString(),
                                     Sucursal = resultado["Sucursal"]?.ToString(),
+                                    SucursalId = resultado["SucursalId"]?.ToString(),
                                     FechaEmision = DateTime.TryParseExact(resultado["FechaEmision"]?.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaEmision) ? fechaEmision : DateTime.MinValue,
                                     FechaVencimiento = DateTime.TryParseExact(resultado["FechaVencimiento"]?.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaVencimiento) ? fechaVencimiento : DateTime.MinValue,
                                     Moneda = resultado["Moneda"]?.ToString(),
@@ -61,6 +62,7 @@ namespace app_matter_data_src_erp.Global.ApiClient
                                     TotalGravadas = resultado["TotalGravadas"]?.ToObject<decimal>() ?? 0,
                                     TotalExoneradas = resultado["TotalExoneradas"]?.ToObject<decimal>() ?? 0,
                                     TotalOtrosTributos = resultado["TotalOtrosTributos"]?.ToObject<decimal>() ?? 0,
+                                    TotalInafecta = resultado["TotalInafecta"]?.ToObject<decimal>() ?? 0,
                                     TotalPercepcion = resultado["TotalPercepcion"]?.ToObject<decimal>() ?? 0,
                                     TotalIGV = resultado["TotalIGV"]?.ToObject<decimal>() ?? 0,
                                     TotalPagar = resultado["TotalPagar"]?.ToObject<decimal>() ?? 0,
@@ -70,6 +72,7 @@ namespace app_matter_data_src_erp.Global.ApiClient
                                     PlacaTransportista = resultado["PlacaTransportista"]?.ToString(),
                                     LicenciaTransportista = resultado["LicenciaTransportista"]?.ToString(),
                                     MarcaTransportista = resultado["MarcaTransportista"]?.ToString(),
+                                    IdRecepcion = resultado["idRecepcion"]?.ToString(),
                                     Compras = new List<CompraDetalleDto>()
                                 };
 

@@ -24,5 +24,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository
         Task InsertarCliPro(ProveedorDto proveedor);
         Task InsertarCompraAsync(CompraDto compra);
         Task InsertarDCompra(CompraDetalleDto dCompra);
+        Task InsertarCompraTemporal(CompraDto compra);
     }
 }

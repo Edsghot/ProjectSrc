@@ -289,14 +289,13 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
             var compra = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == numCompra);
             compra.idPeriodo = idPeriodo;
-
-            await compraSrcRepository.InsertarCompraAsync(compra);
-            foreach (var detalle in compra.Compras)
+            compra.cantidad = compra.Compras.Count;
+            await compraSrcRepository.InsertarCompraTemporal(compra);
+            /*foreach (var detalle in compra.Compras)
             {
                 detalle.nCompra = compra.SerieCompra + compra.NumCompra;
                 await compraSrcRepository.InsertarDCompra(detalle);
-            }
-
+            }*/
             return true;
         }
 
