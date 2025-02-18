@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Forms;
 using app_matter_data_src_erp.Configuration.Constants;
 
 namespace app_matter_data_src_erp.Global.DataBase
@@ -87,7 +89,7 @@ namespace app_matter_data_src_erp.Global.DataBase
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error ejecutando el procedimiento almacenado '{procedureName}': {ex.Message}", ex);
+                System.Windows.MessageBox.Show($"Error ejecutando el procedimiento almacenado '{procedureName}': {ex.Message}", "Error");
             }
 
             return dataTable;

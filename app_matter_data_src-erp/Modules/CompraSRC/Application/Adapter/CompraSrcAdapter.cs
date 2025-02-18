@@ -40,17 +40,11 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             DataStaticDto.data = response.Resultado;
             var compraDtos = DataStaticDto.data;
 
-            // Crear una lista de tareas para Escanear
-            var escanearTasks = new List<Task>();
-
+            
             foreach (var compra in compraDtos)
             {
-                // Añadir cada tarea Escanear a la lista
-                escanearTasks.Add(Escanear(compra.NumCompra));
+                await Escanear(compra.NumCompra);
             }
-
-            // Esperar a que todas las tareas de Escanear terminen
-            await Task.WhenAll(escanearTasks);
 
             // Procesar después de que todas las tareas hayan terminado
             foreach (var compra in compraDtos)
@@ -104,7 +98,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
         {
             var data = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == NumCompra);
 
-            data.Moneda = (data.Moneda != "PEN") ? "E" : "N";
+        
             var result = await compraSrcRepository.GetCliProByRUCOrRazonComercial(data.DocumentoProveedor, data.RazonSocial);
 
             if (result != null && result.Count > 0)
@@ -119,45 +113,17 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 data.idCliPro = result1[0].IdCliPro;
             }
 
-            data.idClaseDoc = (await compraSrcRepository.GetClaseDocByTipoSunat(data.NomTipoDocumento))[0].IdClaseDoc;
-            data.FechaDig = DateTime.Now;
-            data.FechaOperativa = DateTime.Now;
-            data.TipoCambio = 3.5M;
-            data.NGuiaRemision = data.GuiaRemisionAsociada;
-            data.idTransportista = 1;
-            data.idPlaca = 1;
-            data.idChofer = 1;
             data.FechaLlegada = data.FechaEmision.ToString();
-            data.NewSucursal = (await compraSrcRepository.getAllSucursal()).FirstOrDefault(x => x.SucursalSRC == "True").NomPuntoVenta;
-            data.IdAlmacen = Int32.Parse((await compraSrcRepository.getAllSucursal()).FirstOrDefault(x => x.SucursalSRC == "True").IdAlmacen);
+            var dataSucursal = (await compraSrcRepository.getAllSucursal()).FirstOrDefault(x => x.SucursalSRC == "True");
+            data.NewSucursal = dataSucursal.NomPuntoVenta;
+            data.SucursalId = dataSucursal.IdPuntoVenta;
+            data.Sucursal = dataSucursal.NomPuntoVenta;
+            data.IdAlmacen = Int32.Parse(dataSucursal.IdAlmacen);
             data.IdPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].IdPlantilla;
             data.NomPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].NomPlantilla;
-            data.SubTotal = data.TotalPagar;
-            data.Importacion = true;
-            data.Automatica = true;
-            data.IdTurno = Credentials.IdTurno;
-            data.RelGuiaCompra = false;
-            data.PrecioIncluyeIGV = data.TotalIGV > 0 ? true : false;
-            //data.fechaEspecialRC
-            data.servicioIntangible = false;
+
             data.idTipoOperacion = (await compraSrcRepository.sp_GetTipoOperacion("02"))[0].IdTipoOperacion;
-            data.idDepartamento = Credentials.IdDepartamento;
-            //data.nOrdenCompra 
-            data.detraccion = 0;
-            data.tieneConsignaciones = false;
-            data.fleteTotal = 0;
-            data.distribuir = false;
-            data.idProcesoAsociado = 0;
-            data.guiaRecibida = -1;
-            data.nPercepcion = "0";
-            //data.Fecha{Percepcion
-            data.pRetencion = 0;
-            data.nCompraPlus = data.SerieCompra + data.NumCompra;
-            data.nOrdenCompraProveedor = "0";
-            data.fiseTotal = 0;
-            data.idClasificacionBienesServicios = 1;
-            data.idTipoFacturacionGuiaRemision = 2;
-            data.nProcesoAsociado = "0";
+       
 
         }
 
@@ -225,6 +191,17 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 });
             }
 
+            // Validar que FechaVencimiento no sea menor que FechaEmision
+            if (data.FechaVencimiento < data.FechaEmision)
+            {
+                errors.Add(new validationErrorDto
+                {
+                    Field = "FechaVencimiento",
+                    Message = "La fecha de vencimiento no puede ser menor que la fecha de emisión"
+                });
+            }
+
+
             // Validar DocumentoProveedor
             if (!string.IsNullOrEmpty(data?.DocumentoProveedor) && (data.DocumentoProveedor.Length < 8 || data.DocumentoProveedor.Length > 14))
             {
@@ -279,6 +256,40 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
 
             }
+            data.idClaseDoc = "FAC";
+            data.FechaDig = DateTime.Now;
+            data.FechaOperativa = DateTime.Now;
+            data.TipoCambio = 3.5M;
+            data.NGuiaRemision = data.GuiaRemisionAsociada;
+            data.idTransportista = 1;
+            data.idPlaca = 1;
+            data.idChofer = 1;
+            data.Moneda = (data.Moneda.Trim() != "PEN") ? "E" : "N";
+            data.idDepartamento = Credentials.IdDepartamento;
+            //data.nOrdenCompra 
+            data.detraccion = 0;
+            data.tieneConsignaciones = false;
+            data.fleteTotal = 0;
+            data.distribuir = false;
+            data.idProcesoAsociado = 0;
+            data.guiaRecibida = -1;
+            data.nPercepcion = "0";
+            //data.Fecha{Percepcion
+            data.pRetencion = 0;
+            data.nCompraPlus = data.SerieCompra + data.NumCompra;
+            data.nOrdenCompraProveedor = "0";
+            data.fiseTotal = 0;
+            data.idClasificacionBienesServicios = 1;
+            data.idTipoFacturacionGuiaRemision = 2;
+            data.nProcesoAsociado = "0";
+            data.SubTotal = data.TotalPagar;
+            data.Importacion = true;
+            data.Automatica = true;
+            data.IdTurno = Credentials.IdTurno;
+            data.RelGuiaCompra = false;
+            data.PrecioIncluyeIGV = data.TotalIGV > 0 ? true : false;
+            //data.fechaEspecialRC
+            data.servicioIntangible = false;
 
             return errors;
         }
@@ -290,12 +301,12 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             var compra = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == numCompra);
             compra.idPeriodo = idPeriodo;
             compra.cantidad = compra.Compras.Count;
-            await compraSrcRepository.InsertarCompraTemporal(compra);
-            /*foreach (var detalle in compra.Compras)
+           // await compraSrcRepository.InsertarCompraTemporal(compra);
+            foreach (var detalle in compra.Compras)
             {
                 detalle.nCompra = compra.SerieCompra + compra.NumCompra;
-                await compraSrcRepository.InsertarDCompra(detalle);
-            }*/
+                await compraSrcRepository.InsertarCompraTemporal(compra,detalle);
+            }
             return true;
         }
 

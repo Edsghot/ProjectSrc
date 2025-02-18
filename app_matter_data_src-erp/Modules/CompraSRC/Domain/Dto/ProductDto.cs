@@ -10,5 +10,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto
     {
         public string ProductId { get; set; }
         public string ProductName { get; set; }
+        public string IdProductoExt { get; set; }
     }
 }

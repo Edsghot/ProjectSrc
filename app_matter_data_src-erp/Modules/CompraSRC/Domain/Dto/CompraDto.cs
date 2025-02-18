@@ -29,7 +29,7 @@ public class CompraDto
     public decimal TotalOtrosTributos { get; set; }
     public decimal TotalInafecta { get; set; }
     public decimal TotalPercepcion { get; set; }
-    public decimal TotalIGV { get; set; }
+    public decimal TotalIGV { get; set; } = 0.00m;
     public decimal TotalPagar { get; set; }
     public List<CompraDetalleDto> Compras { get; set; }
     public string GuiaRemisionAsociada { get; set; }
@@ -60,7 +60,8 @@ public class CompraDto
     public int idChofer { get; set; }
     public string IdPlantilla { get; set; }
     public string NomPlantilla { get; set; }
-    public decimal SubTotal { get; set; }
+    public decimal SubTotal { get; set; } = 0.00m;  // Valor predeterminado
+
     public bool Importacion { get; set; }
     public bool Automatica { get; set; }
     public string numConstanciaDep { get; set; }
