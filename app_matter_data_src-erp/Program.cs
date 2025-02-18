@@ -28,7 +28,7 @@ namespace app_matter_data_src_erp
             MapperConfig.RegisterMappings();
 
             Logs.initLogs("Desarrollo.txt");
-            GetCredentialsProduccion(args);
+            GetCredentialsDesarrollo(args);
 
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(GlobalExceptionHandler);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);

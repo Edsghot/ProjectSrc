@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 public class CompraDto
 {
+    public string idCompraSerie { get; set; }
     public string NomTipoDocumento { get; set; }
     public string AbrevTipoDocumento { get; set; }
     public string SerieCompra { get; set; }

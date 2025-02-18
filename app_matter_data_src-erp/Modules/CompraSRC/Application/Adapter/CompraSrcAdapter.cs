@@ -76,7 +76,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 return null;
             }
 
-            var compra = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == codigoCompra);
+            var compra = DataStaticDto.data.FirstOrDefault(c => c.idCompraSerie == codigoCompra);
 
             return compra;
         }
@@ -98,6 +98,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
         {
             var data = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == NumCompra);
 
+
+            data.idCompraSerie = data.SerieCompra + "-" + data.NumCompra;
         
             var result = await compraSrcRepository.GetCliProByRUCOrRazonComercial(data.DocumentoProveedor, data.RazonSocial);
 
@@ -298,7 +300,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
         {
             var idPeriodo = (await compraSrcRepository.ObtenerPeriodosPorFecha(anio, mes))[0].IdPeriodo;
 
-            var compra = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == numCompra);
+            var compra = DataStaticDto.data.FirstOrDefault(c => c.idCompraSerie == numCompra);
             compra.idPeriodo = idPeriodo;
             compra.cantidad = compra.Compras.Count;
            // await compraSrcRepository.InsertarCompraTemporal(compra);

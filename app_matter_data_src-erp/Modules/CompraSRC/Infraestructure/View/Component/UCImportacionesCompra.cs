@@ -67,7 +67,7 @@ namespace app_matter_data_src_erp.Forms
                     var compra = data[i];
 
                         dataTable.Rows.Add(
-                            compra.NumCompra,
+                            compra.idCompraSerie,
                             compra.FechaEmision.ToString("dd/MM/yyyy"),
                             compra.Sucursal,
                             compra.RazonSocial,
@@ -503,5 +503,9 @@ namespace app_matter_data_src_erp.Forms
             UpdatePagination();
         }
 
+        private void dataTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

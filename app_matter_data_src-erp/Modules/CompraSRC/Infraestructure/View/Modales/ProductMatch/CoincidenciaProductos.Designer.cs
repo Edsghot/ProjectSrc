@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalir = new FontAwesome.Sharp.IconButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -63,9 +63,10 @@
             this.panel1.BackColor = System.Drawing.Color.SteelBlue;
             this.panel1.Controls.Add(this.btnSalir);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(-6, -7);
+            this.panel1.Location = new System.Drawing.Point(-4, -6);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(859, 64);
+            this.panel1.Size = new System.Drawing.Size(791, 52);
             this.panel1.TabIndex = 3;
             // 
             // btnSalir
@@ -81,9 +82,10 @@
             this.btnSalir.IconColor = System.Drawing.SystemColors.HighlightText;
             this.btnSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnSalir.IconSize = 22;
-            this.btnSalir.Location = new System.Drawing.Point(800, 18);
+            this.btnSalir.Location = new System.Drawing.Point(600, 15);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(40, 26);
+            this.btnSalir.Size = new System.Drawing.Size(177, 21);
             this.btnSalir.TabIndex = 2;
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
@@ -93,9 +95,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(292, 22);
+            this.label1.Location = new System.Drawing.Point(219, 18);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(247, 22);
+            this.label1.Size = new System.Drawing.Size(209, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "Coincidencia de productos";
             // 
@@ -112,9 +115,10 @@
             this.panel2.Controls.Add(this.lblNumeroCompra);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(12, 74);
+            this.panel2.Location = new System.Drawing.Point(9, 60);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(822, 412);
+            this.panel2.Size = new System.Drawing.Size(763, 421);
             this.panel2.TabIndex = 4;
             // 
             // panel4
@@ -123,9 +127,10 @@
             this.panel4.Controls.Add(this.nextPageButton);
             this.panel4.Controls.Add(this.previousPageButton);
             this.panel4.Controls.Add(this.pictureBox1);
-            this.panel4.Location = new System.Drawing.Point(20, 328);
+            this.panel4.Location = new System.Drawing.Point(18, 355);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(168, 64);
+            this.panel4.Size = new System.Drawing.Size(126, 52);
             this.panel4.TabIndex = 13;
             // 
             // pageNumberLabel
@@ -134,9 +139,10 @@
             this.pageNumberLabel.BackColor = System.Drawing.Color.SteelBlue;
             this.pageNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pageNumberLabel.ForeColor = System.Drawing.Color.White;
-            this.pageNumberLabel.Location = new System.Drawing.Point(79, 21);
+            this.pageNumberLabel.Location = new System.Drawing.Point(59, 17);
+            this.pageNumberLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.pageNumberLabel.Name = "pageNumberLabel";
-            this.pageNumberLabel.Size = new System.Drawing.Size(17, 18);
+            this.pageNumberLabel.Size = new System.Drawing.Size(15, 15);
             this.pageNumberLabel.TabIndex = 13;
             this.pageNumberLabel.Text = "0";
             // 
@@ -152,9 +158,10 @@
             this.nextPageButton.IconColor = System.Drawing.Color.Black;
             this.nextPageButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.nextPageButton.IconSize = 25;
-            this.nextPageButton.Location = new System.Drawing.Point(118, 13);
+            this.nextPageButton.Location = new System.Drawing.Point(83, 11);
+            this.nextPageButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nextPageButton.Name = "nextPageButton";
-            this.nextPageButton.Size = new System.Drawing.Size(36, 36);
+            this.nextPageButton.Size = new System.Drawing.Size(27, 29);
             this.nextPageButton.TabIndex = 11;
             this.nextPageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.nextPageButton.UseVisualStyleBackColor = false;
@@ -172,9 +179,10 @@
             this.previousPageButton.IconColor = System.Drawing.Color.Black;
             this.previousPageButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.previousPageButton.IconSize = 25;
-            this.previousPageButton.Location = new System.Drawing.Point(16, 13);
+            this.previousPageButton.Location = new System.Drawing.Point(12, 11);
+            this.previousPageButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.previousPageButton.Name = "previousPageButton";
-            this.previousPageButton.Size = new System.Drawing.Size(36, 36);
+            this.previousPageButton.Size = new System.Drawing.Size(27, 29);
             this.previousPageButton.TabIndex = 9;
             this.previousPageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.previousPageButton.UseVisualStyleBackColor = false;
@@ -184,9 +192,10 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::app_matter_data_src_erp.Properties.Resources.iconCircle;
-            this.pictureBox1.Location = new System.Drawing.Point(69, 13);
+            this.pictureBox1.Location = new System.Drawing.Point(52, 11);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(36, 36);
+            this.pictureBox1.Size = new System.Drawing.Size(27, 29);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 14;
             this.pictureBox1.TabStop = false;
@@ -199,9 +208,10 @@
             this.btnContinuar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContinuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnContinuar.ForeColor = System.Drawing.Color.White;
-            this.btnContinuar.Location = new System.Drawing.Point(581, 331);
+            this.btnContinuar.Location = new System.Drawing.Point(583, 355);
+            this.btnContinuar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnContinuar.Name = "btnContinuar";
-            this.btnContinuar.Size = new System.Drawing.Size(220, 49);
+            this.btnContinuar.Size = new System.Drawing.Size(165, 40);
             this.btnContinuar.TabIndex = 11;
             this.btnContinuar.Text = "Guardar cambios";
             this.btnContinuar.UseVisualStyleBackColor = false;
@@ -215,30 +225,31 @@
             this.dataTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataTable.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3});
             this.dataTable.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataTable.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataTable.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataTable.EnableHeadersVisualStyles = false;
-            this.dataTable.Location = new System.Drawing.Point(20, 73);
+            this.dataTable.Location = new System.Drawing.Point(15, 71);
+            this.dataTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataTable.MultiSelect = false;
             this.dataTable.Name = "dataTable";
             this.dataTable.ReadOnly = true;
@@ -246,7 +257,7 @@
             this.dataTable.RowHeadersWidth = 51;
             this.dataTable.RowTemplate.Height = 24;
             this.dataTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataTable.Size = new System.Drawing.Size(781, 235);
+            this.dataTable.Size = new System.Drawing.Size(733, 268);
             this.dataTable.TabIndex = 10;
             // 
             // Column1
@@ -279,9 +290,10 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label6.Location = new System.Drawing.Point(458, 37);
+            this.label6.Location = new System.Drawing.Point(491, 30);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(343, 16);
+            this.label6.Size = new System.Drawing.Size(272, 13);
             this.label6.TabIndex = 9;
             this.label6.Text = "*El producto ERP y el producto SRC deben ser el mismo";
             // 
@@ -290,9 +302,10 @@
             this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEstado.AutoSize = true;
             this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstado.Location = new System.Drawing.Point(660, 13);
+            this.lblEstado.Location = new System.Drawing.Point(642, 11);
+            this.lblEstado.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(141, 18);
+            this.lblEstado.Size = new System.Drawing.Size(117, 15);
             this.lblEstado.TabIndex = 8;
             this.lblEstado.Text = "No hay coincidencia";
             // 
@@ -300,9 +313,10 @@
             // 
             this.lblNumeroCompra.AutoSize = true;
             this.lblNumeroCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumeroCompra.Location = new System.Drawing.Point(17, 35);
+            this.lblNumeroCompra.Location = new System.Drawing.Point(13, 28);
+            this.lblNumeroCompra.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNumeroCompra.Name = "lblNumeroCompra";
-            this.lblNumeroCompra.Size = new System.Drawing.Size(100, 18);
+            this.lblNumeroCompra.Size = new System.Drawing.Size(84, 15);
             this.lblNumeroCompra.TabIndex = 7;
             this.lblNumeroCompra.Text = "DG5T 279913";
             // 
@@ -311,9 +325,10 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(599, 13);
+            this.label3.Location = new System.Drawing.Point(596, 11);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 18);
+            this.label3.Size = new System.Drawing.Size(55, 15);
             this.label3.TabIndex = 6;
             this.label3.Text = "Estado:";
             // 
@@ -321,22 +336,24 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(14, 13);
+            this.label2.Location = new System.Drawing.Point(10, 11);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(158, 18);
+            this.label2.Size = new System.Drawing.Size(134, 15);
             this.label2.TabIndex = 5;
             this.label2.Text = "Número de compra:";
             // 
             // CoincidenciaProductos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(846, 498);
+            this.ClientSize = new System.Drawing.Size(781, 491);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "CoincidenciaProductos";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
