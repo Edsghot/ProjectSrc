@@ -12,5 +12,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Port
         Task<MenuDto> GetMenu();
         Task<bool> InsertCompra(int mes, int anio, string numCompra);
         Task EscanearDCompra(string IdProduct, string NombreProducto);
+        Task ListarImportados(int estatus);
+        Task<bool> validarImportacion(string serie, string numCompra);
     }
 }

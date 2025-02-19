@@ -75,6 +75,24 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
             return coincidencias;
         }
 
+        public async Task<ValidarImpoDto> BuscarCompraPorSerieYNumero(string serie,string compra)
+        {
+            var parameters = new[]
+            {
+
+                new SqlParameter("@serie", serie),
+                new SqlParameter("@numCompra", compra)
+             };
+
+            var result = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_BuscarCompraPorSerieYNumero", parameters);
+
+            var coincidencias = result.AsEnumerable()
+                .Select<DataRow, ValidarImpoDto>(row => Mapper.Map<DataRow, ValidarImpoDto>(row))
+                .ToList();
+
+            return coincidencias[0];
+        }
+
         public async Task<List<CliProveedorDto>> GetCliProByRUCOrRazonComercial(string rucEmpresa, string razonSocial)
         {
             var parameters = new[]
@@ -323,6 +341,23 @@ new SqlParameter("@pRetencion", compra.pRetencion != null ? compra.pRetencion : 
                 throw new Exception($"❌ Error en la inserción: {ex.Message}");
             }
         }
+
+        public async Task<List<CompraTemporalMonitoreoSrcDto>> ObtenerCompraTemporalMonitoreoSrc(int? estado = null)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@estado", estado ?? (object)DBNull.Value)
+            };
+
+            var data = await DataBaseHelper.ExecuteStoredProcedureAsync("spObtenerCompraTemporalMonitoreoSRC", parameters);
+
+            var compraMonitoreos = data.AsEnumerable()
+                .Select<DataRow, CompraTemporalMonitoreoSrcDto>(row => Mapper.Map<DataRow, CompraTemporalMonitoreoSrcDto>(row))
+                .ToList();
+
+            return compraMonitoreos;
+        }
+
 
 
         public async Task InsertarCompraTemporal(CompraDto compra, CompraDetalleDto dCompra)

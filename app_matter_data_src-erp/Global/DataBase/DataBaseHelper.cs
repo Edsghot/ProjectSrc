@@ -33,7 +33,7 @@ namespace app_matter_data_src_erp.Global.DataBase
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error ejecutando el procedimiento almacenado '{procedureName}': {ex.Message}", ex);
+                System.Windows.MessageBox.Show($"Error ejecutando el procedimiento almacenado " + ex.Message);
             }
         }
 
@@ -60,7 +60,7 @@ namespace app_matter_data_src_erp.Global.DataBase
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error ejecutando el procedimiento almacenado '{procedureName}': {ex.Message}", ex);
+                System.Windows.MessageBox.Show($"Error ejecutando el procedimiento almacenado " + ex.Message);
             }
 
             return dataTable;

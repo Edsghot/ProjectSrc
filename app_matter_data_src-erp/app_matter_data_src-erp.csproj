@@ -91,13 +91,15 @@
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\ClaseTipoSunatDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\CliProveedorDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\CoincidenciaProdSrcDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\CompraTemporalMonitoreoSrcDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\insertCompraDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\InsertProdCuencidenciaDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\PeriodoDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\PlantillasDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\TipoOperacionDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\ValidarImpoDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\Static\MenuDto.cs" />
-    <Compile Include="Modules\CompraSRC\Domain\Dto\Static\ValidationEstatus.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\Static\ControlStatic.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\Sucursal\SucursalDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\ValidationError.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\validationErrorDto.cs" />

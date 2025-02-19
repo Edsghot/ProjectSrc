@@ -1,5 +1,6 @@
 ﻿using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -37,24 +38,22 @@ namespace app_matter_data_src_erp.Forms.DialogView
             {
                 var data = await compra.InsertCompra(mesSeleccionado, anioSeleccionado, numCompra);
 
-                if (data)
-                {
-                    mainForm.ShowToast($"Datos de la compra {numCompra} importados correctamente.", "success");
-                }
-                else
+                if (!data)
                 {
                     mainForm.ShowToast($"Error al importar los datos de la compra {numCompra}.", "error");
                 }
             }
             var resultado = MessageBox.Show(
-       "¿Desea reiniciar la importación o continuar con el formulario actual?",
-       "Confirmación",
-       MessageBoxButtons.YesNo,
-       MessageBoxIcon.Question
-   );
+                    "¿Desea continuar utilizando la aplicación?\n tu importacion se actualizara apenas salga de la aplicacion",
+                    "Confirmación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+             
 
             if (resultado == DialogResult.Yes)
             {
+                ControlStatic.Cierre = true;
                 this.Close();
             }
             this.Close();

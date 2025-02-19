@@ -49,7 +49,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             // Procesar después de que todas las tareas hayan terminado
             foreach (var compra in compraDtos)
             {
-                var errors = Validations(compra);
+                var errors = await Validations(compra);
 
                 if (errors.Any())
                 {
@@ -58,10 +58,22 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 }
                 else
                 {
-                    compra.Errores = "No listo";
-                    compra.Estado = "No listo";
+                    compra.Errores = "No Listo";
+                    compra.Estado = "No Listo";
                 }
+
+                var validateCompra = (await validarImportacion(compra.SerieCompra, compra.NumCompra));
+
+                if (validateCompra)
+                {
+                    compra.Estado = "Importado";
+                    compra.Errores = "Importado";
+                }
+
             }
+
+           await ListarImportados(3);
+           await ListarImportados(1);
 
             return DataStaticDto.data;
         }
@@ -125,7 +137,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             data.NomPlantilla = (await compraSrcRepository.spListarEspecificasCompras())[0].NomPlantilla;
 
             data.idTipoOperacion = (await compraSrcRepository.sp_GetTipoOperacion("02"))[0].IdTipoOperacion;
-       
+
+
 
         }
 
@@ -144,7 +157,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
         }
 
 
-        public List<validationErrorDto> Validations(CompraDto data)
+        public async Task<List<validationErrorDto>> Validations(CompraDto data)
         {
             var errors = new List<validationErrorDto>();
 
@@ -292,7 +305,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             data.PrecioIncluyeIGV = data.TotalIGV > 0 ? true : false;
             //data.fechaEspecialRC
             data.servicioIntangible = false;
-
             return errors;
         }
 
@@ -308,9 +320,33 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             {
                 detalle.nCompra = compra.SerieCompra + compra.NumCompra;
                 await compraSrcRepository.InsertarCompraTemporal(compra,detalle);
+                compra.Estado = "En Proceso";
+                compra.Errores = "En Proceso";
             }
             return true;
         }
+
+        public async Task<bool> validarImportacion(string serie,string numCompra)
+        {
+            numCompra = new string(numCompra.Where(c => char.IsDigit(c) && c != '0').ToArray());
+
+            var data = await compraSrcRepository.BuscarCompraPorSerieYNumero(serie, numCompra);
+
+            if(data.Resultado == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        public async Task ListarImportados(int estatus)
+        {
+            var data = await compraSrcRepository.ObtenerCompraTemporalMonitoreoSrc(estatus);
+
+           
+        }
+
 
     }
 }

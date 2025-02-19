@@ -2,6 +2,7 @@
 using app_matter_data_src_erp.Forms.Overlay;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using FontAwesome.Sharp; 
 using System;
 using System.Drawing;
@@ -103,6 +104,7 @@ namespace app_matter_data_src_erp
             lblEmpresa.Text =  data.NomRuc;
             lblSucursal.Text =  data.NomSucursal;
 
+
         }
 
         private void RUC(object sender, EventArgs e)
@@ -118,6 +120,16 @@ namespace app_matter_data_src_erp
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void MainComprasSrc_Activated(object sender, EventArgs e)
+        {
+            if (ControlStatic.Cierre)
+            {
+                this.Hide();
+                this.overlay.Hide();
+                this.Dispose();
+            }
         }
     }
 }

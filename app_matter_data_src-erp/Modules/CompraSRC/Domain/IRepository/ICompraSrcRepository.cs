@@ -25,5 +25,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository
         Task InsertarCompraAsync(CompraDto compra);
         Task InsertarDCompra(CompraDetalleDto dCompra);
         Task InsertarCompraTemporal(CompraDto compra,CompraDetalleDto data);
+        Task<ValidarImpoDto> BuscarCompraPorSerieYNumero(string serie, string compra);
+        Task<List<CompraTemporalMonitoreoSrcDto>> ObtenerCompraTemporalMonitoreoSrc(int? estado = null);
     }
 }

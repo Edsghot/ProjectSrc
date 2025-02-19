@@ -4,6 +4,7 @@ using app_matter_data_src_erp.Forms.Overlay;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -411,10 +412,7 @@ namespace app_matter_data_src_erp.Forms
             {
                 var modal = new Importar((MainComprasSrc)this.ParentForm, codigosCompras);
                 overlayForm.ShowOverlayWithModal(modal);
-
-                string mensaje = "Códigos de compra seleccionados:\n" + string.Join("\n", codigosCompras);
-                MessageBox.Show(mensaje);
-            }
+            }   
             else
             {
                 MessageBox.Show("No se encontraron códigos de compra en las filas seleccionadas.");
