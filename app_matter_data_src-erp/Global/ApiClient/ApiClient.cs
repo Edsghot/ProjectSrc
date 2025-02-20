@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using System.Globalization;
 using app_matter_data_src_erp.Configuration.Constants;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Proveedor;
+using System.Linq;
 
 namespace app_matter_data_src_erp.Global.ApiClient
 {
@@ -160,6 +161,8 @@ namespace app_matter_data_src_erp.Global.ApiClient
                 };
             }
         }
+       
+
 
         public async Task<ProveedorDto> GetValidSunat(string ruc)
         {
@@ -186,6 +189,47 @@ namespace app_matter_data_src_erp.Global.ApiClient
             catch (Exception ex)
             {
                 return new ProveedorDto();
+            }
+        }
+
+        public async Task<ResponseApiGenericDto> PutComprobanteAsync(string idRecepcion)
+        {
+            try
+            {
+                var client = new RestClient("https://fn-ose-beta.azurewebsites.net");
+                var request = new RestRequest($"/api/recepcion/comprobante?idRecepcion={idRecepcion}", Method.PUT);
+
+                // Si es necesario, añadir cabeceras adicionales (por ejemplo, autenticación)
+                // request.AddHeader("Authorization", "Bearer your-token");
+
+                var response = await client.ExecuteAsync(request);
+
+                if (response.IsSuccessful)
+                {
+                    // Deserializar la respuesta
+                    var result = JsonConvert.DeserializeObject<ResponseApiGenericDto>(response.Content);
+                    return result;
+                }
+                else
+                {
+                    // En caso de error, retornar un ResponseApiGenericDto con valores predeterminados
+                    return new ResponseApiGenericDto
+                    {
+                        TieneError = true,
+                        MensajeError = "Error desconocido",
+                        CodigoError = response.StatusCode.ToString()
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones en caso de error de red o algo más
+                return new ResponseApiGenericDto
+                {
+                    TieneError = true,
+                    MensajeError = ex.Message,
+                    CodigoError = "500" 
+                };
             }
         }
 

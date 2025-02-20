@@ -91,7 +91,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-1, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1138, 91);
             this.panel1.TabIndex = 0;
@@ -154,7 +154,7 @@
             // 
             this.pictureBox1.Image = global::app_matter_data_src_erp.Properties.Resources.logo;
             this.pictureBox1.Location = new System.Drawing.Point(21, 17);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(44, 60);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -209,7 +209,7 @@
             this.panel2.Controls.Add(this.btnOption1);
             this.panel2.Controls.Add(this.pictureBox2);
             this.panel2.Location = new System.Drawing.Point(-1, 92);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(211, 617);
             this.panel2.TabIndex = 1;
@@ -259,7 +259,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = global::app_matter_data_src_erp.Properties.Resources.pictureVs1;
             this.pictureBox2.Location = new System.Drawing.Point(73, 576);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(55, 26);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -273,7 +273,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlContainer.BackColor = System.Drawing.SystemColors.Control;
             this.pnlContainer.Location = new System.Drawing.Point(212, 94);
-            this.pnlContainer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlContainer.Margin = new System.Windows.Forms.Padding(2);
             this.pnlContainer.Name = "pnlContainer";
             this.pnlContainer.Size = new System.Drawing.Size(927, 614);
             this.pnlContainer.TabIndex = 2;
@@ -286,10 +286,11 @@
             this.Controls.Add(this.pnlContainer);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainComprasSrc";
             this.Text = "ERP PECAMP";
             this.Activated += new System.EventHandler(this.MainComprasSrc_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainComprasSrc_FormClosing);
             this.Load += new System.EventHandler(this.MainComprasSrc_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

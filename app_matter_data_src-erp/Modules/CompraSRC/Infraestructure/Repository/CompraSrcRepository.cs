@@ -250,7 +250,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@IdPuntoVenta", Credentials.IdPuntoVenta), // Valor por defecto
             };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("InsertCliPro1", parameters);
+            await DataBaseHelper.ExecuteStoredProcedureAsync("sp_InsertCliPro", parameters);
         }
 
         public async Task  InsertarCompraAsync(CompraDto compra)

@@ -47,7 +47,7 @@ namespace app_matter_data_src_erp.Forms
                 dataTable.Rows.Clear();
                 DatosGlobales.Compras.Clear();
 
-                var dataList = await _compraSrc.ObtenerDataSrc();
+                var dataList = await _compraSrc.ListarImportados(3);
 
                 if (dataList == null || dataList.Count == 0)
                 {
@@ -61,13 +61,13 @@ namespace app_matter_data_src_erp.Forms
                 {
                     var compraDto = new CompraRDto
                     {
-                        Codigo = compra.NumCompra,
-                        Nombre = compra.RazonSocial,
-                        Fecha = compra.FechaEmision.ToString("dd/MM/yyyy"),
-                        Precio = compra.TotalGravadas,
-                        Descuento = compra.TotalPercepcion,
-                        Total = compra.TotalPagar,
-                        Estado = compra.Estado,
+                        Codigo = compra.SerieCompra + "-"+compra.NumCompra,
+                        Nombre = compra.NomPersona,
+                        Fecha = compra.Fecha.ToString("dd/MM/yyyy"),
+                        Igv = compra.Igv,
+                        SubTotal = compra.SubTotal,
+                        Total = compra.Total,
+                        Estado = compra.Estado ==3? "Importado" : "Procesando",
                         Accion = "Editar"
                     };
                     DatosGlobales.Compras.Add(compraDto);
@@ -82,8 +82,8 @@ namespace app_matter_data_src_erp.Forms
                         compra.Codigo,
                         compra.Nombre,
                         compra.Fecha,
-                        compra.Precio,
-                        compra.Descuento,
+                        compra.Igv,
+                        compra.SubTotal,
                         compra.Total,
                         compra.Estado,
                         compra.Accion

@@ -14,6 +14,7 @@ using app_matter_data_src_erp.Configuration.Constants;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using System.Windows.Markup;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
 
 namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 {
@@ -68,12 +69,10 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 {
                     compra.Estado = "Importado";
                     compra.Errores = "Importado";
+                    compra.Coicidencia = "Revisado";
                 }
 
             }
-
-           await ListarImportados(3);
-           await ListarImportados(1);
 
             return DataStaticDto.data;
         }
@@ -340,11 +339,11 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
         }
 
 
-        public async Task ListarImportados(int estatus)
+        public async Task<List<CompraTemporalMonitoreoSrcDto>> ListarImportados(int estatus)
         {
             var data = await compraSrcRepository.ObtenerCompraTemporalMonitoreoSrc(estatus);
 
-           
+            return data;
         }
 
 

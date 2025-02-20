@@ -16,8 +16,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto
         public string RucPersona { get; set; }
         public string NomPersona { get; set; }
         public string Sucursal { get; set; }
-        public DateTime? Fecha { get; set; }
-        public DateTime? FechaVenc { get; set; }
+        public DateTime Fecha { get; set; }
+        public DateTime FechaVenc { get; set; }
         public string Moneda { get; set; }
         public decimal? TcCompra { get; set; }
         public string Condicion { get; set; }

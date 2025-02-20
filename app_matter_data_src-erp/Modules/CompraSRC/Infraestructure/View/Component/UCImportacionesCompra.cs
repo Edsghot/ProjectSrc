@@ -346,7 +346,7 @@ namespace app_matter_data_src_erp.Forms
                     string codigoCompra = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
                     CompraDto compra = await _compraSrc.ObtenerCompraPorCodigo(codigoCompra);
 
-                    CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.NumCompra, compra.Compras, DataStaticDto.data[rowIndex].DocumentoProveedor, rowIndex);
+                    CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.idCompraSerie, compra.Compras, DataStaticDto.data[rowIndex].DocumentoProveedor, rowIndex);
                     overlayForm.ShowOverlayWithModal(modal);
 
                 }
@@ -483,7 +483,7 @@ namespace app_matter_data_src_erp.Forms
                 if (withinDateRange && matchesEstado)
                 {
                     dataTable.Rows.Add(
-                        compra.NumCompra,
+                        compra.idCompraSerie,
                         compra.FechaEmision.ToString("dd/MM/yyyy"),
                         compra.Sucursal,
                         compra.RazonSocial,

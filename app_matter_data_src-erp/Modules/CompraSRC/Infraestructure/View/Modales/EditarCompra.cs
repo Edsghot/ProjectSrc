@@ -64,7 +64,7 @@ namespace app_matter_data_src_erp.Forms
   
             MessageBox.Show(mensaje, "Detalles de la Compra", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.NumCompra, compra.Compras, documen,rowIndex);
+            CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.idCompraSerie, compra.Compras, documen,rowIndex);
             modal.TopMost = true;
             modal.ShowDialog();
         }

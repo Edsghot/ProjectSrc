@@ -247,6 +247,11 @@ namespace app_matter_data_src_erp.Forms.DialogView
                 }
             }
         }
+
+        private void dataTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
 
