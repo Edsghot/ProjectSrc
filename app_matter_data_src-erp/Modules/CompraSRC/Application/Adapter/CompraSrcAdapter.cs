@@ -44,7 +44,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             
             foreach (var compra in compraDtos)
             {
-                await Escanear(compra.NumCompra);
+               
+                await Escanear(compra.NumCompra,compra.SerieCompra,compra.DocumentoProveedor);
             }
 
             // Procesar después de que todas las tareas hayan terminado
@@ -62,35 +63,63 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                     compra.Errores = "No Listo";
                     compra.Estado = "No Listo";
                 }
-
-                var validateCompra = (await validarImportacion(compra.SerieCompra, compra.NumCompra));
-
-                if (validateCompra)
-                {
-                    compra.Estado = "Importado";
-                    compra.Errores = "Importado";
-                    compra.Coicidencia = "Revisado";
-                }
-
             }
 
             return DataStaticDto.data;
         }
 
 
-        public async Task<CompraDto> ObtenerCompraPorCodigo(string codigoCompra)
+        public async Task<CompraDto> ObtenerCompraPorIdRecepcion(string idRecepcion)
         {
+            
+            var compra = DataStaticDto.data.FirstOrDefault(c => c.IdRecepcion == idRecepcion);
+            return compra;
+        }
 
-
+        public async Task<CompraDto> ObtenerCompraPorDocumentoProveedor(string documentoProveedor, string codigo)
+        {
             if (DataStaticDto.data == null)
             {
                 return null;
             }
 
-            var compra = DataStaticDto.data.FirstOrDefault(c => c.idCompraSerie == codigoCompra);
+            var partes = codigo.Split('-');
+            if (partes.Length != 2)
+            {
+                return null;
+            }
 
+            string serieCompra = partes[0];
+            string numCompra = partes[1];
+
+            var compra = DataStaticDto.data.FirstOrDefault(c => c.DocumentoProveedor == documentoProveedor &&
+                                                                 c.SerieCompra == serieCompra &&
+                                                                 c.NumCompra == numCompra);
             return compra;
         }
+
+        public async Task<string> GetIdRecepcion(string documentoProveedor, string codigo)
+        {
+            if (DataStaticDto.data == null)
+            {
+                return null;
+            }
+
+            var partes = codigo.Split('-');
+            if (partes.Length != 2)
+            {
+                return null;
+            }
+
+            string serieCompra = partes[0];
+            string numCompra = partes[1];
+
+            var compra = DataStaticDto.data.FirstOrDefault(c => c.DocumentoProveedor == documentoProveedor &&
+                                                                 c.SerieCompra == serieCompra &&
+                                                                 c.NumCompra == numCompra);
+            return compra.IdRecepcion;
+        }
+
 
         public async Task EscanearDCompra(string IdProduct, string NombreProducto)
         {
@@ -105,10 +134,9 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 }
             }
         }
-        public async Task Escanear(string NumCompra)
+        public async Task Escanear(string NumCompra,string serie,string documento)
         {
-            var data = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == NumCompra);
-
+            var data = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == NumCompra && c.SerieCompra == serie && c.DocumentoProveedor == documento);
 
             data.idCompraSerie = data.SerieCompra + "-" + data.NumCompra;
         

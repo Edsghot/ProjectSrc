@@ -145,12 +145,6 @@
     <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\Importar.Designer.cs">
       <DependentUpon>Importar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompra.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompra.Designer.cs">
-      <DependentUpon>ModalDetalleCompra.cs</DependentUpon>
-    </Compile>
     <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompraCombustible.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,9 +226,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\Importar.resx">
       <DependentUpon>Importar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompra.resx">
-      <DependentUpon>ModalDetalleCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompraCombustible.resx">
       <DependentUpon>ModalDetalleCompraCombustible.cs</DependentUpon>

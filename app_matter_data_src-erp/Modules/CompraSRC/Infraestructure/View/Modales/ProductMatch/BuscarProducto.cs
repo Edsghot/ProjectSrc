@@ -1,10 +1,8 @@
 ﻿using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
 using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
@@ -12,13 +10,12 @@ namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
     public partial class BuscarProducto : Form
     {
         private readonly ICompraSrcRepository _repo;
-        private string _selectedProduct;
-
         private string _productId;
         private string _productName;
 
         public string SelectedProductId => _productId;
         public string SelectedProductName => _productName;
+
         public BuscarProducto(string initialProductId = "", string initialProductName = "")
         {
             InitializeComponent();
@@ -28,7 +25,14 @@ namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
             _repo = new CompraSrcRepository();
 
             txtSearch.Text = _productName;
-            lstResults.SelectedIndexChanged += LstResults_SelectedIndexChanged;
+
+            lvResults.View = View.Details;
+            lvResults.FullRowSelect = true;
+            lvResults.Columns.Clear();
+            lvResults.Columns.Add("Código", 80);
+            lvResults.Columns.Add("Nombre", 480);
+
+            lvResults.SelectedIndexChanged += LvResults_SelectedIndexChanged;
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -74,7 +78,7 @@ namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
                 return;
             }
 
-            lstResults.Items.Clear();
+            lvResults.Items.Clear();
 
             try
             {
@@ -86,12 +90,14 @@ namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
                     {
                         foreach (var product in response)
                         {
-                            lstResults.Items.Add($"{product.ProductName} ! {product.ProductId}");
+                            ListViewItem item = new ListViewItem(product.ProductId);
+                            item.SubItems.Add(product.ProductName);
+                            lvResults.Items.Add(item);
                         }
                     }
                     else
                     {
-                        lstResults.Items.Add("No se encontraron productos con ese nombre.");
+                        lvResults.Items.Add(new ListViewItem(new[] { "N/A", "No se encontraron productos" }));
                     }
                 }
                 else if (cmbSearchOption.SelectedItem.ToString() == "ID de producto")
@@ -102,12 +108,14 @@ namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
                     {
                         foreach (var product in response)
                         {
-                            lstResults.Items.Add($"{product.ProductName} !  {product.ProductId}");
+                            ListViewItem item = new ListViewItem(product.ProductId);
+                            item.SubItems.Add(product.ProductName);
+                            lvResults.Items.Add(item);
                         }
                     }
                     else
                     {
-                        lstResults.Items.Add("No se encontró producto con ese ID.");
+                        lvResults.Items.Add(new ListViewItem(new[] { "N/A", "No se encontró producto con ese ID" }));
                     }
                 }
             }
@@ -117,15 +125,15 @@ namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
             }
         }
 
-        private void LstResults_SelectedIndexChanged(object sender, EventArgs e)
+        private void LvResults_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lstResults.SelectedItem != null)
+            if (lvResults.SelectedItems.Count > 0)
             {
-                var selectedProduct = lstResults.SelectedItem.ToString();
-                _productName = selectedProduct;
-                _productId = selectedProduct.Split('!')[1].Trim();
+                var selectedItem = lvResults.SelectedItems[0];
+                _productId = selectedItem.Text;
+                _productName = selectedItem.SubItems[1].Text;
 
-                MessageBox.Show($"Producto seleccionado: {_productName}", "Selección", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Producto seleccionado:\nCódigo: {_productId}\nNombre: {_productName}", "Selección", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
         }

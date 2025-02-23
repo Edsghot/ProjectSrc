@@ -50,21 +50,18 @@ namespace app_matter_data_src_erp
             //var res3 = repo.ObtenerCoincidenciasProdSrcPorRuc("123456789").GetAwaiter().GetResult();
             //Application.Run(new MainValidationSunat());
 
-            DataBaseHelper.OpenConnection();
 
             switch (Credentials.IdFormulario)
             {
                 case (int)Formularios.FormularioCompraSrc:
                     Logs.initLogs("CompraSrc.txt");
                     Application.Run(new MainComprasSrc());
-                    DataBaseHelper.CloseConnection();
 
                     break;
                 case (int)Formularios.FormularioValidation:
                     Logs.initLogs("ValidationSunat.txt");
                     Application.Run(new MainValidationSunat());
 
-                    DataBaseHelper.CloseConnection();
                     break;
                 default:
                     break;

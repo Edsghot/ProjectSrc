@@ -135,7 +135,7 @@ namespace app_matter_data_src_erp
 
         private void MainComprasSrc_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DataBaseHelper.CloseConnection();
+          
         }
     }
 }

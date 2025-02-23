@@ -1,23 +1,15 @@
 ﻿using app_matter_data_src_erp.Forms.DialogView;
-using app_matter_data_src_erp.Forms.DialogView.DialogModal;
-using app_matter_data_src_erp.Forms.Overlay;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
-using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
 using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Media.Media3D;
 
 namespace app_matter_data_src_erp.Forms
 {
@@ -25,18 +17,20 @@ namespace app_matter_data_src_erp.Forms
     {
         private readonly MainComprasSrc mainForm;
         private int fila;
+        private string prove;
         private string code;
         private string docu;
         private readonly ICompraSrcInputPort _compraSrc;
         private readonly ICompraSrcRepository _repo;
         private List<SucursalDto> sucursales;
-        public EditarCompra(string codigo,string documento,int row, MainComprasSrc mainForm1)
+        public EditarCompra(string proveedor,string codigo,string documento,int row, MainComprasSrc mainForm1)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
             lblCode.Text = codigo;
-            fila = row;
+            fila = row; 
+            prove = proveedor;
             code = codigo;
             docu = documento;
             _compraSrc = new CompraSrcAdapter();
@@ -48,11 +42,12 @@ namespace app_matter_data_src_erp.Forms
         {
 
             int rowIndex = this.fila;
-            string codigoCompra = this.code;
+            string codigoCompra = this.code; 
+            string codigoProveedor = this.prove;
             string documen = this.docu;
 
-          
-            CompraDto compra = await _compraSrc.ObtenerCompraPorCodigo(codigoCompra);
+
+            CompraDto compra = await _compraSrc.ObtenerCompraPorIdRecepcion("");
 
             string mensaje = $"Índice de fila: {rowIndex}\n" +
                              $"Código de Compra: {codigoCompra}\n" +

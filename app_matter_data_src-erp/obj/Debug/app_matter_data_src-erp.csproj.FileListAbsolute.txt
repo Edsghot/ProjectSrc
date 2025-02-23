@@ -89,7 +89,6 @@ D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_ma
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.AsientoTipo.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.EditarCompra.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.Importar.resources
-D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ModalDetalleCompra.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ModalDetalleCompraCombustible.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ProductMatch.BuscarProducto.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.CoincidenciaProductos.resources

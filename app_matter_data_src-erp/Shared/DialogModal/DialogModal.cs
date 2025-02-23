@@ -14,10 +14,11 @@ namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
     {
         private string modalType;
         private string code;
+        private string prove;
         private int fila;
         private string documento;
         private EditarCompra parentForm;
-        public DialogModal(string title, string subtitle, string type,string codigo,int row, string docu, EditarCompra parent = null)
+        public DialogModal(string title, string subtitle, string type,string proveedor,string codigo,int row, string docu, EditarCompra parent = null)
         {
                   
             InitializeComponent();
@@ -25,6 +26,7 @@ namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
             this.parentForm= parent;
             lblTitle.Text = title;
             lblSubtitle.Text = subtitle;
+            prove = proveedor;
             code = codigo;
             documento = docu;
             fila = row;
@@ -65,7 +67,7 @@ namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
             {
                 case "warning":
   
-                    EditarCompra warningModal = new EditarCompra(code, documento,fila,(MainComprasSrc)this.ParentForm);
+                    EditarCompra warningModal = new EditarCompra(prove, code, documento,fila,(MainComprasSrc)this.ParentForm);
                     warningModal.TopMost = true;
                     warningModal.ShowDialog();
 

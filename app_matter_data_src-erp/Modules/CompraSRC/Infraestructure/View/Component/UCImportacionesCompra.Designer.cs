@@ -60,6 +60,7 @@ namespace app_matter_data_src_erp.Forms
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pageNumberLabel = new System.Windows.Forms.Label();
             this.nextPageButton = new FontAwesome.Sharp.IconButton();
@@ -82,7 +83,7 @@ namespace app_matter_data_src_erp.Forms
             this.label1.Location = new System.Drawing.Point(20, 17);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(397, 40);
+            this.label1.Size = new System.Drawing.Size(482, 50);
             this.label1.TabIndex = 0;
             this.label1.Text = "Importación de compras\nServicios de Recepción de Comprobantes (SRC)";
             // 
@@ -95,7 +96,7 @@ namespace app_matter_data_src_erp.Forms
             this.dateInicio.Location = new System.Drawing.Point(11, 30);
             this.dateInicio.Margin = new System.Windows.Forms.Padding(11, 12, 11, 12);
             this.dateInicio.Name = "dateInicio";
-            this.dateInicio.Size = new System.Drawing.Size(178, 41);
+            this.dateInicio.Size = new System.Drawing.Size(178, 49);
             this.dateInicio.TabIndex = 5;
             // 
             // panel1
@@ -114,7 +115,7 @@ namespace app_matter_data_src_erp.Forms
             this.panel1.Location = new System.Drawing.Point(14, 72);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(963, 80);
+            this.panel1.Size = new System.Drawing.Size(1471, 80);
             this.panel1.TabIndex = 6;
             // 
             // panel5
@@ -141,7 +142,7 @@ namespace app_matter_data_src_erp.Forms
             this.cbEstadoImportacion.Location = new System.Drawing.Point(12, 5);
             this.cbEstadoImportacion.Margin = new System.Windows.Forms.Padding(2);
             this.cbEstadoImportacion.Name = "cbEstadoImportacion";
-            this.cbEstadoImportacion.Size = new System.Drawing.Size(156, 25);
+            this.cbEstadoImportacion.Size = new System.Drawing.Size(156, 30);
             this.cbEstadoImportacion.TabIndex = 7;
             this.cbEstadoImportacion.Text = "Estado importación";
             // 
@@ -162,7 +163,7 @@ namespace app_matter_data_src_erp.Forms
             this.lblDateFin.Location = new System.Drawing.Point(28, 7);
             this.lblDateFin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDateFin.Name = "lblDateFin";
-            this.lblDateFin.Size = new System.Drawing.Size(86, 17);
+            this.lblDateFin.Size = new System.Drawing.Size(101, 20);
             this.lblDateFin.TabIndex = 0;
             this.lblDateFin.Text = "Fecha de fin";
             // 
@@ -174,7 +175,7 @@ namespace app_matter_data_src_erp.Forms
             this.dateFin.Location = new System.Drawing.Point(212, 30);
             this.dateFin.Margin = new System.Windows.Forms.Padding(11, 12, 11, 12);
             this.dateFin.Name = "dateFin";
-            this.dateFin.Size = new System.Drawing.Size(178, 41);
+            this.dateFin.Size = new System.Drawing.Size(178, 49);
             this.dateFin.TabIndex = 12;
             // 
             // panel3
@@ -194,7 +195,7 @@ namespace app_matter_data_src_erp.Forms
             this.lblDateInicio.Location = new System.Drawing.Point(22, 8);
             this.lblDateInicio.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDateInicio.Name = "lblDateInicio";
-            this.lblDateInicio.Size = new System.Drawing.Size(103, 17);
+            this.lblDateInicio.Size = new System.Drawing.Size(122, 20);
             this.lblDateInicio.TabIndex = 0;
             this.lblDateInicio.Text = "Fecha de inicio";
             // 
@@ -210,7 +211,7 @@ namespace app_matter_data_src_erp.Forms
             this.btnImportar.IconColor = System.Drawing.Color.White;
             this.btnImportar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnImportar.IconSize = 35;
-            this.btnImportar.Location = new System.Drawing.Point(848, 29);
+            this.btnImportar.Location = new System.Drawing.Point(1356, 29);
             this.btnImportar.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportar.Name = "btnImportar";
             this.btnImportar.Size = new System.Drawing.Size(100, 42);
@@ -232,7 +233,7 @@ namespace app_matter_data_src_erp.Forms
             this.btnEscanear.IconColor = System.Drawing.Color.White;
             this.btnEscanear.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnEscanear.IconSize = 35;
-            this.btnEscanear.Location = new System.Drawing.Point(727, 29);
+            this.btnEscanear.Location = new System.Drawing.Point(1235, 29);
             this.btnEscanear.Margin = new System.Windows.Forms.Padding(2);
             this.btnEscanear.Name = "btnEscanear";
             this.btnEscanear.Size = new System.Drawing.Size(106, 42);
@@ -269,7 +270,7 @@ namespace app_matter_data_src_erp.Forms
             this.label2.Location = new System.Drawing.Point(9, 8);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(184, 13);
+            this.label2.Size = new System.Drawing.Size(231, 16);
             this.label2.TabIndex = 0;
             this.label2.Text = "Ingrese el rango de fecha de emisión:";
             // 
@@ -280,7 +281,7 @@ namespace app_matter_data_src_erp.Forms
             this.label3.Location = new System.Drawing.Point(22, 154);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(345, 13);
+            this.label3.Size = new System.Drawing.Size(436, 16);
             this.label3.TabIndex = 7;
             this.label3.Text = "*Todos lo campos en “pendiente” se deben completar de forma manual.";
             // 
@@ -293,7 +294,7 @@ namespace app_matter_data_src_erp.Forms
             this.panelContainerTable.Location = new System.Drawing.Point(14, 170);
             this.panelContainerTable.Margin = new System.Windows.Forms.Padding(2);
             this.panelContainerTable.Name = "panelContainerTable";
-            this.panelContainerTable.Size = new System.Drawing.Size(963, 418);
+            this.panelContainerTable.Size = new System.Drawing.Size(1471, 418);
             this.panelContainerTable.TabIndex = 8;
             // 
             // dataTable
@@ -325,7 +326,8 @@ namespace app_matter_data_src_erp.Forms
             this.Column8,
             this.Column9,
             this.Column10,
-            this.Column11});
+            this.Column11,
+            this.Column12});
             this.dataTable.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveBorder;
@@ -342,10 +344,9 @@ namespace app_matter_data_src_erp.Forms
             this.dataTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataTable.RowTemplate.Height = 24;
             this.dataTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataTable.Size = new System.Drawing.Size(937, 398);
+            this.dataTable.Size = new System.Drawing.Size(1445, 398);
             this.dataTable.TabIndex = 9;
-            this.dataTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTable_CellContentClick);
-            this.dataTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
+            this.dataTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataTable_CellMouseDown);
             // 
             // Column1
             // 
@@ -381,7 +382,7 @@ namespace app_matter_data_src_erp.Forms
             // 
             // Column5
             // 
-            this.Column5.HeaderText = "Razon Social";
+            this.Column5.HeaderText = "Doc. Proveedor";
             this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
@@ -389,7 +390,7 @@ namespace app_matter_data_src_erp.Forms
             // 
             // Column6
             // 
-            this.Column6.HeaderText = "Sub total";
+            this.Column6.HeaderText = "Razon Social";
             this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
@@ -397,7 +398,7 @@ namespace app_matter_data_src_erp.Forms
             // 
             // Column7
             // 
-            this.Column7.HeaderText = "IGV";
+            this.Column7.HeaderText = "Sub total";
             this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
@@ -405,7 +406,7 @@ namespace app_matter_data_src_erp.Forms
             // 
             // Column8
             // 
-            this.Column8.HeaderText = "Total";
+            this.Column8.HeaderText = "IGV";
             this.Column8.MinimumWidth = 6;
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
@@ -413,7 +414,7 @@ namespace app_matter_data_src_erp.Forms
             // 
             // Column9
             // 
-            this.Column9.HeaderText = "Fecha de llegada";
+            this.Column9.HeaderText = "Total";
             this.Column9.MinimumWidth = 6;
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
@@ -421,7 +422,7 @@ namespace app_matter_data_src_erp.Forms
             // 
             // Column10
             // 
-            this.Column10.HeaderText = "Coincidencia de productos";
+            this.Column10.HeaderText = "Fecha de llegada";
             this.Column10.MinimumWidth = 6;
             this.Column10.Name = "Column10";
             this.Column10.ReadOnly = true;
@@ -429,11 +430,19 @@ namespace app_matter_data_src_erp.Forms
             // 
             // Column11
             // 
-            this.Column11.HeaderText = "Estado de importación";
+            this.Column11.HeaderText = "Coincidencia de productos";
             this.Column11.MinimumWidth = 6;
             this.Column11.Name = "Column11";
             this.Column11.ReadOnly = true;
             this.Column11.Width = 125;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "Estado de importación";
+            this.Column12.MinimumWidth = 6;
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            this.Column12.Width = 125;
             // 
             // panel2
             // 
@@ -457,7 +466,7 @@ namespace app_matter_data_src_erp.Forms
             this.pageNumberLabel.Location = new System.Drawing.Point(59, 17);
             this.pageNumberLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.pageNumberLabel.Name = "pageNumberLabel";
-            this.pageNumberLabel.Size = new System.Drawing.Size(15, 15);
+            this.pageNumberLabel.Size = new System.Drawing.Size(17, 18);
             this.pageNumberLabel.TabIndex = 13;
             this.pageNumberLabel.Text = "0";
             // 
@@ -529,7 +538,7 @@ namespace app_matter_data_src_erp.Forms
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "UCImportacionesCompra";
-            this.Size = new System.Drawing.Size(993, 647);
+            this.Size = new System.Drawing.Size(1501, 647);
             this.Load += new System.EventHandler(this.UCImportacionesCompra_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -572,6 +581,7 @@ namespace app_matter_data_src_erp.Forms
         private DataGridViewTextBoxColumn Column9;
         private DataGridViewTextBoxColumn Column10;
         private DataGridViewTextBoxColumn Column11;
+        private DataGridViewTextBoxColumn Column12;
         private Panel panel2;
         private FontAwesome.Sharp.IconButton nextPageButton;
         private FontAwesome.Sharp.IconButton previousPageButton;

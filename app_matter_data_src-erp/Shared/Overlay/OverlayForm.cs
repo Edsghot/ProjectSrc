@@ -12,18 +12,16 @@ namespace app_matter_data_src_erp.Forms.Overlay
             InitializeComponent();
             this.parentForm = parentForm;
 
-
             this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.Manual;
 
             this.ShowInTaskbar = false;
-            this.TopMost = true;
+            this.Owner = parentForm; 
 
             AdjustToParent();
 
             parentForm.SizeChanged += (s, e) => AdjustToParent();
             parentForm.LocationChanged += (s, e) => AdjustToParent();
-
         }
 
         private void AdjustToParent()
@@ -35,6 +33,5 @@ namespace app_matter_data_src_erp.Forms.Overlay
                 this.Invalidate();
             }
         }
-
     }
 }

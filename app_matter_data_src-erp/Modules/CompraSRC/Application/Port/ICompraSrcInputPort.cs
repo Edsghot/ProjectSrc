@@ -9,11 +9,13 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Port
     public interface ICompraSrcInputPort
     {
         Task<List<CompraDto>> ObtenerDataSrc();
-        Task<CompraDto> ObtenerCompraPorCodigo(string codigoCompra);
+        Task<string> GetIdRecepcion(string documentoProveedor, string codigo);
+        Task<CompraDto> ObtenerCompraPorIdRecepcion(string IdRecepcion);
         Task<MenuDto> GetMenu();
         Task<bool> InsertCompra(int mes, int anio, string numCompra);
         Task EscanearDCompra(string IdProduct, string NombreProducto);
         Task<bool> validarImportacion(string serie, string numCompra);
         Task<List<CompraTemporalMonitoreoSrcDto>> ListarImportados(int estatus);
+        
     }
 }

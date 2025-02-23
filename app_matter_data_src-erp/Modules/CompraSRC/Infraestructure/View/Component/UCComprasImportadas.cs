@@ -46,7 +46,6 @@ namespace app_matter_data_src_erp.Forms
             {
                 dataTable.Rows.Clear();
                 DatosGlobales.Compras.Clear();
-
                 var dataList = await _compraSrc.ListarImportados(3);
 
                 if (dataList == null || dataList.Count == 0)
@@ -57,20 +56,34 @@ namespace app_matter_data_src_erp.Forms
 
                 pictureNone.Visible = false;
 
+                // Obtener el mes y año seleccionados
+                int selectedMes = cbMes.SelectedItem != null ? cbMes.SelectedIndex + 1 : 0; // ComboBox suele empezar en 0, sumamos 1
+                int selectedAño = cbAño.SelectedItem != null ? int.Parse(cbAño.SelectedItem.ToString()) : 0;
+
                 foreach (var compra in dataList)
                 {
-                    var compraDto = new CompraRDto
+                    DateTime fechaCompra = compra.Fecha; // Fecha real de la compra
+                    int mesCompra = fechaCompra.Month;
+                    int añoCompra = fechaCompra.Year;
+
+                    // Filtrar por mes y año si se han seleccionado
+                    if ((selectedMes == 0 || mesCompra == selectedMes) &&
+                        (selectedAño == 0 || añoCompra == selectedAño))
                     {
-                        Codigo = compra.SerieCompra + "-"+compra.NumCompra,
-                        Nombre = compra.NomPersona,
-                        Fecha = compra.Fecha.ToString("dd/MM/yyyy"),
-                        Igv = compra.Igv,
-                        SubTotal = compra.SubTotal,
-                        Total = compra.Total,
-                        Estado = compra.Estado ==3? "Importado" : "Procesando",
-                        Accion = "Editar"
-                    };
-                    DatosGlobales.Compras.Add(compraDto);
+                        var compraDto = new CompraRDto
+                        {
+                            Codigo = compra.SerieCompra + "-" + compra.NumCompra,
+                            Nombre = compra.NomPersona,
+                            Fecha = fechaCompra.ToString("dd/MM/yyyy"),
+                            Igv = compra.Igv,
+                            SubTotal = compra.SubTotal,
+                            Total = compra.Total,
+                            Estado = compra.Estado == 3 ? "Importado" : "Procesando",
+                            Accion = "Editar"
+                        };
+
+                        DatosGlobales.Compras.Add(compraDto);
+                    }
                 }
 
                 totalRows = DatosGlobales.Compras.Count;
@@ -97,6 +110,7 @@ namespace app_matter_data_src_erp.Forms
                 MessageBox.Show($"Error al cargar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         // Botones filtrado de tabla
         private void UpdatePagination()
@@ -140,9 +154,9 @@ namespace app_matter_data_src_erp.Forms
                 {
                     int rowIndex = e.RowIndex;
                     string code = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    string prove = dataTable.Rows[e.RowIndex].Cells[4].Value.ToString();
 
-
-                    var modal = new DialogModal("¡Importante!", "Al editar esta compra, se eliminará la importación registrada en el ERP y se creara un nuevo registro de importación.", "warning", code, rowIndex, DataStaticDto.data[rowIndex].DocumentoProveedor);
+                    var modal = new DialogModal("¡Importante!", "Al editar esta compra, se eliminará la importación registrada en el ERP y se creara un nuevo registro de importación.", "warning",prove, code, rowIndex, DataStaticDto.data[rowIndex].DocumentoProveedor);
                     overlayForm.ShowOverlayWithModal(modal);
                 }
             }
@@ -196,13 +210,16 @@ namespace app_matter_data_src_erp.Forms
         }
 
         private void cbMes_SelectedIndexChanged(object sender, EventArgs e)
-        {          
+        {
             SeleccionesGlobalesDto.MesSeleccionado = cbMes.SelectedItem.ToString();
+            LoadData(); // Recargar datos con filtro
         }
 
         private void cbAño_SelectedIndexChanged(object sender, EventArgs e)
-        {          
+        {
             SeleccionesGlobalesDto.AñoSeleccionado = cbAño.SelectedItem.ToString();
+            LoadData(); // Recargar datos con filtro
         }
+
     }
 }

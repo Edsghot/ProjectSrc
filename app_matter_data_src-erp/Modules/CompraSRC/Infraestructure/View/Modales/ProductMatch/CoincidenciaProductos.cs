@@ -48,7 +48,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
             dataTable.CellClick += dataTable_CellClick;
             dataTable.CellPainting += dataTable_CellPainting;
             lblNumeroCompra.Text = codigoCompra;
-           
+
 
             this.detallesCompra = detallesCompra;
             this.mainForm = main;
@@ -191,55 +191,54 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
         private async void btnContinuar_Click(object sender, EventArgs e)
         {
+            foreach (DataGridViewRow row in dataTable.Rows)
+            {
+                if (row.Cells[0].Value == null || string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString()) ||
+                    row.Cells[1].Value == null || string.IsNullOrWhiteSpace(row.Cells[1].Value.ToString()) ||
+                    row.Cells[2].Value == null || string.IsNullOrWhiteSpace(row.Cells[2].Value.ToString()))
+                {
+                    MessageBox.Show("Debe completar todas las filas antes de continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
             try
             {
-                foreach(DataGridViewRow row in dataTable.Rows)
+                foreach (DataGridViewRow row in dataTable.Rows)
                 {
                     string idProductoErp2 = row.Cells[0].Value.ToString();
                     string nombreProdErp2 = row.Cells[1].Value.ToString();
                     string nombreProdSrc2 = row.Cells[2].Value.ToString();
 
-                    string mensaje = $"Producto ERP ID: {idProductoErp2}\n" +
-                                     $"Nombre Producto ERP: {nombreProdErp2}\n" +
-                                     $"Nombre Producto SRC: {nombreProdSrc2}";
-
-                   // MessageBox.Show(mensaje, "Detalles del Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (row.Cells[0].Value != null && row.Cells[1].Value != null && row.Cells[2].Value != null)
+                    var productoInsertar = new InsertProdCuencidenciaDto
                     {
-                        var idProductoErp = row.Cells[0].Value.ToString();
-                        var nombreProdErp = row.Cells[1].Value.ToString();
-                        var nombreProdSrc = row.Cells[2].Value.ToString();
+                        IdProductoErp = idProductoErp2,
+                        NombreProdErp = nombreProdErp2,
+                        NombreProdSrc = nombreProdSrc2,
+                        RucEmpresa = rucRecuperado
+                    };
 
-                        var productoInsertar = new InsertProdCuencidenciaDto
-                        {
-                            IdProductoErp = idProductoErp,
-                            NombreProdErp = nombreProdErp,
-                            NombreProdSrc = nombreProdSrc,
-                            RucEmpresa = rucRecuperado
-                        };
-                        await compra.EscanearDCompra(idProductoErp, nombreProdSrc);
-                        var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();
-                        DataStaticDto.data[_index].Coicidencia = "Revisado";
-                       
-                        if (mainForm != null)
-                        {
-                            mainForm.ShowToast("Se registro con exito.", "success");
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Se registro con exito!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
-                        }
-                    }
+                    await compra.EscanearDCompra(idProductoErp2, nombreProdSrc2);
+                    var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();
+                    DataStaticDto.data[_index].Coicidencia = "Revisado";
                 }
+
+                if (mainForm != null)
+                {
+                    mainForm.ShowToast("Se registró con éxito.", "success");
+                }
+                else
+                {
+                    MessageBox.Show("Se registró con éxito.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                this.Close();
             }
             catch (Exception ex)
-            {                        
+            {
                 if (mainForm != null)
                 {
                     mainForm.ShowToast($"Ocurrió un error: {ex.Message}", "error");
-
                 }
                 else
                 {
@@ -247,6 +246,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
                 }
             }
         }
+
 
         private void dataTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
