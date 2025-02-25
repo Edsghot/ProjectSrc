@@ -1,14 +1,20 @@
 ﻿using app_matter_data_src_erp.Forms.DialogView;
+using app_matter_data_src_erp.Forms.DialogView.DialogModal;
+using app_matter_data_src_erp.Forms.Overlay;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
 using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
+using app_matter_data_src_erp.Shared.DialogModal;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace app_matter_data_src_erp.Forms
@@ -16,24 +22,23 @@ namespace app_matter_data_src_erp.Forms
     public partial class EditarCompra : Form
     {
         private readonly MainComprasSrc mainForm;
-        private int fila;
-        private string prove;
-        private string code;
-        private string docu;
-        private readonly ICompraSrcInputPort _compraSrc;
+        private string idRecepcion;
+        private string codigo;
+        private string rucRecuperado;
+        private readonly ICompraSrcImportadosInputPort _compraSrc;
         private readonly ICompraSrcRepository _repo;
+
         private List<SucursalDto> sucursales;
-        public EditarCompra(string proveedor,string codigo,string documento,int row, MainComprasSrc mainForm1)
+        public EditarCompra(string code, string id, string ruc,MainComprasSrc mainForm1)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            lblCode.Text = codigo;
-            fila = row; 
-            prove = proveedor;
-            code = codigo;
-            docu = documento;
-            _compraSrc = new CompraSrcAdapter();
+            lblCode.Text = code;
+            this.idRecepcion = id; 
+            this.codigo = code;
+            this.rucRecuperado = ruc;
+            _compraSrc = new CompraSrcImportadosAdapter();
             this.mainForm = mainForm1;
             _repo = new CompraSrcRepository();
         }
@@ -41,37 +46,24 @@ namespace app_matter_data_src_erp.Forms
         private async void lblCoincidencia_Click(object sender, EventArgs e)
         {
 
-            int rowIndex = this.fila;
-            string codigoCompra = this.code; 
-            string codigoProveedor = this.prove;
-            string documen = this.docu;
+            string id = this.idRecepcion;
+            string codigo = this.codigo;
+            List<CompraTemporalMonitoreoSrcDto> compras = await _compraSrc.GetComprasPorIdRecepcion(id);
 
-
-            CompraDto compra = await _compraSrc.ObtenerCompraPorIdRecepcion("");
-
-            string mensaje = $"Índice de fila: {rowIndex}\n" +
-                             $"Código de Compra: {codigoCompra}\n" +
-                             $"Documento: {documen}\n" +
-                             $"Compra Detalle:\n" +
-                             $"- Id: {compra.NumCompra}\n" +
-                             $"- Fecha: {compra.Compras}\n";
-
-  
-            MessageBox.Show(mensaje, "Detalles de la Compra", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.idCompraSerie, compra.Compras, documen,rowIndex);
+            CoincidenciaProductosImported modal = new CoincidenciaProductosImported((MainComprasSrc)this.ParentForm,compras, codigo, rucRecuperado);
             modal.TopMost = true;
             modal.ShowDialog();
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
+            ControlStatic.CierreDIalogvIew = true;
             this.Close();
         }
 
         private async void btnContinuar_Click(object sender, EventArgs e)
         {
-
+           
             if (cbAlmacen.SelectedItem is SucursalDto almacenSeleccionado)
             {
                 var idPunto = Convert.ToInt32(almacenSeleccionado.IdPuntoVenta);
@@ -79,12 +71,15 @@ namespace app_matter_data_src_erp.Forms
                 try
                 {
                     await _repo.ActualizarPuntoVentaYAlmacen(idPunto, almacen);
+
+                    var modal = new DIalogModalFInal();
+                    modal.TopMost = true;
+                    modal.ShowDialog();
                     this.Close();
 
                 }
                 catch (Exception ex)
-                {
-                    //mainForm.ShowToast($"Error al actualizar los datos: {ex.Message}", "error");
+                {                   
                 }
             }
         }
@@ -172,6 +167,13 @@ namespace app_matter_data_src_erp.Forms
             if (cbAlmacen.SelectedItem is SucursalDto almacenSeleccionado)
             {
                 
+            }
+        }
+        private void DialogEditor_Activated(object sender, EventArgs e)
+        {
+            if (ControlStatic.CierreModalEditar)
+            {
+                this.Dispose();
             }
         }
     }

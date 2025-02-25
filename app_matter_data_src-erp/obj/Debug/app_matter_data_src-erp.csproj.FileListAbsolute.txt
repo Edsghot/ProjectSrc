@@ -104,3 +104,5 @@ D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_ma
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matt.831D961E.Up2Date
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.exe
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.pdb
+D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.CoincidenciaProductosImported.resources
+D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Shared.DialogModal.DIalogModalFInal.resources

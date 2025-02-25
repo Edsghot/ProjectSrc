@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
-using app_matter_data_src_erp.Forms.DialogView;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 
 namespace app_matter_data_src_erp.Forms
 {
@@ -17,12 +17,14 @@ namespace app_matter_data_src_erp.Forms
         private int currentPage = 1;
         private int rowsPerPage = 15;
         private int totalRows;
-        private readonly ICompraSrcInputPort _compraSrc;
+        private readonly ICompraSrcImportadosInputPort _compraSrc;
 
         public UCComprasImportadas()
         {
             InitializeComponent();
-            dataTable.CellClick += dataTable_CellClick; dataTable.CellFormatting += dataTable_CellFormatting;
+            this.VisibleChanged += UCComprasImportadas_VisibleChanged;
+            dataTable.CellClick += dataTable_CellClick;
+            dataTable.CellFormatting += dataTable_CellFormatting;
 
             this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -33,76 +35,44 @@ namespace app_matter_data_src_erp.Forms
 
             cbMes.SelectedItem = SeleccionesGlobalesDto.MesSeleccionado;
             cbAño.SelectedItem = SeleccionesGlobalesDto.AñoSeleccionado;
-            _compraSrc = new CompraSrcAdapter();
-            if (DatosGlobales.Compras.Count > 0)
-            {
-                LoadData();
-            }
-
+            _compraSrc = new CompraSrcImportadosAdapter();
+            LoadData();
         }
+
+        //----------------------------------------------------------------------------------- lOAD DATA
         private async void LoadData()
         {
+            ControlStatic.actualizarData = false;
             try
             {
-                dataTable.Rows.Clear();
-                DatosGlobales.Compras.Clear();
-                var dataList = await _compraSrc.ListarImportados(3);
+                var data = await _compraSrc.ListarImportados(3);
 
-                if (dataList == null || dataList.Count == 0)
+                if (data == null || data.Count == 0)
                 {
                     pictureNone.Visible = true;
+                    dataTable.Rows.Clear();
                     return;
                 }
 
                 pictureNone.Visible = false;
+                dataTable.Rows.Clear(); 
 
-                // Obtener el mes y año seleccionados
-                int selectedMes = cbMes.SelectedItem != null ? cbMes.SelectedIndex + 1 : 0; // ComboBox suele empezar en 0, sumamos 1
-                int selectedAño = cbAño.SelectedItem != null ? int.Parse(cbAño.SelectedItem.ToString()) : 0;
-
-                foreach (var compra in dataList)
+                foreach (var compra in data)
                 {
-                    DateTime fechaCompra = compra.Fecha; // Fecha real de la compra
-                    int mesCompra = fechaCompra.Month;
-                    int añoCompra = fechaCompra.Year;
-
-                    // Filtrar por mes y año si se han seleccionado
-                    if ((selectedMes == 0 || mesCompra == selectedMes) &&
-                        (selectedAño == 0 || añoCompra == selectedAño))
-                    {
-                        var compraDto = new CompraRDto
-                        {
-                            Codigo = compra.SerieCompra + "-" + compra.NumCompra,
-                            Nombre = compra.NomPersona,
-                            Fecha = fechaCompra.ToString("dd/MM/yyyy"),
-                            Igv = compra.Igv,
-                            SubTotal = compra.SubTotal,
-                            Total = compra.Total,
-                            Estado = compra.Estado == 3 ? "Importado" : "Procesando",
-                            Accion = "Editar"
-                        };
-
-                        DatosGlobales.Compras.Add(compraDto);
-                    }
-                }
-
-                totalRows = DatosGlobales.Compras.Count;
-
-                for (int i = (currentPage - 1) * rowsPerPage; i < Math.Min(currentPage * rowsPerPage, totalRows); i++)
-                {
-                    var compra = DatosGlobales.Compras[i];
                     dataTable.Rows.Add(
-                        compra.Codigo,
-                        compra.Nombre,
-                        compra.Fecha,
+                        compra.SerieCompra + "-" + compra.NumCompra, 
+                        compra.RucPersona,
+                        compra.NomPersona,
+                        compra.Fecha.ToString("dd/MM/yyyy"), 
                         compra.Igv,
                         compra.SubTotal,
                         compra.Total,
-                        compra.Estado,
-                        compra.Accion
+                        compra.Estado == 3 ? "Importado" : "Procesando",
+                        "Editar"
                     );
                 }
 
+                totalRows = data.Count;
                 UpdatePagination();
             }
             catch (Exception ex)
@@ -111,59 +81,10 @@ namespace app_matter_data_src_erp.Forms
             }
         }
 
-
-        // Botones filtrado de tabla
-        private void UpdatePagination()
-        {
-            int totalPages = (int)Math.Ceiling((double)totalRows / rowsPerPage);
-            label3.Text = currentPage.ToString();
-
-            iconButton4.Enabled = currentPage > 1;
-            iconButton1.Enabled = currentPage < totalPages;
-        }
-
-        private void previousPageButton_Click(object sender, EventArgs e)
-        {
-            if (currentPage > 1)
-            {
-                currentPage--;
-                LoadData();
-            }
-        }
-
-        private void nextPageButton_Click(object sender, EventArgs e)
-        {
-            int totalPages = (int)Math.Ceiling((double)totalRows / rowsPerPage);
-            if (currentPage < totalPages)
-            {
-                currentPage++;
-                LoadData();
-            }
-        }
-
-        private void dataTable_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.RowIndex < dataTable.Rows.Count && e.ColumnIndex >= 0 && e.ColumnIndex < dataTable.Columns.Count)
-            {
-                var columnName = dataTable.Columns[e.ColumnIndex].Name;
-
-                OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
-
-
-                if (columnName == "Column8")
-                {
-                    int rowIndex = e.RowIndex;
-                    string code = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
-                    string prove = dataTable.Rows[e.RowIndex].Cells[4].Value.ToString();
-
-                    var modal = new DialogModal("¡Importante!", "Al editar esta compra, se eliminará la importación registrada en el ERP y se creara un nuevo registro de importación.", "warning",prove, code, rowIndex, DataStaticDto.data[rowIndex].DocumentoProveedor);
-                    overlayForm.ShowOverlayWithModal(modal);
-                }
-            }
-        }
+        //----------------------------------------------------------------------------------- TABLE FORMTATING
         private void dataTable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dataTable.Columns[e.ColumnIndex].Name == "Column8")
+            if (dataTable.Columns[e.ColumnIndex].Name == "Column9")
             {
                 e.CellStyle.ForeColor = Color.Chocolate;
 
@@ -171,18 +92,52 @@ namespace app_matter_data_src_erp.Forms
             }
         }
 
-        private async void btnLimpiar_Click(object sender, EventArgs e)
+        //----------------------------------------------------------------------------------- TABLE CLICK
+        private async void dataTable_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            dataTable.Rows.Clear();
-            DatosGlobales.Compras.Clear();
-            SeleccionesGlobalesDto.MesSeleccionado = null; 
-            SeleccionesGlobalesDto.AñoSeleccionado = null;
-            cbMes.Text = "Seleccione el mes";
-            cbAño.Text = "Seleccione el año";
+            if (e.RowIndex >= 0 && e.RowIndex < dataTable.Rows.Count && e.ColumnIndex >= 0 && e.ColumnIndex < dataTable.Columns.Count)
+            {
+                var columnName = dataTable.Columns[e.ColumnIndex].Name;
+                OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
 
-            pictureNone.Visible = true;
-            currentPage = 1;  
-            UpdatePagination(); 
+                if (columnName == "Column9")
+                {
+                    ControlStatic.CierreDIalogvIew = false;
+                    int rowIndex = e.RowIndex;
+                    string code = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    string ruc = dataTable.Rows[e.RowIndex].Cells[1].Value.ToString();
+
+                    if (!string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(ruc))
+                    {
+                        var idRecepcion = await _compraSrc.GetIdRecepcion(code, ruc);
+                        var modal = new DialogModal("¡Importante!", "Al editar esta compra, se eliminará la importación registrada en el ERP y se creara un nuevo registro de importación.", "warning", code, idRecepcion, ruc);
+                        overlayForm.ShowOverlayWithModal(modal);
+                    }
+
+                }
+            }
+        }
+
+        //----------------------------------------------------------------------------------- TABLE BUTTONS
+        private void UpdatePagination()
+        {
+            int totalPages = (int)Math.Ceiling((double)totalRows / rowsPerPage);
+            label3.Text = currentPage.ToString();
+            iconButton4.Enabled = currentPage > 1;
+            iconButton1.Enabled = currentPage < totalPages;
+        }
+
+        //----------------------------------------------------------------------------------- FILTER OPTIONS
+        private void cbMes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SeleccionesGlobalesDto.MesSeleccionado = cbMes.SelectedItem.ToString();
+            LoadData();
+        }
+
+        private void cbAño_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SeleccionesGlobalesDto.AñoSeleccionado = cbAño.SelectedItem.ToString();
+            LoadData();
         }
 
         private async void btnBuscar_Click(object sender, EventArgs e)
@@ -190,7 +145,7 @@ namespace app_matter_data_src_erp.Forms
             var mainForm = (MainComprasSrc)this.FindForm();
             dataTable.Rows.Clear();
             currentPage = 1;
-           
+
             if (cbMes.Text != "Seleccione el mes" && cbAño.Text != "Seleccione el mes")
             {
                 pictureNone.Visible = false;
@@ -208,17 +163,28 @@ namespace app_matter_data_src_erp.Forms
             }
 
         }
-
-        private void cbMes_SelectedIndexChanged(object sender, EventArgs e)
+        //----------------------------------------------------------------------------------- BUTTON LIMPIAR
+        private async void btnLimpiar_Click(object sender, EventArgs e)
         {
-            SeleccionesGlobalesDto.MesSeleccionado = cbMes.SelectedItem.ToString();
-            LoadData(); // Recargar datos con filtro
+            dataTable.Rows.Clear();
+            DatosImportadosStatic.Data.Clear();
+            SeleccionesGlobalesDto.MesSeleccionado = null; 
+            SeleccionesGlobalesDto.AñoSeleccionado = null;
+            cbMes.Text = "Seleccione el mes";
+            cbAño.Text = "Seleccione el año";
+
+            pictureNone.Visible = true;
+            currentPage = 1;  
+            UpdatePagination(); 
         }
 
-        private void cbAño_SelectedIndexChanged(object sender, EventArgs e)
+        //----------------------------------------------------------------------------------- MAGIA
+        private void UCComprasImportadas_VisibleChanged(object sender, EventArgs e)
         {
-            SeleccionesGlobalesDto.AñoSeleccionado = cbAño.SelectedItem.ToString();
-            LoadData(); // Recargar datos con filtro
+            if (this.Visible && ControlStatic.actualizarData)
+            {
+                LoadData();
+            }
         }
 
     }

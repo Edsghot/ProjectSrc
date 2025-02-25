@@ -59,6 +59,7 @@ namespace app_matter_data_src_erp.Global.ApiClient
                                     FechaVencimiento = DateTime.TryParseExact(resultado["FechaVencimiento"]?.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaVencimiento) ? fechaVencimiento : DateTime.MinValue,
                                     Moneda = resultado["Moneda"]?.ToString(),
                                     Condicion = resultado["Condicion"]?.ToString(),
+                                    IdCondicion = resultado["IdCondicion"]?.ToObject<int>() ?? 0,
                                     Observacion = resultado["Observacion"]?.ToString(),
                                     TotalGravadas = resultado["TotalGravadas"]?.ToObject<decimal>() ?? 0,
                                     TotalExoneradas = resultado["TotalExoneradas"]?.ToObject<decimal>() ?? 0,
@@ -79,10 +80,13 @@ namespace app_matter_data_src_erp.Global.ApiClient
 
                                 if (resultado["Compras"] != null)
                                 {
+                                    var idCompras = 0;
                                     foreach (var detalle in resultado["Compras"])
                                     {
                                         var compraDetalle = new CompraDetalleDto
                                         {
+                                            IdRecepcionComprobante = compraDto.IdRecepcion,
+                                            IdProductoSrc = idCompras,
                                             Codigo = detalle["Codigo"]?.ToString(),
                                             Serie = detalle["Serie"]?.ToString(),
                                             TieneSerie = detalle["TieneSerie"]?.ToObject<bool>() ?? false,
@@ -102,6 +106,8 @@ namespace app_matter_data_src_erp.Global.ApiClient
                                             SubTotalConIgv = detalle["SubTotalConIgv"]?.ToObject<decimal>() ?? 0,
                                             Total = detalle["Total"]?.ToObject<decimal>() ?? 0
                                         };
+
+                                        idCompras++;
 
                                         compraDto.Compras.Add(compraDetalle);
                                     }

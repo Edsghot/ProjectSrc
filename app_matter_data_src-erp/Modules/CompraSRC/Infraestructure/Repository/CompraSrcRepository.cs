@@ -74,6 +74,22 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
 
             return coincidencias;
         }
+        public async Task<List<CoincidenciaProdSrcDto>> BuscarProductoPorNombreCuencidenciaSrc(string NombreProd,string rucEmpresa)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@NombreProducto", NombreProd),
+                new SqlParameter("@Ruc", rucEmpresa)
+             };
+
+            var result = await DataBaseHelper.ExecuteStoredProcedureAsync("spBuscarProductoPorNombreCuencidenciaSrc", parameters);
+
+            var coincidencias = result.AsEnumerable()
+                .Select<DataRow, CoincidenciaProdSrcDto>(row => Mapper.Map<DataRow, CoincidenciaProdSrcDto>(row))
+                .ToList();
+
+            return coincidencias;
+        }
 
         public async Task<ValidarImpoDto> BuscarCompraPorSerieYNumero(string serie,string compra)
         {
@@ -357,6 +373,21 @@ new SqlParameter("@pRetencion", compra.pRetencion != null ? compra.pRetencion : 
 
             return compraMonitoreos;
         }
+        public async Task<List<CompraTemporalMonitoreoSrcDto>> ObtenerCompraMonitoreoTemporalPorIdRecepcion(string idRecepcion)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@idRecepcionSrc", idRecepcion)
+            };
+
+            var data = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_ObtenerCompraTemporalMonitoreo", parameters);
+
+            var compraMonitoreos = data.AsEnumerable()
+                .Select<DataRow, CompraTemporalMonitoreoSrcDto>(row => Mapper.Map<DataRow, CompraTemporalMonitoreoSrcDto>(row))
+                .ToList();
+
+            return compraMonitoreos;
+        }
 
 
 
@@ -418,10 +449,14 @@ new SqlParameter("@pRetencion", compra.pRetencion != null ? compra.pRetencion : 
                 new SqlParameter("@tipoIGV", 28),
                 new SqlParameter("@pIGV", 0.18),
                 new SqlParameter("@fechaVencProducto", (object)compra.FechaVencimiento ?? DBNull.Value),
-new SqlParameter("@api", decimal.TryParse(dCompra.Api, out decimal apiResult) ? apiResult : 0.00m),
-new SqlParameter("@temperatura", decimal.TryParse(dCompra.Temp, out decimal tempResult) ? tempResult : 0.00m),
+                new SqlParameter("@api", decimal.TryParse(dCompra.Api, out decimal apiResult) ? apiResult : 0.00m),
+                new SqlParameter("@temperatura", decimal.TryParse(dCompra.Temp, out decimal tempResult) ? tempResult : 0.00m),
                 new SqlParameter("@igvCosto", 0.00m),
-                new SqlParameter("@serieProducto", string.Empty)
+                new SqlParameter("@serieProducto", string.Empty),
+                //mostrando......................................................
+                new SqlParameter("@NomProductoSrc", dCompra.Descripcion),
+                new SqlParameter("@IdRecepcionSrc", compra.IdRecepcion),
+                new SqlParameter("@IdPeriodo", compra.idPeriodo)
             };
 
             await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertCompraTemporal", parameters);

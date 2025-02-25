@@ -1,29 +1,77 @@
 ﻿using System;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.general;
 
 namespace app_matter_data_src_erp.Forms.DialogView
 {
     public partial class ErrorImportacion : Form
     {
-        public ErrorImportacion(string error, string codigoCompra)
+        public ErrorImportacion(GenericErrorsDto errores, string codigoCompra)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-            lblErrores.Text = FormatErrorMessage(error);
             lblCodigo.Text = codigoCompra;
+
+            ConfigurarListView(listViewErroresCompra);
+            ConfigurarListView(listViewErroresDetalle);
+            LlenarListViewErrores(errores);
         }
 
-        private string FormatErrorMessage(string error)
+        private void ConfigurarListView(ListView listView)
         {
-            var errors = error.Split(new[] { ", " }, StringSplitOptions.None);
-            string formattedErrors = "";
+            listView.View = View.Details;
+            listView.FullRowSelect = true;
+            listView.GridLines = true;
+            listView.MultiSelect = false;
+            listView.Scrollable = true;
 
-            foreach (var err in errors)
+            listView.Columns.Add("Campo", 100);
+            listView.Columns.Add("Mensaje", 250);
+            listView.Columns.Add("Detalle", 250);
+        }
+
+        private void LlenarListViewErrores(GenericErrorsDto errores)
+        {
+            listViewErroresCompra.Items.Clear();
+            listViewErroresDetalle.Items.Clear();
+
+            if (errores.HeaderError.Any())
             {
-                formattedErrors += $"✅ {err.Trim()}\n";
+                foreach (var error in errores.HeaderError)
+                {
+                    ListViewItem item = new ListViewItem(error.Field ?? "-");
+                    item.SubItems.Add(error.Message ?? "-");
+                    item.SubItems.Add(error.Detail ?? "-");
+                    item.BackColor = Color.LightGoldenrodYellow; 
+                    listViewErroresCompra.Items.Add(item);
+                }
             }
 
-            return formattedErrors;
+            if (errores.ErrorDetail.Any())
+            {
+                foreach (var error in errores.ErrorDetail)
+                {
+                    ListViewItem item = new ListViewItem(error.Field ?? "-");
+                    item.SubItems.Add(error.Message ?? "-");
+                    item.SubItems.Add(error.Detail ?? "-");
+                    item.BackColor = Color.LightGray; 
+                    listViewErroresDetalle.Items.Add(item);
+                }
+            }
+
+            AjustarListView(listViewErroresCompra);
+            AjustarListView(listViewErroresDetalle);
+        }
+
+        private void AjustarListView(ListView listView)
+        {
+            if (listView.Items.Count > 0)
+            {
+                listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            }
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

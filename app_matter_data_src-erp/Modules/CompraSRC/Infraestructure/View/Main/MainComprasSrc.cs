@@ -125,7 +125,7 @@ namespace app_matter_data_src_erp
 
         private void MainComprasSrc_Activated(object sender, EventArgs e)
         {
-            if (ControlStatic.Cierre)
+            if (ControlStatic.CierreTotal)
             {
                 this.Hide();
                 this.overlay.Hide();

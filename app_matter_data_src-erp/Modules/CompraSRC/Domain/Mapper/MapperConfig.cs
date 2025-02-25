@@ -108,7 +108,11 @@ public static class MapperConfig
            .Member(dest => dest.Temperatura, src => src["temperatura"] != DBNull.Value ? Convert.ToDecimal(src["temperatura"]) : (decimal?)null)
            .Member(dest => dest.IgvCosto, src => src["igvCosto"] != DBNull.Value ? Convert.ToDecimal(src["igvCosto"]) : (decimal?)null)
            .Member(dest => dest.SerieProducto, src => src["serieProducto"] != DBNull.Value ? src["serieProducto"].ToString() : null)
-           .Member(dest => dest.Estado, src => src["estado"] != DBNull.Value ? Convert.ToInt32(src["estado"]) : (int?)null);
+           .Member(dest => dest.Estado, src => src["estado"] != DBNull.Value ? Convert.ToInt32(src["estado"]) : (int?)null)
+           .Member(dest => dest.NomProductoSrc, src => src["nomProductoSrc"] != DBNull.Value ? src["nomProductoSrc"].ToString() : null)
+           .Member(dest => dest.IdRecepcionSrc, src => src["idRecepcionSrc"] != DBNull.Value ? src["idRecepcionSrc"].ToString() : null)
+           .Member(dest => dest.IdPeriodo, src => src["idPeriodo"] != DBNull.Value ? Convert.ToInt32(src["idPeriodo"]) : (int?)null)
+           .Member(dest => dest.FechaPeriodo, src => src["fechaPeriodo"] != DBNull.Value ? Convert.ToDateTime(src["fechaPeriodo"]) : (DateTime?)null);
 
     }
 

@@ -136,9 +136,10 @@ namespace app_matter_data_src_erp.Forms
             this.cbEstadoImportacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbEstadoImportacion.FormattingEnabled = true;
             this.cbEstadoImportacion.Items.AddRange(new object[] {
-            "No listo",
             "Listo",
-            "Error"});
+            "No Listo",
+            "Error",
+            "En proceso"});
             this.cbEstadoImportacion.Location = new System.Drawing.Point(12, 5);
             this.cbEstadoImportacion.Margin = new System.Windows.Forms.Padding(2);
             this.cbEstadoImportacion.Name = "cbEstadoImportacion";
@@ -346,7 +347,6 @@ namespace app_matter_data_src_erp.Forms
             this.dataTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataTable.Size = new System.Drawing.Size(1445, 398);
             this.dataTable.TabIndex = 9;
-            this.dataTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataTable_CellMouseDown);
             // 
             // Column1
             // 

@@ -7,7 +7,3 @@ public static class SeleccionesGlobalesDto
     public static string AñoSeleccionado { get; set; }
 }
 
-public static class DatosGlobales
-{
-    public static List<CompraRDto> Compras { get; set; } = new List<CompraRDto>();
-}

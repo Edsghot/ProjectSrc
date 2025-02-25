@@ -8,6 +8,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto
 {
     public class CompraTemporalMonitoreoSrcDto
     {
+        public string CodigoCompra { get; set; }
         public int Id { get; set; }
         public int? IdComputadora { get; set; }
         public string TipoDoc { get; set; }
@@ -59,6 +60,13 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto
         public decimal? IgvCosto { get; set; }
         public string SerieProducto { get; set; }
         public int? Estado { get; set; }
+        public string NomProductoSrc { get; set; }
+        public string IdRecepcionSrc { get; set; }
+        public int IdPeriodo { get;set; }
+        public DateTime FechaPeriodo { get; set; }
+
+        public string Accion { get; set; } = "Editar";
+        public string EstadoComprobante { get; set; }
     }
 
 }

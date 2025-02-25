@@ -133,7 +133,7 @@ namespace app_matter_data_src_erp.Forms.DialogView.ProductMatch
                 _productId = selectedItem.Text;
                 _productName = selectedItem.SubItems[1].Text;
 
-                MessageBox.Show($"Producto seleccionado:\nCódigo: {_productId}\nNombre: {_productName}", "Selección", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               
                 this.Close();
             }
         }

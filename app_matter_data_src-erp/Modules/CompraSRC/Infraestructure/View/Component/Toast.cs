@@ -21,10 +21,10 @@ public class Toast : UserControl
 
         iconPictureBox = new PictureBox
         {
-            Image = GetIcon(type), 
+            Image = GetIcon(type),
             SizeMode = PictureBoxSizeMode.StretchImage,
             Size = new Size(30, 30),
-            Location = new Point(10, (this.Height - 30) / 2), 
+            Location = new Point(10, (this.Height - 30) / 2),
         };
 
         messageLabel = new Label
@@ -34,7 +34,7 @@ public class Toast : UserControl
             Font = new Font("Arial", 10, FontStyle.Regular),
             Dock = DockStyle.Fill,
             TextAlign = ContentAlignment.MiddleLeft,
-            Padding = new Padding(40, 0, 10, 0), 
+            Padding = new Padding(40, 0, 10, 0),
         };
 
         this.Controls.Add(iconPictureBox);
@@ -42,7 +42,7 @@ public class Toast : UserControl
 
         closeTimer = new Timer
         {
-            Interval = 3000, 
+            Interval = 3000,
         };
         closeTimer.Tick += (s, e) => this.HideToast();
         closeTimer.Start();
@@ -53,13 +53,13 @@ public class Toast : UserControl
         switch (type.ToLower())
         {
             case "success":
-                return Color.FromArgb(52, 181, 116); 
+                return Color.FromArgb(52, 181, 116);
             case "warning":
-                return Color.FromArgb(255, 193, 7); 
+                return Color.FromArgb(255, 193, 7);
             case "error":
-                return Color.FromArgb(220, 53, 69); 
+                return Color.FromArgb(220, 53, 69);
             case "info":
-                return Color.FromArgb(23, 162, 184); 
+                return Color.FromArgb(23, 162, 184);
             default:
                 return Color.Gray;
         }
@@ -70,15 +70,15 @@ public class Toast : UserControl
         switch (type.ToLower())
         {
             case "success":
-                return IconChar.CheckCircle.ToBitmap(IconFont.Auto, 30, Color.White); 
+                return IconChar.CheckCircle.ToBitmap(IconFont.Auto, 30, Color.White);
             case "warning":
-                return IconChar.ExclamationTriangle.ToBitmap(IconFont.Auto, 30, Color.White); 
+                return IconChar.ExclamationTriangle.ToBitmap(IconFont.Auto, 30, Color.White);
             case "error":
-                return IconChar.TimesCircle.ToBitmap(IconFont.Auto, 30, Color.White); 
+                return IconChar.TimesCircle.ToBitmap(IconFont.Auto, 30, Color.White);
             case "info":
-                return IconChar.InfoCircle.ToBitmap(IconFont.Auto, 30, Color.White); 
+                return IconChar.InfoCircle.ToBitmap(IconFont.Auto, 30, Color.White);
             default:
-                return IconChar.QuestionCircle.ToBitmap(IconFont.Auto, 30, Color.White); 
+                return IconChar.QuestionCircle.ToBitmap(IconFont.Auto, 30, Color.White);
         }
     }
 
@@ -88,3 +88,4 @@ public class Toast : UserControl
         this.Dispose();
     }
 }
+

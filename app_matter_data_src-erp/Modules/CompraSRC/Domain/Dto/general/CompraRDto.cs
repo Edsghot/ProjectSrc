@@ -2,6 +2,8 @@
 {
     public class CompraRDto
     {
+        public string IdRecepcion { get; set; }
+        public string Ruc { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
         public string Fecha { get; set; }

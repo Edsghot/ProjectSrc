@@ -1,8 +1,10 @@
 ﻿using app_matter_data_src_erp.Forms.DialogView;
 using app_matter_data_src_erp.Forms.Overlay;
+using app_matter_data_src_erp.Global.Helper;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Constantes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -103,7 +105,7 @@ namespace app_matter_data_src_erp.Forms
                     "s/." + (compra.TotalPagar),
                     compra.FechaVencimiento.ToString("dd/MM/yyyy"),
                     compra.RazonSocial,
-                    compra.Errores
+                    compra.Estado
                 );
             }
             UpdatePagination();
@@ -146,9 +148,9 @@ namespace app_matter_data_src_erp.Forms
             }
 
             int realIndex = (currentPage - 1) * rowsPerPage + e.RowIndex;
-            if (realIndex >= DataStaticDto.data.Count) return; 
+            if (realIndex >= DataStaticDto.data.Count) return;
 
-            var dataItem = DataStaticDto.data[realIndex]; 
+            var dataItem = compraData[realIndex];
             var columnName = dataTable.Columns[e.ColumnIndex].Name;
 
             if (columnName == "Column1")
@@ -158,15 +160,26 @@ namespace app_matter_data_src_erp.Forms
             }
             else if (columnName == "Column3" || columnName == "Column4" || columnName == "Column10" || columnName == "Column11")
             {
-                e.Value = "Pendiente";
+                e.Value = StatusConstant.Pendiente;
                 e.CellStyle.ForeColor = Color.Chocolate;
                 e.CellStyle.SelectionForeColor = Color.Chocolate;
-
-                if (columnName == "Column11" && dataItem.Coicidencia != null)
+                        
+               
+                if (columnName == "Column11" && dataItem.EstadoProductos != null)
                 {
-                    e.Value = dataItem.Coicidencia;
-                    e.CellStyle.ForeColor = Color.Green;
-                    e.CellStyle.SelectionForeColor = Color.Black;
+                    if (dataItem.EstadoProductos == true)
+                    {
+                        e.Value = "Revisado";
+                        e.CellStyle.ForeColor = Color.Green;
+                        e.CellStyle.SelectionForeColor = Color.Black;
+                    }
+                    else
+                    {
+                        e.Value = "Pendiente";
+                        e.CellStyle.ForeColor = Color.Chocolate;
+                        e.CellStyle.SelectionForeColor = Color.Black;
+                    }
+                   
                 }
                 else if (columnName == "Column10" && dataItem.FechaLlegada != null)
                 {
@@ -191,55 +204,57 @@ namespace app_matter_data_src_erp.Forms
             {
                 var cell = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
-                if (dataItem.Estado == "En proceso")
+                if (dataItem.Estado == StatusConstant.Error)
                 {
-                    e.Value = "En proceso";
+                    e.Value = dataItem.Estado;
+                    e.CellStyle.ForeColor = Color.Red;
+                    e.CellStyle.SelectionForeColor = Color.Red;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                    return;
+                }
+                if (dataItem.Estado == StatusConstant.NoListo)
+                {
+                    e.Value = dataItem.Estado;
+                    e.CellStyle.ForeColor = Color.Chocolate;
+                    e.CellStyle.SelectionForeColor = Color.Chocolate;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    return;
+                }
+                if (dataItem.Estado == StatusConstant.Listo)
+                {
+                    e.Value = dataItem.Estado;
+                    e.CellStyle.ForeColor = Color.Green;
+                    e.CellStyle.SelectionForeColor = Color.Green;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    return;
+                }
+                if (dataItem.Estado == StatusConstant.Importado)
+                {
+                    e.Value = dataItem.Estado;
+                    e.CellStyle.ForeColor = Color.Blue;
+                    e.CellStyle.SelectionForeColor = Color.Blue;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    return;
+                }
+                if (dataItem.Estado == StatusConstant.Pendiente)
+                {
+                    e.Value = dataItem.Estado;
+                    e.CellStyle.ForeColor = Color.Orange;
+                    e.CellStyle.SelectionForeColor = Color.Orange;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    return;
+                }
+                if (dataItem.Estado == StatusConstant.EnProceso)
+                {
+                    e.Value = dataItem.Estado;
                     e.CellStyle.ForeColor = Color.Goldenrod;
                     e.CellStyle.SelectionForeColor = Color.Goldenrod;
                     e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
                     return;
                 }
 
-                bool allColumnsHaveData =
-                    dataItem.NomPlantilla != null &&
-                    dataItem.NewSucursal != null &&
-                    dataItem.FechaLlegada != null &&
-                    dataItem.Coicidencia != null;
-
-                if (allColumnsHaveData)
-                {
-                    DataStaticDto.data[realIndex].Estado = "Listo";
-                    e.Value = "Listo";
-                    e.CellStyle.ForeColor = Color.Green;
-                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
-                    e.CellStyle.SelectionForeColor = Color.Green;
-                }
-                else
-                {
-                    if (cell.Value != null)
-                    {
-                        string cellValue = cell.Value.ToString();
-                        if (cellValue.StartsWith("Error"))
-                        {
-                            DataStaticDto.data[realIndex].Estado = "Error";
-                            e.Value = "Error";
-                            e.CellStyle.ForeColor = Color.Red;
-                            e.CellStyle.SelectionForeColor = Color.Red;
-                            e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
-                        }
-                        else if (cellValue.StartsWith("No listo"))
-                        {
-                            DataStaticDto.data[realIndex].Estado = "No listo";
-                            e.Value = "No listo";
-                            e.CellStyle.ForeColor = Color.Chocolate;
-                            e.CellStyle.SelectionForeColor = Color.Chocolate;
-                            e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
-                        }
-                    }
-                }
             }
         }
-
 
         //----------------------------------------------------------------------------------- TABLE CLICK
         private async void dataTable_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -267,16 +282,16 @@ namespace app_matter_data_src_erp.Forms
                             {
                                 List<CompraDetalleDto> detallesCompra = compra.Compras;
                                 List<List<object>> tablaDatosCombustible = detallesCompra.Select(detalle => new List<object>
-                        {
-                            detalle.Descripcion,
-                            detalle.Cantidad,
-                            detalle.PrecioUnitarioSinIgv,
-                            detalle.PrecioUnitarioConIgv,
-                            detalle.Api,
-                            detalle.Temp,
-                            detalle.SubTotalSinIgv,
-                            detalle.SubTotalConIgv
-                        }).ToList();
+                                {
+                                    detalle.Descripcion,
+                                    detalle.Cantidad,
+                                    detalle.PrecioUnitarioSinIgv,
+                                    detalle.PrecioUnitarioConIgv,
+                                    detalle.Api,
+                                    detalle.Temp,
+                                    detalle.SubTotalSinIgv,
+                                    detalle.SubTotalConIgv
+                                }).ToList();
 
                                 ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigo, empresa, tablaDatosCombustible);
                                 overlayForm.ShowOverlayWithModal(modal);
@@ -325,6 +340,8 @@ namespace app_matter_data_src_erp.Forms
                     {
                         dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dateTimePicker.Value.ToString("dd/MM/yyyy");
                         DataStaticDto.data[realIndex].FechaLlegada = dateTimePicker.Value.ToString("dd/MM/yyyy");
+                        DataStaticDto.data[realIndex].EstadoFechaLlegada = true;
+                        HFunciones.ActualizarEstados();
                         dataTable.Controls.Remove(dateTimePicker);
                     };
 
@@ -365,37 +382,29 @@ namespace app_matter_data_src_erp.Forms
 
                 if (columnName == "Column12")
                 {
+                    string estado = dataTable.Rows[e.RowIndex].Cells[11].Value.ToString();
                     string codigoCompra = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
-                    string error = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
-                    if (error.StartsWith("Error"))
+                    string ruc = dataTable.Rows[e.RowIndex].Cells[4].Value.ToString();
+                    var idRecepcion = await _compraSrc.GetIdRecepcion(ruc, codigoCompra);
+
+                    var errores = _compraSrc.GetErrorsDetail(idRecepcion);
+
+                    if (estado == "Error")
                     {
-                        ErrorImportacion modal = new ErrorImportacion(error, codigoCompra);
+                        ErrorImportacion modal = new ErrorImportacion(errores, codigoCompra);
                         overlayForm.ShowOverlayWithModal(modal);
                     }
                 }
-            }
-        }
 
-        private void dataTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.RowIndex >= 0) 
-            {
-                string estado = DataStaticDto.data[e.RowIndex].Estado;
-
-                if (estado == "No listo" || estado == "Error")
-                {
-                    dataTable.ClearSelection(); 
-
-                }
             }
         }
 
         //----------------------------------------------------------------------------------- BUTTON IMPORT
-        private void btnImportar_Click(object sender, EventArgs e)
+        private async void btnImportar_Click(object sender, EventArgs e)
         {
             OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
 
-            List<Tuple<string, string>> codigosYDocumentos = new List<Tuple<string, string>>(); 
+            List<Tuple<string, string>> codigosYIdRecepcion = new List<Tuple<string, string>>(); 
 
             foreach (DataGridViewRow selectedRow in dataTable.SelectedRows)
             {
@@ -410,15 +419,17 @@ namespace app_matter_data_src_erp.Forms
                 var codigoCompra = selectedRow.Cells["Column1"].Value?.ToString();
                 var documentoProveedor = selectedRow.Cells["Column5"].Value?.ToString();
 
+                var idRecepcion = await _compraSrc.GetIdRecepcion(documentoProveedor, codigoCompra);
+
                 if (!string.IsNullOrEmpty(codigoCompra) && !string.IsNullOrEmpty(documentoProveedor))
                 {
-                    codigosYDocumentos.Add(new Tuple<string, string>(codigoCompra, documentoProveedor)); 
+                    codigosYIdRecepcion.Add(new Tuple<string, string>(codigoCompra, idRecepcion)); 
                 }
             }
 
-            if (codigosYDocumentos.Count > 0)
+            if (codigosYIdRecepcion.Count > 0)
             {
-                var modal = new Importar((MainComprasSrc)this.ParentForm, codigosYDocumentos); 
+                var modal = new Importar((MainComprasSrc)this.ParentForm, codigosYIdRecepcion); 
                 overlayForm.ShowOverlayWithModal(modal);
             }
             else
@@ -480,7 +491,7 @@ namespace app_matter_data_src_erp.Forms
                         "s/." + (compra.TotalPagar),
                         compra.FechaVencimiento.ToString("dd/MM/yyyy"),
                         compra.RazonSocial,
-                        compra.Errores
+                        compra.Estado
                         );
                     }
 
@@ -502,13 +513,12 @@ namespace app_matter_data_src_erp.Forms
             }
         }
 
-
         //----------------------------------------------------------------------------------- FILTER DATA
         private void btnFilter_Click(object sender, EventArgs e)
         {
-            string dateInicio = lblDateInicio.Text;
-            string dateFin = lblDateFin.Text;
-            string selectC = cbEstadoImportacion.SelectedItem?.ToString();
+            string dateInicio = lblDateInicio.Text.Trim();
+            string dateFin = lblDateFin.Text.Trim();
+            string selectC = cbEstadoImportacion.SelectedItem?.ToString()?.Trim().ToLower();
 
             if (string.IsNullOrEmpty(dateInicio) && string.IsNullOrEmpty(dateFin) && string.IsNullOrEmpty(selectC))
             {
@@ -520,55 +530,42 @@ namespace app_matter_data_src_erp.Forms
             currentPage = 1;
 
             var data = DataStaticDto.data;
-
             if (data == null || data.Count == 0)
             {
                 MessageBox.Show("No se encontraron datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            totalRows = data.Count;
-
-            foreach (var compra in data)
+            List<CompraDto> filteredData = data.Where(compra =>
             {
                 bool withinDateRange = true;
                 bool matchesEstado = true;
 
                 if (!string.IsNullOrEmpty(dateInicio) && !string.IsNullOrEmpty(dateFin))
                 {
-                    DateTime fechaInicioParsed;
-                    DateTime fechaFinParsed;
-
-                    if (DateTime.TryParse(dateInicio, out fechaInicioParsed) && DateTime.TryParse(dateFin, out fechaFinParsed))
+                    if (DateTime.TryParse(dateInicio, out DateTime fechaInicioParsed) &&
+                        DateTime.TryParse(dateFin, out DateTime fechaFinParsed))
                     {
-                        withinDateRange = compra.FechaEmision >= fechaInicioParsed && compra.FechaEmision <= fechaFinParsed;
+                        withinDateRange = compra.FechaEmision.Date >= fechaInicioParsed.Date &&
+                                          compra.FechaEmision.Date <= fechaFinParsed.Date;
                     }
                 }
 
+
                 if (!string.IsNullOrEmpty(selectC))
                 {
-                    matchesEstado = compra.Estado == selectC;
+                    string estadoCompra = compra.Estado?.Trim().ToLower();
+                    matchesEstado = estadoCompra == selectC;
                 }
 
-                if (withinDateRange && matchesEstado)
-                {
-                    dataTable.Rows.Add(
-                        compra.idCompraSerie,
-                        compra.FechaEmision.ToString("dd/MM/yyyy"),
-                        compra.Sucursal,
-                        compra.RazonSocial,
-                        compra.RazonSocial,
-                        "s/." + (compra.TotalPagar - compra.TotalIGV),
-                        compra.TotalIGV,
-                        "s/." + (compra.TotalPagar),
-                        compra.FechaVencimiento.ToString("dd/MM/yyyy"),
-                        compra.RazonSocial,
-                        compra.Errores
-                    );
-                }
-            }
+                return withinDateRange && matchesEstado;
+            }).ToList(); 
 
-            UpdatePagination();
+            compraData = filteredData;
+
+            totalRows = compraData.Count;
+            LoadPageData();
         }
+
     }
 }

@@ -81,12 +81,17 @@
     <Compile Include="Global\Helper\HFunciones.cs" />
     <Compile Include="Global\Helper\IDateTimeConverter.cs" />
     <Compile Include="Modules\CompraSRC\Application\Adapter\CompraSrcAdapter.cs" />
+    <Compile Include="Modules\CompraSRC\Application\Adapter\CompraSrcImportadosAdapter.cs" />
+    <Compile Include="Modules\CompraSRC\Application\Port\ICompraSrcImportadosInputPort.cs" />
     <Compile Include="Modules\CompraSRC\Application\Port\ICompraSrcInputPort.cs" />
-    <Compile Include="Modules\CompraSRC\Domain\Dto\CompraDetalleDto.cs" />
-    <Compile Include="Modules\CompraSRC\Domain\Dto\CompraDto.cs" />
-    <Compile Include="Modules\CompraSRC\Domain\Dto\CompraRDto.cs" />
-    <Compile Include="Modules\CompraSRC\Domain\Dto\DataStaticDto.cs" />
-    <Compile Include="Modules\CompraSRC\Domain\Dto\ProductDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\Constantes\StatusConstant.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\DatosImportadosStatic.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\general\CompraDetalleDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\general\CompraDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\general\CompraRDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\general\DataStaticDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\general\GenericErrorsDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\general\ProductDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\Proveedor\ProveedorDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\ClaseTipoSunatDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\CliProveedorDto.cs" />
@@ -101,8 +106,7 @@
     <Compile Include="Modules\CompraSRC\Domain\Dto\Static\MenuDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\Static\ControlStatic.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\Sucursal\SucursalDto.cs" />
-    <Compile Include="Modules\CompraSRC\Domain\Dto\ValidationError.cs" />
-    <Compile Include="Modules\CompraSRC\Domain\Dto\validationErrorDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\general\validationErrorDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\IRepository\ICompraSrcRepository.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Mapper\MapperConfig.cs" />
     <Compile Include="Modules\CompraSRC\Infraestructure\Repository\CompraSrcRepository.cs" />
@@ -151,6 +155,12 @@
     <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompraCombustible.Designer.cs">
       <DependentUpon>ModalDetalleCompraCombustible.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatchImported\CoincidenciaProductosImported.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatchImported\CoincidenciaProductosImported.Designer.cs">
+      <DependentUpon>CoincidenciaProductosImported.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatch\BuscarProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +190,12 @@
     </Compile>
     <Compile Include="Shared\DialogModal\DialogModal.Designer.cs">
       <DependentUpon>DialogModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\DialogModal\DIalogModalFInal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Shared\DialogModal\DIalogModalFInal.Designer.cs">
+      <DependentUpon>DIalogModalFInal.cs</DependentUpon>
     </Compile>
     <Compile Include="Shared\DialogModal\ErrorImportacion.cs">
       <SubType>Form</SubType>
@@ -230,6 +246,9 @@
     <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\ModalDetalleCompraCombustible.resx">
       <DependentUpon>ModalDetalleCompraCombustible.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatchImported\CoincidenciaProductosImported.resx">
+      <DependentUpon>CoincidenciaProductosImported.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatch\BuscarProducto.resx">
       <DependentUpon>BuscarProducto.cs</DependentUpon>
     </EmbeddedResource>
@@ -244,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Shared\DialogModal\DialogModal.resx">
       <DependentUpon>DialogModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\DialogModal\DIalogModalFInal.resx">
+      <DependentUpon>DIalogModalFInal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Shared\DialogModal\ErrorImportacion.resx">
       <DependentUpon>ErrorImportacion.cs</DependentUpon>

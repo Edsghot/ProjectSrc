@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Data;
 using System.Drawing;
-using System.Reflection;
 using System.Windows.Forms;
-using app_matter_data_src_erp.Forms.DialogView.ProductMatch;
-using app_matter_data_src_erp.Forms.Overlay;
-using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using FontAwesome.Sharp;
 
 namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
@@ -13,31 +9,28 @@ namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
     public partial class DialogModal : Form
     {
         private string modalType;
-        private string code;
-        private string prove;
-        private int fila;
-        private string documento;
+        private string idRecepcion;
+        private string codigo; 
+        private string rucRecuperado;
         private EditarCompra parentForm;
-        public DialogModal(string title, string subtitle, string type,string proveedor,string codigo,int row, string docu, EditarCompra parent = null)
+        public DialogModal(string title, string subtitle, string type,string code,string id,string ruc, EditarCompra parent = null)
         {
                   
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.parentForm= parent;
             lblTitle.Text = title;
-            lblSubtitle.Text = subtitle;
-            prove = proveedor;
-            code = codigo;
-            documento = docu;
-            fila = row;
-            modalType = type.ToLower(); 
-
+            lblSubtitle.Text = subtitle;    
+            modalType = type.ToLower();
+            this.idRecepcion = id;
+            this.codigo = code;
+            this.rucRecuperado = ruc;
             switch (modalType)
             {
                 case "warning":
                     iconPicture.IconChar = IconChar.CircleInfo;
-                    iconPicture.IconColor = Color.Navy;
-                    lblTitle.ForeColor = Color.Navy;
+                    iconPicture.IconColor = Color.Red;
+                    lblTitle.ForeColor = Color.Red;
                     break;
                 case "question":
                     iconPicture.IconChar = IconChar.CircleQuestion;
@@ -66,8 +59,8 @@ namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
             switch (modalType)
             {
                 case "warning":
-  
-                    EditarCompra warningModal = new EditarCompra(prove, code, documento,fila,(MainComprasSrc)this.ParentForm);
+                    ControlStatic.CierreModalEditar = false;
+                    EditarCompra warningModal = new EditarCompra(codigo,idRecepcion, rucRecuperado, (MainComprasSrc)this.ParentForm);
                     warningModal.TopMost = true;
                     warningModal.ShowDialog();
 
@@ -79,6 +72,14 @@ namespace app_matter_data_src_erp.Forms.DialogView.DialogModal
                 default:
                     MessageBox.Show("Tipo no soportado para continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
+            }
+        }
+
+        private void DialogVIew_Activated(object sender, EventArgs e)
+        {
+            if (ControlStatic.CierreDIalogvIew)
+            {
+                this.Dispose();
             }
         }
     }

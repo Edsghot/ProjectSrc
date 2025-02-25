@@ -1,5 +1,6 @@
-﻿using app_matter_data_src_erp.Forms.DialogView.ProductMatch;
-using app_matter_data_src_erp.Global.Helper;
+﻿
+
+    using app_matter_data_src_erp.Forms.DialogView.ProductMatch;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
@@ -16,45 +17,39 @@ using System.Windows.Forms;
 
 namespace app_matter_data_src_erp.Forms.DialogView
 {
-    public partial class CoincidenciaProductos : Form
+    public partial class CoincidenciaProductosImported : Form
     {
         private int currentPage = 1;
         private int rowsPerPage = 4;
         private int totalRows;
         private string rucRecuperado;
-
         private readonly MainComprasSrc mainForm;
         private readonly ICompraSrcRepository _repo;
-        private readonly List<CompraDetalleDto> detallesCompra;
+        private readonly List<CompraTemporalMonitoreoSrcDto> detallesCompra;
         private readonly ICompraSrcInputPort compra;
         private readonly int _index;
-        public CoincidenciaProductos(MainComprasSrc main, string codigoCompra, List<CompraDetalleDto> detallesCompra, string ruc, int index)
+        public CoincidenciaProductosImported(MainComprasSrc parent, List<CompraTemporalMonitoreoSrcDto> compras, string codigoCompra,string ruc)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             compra = new CompraSrcAdapter();
-
             this.dataTable.RowTemplate.Height = 45;
-
             this.dataTable.Columns[1].DefaultCellStyle.BackColor = Color.WhiteSmoke;
             this.dataTable.Columns[1].DefaultCellStyle.ForeColor = Color.Chocolate;
             this.dataTable.Columns[1].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Underline);
 
             this.dataTable.Columns[2].HeaderCell.Style.BackColor = Color.LightSteelBlue;
             _repo = new CompraSrcRepository();
-            _index = index;
             dataTable.CellClick += dataTable_CellClick;
             dataTable.CellPainting += dataTable_CellPainting;
             lblNumeroCompra.Text = codigoCompra;
 
 
-            this.detallesCompra = detallesCompra;
-            this.mainForm = main;
+            this.detallesCompra = compras;
             this.rucRecuperado = ruc;
-
             LoadData(detallesCompra);
         }
-        private async Task LoadData(List<CompraDetalleDto> detallesCompra)
+        private async Task LoadData(List<CompraTemporalMonitoreoSrcDto> detallesCompra)
         {
             this.dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dataTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -76,7 +71,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
             for (int i = (currentPage - 1) * rowsPerPage; i < Math.Min(currentPage * rowsPerPage, totalRows); i++)
             {
                 var detalle = detallesCompra[i];
-                var coincidencia = coincidencias.FirstOrDefault(c => c.NombreProdSrc == detalle.Descripcion);
+                var coincidencia = coincidencias.FirstOrDefault(c => c.NombreProdSrc == detalle.NomProductoSrc);
 
                 if (coincidencia != null)
                 {
@@ -86,21 +81,21 @@ namespace app_matter_data_src_erp.Forms.DialogView
                 {
                     try
                     {
-                        var response = await _repo.searchProducts(detalle.Descripcion);
+                        var response = await _repo.searchProducts(detalle.NomProductoSrc);
                         if (response != null && response.Any())
                         {
                             var firstProduct = response.First();
-                            dataTable.Rows.Add(firstProduct.ProductId, firstProduct.ProductName, detalle.Descripcion);
+                            dataTable.Rows.Add(firstProduct.ProductId, firstProduct.ProductName, detalle.NomProductoSrc);
                         }
                         else
                         {
-                            dataTable.Rows.Add("", "", detalle.Descripcion);
+                            dataTable.Rows.Add("", "", detalle.NomProductoSrc);
                         }
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Error al consumir la API: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        dataTable.Rows.Add("", "", detalle.Descripcion);
+                        dataTable.Rows.Add("", "", detalle.NomProductoSrc);
                     }
                 }
             }
@@ -218,8 +213,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
                     await compra.EscanearDCompra(idProductoErp2, nombreProdSrc2);
                     var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();
-                    DataStaticDto.data[_index].EstadoProductos = true;
-                    HFunciones.ActualizarEstados();
+                    DataStaticDto.data[_index].Coicidencia = "Revisado";
                 }
 
                 if (mainForm != null)

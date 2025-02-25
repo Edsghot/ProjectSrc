@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
 using System.Linq;
 using System.Threading.Tasks;
+using app_matter_data_src_erp.Global.Helper;
 
 namespace app_matter_data_src_erp.Forms.DialogView
 {
@@ -76,9 +77,10 @@ namespace app_matter_data_src_erp.Forms.DialogView
                 var nomPlantilla = (planillaSeleccionada.NomPlantilla).ToString();
                 try
                 {
-                    //await _repo.ActualizarPlantilla(idPlantilla);
                     DataStaticDto.data[_index].IdPlantilla = idPlantilla;
                     DataStaticDto.data[_index].NomPlantilla = nomPlantilla;
+                    DataStaticDto.data[_index].EstadoAsiento = true;
+                    HFunciones.ActualizarEstados();
                     mainForm.ShowToast("Datos de la plantilla añadidos con éxito.", "success");
                     this.Close();
                 }

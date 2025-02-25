@@ -4,6 +4,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto
 {
     public class CompraDetalleDto
     {
+        public string IdRecepcionComprobante { get; set; }
+        public int IdProductoSrc { get; set; }
         public string nCompra { get; set; }
         public string IdProducto { get; set; }
         public string Codigo { get; set; }

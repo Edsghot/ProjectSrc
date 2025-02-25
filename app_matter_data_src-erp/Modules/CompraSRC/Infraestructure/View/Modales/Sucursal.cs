@@ -1,4 +1,5 @@
-﻿using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+﻿using app_matter_data_src_erp.Global.Helper;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
 using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
@@ -106,6 +107,9 @@ namespace app_matter_data_src_erp.Forms.DialogView
                         DataStaticDto.data[_index].Sucursal = txtDireccion.Text;
                         DataStaticDto.data[_index].NewSucursal = txtDireccion.Text;
                         DataStaticDto.data[_index].IdAlmacen = almacen;
+                        DataStaticDto.data[_index].EstadoAlmacen = true;
+                        DataStaticDto.data[_index].EstadoSucursal = true;
+                        HFunciones.ActualizarEstados();
                         mainForm.ShowToast("Datos de la sucursal añadidos con éxito.", "success");
                         this.Close();
                    

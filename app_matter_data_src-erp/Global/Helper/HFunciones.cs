@@ -1,4 +1,6 @@
-﻿using System;
+﻿using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Constantes;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using System;
 using System.Text;
 
 namespace app_matter_data_src_erp.Global.Helper
@@ -45,6 +47,19 @@ namespace app_matter_data_src_erp.Global.Helper
             if (codigo > 255)
                 throw new ArgumentOutOfRangeException("CharCode", codigo, "CharCode must be between 0 and 255.");
             return Encoding.Default.GetString(new[] { (byte)codigo })[0];
+        }
+
+        public static void ActualizarEstados()
+        {
+            foreach (var data in DataStaticDto.data)
+            {
+
+                if (data.EstadoProductos && data.EstadoFechaLlegada && data.EstadoSucursal && data.EstadoAlmacen && data.EstadoAsiento)
+                {
+                    data.Estado = StatusConstant.Listo;
+                }
+
+            }
         }
     }
 }

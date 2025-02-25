@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Constantes;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.general;
 using Newtonsoft.Json;
 
 
@@ -23,6 +25,7 @@ public class CompraDto
     public DateTime FechaVencimiento { get; set; } = new DateTime(2000, 1, 1);
     public string Moneda { get; set; }
     public string Condicion { get; set; }
+    public int IdCondicion { get;set; }
     public string Observacion { get; set; }
     public string Scop { get; set; }
     public decimal TotalGravadas { get; set; }
@@ -40,13 +43,21 @@ public class CompraDto
     public string PlacaTransportista { get; set; }
     public string LicenciaTransportista { get; set; }
     public string MarcaTransportista { get; set; }
-    public string Errores { get; set; }
+    public GenericErrorsDto Errores { get; set; }
     public string IdRecepcion { get; set; }
     //data src
     public int IdAlmacen { get; set; }
     public string FechaLlegada { get; set; }
     public string NewSucursal { get; set; }
-    public string Estado { get; set; }
+    public string Estado { get; set; } = StatusConstant.NoListo;
+
+    //estado___________________________________________________
+    public bool EstadoSucursal { get; set; }
+    public bool EstadoAlmacen { get; set; }
+    public bool EstadoAsiento { get; set; }
+    public bool EstadoFechaLlegada { get; set; }
+    public bool EstadoProductos { get; set; }
+    //_______________________________________________________________
     public string Coicidencia { get; set; }
     // Propiedades adicionales
     public string idCliPro { get; set; }

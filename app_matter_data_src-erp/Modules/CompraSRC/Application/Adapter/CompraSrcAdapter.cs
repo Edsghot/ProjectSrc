@@ -15,6 +15,9 @@ using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using System.Windows.Markup;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.general;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Constantes;
+using System.Windows.Forms.VisualStyles;
 
 namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 {
@@ -53,16 +56,12 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             {
                 var errors = await Validations(compra);
 
-                if (errors.Any())
+                if (errors.IndError)
                 {
-                    compra.Errores = "Error: " + string.Join(", ", errors.Select(e => $"{e.Field}: {e.Message}"));
-                    compra.Estado = "Error";
+                    compra.Errores = errors;
+                    compra.Estado = StatusConstant.Error;
                 }
-                else
-                {
-                    compra.Errores = "No Listo";
-                    compra.Estado = "No Listo";
-                }
+    
             }
 
             return DataStaticDto.data;
@@ -156,6 +155,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
             data.FechaLlegada = data.FechaEmision.ToString();
             var dataSucursal = (await compraSrcRepository.getAllSucursal()).FirstOrDefault(x => x.SucursalSRC == "True");
+           
             data.NewSucursal = dataSucursal.NomPuntoVenta;
             data.SucursalId = dataSucursal.IdPuntoVenta;
             data.Sucursal = dataSucursal.NomPuntoVenta;
@@ -165,9 +165,35 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
             data.idTipoOperacion = (await compraSrcRepository.sp_GetTipoOperacion("02"))[0].IdTipoOperacion;
 
+            data.EstadoProductos = await ProductsValidated(data.IdRecepcion);
 
+            if (!string.IsNullOrWhiteSpace(data.NewSucursal) && !string.IsNullOrWhiteSpace(data.SucursalId))
+            {
+                data.EstadoSucursal = true;
+            }
 
+            if (data.IdAlmacen >= 0 )
+            {
+                data.EstadoAlmacen = true;
+            }
+
+            if(!string.IsNullOrWhiteSpace(data.IdPlantilla) && !string.IsNullOrWhiteSpace(data.NomPlantilla))
+            {
+                data.EstadoAsiento = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(data.FechaLlegada))
+            {
+                data.EstadoFechaLlegada = true;
+            }
+
+            if(data.EstadoProductos && data.EstadoFechaLlegada && data.EstadoSucursal && data.EstadoAlmacen && data.EstadoAsiento)
+            {
+                data.Estado = StatusConstant.Listo;
+            }
         }
+
+
 
         public async Task<MenuDto> GetMenu()
         {
@@ -183,20 +209,42 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             };
         }
 
-
-        public async Task<List<validationErrorDto>> Validations(CompraDto data)
+        public GenericErrorsDto GetErrorsDetail(string idRecepcion)
         {
-            var errors = new List<validationErrorDto>();
+            var compra = DataStaticDto.data.FirstOrDefault(c => c.IdRecepcion == idRecepcion);
+            return compra.Errores;
+        }
 
-            // Validar Condicion (Contado no permitido)
-            if (!string.IsNullOrEmpty(data?.Condicion) && data.Condicion == "T")
+        public async Task<GenericErrorsDto> Validations(CompraDto data)
+        {
+            var genericError = new GenericErrorsDto();
+            var HeaderError = new List<validationErrorDto>();
+            var ErrorDetail = new List<validationErrorDto>();
+
+            if (string.IsNullOrWhiteSpace(data.IdRecepcion))
             {
-                errors.Add(new validationErrorDto
+                genericError.IndError = false;
+                HeaderError.Add(new validationErrorDto
                 {
-                    Field = "Condicion",
-                    Message = "No se permite la condición de pago 'Contado' (T)."
+                    Detail = "Id recepcion",
+                    Field = "IdRecepcion",
+                    Message = "No puede ser vacio el IdRecepcion"
                 });
             }
+            genericError.IdRecepcion = data.IdRecepcion;
+
+            
+            // Validar Condicion (Contado no permitido)
+            //if (data.IdCondicion != 1)
+            //{
+            //    genericError.IndError = true;
+            //    HeaderError.Add(new validationErrorDto
+            //    {
+            //        Detail = "Codicion de la factura",
+            //        Field = "Condicion",
+            //        Message = "No se permite la condición de pago 'Contado' (T)."
+            //    });
+            //}
 
             // Validar que los números decimales tienen máximo dos dígitos
             var decimalsToValidate = new[] { data?.TotalGravadas, data?.TotalExoneradas, data?.TotalPercepcion, data?.TotalIGV, data?.TotalPagar };
@@ -204,8 +252,11 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             {
                 if (dec.HasValue && dec != Math.Round(dec.Value, 2))
                 {
-                    errors.Add(new validationErrorDto
+
+                    genericError.IndError = true;
+                    HeaderError.Add(new validationErrorDto
                     {
+                        Detail = "Decimales de los campos que muestran datos decimales",
                         Field = "Total",
                         Message = "El valor decimal debe tener como máximo dos dígitos decimales."
                     });
@@ -214,20 +265,25 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
 
             // Validar AbrevTipoDocumento
-            if (!string.IsNullOrEmpty(data?.AbrevTipoDocumento) && !(data.AbrevTipoDocumento.Length >= 2 && data.AbrevTipoDocumento.Length < 10))
+            if (string.IsNullOrWhiteSpace(data.NomTipoDocumento) || data.NomTipoDocumento.Length != 2)
             {
-                errors.Add(new validationErrorDto
+                genericError.IndError = true;
+                HeaderError.Add(new validationErrorDto
                 {
-                    Field = "AbrevTipoDocumento",
+                    Detail = "Tipo de documento",
+                    Field = "NomTipoDocumento",
                     Message = "Debe tener entre 2 y 10 caracteres"
                 });
             }
 
             // Validar SerieCompra
-            if (!string.IsNullOrEmpty(data?.SerieCompra) && data.SerieCompra.Length != 4)
+            if (string.IsNullOrWhiteSpace(data.SerieCompra) || data.SerieCompra.Length != 4)
             {
-                errors.Add(new validationErrorDto
+
+                genericError.IndError = true;
+                HeaderError.Add(new validationErrorDto
                 {
+                    Detail = "Serie de comprobante",
                     Field = "SerieCompra",
                     Message = "Debe tener exactamente 4 caracteres"
                 });
@@ -236,8 +292,11 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             // Validar que FechaVencimiento no sea menor que FechaEmision
             if (data.FechaVencimiento < data.FechaEmision)
             {
-                errors.Add(new validationErrorDto
+
+                genericError.IndError = true;
+                HeaderError.Add(new validationErrorDto
                 {
+                    Detail = "Fecha de vencimientO del comprobante",
                     Field = "FechaVencimiento",
                     Message = "La fecha de vencimiento no puede ser menor que la fecha de emisión"
                 });
@@ -245,60 +304,110 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
 
             // Validar DocumentoProveedor
-            if (!string.IsNullOrEmpty(data?.DocumentoProveedor) && (data.DocumentoProveedor.Length < 8 || data.DocumentoProveedor.Length > 14))
+            if (string.IsNullOrWhiteSpace(data?.DocumentoProveedor) || (data.DocumentoProveedor.Length < 8 || data.DocumentoProveedor.Length > 14))
             {
-                errors.Add(new validationErrorDto
+
+                genericError.IndError = true;
+                HeaderError.Add(new validationErrorDto
                 {
+                    Detail = "Documento del proveedor (Ruc,Dni)",
                     Field = "DocumentoProveedor",
                     Message = "Debe tener entre 8 y 14 caracteres"
                 });
             }
 
             // Validar RazonSocial
-            if (!string.IsNullOrEmpty(data?.RazonSocial) && (data.RazonSocial.Length < 3 || data.RazonSocial.Length > 100))
+            if (string.IsNullOrWhiteSpace(data?.RazonSocial))
             {
-                errors.Add(new validationErrorDto
+                genericError.IndError = true;
+                HeaderError.Add(new validationErrorDto
                 {
+                    Detail = "Razon social del proveedor",
                     Field = "RazonSocial",
                     Message = "Debe tener entre 3 y 100 caracteres"
                 });
             }
 
-
-            // Validar Scop
-            if (!string.IsNullOrEmpty(data?.Scop) && data.Scop.Length != 10)
+            // Validar RazonSocial
+            if (data.Compras.Count <= 0)
             {
-                errors.Add(new validationErrorDto
+                genericError.IndError = true;
+                HeaderError.Add(new validationErrorDto
                 {
-                    Field = "Scop",
-                    Message = "Debe tener exactamente 10 caracteres"
+                    Detail = "Cantridad de productos",
+                    Field = "data.Compras",
+                    Message = "debe tener al menos un producto agregado"
                 });
+                genericError.HeaderError = HeaderError;
+                return genericError;
             }
 
             // Validar Compras
             foreach (var compra in data?.Compras ?? Enumerable.Empty<CompraDetalleDto>())
             {
-                if (!string.IsNullOrEmpty(compra.Codigo) && (compra.Codigo.Length < 1 || compra.Codigo.Length > 15))
-                {
-                    errors.Add(new validationErrorDto
-                    {
-                        Field = "Compras.codigo",
-                        Message = "Debe tener entre 1 y 15 caracteres"
-                    });
-                }
 
-                if (!string.IsNullOrEmpty(compra.Descripcion) && (compra.Descripcion.Length < 5 || compra.Descripcion.Length > 200))
+                if ((string.IsNullOrWhiteSpace(compra.Descripcion) && ( (compra.Descripcion.Length < 5 || compra.Descripcion.Length > 200))))
                 {
-                    errors.Add(new validationErrorDto
+                    genericError.IndError = true;
+                    ErrorDetail.Add(new validationErrorDto
                     {
+                        Detail = "Descripcion de la compra (Nombre del producto)",
                         Field = "Compras.descripcion",
                         Message = "Descripcion debe tener entre 5 y 200 caracteres"
                     });
                 }
+                if (compra.Cantidad <= 0)
+                {
+                    genericError.IndError = true;
+                    ErrorDetail.Add(new validationErrorDto
+                    {
+                        Detail = "Cantidad de productos",
+                        Field = "Compras.Cantidad",
+                        Message = "La cantidad de productos debe ser mayor a cero"
+                    });
+                }
+   
 
+                if (string.IsNullOrWhiteSpace(compra.Tratamiento) &&( compra.Tratamiento != "10" || compra.Tratamiento != "30"))
+                {
+                    genericError.IndError = true;
+                    ErrorDetail.Add(new validationErrorDto
+                    {
+                        Detail = "Tratamiento de la compra",
+                        Field = "Compras.Tratamiento",
+                        Message = "Tienes que enviar el codigo de tratamiento ya sea 10 o 30 (exonerado o inafecto)"
+                    });
+                    
+                    if(compra.Tratamiento == "10" && compra.Igv > 0)
+                    {
+                        genericError.IndError = true;
+                        ErrorDetail.Add(new validationErrorDto
+                        {
+                            Detail = "IGV",
+                            Field = "Compras.IGV",
+                            Message = "Si se trata de una gravada(Operacion onerosa) se necesita agregar el IGV"
+                        });
+                    }
+                
+                }
 
             }
-            data.idClaseDoc = "FAC";
+
+            if(data.NomTipoDocumento == "01")
+            {
+                data.idClaseDoc = "FAC";
+            }
+
+            if (data.NomTipoDocumento != "01")
+            {
+                genericError.IndError = true;
+                ErrorDetail.Add(new validationErrorDto
+                {
+                    Detail = "Tipo de documento no manejadno en esta aplicacion",
+                    Field = "TipoDocumento",
+                    Message = "Revisa si se trata de un factura"
+                });
+            }
             data.FechaDig = DateTime.Now;
             data.FechaOperativa = DateTime.Now;
             data.TipoCambio = 3.5M;
@@ -332,14 +441,17 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             data.PrecioIncluyeIGV = data.TotalIGV > 0 ? true : false;
             //data.fechaEspecialRC
             data.servicioIntangible = false;
-            return errors;
+
+            genericError.HeaderError = HeaderError;
+            genericError.ErrorDetail = ErrorDetail;
+            return genericError;
         }
 
-        public async Task<bool> InsertCompra(int mes, int anio, string numCompra)
+        public async Task<bool> InsertCompra(int mes, int anio, string IdRecepcion)
         {
             var idPeriodo = (await compraSrcRepository.ObtenerPeriodosPorFecha(anio, mes))[0].IdPeriodo;
 
-            var compra = DataStaticDto.data.FirstOrDefault(c => c.idCompraSerie == numCompra);
+            var compra = DataStaticDto.data.FirstOrDefault(c => c.IdRecepcion == IdRecepcion);
             compra.idPeriodo = idPeriodo;
             compra.cantidad = compra.Compras.Count;
            // await compraSrcRepository.InsertarCompraTemporal(compra);
@@ -347,8 +459,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             {
                 detalle.nCompra = compra.SerieCompra + compra.NumCompra;
                 await compraSrcRepository.InsertarCompraTemporal(compra,detalle);
-                compra.Estado = "En Proceso";
-                compra.Errores = "En Proceso";
+                compra.Estado = StatusConstant.EnProceso;
             }
             return true;
         }
@@ -367,13 +478,20 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
         }
 
 
-        public async Task<List<CompraTemporalMonitoreoSrcDto>> ListarImportados(int estatus)
+
+        public async Task<bool> ProductsValidated(string idRecepcion)
         {
-            var data = await compraSrcRepository.ObtenerCompraTemporalMonitoreoSrc(estatus);
-
-            return data;
+            var DataCompra = await ObtenerCompraPorIdRecepcion(idRecepcion);
+            foreach(var compra in DataCompra.Compras)
+            {
+                var data = await compraSrcRepository.BuscarProductoPorNombreCuencidenciaSrc(compra.Descripcion, DataCompra.DocumentoProveedor);
+                if(data.Count == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
-
 
     }
 }

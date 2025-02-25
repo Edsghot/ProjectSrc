@@ -1,4 +1,5 @@
 ﻿using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.general;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Port
         Task<string> GetIdRecepcion(string documentoProveedor, string codigo);
         Task<CompraDto> ObtenerCompraPorIdRecepcion(string IdRecepcion);
         Task<MenuDto> GetMenu();
-        Task<bool> InsertCompra(int mes, int anio, string numCompra);
+        Task<bool> InsertCompra(int mes, int anio, string IdRecepcion);
         Task EscanearDCompra(string IdProduct, string NombreProducto);
         Task<bool> validarImportacion(string serie, string numCompra);
-        Task<List<CompraTemporalMonitoreoSrcDto>> ListarImportados(int estatus);
-        
+        //nuevos 
+        GenericErrorsDto GetErrorsDetail(string idRecepcion);
+        Task<bool> ProductsValidated(string idRecepcion);
+
     }
 }
