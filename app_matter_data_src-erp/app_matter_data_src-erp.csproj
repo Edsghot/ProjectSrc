@@ -84,8 +84,11 @@
     <Compile Include="Modules\CompraSRC\Application\Adapter\CompraSrcImportadosAdapter.cs" />
     <Compile Include="Modules\CompraSRC\Application\Port\ICompraSrcImportadosInputPort.cs" />
     <Compile Include="Modules\CompraSRC\Application\Port\ICompraSrcInputPort.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\bitacora\DetalleTemporalBitacoraSrcDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\bitacora\TemporalBitacoraSrcDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\Constantes\StatusConstant.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\DatosImportadosStatic.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\ExtraStatic.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\general\CompraDetalleDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\general\CompraDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\general\CompraRDto.cs" />

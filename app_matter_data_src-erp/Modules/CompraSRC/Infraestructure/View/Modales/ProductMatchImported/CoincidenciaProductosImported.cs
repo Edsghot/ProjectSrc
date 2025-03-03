@@ -28,6 +28,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
         private readonly List<CompraTemporalMonitoreoSrcDto> detallesCompra;
         private readonly ICompraSrcInputPort compra;
         private readonly int _index;
+        private readonly string CodigoCompraCompleto;
         public CoincidenciaProductosImported(MainComprasSrc parent, List<CompraTemporalMonitoreoSrcDto> compras, string codigoCompra,string ruc)
         {
             InitializeComponent();
@@ -43,10 +44,13 @@ namespace app_matter_data_src_erp.Forms.DialogView
             dataTable.CellClick += dataTable_CellClick;
             dataTable.CellPainting += dataTable_CellPainting;
             lblNumeroCompra.Text = codigoCompra;
+            CodigoCompraCompleto = codigoCompra;
 
 
             this.detallesCompra = compras;
             this.rucRecuperado = ruc;
+
+
             LoadData(detallesCompra);
         }
         private async Task LoadData(List<CompraTemporalMonitoreoSrcDto> detallesCompra)
@@ -56,12 +60,15 @@ namespace app_matter_data_src_erp.Forms.DialogView
             this.dataTable.RowTemplate.Height = 45;
             this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataTable.Rows.Clear();
+            var coincidencia2 = new List<CompraTemporalMonitoreoSrcDto>();
 
             totalRows = detallesCompra.Count;
             List<CoincidenciaProdSrcDto> coincidencias = new List<CoincidenciaProdSrcDto>();
             try
             {
                 coincidencias = await _repo.ObtenerCoincidenciasProdSrcPorRuc(this.rucRecuperado);
+
+                 coincidencia2 = await _repo.ObtenerCompraMonitoreoTemporalPorIdRecepcion(ExtraStatic.idRecepcion);
             }
             catch (Exception ex)
             {
@@ -72,10 +79,10 @@ namespace app_matter_data_src_erp.Forms.DialogView
             {
                 var detalle = detallesCompra[i];
                 var coincidencia = coincidencias.FirstOrDefault(c => c.NombreProdSrc == detalle.NomProductoSrc);
-
+                var con = coincidencia2.FirstOrDefault(c => c.NomProductoSrc == detalle.NomProductoSrc);
                 if (coincidencia != null)
                 {
-                    dataTable.Rows.Add(coincidencia.IdProductoErp, coincidencia.NombreProdErp, coincidencia.NombreProdSrc);
+                    dataTable.Rows.Add(coincidencia.IdProductoErp, coincidencia.NombreProdErp, coincidencia.NombreProdSrc, con.Api,con.Temperatura);
                 }
                 else
                 {
@@ -99,12 +106,27 @@ namespace app_matter_data_src_erp.Forms.DialogView
                     }
                 }
             }
+            foreach (DataGridViewColumn column in dataTable.Columns)
+            {
+                column.ReadOnly = true;
+            }
+            txtScop.Text = "xdddd";
+            txtScop.MaxLength = 17;
+
+            dataTable.Columns[3].ReadOnly = false; 
+            dataTable.Columns[4].ReadOnly = false;
+
+            dataTable.Columns[3].DefaultCellStyle.BackColor = Color.LightYellow; 
+            dataTable.Columns[3].DefaultCellStyle.Font = new Font(dataTable.DefaultCellStyle.Font, FontStyle.Bold);
+            dataTable.Columns[4].DefaultCellStyle.BackColor = Color.LightYellow; 
+            dataTable.Columns[4].DefaultCellStyle.Font = new Font(dataTable.DefaultCellStyle.Font, FontStyle.Bold);
+            dataTable.EditingControlShowing += DataTable_EditingControlShowing;
 
             UpdatePagination();
         }
 
 
-        // Botones filtrado de tabla
+
         private void UpdatePagination()
         {
             int totalPages = (int)Math.Ceiling((double)totalRows / rowsPerPage);
@@ -177,6 +199,70 @@ namespace app_matter_data_src_erp.Forms.DialogView
             }
         }
 
+
+        //ultimo
+        private void DataTable_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (dataTable.CurrentCell.ColumnIndex == 3 || dataTable.CurrentCell.ColumnIndex == 4) 
+            {
+                TextBox textBox = e.Control as TextBox;
+                if (textBox != null)
+                {
+                    textBox.KeyPress -= ColumnNumeric_KeyPress;
+                    textBox.KeyPress += ColumnNumeric_KeyPress;
+                    textBox.Leave -= ColumnNumeric_Leave;
+                    textBox.Leave += ColumnNumeric_Leave;
+                }
+            }
+        }
+
+        private void ColumnNumeric_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+
+
+            if (e.KeyChar == '.' && textBox.Text.Contains("."))
+            {
+                e.Handled = true;
+            }
+
+            if (char.IsDigit(e.KeyChar) && textBox.Text.Length < 3 && !textBox.Text.Contains("."))
+            {
+                int parsedValue = int.Parse(textBox.Text + e.KeyChar);
+                if (parsedValue > 99)
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void ColumnNumeric_Leave(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (decimal.TryParse(textBox.Text, out decimal value))
+            {
+                if (value > 99.99m)
+                {
+                    textBox.Text = "99.99"; 
+                }
+                else
+                {
+                    textBox.Text = value.ToString("0.00"); 
+                }
+            }
+            else
+            {
+                textBox.Text = "0.00"; 
+            }
+        }
+
+
+
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -213,6 +299,10 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
                     await compra.EscanearDCompra(idProductoErp2, nombreProdSrc2);
                     var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();
+
+                    var arr = CodigoCompraCompleto.Split('-');
+
+                     _repo.ActualizarProductoCompraTemporalMonitoreoSRC(idProductoErp2, arr[1], arr[0], nombreProdSrc2).GetAwaiter();
                     DataStaticDto.data[_index].Coicidencia = "Revisado";
                 }
 

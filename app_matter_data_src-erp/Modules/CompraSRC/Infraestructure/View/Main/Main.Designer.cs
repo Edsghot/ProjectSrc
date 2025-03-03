@@ -74,7 +74,6 @@
             this.lblEmpresa.Size = new System.Drawing.Size(171, 39);
             this.lblEmpresa.TabIndex = 6;
             this.lblEmpresa.Text = "...";
-            this.lblEmpresa.Click += new System.EventHandler(this.label3_Click);
             // 
             // panel1
             // 
@@ -95,7 +94,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1138, 91);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label5
             // 
@@ -148,7 +146,6 @@
             this.lblRuc.Size = new System.Drawing.Size(16, 15);
             this.lblRuc.TabIndex = 9;
             this.lblRuc.Text = "...";
-            this.lblRuc.Click += new System.EventHandler(this.RUC);
             // 
             // pictureBox1
             // 
@@ -290,7 +287,6 @@
             this.Name = "MainComprasSrc";
             this.Text = "ERP PECAMP";
             this.Activated += new System.EventHandler(this.MainComprasSrc_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainComprasSrc_FormClosing);
             this.Load += new System.EventHandler(this.MainComprasSrc_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

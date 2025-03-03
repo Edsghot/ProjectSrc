@@ -3,12 +3,13 @@ using app_matter_data_src_erp.Forms.DialogView.DialogModal;
 using app_matter_data_src_erp.Forms.Overlay;
 using System;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace app_matter_data_src_erp.Forms
 {
@@ -33,8 +34,6 @@ namespace app_matter_data_src_erp.Forms
             this.dataTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dataTable.ColumnHeadersHeight = 45;
 
-            cbMes.SelectedItem = SeleccionesGlobalesDto.MesSeleccionado;
-            cbAño.SelectedItem = SeleccionesGlobalesDto.AñoSeleccionado;
             _compraSrc = new CompraSrcImportadosAdapter();
             LoadData();
         }
@@ -68,6 +67,7 @@ namespace app_matter_data_src_erp.Forms
                         compra.SubTotal,
                         compra.Total,
                         compra.Estado == 3 ? "Importado" : "Procesando",
+                        "ok",
                         "Editar"
                     );
                 }
@@ -84,7 +84,7 @@ namespace app_matter_data_src_erp.Forms
         //----------------------------------------------------------------------------------- TABLE FORMTATING
         private void dataTable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dataTable.Columns[e.ColumnIndex].Name == "Column9")
+            if (dataTable.Columns[e.ColumnIndex].Name == "Column10")
             {
                 e.CellStyle.ForeColor = Color.Chocolate;
 
@@ -100,7 +100,7 @@ namespace app_matter_data_src_erp.Forms
                 var columnName = dataTable.Columns[e.ColumnIndex].Name;
                 OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
 
-                if (columnName == "Column9")
+                if (columnName == "Column10")
                 {
                     ControlStatic.CierreDIalogvIew = false;
                     int rowIndex = e.RowIndex;
@@ -110,6 +110,7 @@ namespace app_matter_data_src_erp.Forms
                     if (!string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(ruc))
                     {
                         var idRecepcion = await _compraSrc.GetIdRecepcion(code, ruc);
+                        ExtraStatic.idRecepcion = idRecepcion;
                         var modal = new DialogModal("¡Importante!", "Al editar esta compra, se eliminará la importación registrada en el ERP y se creara un nuevo registro de importación.", "warning", code, idRecepcion, ruc);
                         overlayForm.ShowOverlayWithModal(modal);
                     }
@@ -131,13 +132,25 @@ namespace app_matter_data_src_erp.Forms
         private void cbMes_SelectedIndexChanged(object sender, EventArgs e)
         {
             SeleccionesGlobalesDto.MesSeleccionado = cbMes.SelectedItem.ToString();
-            LoadData();
+
         }
+
 
         private void cbAño_SelectedIndexChanged(object sender, EventArgs e)
         {
             SeleccionesGlobalesDto.AñoSeleccionado = cbAño.SelectedItem.ToString();
             LoadData();
+        }
+        private int ObtenerNumeroMes(string mes)
+        {
+            Dictionary<string, int> meses = new Dictionary<string, int>
+    {
+        { "Enero", 1 }, { "Febrero", 2 }, { "Marzo", 3 }, { "Abril", 4 },
+        { "Mayo", 5 }, { "Junio", 6 }, { "Julio", 7 }, { "Agosto", 8 },
+        { "Septiembre", 9 }, { "Octubre", 10 }, { "Noviembre", 11 }, { "Diciembre", 12 }
+    };
+
+            return meses.ContainsKey(mes) ? meses[mes] : 0;
         }
 
         private async void btnBuscar_Click(object sender, EventArgs e)
@@ -146,36 +159,79 @@ namespace app_matter_data_src_erp.Forms
             dataTable.Rows.Clear();
             currentPage = 1;
 
-            if (cbMes.Text != "Seleccione el mes" && cbAño.Text != "Seleccione el mes")
+            if (cbMes.SelectedItem == null || cbAño.SelectedItem == null)
             {
-                pictureNone.Visible = false;
-                mainForm.ShowOverlay();
-                await Task.Delay(3000);
-                LoadData();
-                mainForm.HideOverlay();
-            }
-            else
-            {
-                MessageBox.Show("Por favor, seleccione un mes y un año.",
-                                "Campos vacíos",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, seleccione un mes y un año.", "Campos vacíos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
+            string mesTexto = cbMes.SelectedItem.ToString();
+            string añoTexto = cbAño.SelectedItem.ToString();
+
+            int mesNumero = ObtenerNumeroMes(mesTexto);
+            if (mesNumero == 0)
+            {
+                MessageBox.Show("Seleccione un mes válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int año;
+            if (!int.TryParse(añoTexto, out año))
+            {
+                MessageBox.Show("Seleccione un año válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            pictureNone.Visible = false;
+            mainForm.ShowOverlay();
+
+            try
+            {
+                var data = await _compraSrc.ListarImportados(3);
+
+                var datosFiltrados = data.Where(c => c.Fecha.Year == año && c.Fecha.Month == mesNumero).ToList();
+
+                dataTable.Rows.Clear();
+
+                if (datosFiltrados.Count == 0)
+                {
+                    pictureNone.Visible = true;
+                }
+                else
+                {
+                    pictureNone.Visible = false;
+                    foreach (var compra in datosFiltrados)
+                    {
+                        dataTable.Rows.Add(
+                            compra.SerieCompra + "-" + compra.NumCompra,
+                            compra.RucPersona,
+                            compra.NomPersona,
+                            compra.Fecha.ToString("dd/MM/yyyy"),
+                            compra.Igv,
+                            compra.SubTotal,
+                            compra.Total,
+                            compra.Estado == 3 ? "Importado" : "Procesando",
+                            "ok",
+                            "Editar"
+                        );
+                    }
+                }
+
+                totalRows = datosFiltrados.Count;
+                UpdatePagination();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            mainForm.HideOverlay();
         }
+
         //----------------------------------------------------------------------------------- BUTTON LIMPIAR
         private async void btnLimpiar_Click(object sender, EventArgs e)
         {
-            dataTable.Rows.Clear();
-            DatosImportadosStatic.Data.Clear();
-            SeleccionesGlobalesDto.MesSeleccionado = null; 
-            SeleccionesGlobalesDto.AñoSeleccionado = null;
-            cbMes.Text = "Seleccione el mes";
-            cbAño.Text = "Seleccione el año";
-
-            pictureNone.Visible = true;
-            currentPage = 1;  
-            UpdatePagination(); 
+            LoadData();
         }
 
         //----------------------------------------------------------------------------------- MAGIA

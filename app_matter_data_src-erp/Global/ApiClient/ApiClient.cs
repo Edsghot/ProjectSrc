@@ -49,7 +49,7 @@ namespace app_matter_data_src_erp.Global.ApiClient
                                     NomTipoDocumento = resultado["NomTipoDocumento"]?.ToString(),
                                     AbrevTipoDocumento = resultado["AbrevTipoDocumento"]?.ToString(),
                                     SerieCompra = resultado["SerieCompra"]?.ToString(),
-                                    NumCompra = resultado["NumCompra"]?.ToString(),
+                                    NumCompra = resultado["NumCompra"]?.ToString().TrimStart('0').PadLeft(8,'0'),
                                     DocumentoProveedor = resultado["DocumentoProveedor"]?.ToString(),
                                     TipoDocumento = resultado["TipoDocumento"]?.ToObject<int>() ?? 0,
                                     RazonSocial = resultado["RazonSocial"]?.ToString(),
@@ -92,8 +92,8 @@ namespace app_matter_data_src_erp.Global.ApiClient
                                             TieneSerie = detalle["TieneSerie"]?.ToObject<bool>() ?? false,
                                             Cantidad = detalle["Cantidad"]?.ToObject<int>() ?? 0,
                                             Descripcion = detalle["Descripcion"]?.ToString(),
-                                            Api = detalle["API"]?.ToString(),
-                                            Temp = detalle["Temp"]?.ToString(),
+                                            Api = 0,
+                                            Temp = 0,
                                             Fise = detalle["Fise"]?.ToObject<string>(),
                                             PrecioUnitarioSinIgv = detalle["PrecioUnitarioSinIgv"]?.ToObject<decimal>() ?? 0,
                                             PrecioUnitarioConIgv = detalle["PrecioUnitarioConIgv"]?.ToObject<decimal>() ?? 0,
@@ -198,12 +198,12 @@ namespace app_matter_data_src_erp.Global.ApiClient
             }
         }
 
-        public async Task<ResponseApiGenericDto> PutComprobanteAsync(string idRecepcion)
+        public async Task<ResponseApiGenericDto> PutComprobanteAsync(string idRecepcion,bool status)
         {
             try
             {
                 var client = new RestClient("https://fn-ose-beta.azurewebsites.net");
-                var request = new RestRequest($"/api/recepcion/comprobante?idRecepcion={idRecepcion}", Method.PUT);
+                var request = new RestRequest($"/api/recepcion/comprobante?idRecepcion={idRecepcion}&status="+status, Method.PUT);
 
                 // Si es necesario, añadir cabeceras adicionales (por ejemplo, autenticación)
                 // request.AddHeader("Authorization", "Bearer your-token");

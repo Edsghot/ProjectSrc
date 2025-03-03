@@ -1,6 +1,5 @@
 ﻿using app_matter_data_src_erp.Forms;
 using app_matter_data_src_erp.Forms.Overlay;
-using app_matter_data_src_erp.Global.DataBase;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
@@ -108,21 +107,6 @@ namespace app_matter_data_src_erp
 
         }
 
-        private void RUC(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void MainComprasSrc_Activated(object sender, EventArgs e)
         {
             if (ControlStatic.CierreTotal)
@@ -131,11 +115,6 @@ namespace app_matter_data_src_erp
                 this.overlay.Hide();
                 this.Dispose();
             }
-        }
-
-        private void MainComprasSrc_FormClosing(object sender, FormClosingEventArgs e)
-        {
-          
         }
     }
 }

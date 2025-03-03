@@ -6,6 +6,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto
     {
         public string IdRecepcionComprobante { get; set; }
         public int IdProductoSrc { get; set; }
+        public string NomProductoErp { get; set; }
         public string nCompra { get; set; }
         public string IdProducto { get; set; }
         public string Codigo { get; set; }
@@ -13,8 +14,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto
         public bool TieneSerie { get; set; }
         public int Cantidad { get; set; }
         public string Descripcion { get; set; }
-        public string Api { get; set; }
-        public string Temp { get; set; }
+        public decimal Api { get; set; }
+        public decimal Temp { get; set; }
         public decimal fise { get; set; }
         public decimal PrecioUnitarioSinIgv { get; set; }
         public decimal PrecioUnitarioConIgv { get; set; }

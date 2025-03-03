@@ -90,11 +90,13 @@ D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_ma
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.EditarCompra.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.Importar.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ModalDetalleCompraCombustible.resources
+D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.CoincidenciaProductosImported.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ProductMatch.BuscarProducto.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.CoincidenciaProductos.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.Sucursal.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Modules.MainValidationSunat.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.DialogModal.DialogModal.resources
+D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Shared.DialogModal.DIalogModalFInal.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.ErrorImportacion.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.Overlay.OverlayForm.resources
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.Overlay.OverlayFormModal.resources
@@ -104,5 +106,3 @@ D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_ma
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matt.831D961E.Up2Date
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.exe
 D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src-erp.pdb
-D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Forms.DialogView.CoincidenciaProductosImported.resources
-D:\Proyectos\Compra\project2\ProjectSrc\app_matter_data_src-erp\obj\Debug\app_matter_data_src_erp.Shared.DialogModal.DIalogModalFInal.resources

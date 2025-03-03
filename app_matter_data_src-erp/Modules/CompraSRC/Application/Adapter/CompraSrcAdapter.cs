@@ -18,6 +18,8 @@ using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.general;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Constantes;
 using System.Windows.Forms.VisualStyles;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.bitacora;
 
 namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 {
@@ -47,7 +49,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             
             foreach (var compra in compraDtos)
             {
-               
+                await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
                 await Escanear(compra.NumCompra,compra.SerieCompra,compra.DocumentoProveedor);
             }
 
@@ -137,6 +139,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
         {
             var data = DataStaticDto.data.FirstOrDefault(c => c.NumCompra == NumCompra && c.SerieCompra == serie && c.DocumentoProveedor == documento);
 
+
             data.idCompraSerie = data.SerieCompra + "-" + data.NumCompra;
         
             var result = await compraSrcRepository.GetCliProByRUCOrRazonComercial(data.DocumentoProveedor, data.RazonSocial);
@@ -166,6 +169,15 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             data.idTipoOperacion = (await compraSrcRepository.sp_GetTipoOperacion("02"))[0].IdTipoOperacion;
 
             data.EstadoProductos = await ProductsValidated(data.IdRecepcion);
+
+
+            if(data.TotalPercepcion > 0)
+            {
+                data.seriePer = data.seriePer = new string(data.SerieCompra.Where(char.IsDigit).ToArray()).PadLeft(4, '0');
+                data.numPer = data.numPer;
+                data.FechaPer = data.FechaPer;
+             
+            }
 
             if (!string.IsNullOrWhiteSpace(data.NewSucursal) && !string.IsNullOrWhiteSpace(data.SucursalId))
             {
@@ -227,7 +239,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 HeaderError.Add(new validationErrorDto
                 {
                     Detail = "Id recepcion",
-                    Field = "IdRecepcion",
+                    Field = data.IdRecepcion,
                     Message = "No puede ser vacio el IdRecepcion"
                 });
             }
@@ -257,7 +269,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                     HeaderError.Add(new validationErrorDto
                     {
                         Detail = "Decimales de los campos que muestran datos decimales",
-                        Field = "Total",
+                        Field = data.TotalPagar +"",
                         Message = "El valor decimal debe tener como máximo dos dígitos decimales."
                     });
                 }
@@ -271,7 +283,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 HeaderError.Add(new validationErrorDto
                 {
                     Detail = "Tipo de documento",
-                    Field = "NomTipoDocumento",
+                    Field = data.NomTipoDocumento,
                     Message = "Debe tener entre 2 y 10 caracteres"
                 });
             }
@@ -284,7 +296,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 HeaderError.Add(new validationErrorDto
                 {
                     Detail = "Serie de comprobante",
-                    Field = "SerieCompra",
+                    Field = data.SerieCompra,
                     Message = "Debe tener exactamente 4 caracteres"
                 });
             }
@@ -296,8 +308,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 genericError.IndError = true;
                 HeaderError.Add(new validationErrorDto
                 {
-                    Detail = "Fecha de vencimientO del comprobante",
-                    Field = "FechaVencimiento",
+                    Detail = "Fecha de vencimiento del comprobante",
+                    Field = data.FechaVencimiento,
                     Message = "La fecha de vencimiento no puede ser menor que la fecha de emisión"
                 });
             }
@@ -311,7 +323,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 HeaderError.Add(new validationErrorDto
                 {
                     Detail = "Documento del proveedor (Ruc,Dni)",
-                    Field = "DocumentoProveedor",
+                    Field = data.DocumentoProveedor,
                     Message = "Debe tener entre 8 y 14 caracteres"
                 });
             }
@@ -323,20 +335,19 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 HeaderError.Add(new validationErrorDto
                 {
                     Detail = "Razon social del proveedor",
-                    Field = "RazonSocial",
+                    Field = data.RazonSocial,
                     Message = "Debe tener entre 3 y 100 caracteres"
                 });
             }
 
-            // Validar RazonSocial
             if (data.Compras.Count <= 0)
             {
                 genericError.IndError = true;
                 HeaderError.Add(new validationErrorDto
                 {
-                    Detail = "Cantridad de productos",
-                    Field = "data.Compras",
-                    Message = "debe tener al menos un producto agregado"
+                    Detail = "data.Detalle",
+                    Field = data.Compras,
+                    Message = "debe tener al menos un producto como detalle"
                 });
                 genericError.HeaderError = HeaderError;
                 return genericError;
@@ -346,13 +357,13 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             foreach (var compra in data?.Compras ?? Enumerable.Empty<CompraDetalleDto>())
             {
 
-                if ((string.IsNullOrWhiteSpace(compra.Descripcion) && ( (compra.Descripcion.Length < 5 || compra.Descripcion.Length > 200))))
+                if ((string.IsNullOrWhiteSpace(compra.Descripcion) && ( (compra.Descripcion.Length < 2 || compra.Descripcion.Length > 200))))
                 {
                     genericError.IndError = true;
                     ErrorDetail.Add(new validationErrorDto
                     {
                         Detail = "Descripcion de la compra (Nombre del producto)",
-                        Field = "Compras.descripcion",
+                        Field = compra.Descripcion,
                         Message = "Descripcion debe tener entre 5 y 200 caracteres"
                     });
                 }
@@ -362,7 +373,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                     ErrorDetail.Add(new validationErrorDto
                     {
                         Detail = "Cantidad de productos",
-                        Field = "Compras.Cantidad",
+                        Field = compra.Cantidad,
                         Message = "La cantidad de productos debe ser mayor a cero"
                     });
                 }
@@ -374,7 +385,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                     ErrorDetail.Add(new validationErrorDto
                     {
                         Detail = "Tratamiento de la compra",
-                        Field = "Compras.Tratamiento",
+                        Field = compra.Tratamiento,
                         Message = "Tienes que enviar el codigo de tratamiento ya sea 10 o 30 (exonerado o inafecto)"
                     });
                     
@@ -383,8 +394,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                         genericError.IndError = true;
                         ErrorDetail.Add(new validationErrorDto
                         {
-                            Detail = "IGV",
-                            Field = "Compras.IGV",
+                            Detail = "compra.Igv y compra.Tratamiento",
+                            Field = compra.Tratamiento,
                             Message = "Si se trata de una gravada(Operacion onerosa) se necesita agregar el IGV"
                         });
                     }
@@ -404,7 +415,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 ErrorDetail.Add(new validationErrorDto
                 {
                     Detail = "Tipo de documento no manejadno en esta aplicacion",
-                    Field = "TipoDocumento",
+                    Field = data.NomTipoDocumento,
                     Message = "Revisa si se trata de un factura"
                 });
             }
@@ -449,11 +460,14 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
         public async Task<bool> InsertCompra(int mes, int anio, string IdRecepcion)
         {
-            var idPeriodo = (await compraSrcRepository.ObtenerPeriodosPorFecha(anio, mes))[0].IdPeriodo;
+            var dataPeriodo = (await compraSrcRepository.ObtenerPeriodosPorFecha(anio, mes))[0];
+            var idPeriodo = dataPeriodo.IdPeriodo;
 
             var compra = DataStaticDto.data.FirstOrDefault(c => c.IdRecepcion == IdRecepcion);
             compra.idPeriodo = idPeriodo;
             compra.cantidad = compra.Compras.Count;
+            compra.FechaEmision = dataPeriodo.FechaFin;
+
            // await compraSrcRepository.InsertarCompraTemporal(compra);
             foreach (var detalle in compra.Compras)
             {
@@ -461,23 +475,47 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 await compraSrcRepository.InsertarCompraTemporal(compra,detalle);
                 compra.Estado = StatusConstant.EnProceso;
             }
+
+            await compraSrcRepository.sp_InsertTemporalBitacoraSrc(new TemporalBitacoraSrcDto
+            {
+                IdRecepcionSrc = IdRecepcion,
+                Serie = compra.SerieCompra,
+                NumCompra = compra.NumCompra,
+                Comentario = "Enviado a migrar al ERP",
+                Scop = compra.Scop,
+                IdPeriodo = idPeriodo,
+                FechaPeriodo = dataPeriodo.FechaFin,
+                FiseTotal = compra.fiseTotal,
+            });
+
             return true;
         }
 
-        public async Task<bool> validarImportacion(string serie,string numCompra)
+        public async Task<bool> validarImportacion(string serie,string numCompra,string idRecepcion)
         {
             numCompra = new string(numCompra.Where(c => char.IsDigit(c) && c != '0').ToArray());
 
-            var data = await compraSrcRepository.BuscarCompraPorSerieYNumero(serie, numCompra);
+            var data = await compraSrcRepository.BuscarCompraPorSerieYNumero(serie, numCompra,idRecepcion);
 
             if(data.Resultado == 1)
             {
+
+                var dataaa= await apiClient.PutComprobanteAsync(idRecepcion, true);
+                DataStaticDto.data.RemoveAll(x => x.IdRecepcion == idRecepcion);
+
                 return true;
+
             }
             return false;
         }
 
-
+        public async Task ActualizarSucursal(string idRecepcion,string IdPuntoVenta,string nomPuntoVenta)
+        {
+            var dataCompra = await ObtenerCompraPorIdRecepcion(idRecepcion);
+            dataCompra.SucursalId = IdPuntoVenta;
+            dataCompra.NewSucursal = nomPuntoVenta;
+            dataCompra.Sucursal = nomPuntoVenta;
+        }
 
         public async Task<bool> ProductsValidated(string idRecepcion)
         {
@@ -485,7 +523,12 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             foreach(var compra in DataCompra.Compras)
             {
                 var data = await compraSrcRepository.BuscarProductoPorNombreCuencidenciaSrc(compra.Descripcion, DataCompra.DocumentoProveedor);
-                if(data.Count == 0)
+
+                if (data.Count > 0) {
+                    compra.IdProducto = data[0].IdProductoErp;
+                    compra.NomProductoErp = data[0].NombreProdErp;
+                }
+                if (data.Count == 0)
                 {
                     return false;
                 }
@@ -493,5 +536,14 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             return true;
         }
 
+        public async Task ActualizarScopApiTemp(string idRecepcion,string nomProducto, string scop, decimal api,decimal temp)
+        {
+            var data = DataStaticDto.data.FirstOrDefault(x => x.idCompraSerie == ExtraStatic.idRecepcion);
+            data.Scop = scop;
+
+            var dataProd = data.Compras.FirstOrDefault(x => x.Descripcion == nomProducto);
+            dataProd.Api = api;
+            dataProd.Temp = temp;
+        }
     }
 }

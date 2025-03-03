@@ -26,7 +26,7 @@ public class CompraDto
     public string Moneda { get; set; }
     public string Condicion { get; set; }
     public int IdCondicion { get;set; }
-    public string Observacion { get; set; }
+    public string Observacion { get; set; } = "Importacion del SRC";
     public string Scop { get; set; }
     public decimal TotalGravadas { get; set; }
     public decimal TotalExoneradas { get; set; }
@@ -50,6 +50,9 @@ public class CompraDto
     public string FechaLlegada { get; set; }
     public string NewSucursal { get; set; }
     public string Estado { get; set; } = StatusConstant.NoListo;
+    public string seriePer { get; set; } = default;
+    public string numPer { get; set; } = default;
+    public string FechaPer { get; set; } = default;
 
     //estado___________________________________________________
     public bool EstadoSucursal { get; set; }
@@ -104,6 +107,8 @@ public class CompraDto
     public int idTipoFacturacionGuiaRemision { get; set; }
 
     public int cantidad { get; set; }
+
+    public bool Seleccionado { get; set; }
 }
 
 

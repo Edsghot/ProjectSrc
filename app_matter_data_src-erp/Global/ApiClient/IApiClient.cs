@@ -8,6 +8,6 @@ namespace app_matter_data_src_erp.Global.ApiClient
     {
         Task<ResponseApiGenericDto> GetApiDataAsync();
         Task<ProveedorDto> GetValidSunat(string ruc);
-        Task<ResponseApiGenericDto> PutComprobanteAsync(string idRecepcion);
+        Task<ResponseApiGenericDto> PutComprobanteAsync(string idRecepcion, bool status);
     }
 }

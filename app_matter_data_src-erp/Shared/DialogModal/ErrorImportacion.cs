@@ -41,7 +41,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
             {
                 foreach (var error in errores.HeaderError)
                 {
-                    ListViewItem item = new ListViewItem(error.Field ?? "-");
+                    ListViewItem item = new ListViewItem(error.Field.ToString() ?? "-");
                     item.SubItems.Add(error.Message ?? "-");
                     item.SubItems.Add(error.Detail ?? "-");
                     item.BackColor = Color.LightGoldenrodYellow; 
@@ -53,7 +53,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
             {
                 foreach (var error in errores.ErrorDetail)
                 {
-                    ListViewItem item = new ListViewItem(error.Field ?? "-");
+                    ListViewItem item = new ListViewItem(error.Field.ToString() ?? "-");
                     item.SubItems.Add(error.Message ?? "-");
                     item.SubItems.Add(error.Detail ?? "-");
                     item.BackColor = Color.LightGray; 

@@ -49,6 +49,7 @@ namespace app_matter_data_src_erp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.panelContainerTable = new System.Windows.Forms.Panel();
             this.dataTable = new System.Windows.Forms.DataGridView();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -83,7 +84,7 @@ namespace app_matter_data_src_erp.Forms
             this.label1.Location = new System.Drawing.Point(20, 17);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(482, 50);
+            this.label1.Size = new System.Drawing.Size(397, 40);
             this.label1.TabIndex = 0;
             this.label1.Text = "Importación de compras\nServicios de Recepción de Comprobantes (SRC)";
             // 
@@ -96,7 +97,7 @@ namespace app_matter_data_src_erp.Forms
             this.dateInicio.Location = new System.Drawing.Point(11, 30);
             this.dateInicio.Margin = new System.Windows.Forms.Padding(11, 12, 11, 12);
             this.dateInicio.Name = "dateInicio";
-            this.dateInicio.Size = new System.Drawing.Size(178, 49);
+            this.dateInicio.Size = new System.Drawing.Size(178, 41);
             this.dateInicio.TabIndex = 5;
             // 
             // panel1
@@ -143,7 +144,7 @@ namespace app_matter_data_src_erp.Forms
             this.cbEstadoImportacion.Location = new System.Drawing.Point(12, 5);
             this.cbEstadoImportacion.Margin = new System.Windows.Forms.Padding(2);
             this.cbEstadoImportacion.Name = "cbEstadoImportacion";
-            this.cbEstadoImportacion.Size = new System.Drawing.Size(156, 30);
+            this.cbEstadoImportacion.Size = new System.Drawing.Size(156, 25);
             this.cbEstadoImportacion.TabIndex = 7;
             this.cbEstadoImportacion.Text = "Estado importación";
             // 
@@ -164,7 +165,7 @@ namespace app_matter_data_src_erp.Forms
             this.lblDateFin.Location = new System.Drawing.Point(28, 7);
             this.lblDateFin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDateFin.Name = "lblDateFin";
-            this.lblDateFin.Size = new System.Drawing.Size(101, 20);
+            this.lblDateFin.Size = new System.Drawing.Size(86, 17);
             this.lblDateFin.TabIndex = 0;
             this.lblDateFin.Text = "Fecha de fin";
             // 
@@ -176,7 +177,7 @@ namespace app_matter_data_src_erp.Forms
             this.dateFin.Location = new System.Drawing.Point(212, 30);
             this.dateFin.Margin = new System.Windows.Forms.Padding(11, 12, 11, 12);
             this.dateFin.Name = "dateFin";
-            this.dateFin.Size = new System.Drawing.Size(178, 49);
+            this.dateFin.Size = new System.Drawing.Size(178, 41);
             this.dateFin.TabIndex = 12;
             // 
             // panel3
@@ -196,7 +197,7 @@ namespace app_matter_data_src_erp.Forms
             this.lblDateInicio.Location = new System.Drawing.Point(22, 8);
             this.lblDateInicio.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDateInicio.Name = "lblDateInicio";
-            this.lblDateInicio.Size = new System.Drawing.Size(122, 20);
+            this.lblDateInicio.Size = new System.Drawing.Size(103, 17);
             this.lblDateInicio.TabIndex = 0;
             this.lblDateInicio.Text = "Fecha de inicio";
             // 
@@ -212,12 +213,12 @@ namespace app_matter_data_src_erp.Forms
             this.btnImportar.IconColor = System.Drawing.Color.White;
             this.btnImportar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnImportar.IconSize = 35;
-            this.btnImportar.Location = new System.Drawing.Point(1356, 29);
+            this.btnImportar.Location = new System.Drawing.Point(1317, 30);
             this.btnImportar.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportar.Name = "btnImportar";
-            this.btnImportar.Size = new System.Drawing.Size(100, 42);
+            this.btnImportar.Size = new System.Drawing.Size(139, 42);
             this.btnImportar.TabIndex = 10;
-            this.btnImportar.Text = "Importar";
+            this.btnImportar.Text = "Migrar al ERP";
             this.btnImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnImportar.UseVisualStyleBackColor = false;
             this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
@@ -234,7 +235,7 @@ namespace app_matter_data_src_erp.Forms
             this.btnEscanear.IconColor = System.Drawing.Color.White;
             this.btnEscanear.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnEscanear.IconSize = 35;
-            this.btnEscanear.Location = new System.Drawing.Point(1235, 29);
+            this.btnEscanear.Location = new System.Drawing.Point(1207, 30);
             this.btnEscanear.Margin = new System.Windows.Forms.Padding(2);
             this.btnEscanear.Name = "btnEscanear";
             this.btnEscanear.Size = new System.Drawing.Size(106, 42);
@@ -271,7 +272,7 @@ namespace app_matter_data_src_erp.Forms
             this.label2.Location = new System.Drawing.Point(9, 8);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(231, 16);
+            this.label2.Size = new System.Drawing.Size(184, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Ingrese el rango de fecha de emisión:";
             // 
@@ -282,7 +283,7 @@ namespace app_matter_data_src_erp.Forms
             this.label3.Location = new System.Drawing.Point(22, 154);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(436, 16);
+            this.label3.Size = new System.Drawing.Size(345, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "*Todos lo campos en “pendiente” se deben completar de forma manual.";
             // 
@@ -317,6 +318,7 @@ namespace app_matter_data_src_erp.Forms
             this.dataTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column13,
             this.Column1,
             this.Column2,
             this.Column3,
@@ -338,15 +340,22 @@ namespace app_matter_data_src_erp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataTable.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataTable.Location = new System.Drawing.Point(11, 10);
+            this.dataTable.Location = new System.Drawing.Point(-14, 2);
             this.dataTable.Margin = new System.Windows.Forms.Padding(2);
             this.dataTable.Name = "dataTable";
             this.dataTable.ReadOnly = true;
+            this.dataTable.RowHeadersVisible = false;
             this.dataTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataTable.RowTemplate.Height = 24;
             this.dataTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataTable.Size = new System.Drawing.Size(1445, 398);
+            this.dataTable.Size = new System.Drawing.Size(1483, 398);
             this.dataTable.TabIndex = 9;
+            // 
+            // Column13
+            // 
+            this.Column13.HeaderText = "";
+            this.Column13.Name = "Column13";
+            this.Column13.ReadOnly = true;
             // 
             // Column1
             // 
@@ -466,7 +475,7 @@ namespace app_matter_data_src_erp.Forms
             this.pageNumberLabel.Location = new System.Drawing.Point(59, 17);
             this.pageNumberLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.pageNumberLabel.Name = "pageNumberLabel";
-            this.pageNumberLabel.Size = new System.Drawing.Size(17, 18);
+            this.pageNumberLabel.Size = new System.Drawing.Size(15, 15);
             this.pageNumberLabel.TabIndex = 13;
             this.pageNumberLabel.Text = "0";
             // 
@@ -570,6 +579,18 @@ namespace app_matter_data_src_erp.Forms
         private System.Windows.Forms.Label label3;
         private Panel panelContainerTable;
         private DataGridView dataTable;
+        private Panel panel2;
+        private FontAwesome.Sharp.IconButton nextPageButton;
+        private FontAwesome.Sharp.IconButton previousPageButton;
+        private Label pageNumberLabel;
+        private Panel panel4;
+        private Label lblDateFin;
+        private DateTimePicker dateFin;
+        private Panel panel5;
+        private PictureBox pictureBox1;
+        private Panel panel3;
+        private Label lblDateInicio;
+        private DataGridViewTextBoxColumn Column13;
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
@@ -582,16 +603,5 @@ namespace app_matter_data_src_erp.Forms
         private DataGridViewTextBoxColumn Column10;
         private DataGridViewTextBoxColumn Column11;
         private DataGridViewTextBoxColumn Column12;
-        private Panel panel2;
-        private FontAwesome.Sharp.IconButton nextPageButton;
-        private FontAwesome.Sharp.IconButton previousPageButton;
-        private Label pageNumberLabel;
-        private Panel panel4;
-        private Label lblDateFin;
-        private DateTimePicker dateFin;
-        private Panel panel5;
-        private PictureBox pictureBox1;
-        private Panel panel3;
-        private Label lblDateInicio;
     }
 }

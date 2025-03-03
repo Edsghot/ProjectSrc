@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using System.Linq;
+using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
+using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 
 namespace app_matter_data_src_erp.Forms.DialogView
 {
     public partial class ModalDetalleCompraCombustible : Form
     {
         private readonly int empresa;
+        private readonly ICompraSrcInputPort compraInput;
 
         public ModalDetalleCompraCombustible(string codigo, string emp, List<List<object>> data)
         {
@@ -19,21 +24,24 @@ namespace app_matter_data_src_erp.Forms.DialogView
             this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.StartPosition = FormStartPosition.CenterScreen;
 
+            compraInput = new CompraSrcAdapter();
+
             lblEmpresa.Text = emp;
             lblCode.Text = codigo;
-
-            // Validación de txtScop para máximo 17 caracteres
+            ExtraStatic.idRecepcion = codigo;
+            var dataaaa = DataStaticDto.data.FirstOrDefault(x => x.idCompraSerie == ExtraStatic.idRecepcion);
+            
+            txtScop.Text = dataaaa.Scop;
             txtScop.MaxLength = 17;
 
-            // Asegurar que las columnas 5 y 6 existen y son editables
             if (dataTable.Columns.Count >= 6)
             {
                 for (int i = 0; i < dataTable.Columns.Count; i++)
                 {
-                    if (i == 4 || i == 5) // Solo TEMP y API deben ser editables
+                    if (i == 4 || i == 5) 
                     {
                         dataTable.Columns[i].ReadOnly = false;
-                        dataTable.Columns[i].DefaultCellStyle.BackColor = Color.LightYellow; // Resaltar en amarillo
+                        dataTable.Columns[i].DefaultCellStyle.BackColor = Color.LightYellow; 
                         dataTable.Columns[i].DefaultCellStyle.Font = new Font(dataTable.DefaultCellStyle.Font, FontStyle.Bold);
                     }
                     else
@@ -48,6 +56,26 @@ namespace app_matter_data_src_erp.Forms.DialogView
             foreach (var row in data)
             {
                 dataTable.Rows.Add(row.ToArray());
+            }
+            CargarDatosActualizados();
+        }
+
+        private void CargarDatosActualizados()
+        {
+            var data = DataStaticDto.data.FirstOrDefault(x => x.IdRecepcion == ExtraStatic.idRecepcionScop);
+            if (data != null)
+            {
+                txtScop.Text = data.Scop; // Rellenar el campo con el nuevo dato
+
+                foreach (DataGridViewRow row in dataTable.Rows)
+                {
+                    var dataDetalle = data.Compras.FirstOrDefault(x => x.Descripcion == row.Cells[0].Value);
+                    if (!row.IsNewRow)
+                    {
+                        row.Cells[4].Value = dataDetalle.Api;
+                        row.Cells[5].Value = dataDetalle.Temp;
+                    }
+                }
             }
         }
 
@@ -124,11 +152,16 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
             sb.AppendLine($"SCOP: {txtScop.Text}");
 
+            var data = DataStaticDto.data.FirstOrDefault(x => x.IdRecepcion == ExtraStatic.idRecepcionScop);
+            data.Scop = txtScop.Text;
+
             foreach (DataGridViewRow row in dataTable.Rows)
             {
-                if (!row.IsNewRow) // Evitar la fila vacía al final
+
+                if (!row.IsNewRow) 
                 {
-                    sb.AppendLine($"Código: {lblCode.Text}, Empresa: {lblEmpresa.Text}, TEMP: {row.Cells[4].Value}, API: {row.Cells[5].Value}");
+                    compraInput.ActualizarScopApiTemp(ExtraStatic.idRecepcionScop, row.Cells[0].Value.ToString(), txtScop.Text, Convert.ToDecimal(row.Cells[4].Value ?? 0),
+                    Convert.ToDecimal(row.Cells[5].Value ?? 0)).GetAwaiter();
                 }
             }
 

@@ -28,6 +28,8 @@ namespace app_matter_data_src_erp.Forms
             InitializeComponent();
             dataTable.CellFormatting += dataTable_CellFormatting;
             dataTable.CellClick += dataTable_CellClick;
+          
+
 
             dateInicio.ValueChanged += (sender, args) =>
             {
@@ -39,12 +41,34 @@ namespace app_matter_data_src_erp.Forms
             };
 
             _compraSrc = new CompraSrcAdapter();
+
         }
+        private void AgregarColumnaCheckBox()
+        {
+            if (dataTable.Columns["Column13"] is DataGridViewCheckBoxColumn)
+                return;
+
+            int colIndex = dataTable.Columns["Column13"].Index;
+            dataTable.Columns.Remove("Column13");
+
+            DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn
+            {
+                HeaderText = "✓",
+                Name = "Column13",
+                Width = 50,
+                TrueValue = true,
+                FalseValue = false
+            };
+
+            dataTable.Columns.Insert(colIndex, checkBoxColumn);
+        }
+
 
         //----------------------------------------------------------------------------------- lOAD DATA
         private async void UCImportacionesCompra_Load(object sender, EventArgs e)
         {
             await InitializeData();
+            AgregarColumnaCheckBox();
         }
 
         private async Task InitializeData()
@@ -94,6 +118,7 @@ namespace app_matter_data_src_erp.Forms
             {
                 var compra = compraData[i];
                 dataTable.Rows.Add(
+                    compra.Seleccionado,
                     compra.idCompraSerie,
                     compra.FechaEmision.ToString("dd/MM/yyyy"),
                     compra.Sucursal,
@@ -158,6 +183,7 @@ namespace app_matter_data_src_erp.Forms
                 e.CellStyle.ForeColor = Color.Green;
                 e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
             }
+
             else if (columnName == "Column3" || columnName == "Column4" || columnName == "Column10" || columnName == "Column11")
             {
                 e.Value = StatusConstant.Pendiente;
@@ -292,7 +318,8 @@ namespace app_matter_data_src_erp.Forms
                                     detalle.SubTotalSinIgv,
                                     detalle.SubTotalConIgv
                                 }).ToList();
-
+                                ///------------------------------------------------------------------------
+                                ExtraStatic.idRecepcionScop = idRecepcion;
                                 ModalDetalleCompraCombustible modal = new ModalDetalleCompraCombustible(codigo, empresa, tablaDatosCombustible);
                                 overlayForm.ShowOverlayWithModal(modal);
                             }
@@ -351,8 +378,8 @@ namespace app_matter_data_src_erp.Forms
 
                 if (columnName == "Column11")
                 {
-                    string codigoProveedor = dataTable.Rows[e.RowIndex].Cells[4].Value.ToString();
-                    string codigo = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    string codigoProveedor = dataTable.Rows[e.RowIndex].Cells[5].Value.ToString();
+                    string codigo = dataTable.Rows[e.RowIndex].Cells[1].Value.ToString();
                     if (!string.IsNullOrEmpty(codigoProveedor) && !string.IsNullOrEmpty(codigo))
                     {
                         var idRecepcion = await _compraSrc.GetIdRecepcion(codigoProveedor, codigo);
@@ -363,6 +390,7 @@ namespace app_matter_data_src_erp.Forms
                             {
                                 CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.idCompraSerie, compra.Compras, DataStaticDto.data[realIndex].DocumentoProveedor, realIndex);
                                 overlayForm.ShowOverlayWithModal(modal);
+                                ActualizarTabla();
                             }
                             else
                             {
@@ -382,9 +410,9 @@ namespace app_matter_data_src_erp.Forms
 
                 if (columnName == "Column12")
                 {
-                    string estado = dataTable.Rows[e.RowIndex].Cells[11].Value.ToString();
-                    string codigoCompra = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
-                    string ruc = dataTable.Rows[e.RowIndex].Cells[4].Value.ToString();
+                    string estado = dataTable.Rows[e.RowIndex].Cells[12].Value.ToString();
+                    string codigoCompra = dataTable.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    string ruc = dataTable.Rows[e.RowIndex].Cells[5].Value.ToString();
                     var idRecepcion = await _compraSrc.GetIdRecepcion(ruc, codigoCompra);
 
                     var errores = _compraSrc.GetErrorsDetail(idRecepcion);
@@ -396,40 +424,66 @@ namespace app_matter_data_src_erp.Forms
                     }
                 }
 
+                if (columnName == "Column13")
+                {
+                    DataStaticDto.data[realIndex].Seleccionado = !DataStaticDto.data[realIndex].Seleccionado;
+                    dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = DataStaticDto.data[realIndex].Seleccionado;
+                    dataTable.Refresh(); 
+                }
+
             }
         }
+        private void ActualizarTabla()
+        {
+            dataTable.Refresh();
+        }
+
 
         //----------------------------------------------------------------------------------- BUTTON IMPORT
         private async void btnImportar_Click(object sender, EventArgs e)
         {
             OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
+            List<Tuple<string, string>> codigosYIdRecepcion = new List<Tuple<string, string>>();
 
-            List<Tuple<string, string>> codigosYIdRecepcion = new List<Tuple<string, string>>(); 
-
-            foreach (DataGridViewRow selectedRow in dataTable.SelectedRows)
+            foreach (DataGridViewRow row in dataTable.Rows) 
             {
-                string estado = DataStaticDto.data[selectedRow.Index].Estado;
 
-                if (estado == "No listo" || estado == "Error")
+                bool seleccionado = row.Cells["Column13"].Value != null && (bool)row.Cells["Column13"].Value;
+                if (!seleccionado)
                 {
-                    MessageBox.Show($"No se puede seleccionar la fila con código de compra {selectedRow.Cells["Column1"].Value} porque está en estado '{estado}'.");
+                    continue; 
+                }
+
+                int realIndex = (currentPage - 1) * rowsPerPage + row.Index;
+
+                if (realIndex < 0 || realIndex >= DataStaticDto.data.Count)
+                {
+                    MessageBox.Show("Error al obtener el índice real de la fila seleccionada.");
                     return;
                 }
 
-                var codigoCompra = selectedRow.Cells["Column1"].Value?.ToString();
-                var documentoProveedor = selectedRow.Cells["Column5"].Value?.ToString();
+                string estado = DataStaticDto.data[realIndex].Estado;
+
+                if (estado == "No Listo" || estado == "Error")
+                {
+                    MessageBox.Show($"No se puede seleccionar la fila con código de compra {row.Cells["Column1"].Value} porque está en estado '{estado}'.");
+                    return;
+                }
+
+                var codigoCompra = row.Cells["Column1"].Value?.ToString();
+                var documentoProveedor = row.Cells["Column5"].Value?.ToString();
 
                 var idRecepcion = await _compraSrc.GetIdRecepcion(documentoProveedor, codigoCompra);
 
                 if (!string.IsNullOrEmpty(codigoCompra) && !string.IsNullOrEmpty(documentoProveedor))
                 {
-                    codigosYIdRecepcion.Add(new Tuple<string, string>(codigoCompra, idRecepcion)); 
+                    codigosYIdRecepcion.Add(new Tuple<string, string>(codigoCompra, idRecepcion));
                 }
             }
 
             if (codigosYIdRecepcion.Count > 0)
             {
-                var modal = new Importar((MainComprasSrc)this.ParentForm, codigosYIdRecepcion); 
+                var modal = new Importar((MainComprasSrc)this.ParentForm, codigosYIdRecepcion);
                 overlayForm.ShowOverlayWithModal(modal);
             }
             else
@@ -437,6 +491,8 @@ namespace app_matter_data_src_erp.Forms
                 MessageBox.Show("No se encontraron códigos de compra o documentos del proveedor en las filas seleccionadas.");
             }
         }
+
+
 
         //----------------------------------------------------------------------------------- BUTTON SCANNER
         private async void btnEscanear_Click(object sender, EventArgs e)
@@ -480,6 +536,7 @@ namespace app_matter_data_src_erp.Forms
                     foreach (var compra in datosParaAgregar)
                     {
                         dataTable.Rows.Add(
+                        compra.Seleccionado,
                         compra.idCompraSerie,
                         compra.FechaEmision.ToString("dd/MM/yyyy"),
                         compra.Sucursal,
