@@ -112,7 +112,11 @@ public static class MapperConfig
            .Member(dest => dest.NomProductoSrc, src => src["nomProductoSrc"] != DBNull.Value ? src["nomProductoSrc"].ToString() : null)
            .Member(dest => dest.IdRecepcionSrc, src => src["idRecepcionSrc"] != DBNull.Value ? src["idRecepcionSrc"].ToString() : null)
            .Member(dest => dest.IdPeriodo, src => src["idPeriodo"] != DBNull.Value ? Convert.ToInt32(src["idPeriodo"]) : (int?)null)
-           .Member(dest => dest.FechaPeriodo, src => src["fechaPeriodo"] != DBNull.Value ? Convert.ToDateTime(src["fechaPeriodo"]) : (DateTime?)null);
+           .Member(dest => dest.FechaPeriodo, src => src["fechaPeriodo"] != DBNull.Value ? Convert.ToDateTime(src["fechaPeriodo"]) : (DateTime?)null)
+
+           .Member(dest => dest.NCompraErp, src => src["nCompraErp"] != DBNull.Value ? src["nCompraErp"].ToString() : null)
+           .Member(dest => dest.Scop, src => src["Scop"] != DBNull.Value ? src["Scop"].ToString() : null)
+           ;
 
     }
 

@@ -29,7 +29,7 @@ namespace app_matter_data_src_erp
             MapperConfig.RegisterMappings();
 
             Logs.initLogs("Desarrollo.txt");
-            GetCredentialsDesarrollo(args);
+            GetCredentialsProduccion(args);
 
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(GlobalExceptionHandler);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);

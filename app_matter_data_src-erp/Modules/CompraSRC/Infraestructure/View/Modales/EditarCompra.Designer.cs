@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSalir = new FontAwesome.Sharp.IconButton();
             this.lblCode = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -40,11 +41,10 @@
             this.cbSucursal = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbAño = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.cbMes = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnSalir = new FontAwesome.Sharp.IconButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -67,6 +67,27 @@
             this.panel1.Size = new System.Drawing.Size(465, 52);
             this.panel1.TabIndex = 1;
             // 
+            // btnSalir
+            // 
+            this.btnSalir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSalir.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalir.FlatAppearance.BorderSize = 0;
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.btnSalir.IconChar = FontAwesome.Sharp.IconChar.X;
+            this.btnSalir.IconColor = System.Drawing.SystemColors.HighlightText;
+            this.btnSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnSalir.IconSize = 22;
+            this.btnSalir.Location = new System.Drawing.Point(411, 15);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(28, 28);
+            this.btnSalir.TabIndex = 5;
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
             // lblCode
             // 
             this.lblCode.AutoSize = true;
@@ -75,7 +96,7 @@
             this.lblCode.Location = new System.Drawing.Point(245, 18);
             this.lblCode.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCode.Name = "lblCode";
-            this.lblCode.Size = new System.Drawing.Size(93, 22);
+            this.lblCode.Size = new System.Drawing.Size(76, 18);
             this.lblCode.TabIndex = 1;
             this.lblCode.Text = "0000 000";
             // 
@@ -87,7 +108,7 @@
             this.label1.Location = new System.Drawing.Point(84, 16);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 22);
+            this.label1.Size = new System.Drawing.Size(133, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "Editar - Compra ";
             // 
@@ -160,7 +181,7 @@
             this.cbAlmacen.Location = new System.Drawing.Point(12, 5);
             this.cbAlmacen.Margin = new System.Windows.Forms.Padding(2);
             this.cbAlmacen.Name = "cbAlmacen";
-            this.cbAlmacen.Size = new System.Drawing.Size(152, 30);
+            this.cbAlmacen.Size = new System.Drawing.Size(152, 25);
             this.cbAlmacen.TabIndex = 7;
             this.cbAlmacen.Text = "Almacen1";
             this.cbAlmacen.SelectedIndexChanged += new System.EventHandler(this.cbAlmacen_SelectedIndexChanged);
@@ -189,7 +210,7 @@
             this.cbSucursal.Location = new System.Drawing.Point(12, 5);
             this.cbSucursal.Margin = new System.Windows.Forms.Padding(2);
             this.cbSucursal.Name = "cbSucursal";
-            this.cbSucursal.Size = new System.Drawing.Size(152, 30);
+            this.cbSucursal.Size = new System.Drawing.Size(152, 25);
             this.cbSucursal.TabIndex = 7;
             this.cbSucursal.Text = "Sucursal1";
             this.cbSucursal.SelectedIndexChanged += new System.EventHandler(this.cbSucursal_SelectedIndexChanged);
@@ -201,7 +222,7 @@
             this.label3.Location = new System.Drawing.Point(10, 81);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 16);
+            this.label3.Size = new System.Drawing.Size(44, 13);
             this.label3.TabIndex = 22;
             this.label3.Text = "Datos:";
             // 
@@ -209,7 +230,7 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.comboBox1);
+            this.panel3.Controls.Add(this.cbAño);
             this.panel3.ForeColor = System.Drawing.Color.Black;
             this.panel3.Location = new System.Drawing.Point(208, 30);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
@@ -217,24 +238,30 @@
             this.panel3.Size = new System.Drawing.Size(178, 33);
             this.panel3.TabIndex = 21;
             // 
-            // comboBox1
+            // cbAño
             // 
-            this.comboBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cbAño.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbAño.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbAño.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAño.FormattingEnabled = true;
+            this.cbAño.Items.AddRange(new object[] {
             "2020",
             "2021",
             "2022",
             "2023",
-            "2024"});
-            this.comboBox1.Location = new System.Drawing.Point(12, 5);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(152, 30);
-            this.comboBox1.TabIndex = 7;
-            this.comboBox1.Text = "Año";
+            "2024",
+            "2025",
+            "2026",
+            "2027",
+            "2028",
+            "2029",
+            "2030"});
+            this.cbAño.Location = new System.Drawing.Point(12, 5);
+            this.cbAño.Margin = new System.Windows.Forms.Padding(2);
+            this.cbAño.Name = "cbAño";
+            this.cbAño.Size = new System.Drawing.Size(152, 25);
+            this.cbAño.TabIndex = 7;
+            this.cbAño.Text = "Año";
             // 
             // panel4
             // 
@@ -270,7 +297,7 @@
             this.cbMes.Location = new System.Drawing.Point(12, 5);
             this.cbMes.Margin = new System.Windows.Forms.Padding(2);
             this.cbMes.Name = "cbMes";
-            this.cbMes.Size = new System.Drawing.Size(152, 30);
+            this.cbMes.Size = new System.Drawing.Size(152, 25);
             this.cbMes.TabIndex = 7;
             this.cbMes.Text = "Mes";
             // 
@@ -281,30 +308,9 @@
             this.label2.Location = new System.Drawing.Point(10, 15);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 16);
+            this.label2.Size = new System.Drawing.Size(54, 13);
             this.label2.TabIndex = 19;
             this.label2.Text = "Periodo:";
-            // 
-            // btnSalir
-            // 
-            this.btnSalir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSalir.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSalir.FlatAppearance.BorderSize = 0;
-            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalir.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnSalir.IconChar = FontAwesome.Sharp.IconChar.X;
-            this.btnSalir.IconColor = System.Drawing.SystemColors.HighlightText;
-            this.btnSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnSalir.IconSize = 22;
-            this.btnSalir.Location = new System.Drawing.Point(411, 15);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(28, 28);
-            this.btnSalir.TabIndex = 5;
-            this.btnSalir.UseVisualStyleBackColor = false;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // EditarCompra
             // 
@@ -348,7 +354,7 @@
         private System.Windows.Forms.ComboBox cbSucursal;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbAño;
         private System.Windows.Forms.Label lblCoincidencia;
         private System.Windows.Forms.Button btnContinuar;
     }

@@ -56,5 +56,22 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             var data = await compraSrcRepository.ObtenerCompraMonitoreoTemporalPorIdRecepcion(idRecepcion);
             return data;
         }
+
+        public async Task<DateTime> GetPeriodo(string idRecepcion)
+        {
+            var data = await compraSrcRepository.ObtenerCompraMonitoreoTemporalPorIdRecepcion(idRecepcion);
+
+            return data[0].FechaPeriodo;
+        }
+
+        public async Task InsertarDelTemporalActualizar(string idRecepcion)
+        {
+            var data = await GetComprasPorIdRecepcion(idRecepcion);
+
+            foreach (var item in data) {
+                
+                 await compraSrcRepository.InsertarCompraTemporalActualizar(item);
+            }
+        }
     }
 }

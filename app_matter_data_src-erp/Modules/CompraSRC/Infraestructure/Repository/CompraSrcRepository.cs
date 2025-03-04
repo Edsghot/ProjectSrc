@@ -304,23 +304,43 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
             await DataBaseHelper.ExecuteStoredProcedureAsync("sp_InsertCliPro", parameters);
         }
 
-        public async Task ActualizarProductoCompraTemporalMonitoreoSRC(string idProducto,string numCompra,string serieCompra,string NomProducto)
+        public async Task ActualizarProductoCompraTemporalMonitoreoSRC(string idProducto,string numCompra,string serieCompra,string NomProducto,decimal api,decimal temp,string scop)
         {
             var parameters = new[]
             {
                 new SqlParameter("@idProducto", idProducto),
                 new SqlParameter("@numCompra", numCompra),
                 new SqlParameter("@SerieCompra", serieCompra),
-                new SqlParameter("@nomProducto", NomProducto), // Valor por defecto
+                new SqlParameter("@nomProducto", NomProducto),
+                new SqlParameter("@api", api),
+                new SqlParameter("@temp", temp),
+                new SqlParameter("@scop",scop)
+                // Valor por defecto
             };
 
             await DataBaseHelper.ExecuteStoredProcedureAsync("spActualizarCompraTemporalMonitoreoSRC", parameters);
         } 
-        public async Task InsertarEliminarComprobanteSrc(string idRecepcionSrc)
+        public async Task ActualizaCabeceraTemporalMonitoreoSRC(string idRecepcion,int idSucursal,int IdPeriodo)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@idRecepcion", idRecepcion),
+                new SqlParameter("@idSucursal", idSucursal),
+                new SqlParameter("@idPeriodo", IdPeriodo)
+            };
+
+            await DataBaseHelper.ExecuteStoredProcedureAsync("spActualizaCabeceraTemporalMonitoreoSRC", parameters);
+        } 
+        public async Task InsertarEliminarComprobanteSrc(string idRecepcionSrc,string nCompra,int idPeriodo,DateTime fechaLlegada,string scop)
         {
             var parameters = new[]
             {
                 new SqlParameter("@idRecepcionSrc", idRecepcionSrc),
+                new SqlParameter("@nCompraErp", nCompra),
+                new SqlParameter("@idPeriodo", idPeriodo),
+                new SqlParameter("@fecha", DateTime.Now),
+                new SqlParameter("@fechaLlegada", fechaLlegada),
+                new SqlParameter("@nOrdenCompra", scop),
             };
 
             await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertarEliminarComprobanteSrc", parameters);
@@ -445,8 +465,71 @@ new SqlParameter("@pRetencion", compra.pRetencion != null ? compra.pRetencion : 
 
             return compraMonitoreos;
         }
+        public async Task InsertarCompraTemporalActualizar(CompraTemporalMonitoreoSrcDto data)
+        {
+            
+            var parameters = new[]
+            {
+                new SqlParameter("@idComputadora", Credentials.IdComputadora),
+                new SqlParameter("@tipoDoc", "FAC"),
+                new SqlParameter("@serieCompra", data.SerieCompra),
+                new SqlParameter("@numCompra", data.NumCompra),
+
+                new SqlParameter("@rucPersona", data.RucPersona),
+                new SqlParameter("@nomPersona", data.NomPersona),
+                new SqlParameter("@sucursal", data.Sucursal),
+                new SqlParameter("@fecha", data.Fecha),
+                new SqlParameter("@fechaVenc", data.FechaVenc),
+                new SqlParameter("@moneda", data.Moneda),
+                new SqlParameter("@tcCompra", 3.5),
+                new SqlParameter("@condicion", "R"),
+                new SqlParameter("@nomTransportista",  string.Empty),
+                new SqlParameter("@rucTransportista", string.Empty),
+                new SqlParameter("@dirTransportista", string.Empty),
+                new SqlParameter("@placaTransportista", string.Empty),
+                new SqlParameter("@marcaTransportista",  string.Empty),
+                new SqlParameter("@certInscripcion", string.Empty),
+                new SqlParameter("@configuracionVeh", string.Empty),
+                new SqlParameter("@cubicacion", string.Empty),
+                new SqlParameter("@nomChofer", string.Empty),
+                new SqlParameter("@breveteChofer", string.Empty),
+                new SqlParameter("@destinoRC", 10),
+                new SqlParameter("@obs", "Migrado desde el SRC"),
+                new SqlParameter("@subTotal", data.SubTotal),
+                new SqlParameter("@igv", data.Igv),
+                new SqlParameter("@total", data.Total),
+                new SqlParameter("@nDetraccion", string.Empty),
+                new SqlParameter("@fDetraccion",  (object)DBNull.Value),
+                new SqlParameter("@fechaLlegada", data.FechaLlegada ?? (object)DBNull.Value),
+                new SqlParameter("@precioIncluyeIGV", data.PrecioIncluyeIGV),
+                new SqlParameter("@tipoOperacion", 2),
+                new SqlParameter("@centroCostos", data.Sucursal),
+                new SqlParameter("@seriePer", string.IsNullOrEmpty(data.SeriePer) ? (object)DBNull.Value : data.SeriePer),
+                new SqlParameter("@numPer", string.IsNullOrEmpty(data.NumCompra) ? (object)DBNull.Value : data.NumCompra),
+                new SqlParameter("@fechaPercepcion", (object)DBNull.Value),
+                new SqlParameter("@perTotal", SqlDbType.Decimal) { Precision = 18, Scale = 2, Value = 0.00m },
+                new SqlParameter("@pRetencion",SqlDbType.Decimal) { Precision = 18, Scale = 2, Value = 0.00m },
+                new SqlParameter("@validarTotales", false),
+                new SqlParameter("@idProductoExt",data.IdProductoExt),
+                new SqlParameter("@cantidad", data.Cantidad),
+                new SqlParameter("@precio", data.Precio),
+                new SqlParameter("@tipoIGV", 28),
+                new SqlParameter("@pIGV", 0.18),
+                new SqlParameter("@fechaVencProducto", (object) DBNull.Value),
+                new SqlParameter("@api", data.Api),
+                new SqlParameter("@temperatura", data.Temperatura),
+                new SqlParameter("@igvCosto", 0.00m),
+                new SqlParameter("@serieProducto", string.Empty),
+                //mostrando......................................................
+                new SqlParameter("@NomProductoSrc", data.NomProductoSrc),
+                new SqlParameter("@IdRecepcionSrc", data.IdRecepcionSrc),
+                new SqlParameter("@IdPeriodo", data.IdPeriodo)
+            };
+
+            await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertCompraTemporalSRC", parameters);
 
 
+        }
 
         public async Task InsertarCompraTemporal(CompraDto compra, CompraDetalleDto dCompra)
         {
@@ -484,7 +567,7 @@ new SqlParameter("@pRetencion", compra.pRetencion != null ? compra.pRetencion : 
                 new SqlParameter("@nomChofer", string.Empty),
                 new SqlParameter("@breveteChofer", string.Empty),
                 new SqlParameter("@destinoRC", 10),
-                new SqlParameter("@obs", "Importacion del SRC"),
+                new SqlParameter("@obs", "Migrado desde el SRC"),
                 new SqlParameter("@subTotal", compra.TotalGravadas),
                 new SqlParameter("@igv", compra.TotalIGV),
                 new SqlParameter("@total", compra.TotalPagar),

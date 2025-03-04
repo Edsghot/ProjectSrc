@@ -65,6 +65,9 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto
         public int IdPeriodo { get;set; }
         public DateTime FechaPeriodo { get; set; }
 
+        public string NCompraErp { get; set; }
+        public string Scop { get; set; }
+      
         public string Accion { get; set; } = "Editar";
         public string EstadoComprobante { get; set; }
     }

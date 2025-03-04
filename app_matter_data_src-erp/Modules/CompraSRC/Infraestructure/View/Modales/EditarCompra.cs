@@ -3,6 +3,7 @@ using app_matter_data_src_erp.Forms.DialogView.DialogModal;
 using app_matter_data_src_erp.Forms.Overlay;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
@@ -27,7 +28,7 @@ namespace app_matter_data_src_erp.Forms
         private string rucRecuperado;
         private readonly ICompraSrcImportadosInputPort _compraSrc;
         private readonly ICompraSrcRepository _repo;
-
+        private readonly ICompraSrcInputPort _prestado;
         private List<SucursalDto> sucursales;
         public EditarCompra(string code, string id, string ruc,MainComprasSrc mainForm1)
         {
@@ -40,7 +41,9 @@ namespace app_matter_data_src_erp.Forms
             this.rucRecuperado = ruc;
             _compraSrc = new CompraSrcImportadosAdapter();
             this.mainForm = mainForm1;
+            _prestado = new CompraSrcAdapter();
             _repo = new CompraSrcRepository();
+
         }
 
         private async void lblCoincidencia_Click(object sender, EventArgs e)
@@ -63,7 +66,8 @@ namespace app_matter_data_src_erp.Forms
 
         private async void btnContinuar_Click(object sender, EventArgs e)
         {
-           
+            var anio = Int32.Parse(cbAño.SelectedItem.ToString());
+            var mes = cbMes.SelectedIndex + 1;
             if (cbAlmacen.SelectedItem is SucursalDto almacenSeleccionado)
             {
                 var idPunto = Convert.ToInt32(almacenSeleccionado.IdPuntoVenta);
@@ -71,6 +75,9 @@ namespace app_matter_data_src_erp.Forms
                 try
                 {
                     await _repo.ActualizarPuntoVentaYAlmacen(idPunto, almacen);
+                    var dataPeriodo = (await _repo.ObtenerPeriodosPorFecha(anio,mes))[0];
+                    var idPeriodo = dataPeriodo.IdPeriodo;
+                    await _repo.ActualizaCabeceraTemporalMonitoreoSRC(ExtraStatic.idRecepcion, idPunto, idPeriodo);
 
                     var modal = new DIalogModalFInal();
                     modal.TopMost = true;
@@ -79,7 +86,8 @@ namespace app_matter_data_src_erp.Forms
 
                 }
                 catch (Exception ex)
-                {                   
+                {    
+                    MessageBox.Show($"Error al actualizar la compra: {ex.Message}");
                 }
             }
         }
@@ -93,6 +101,19 @@ namespace app_matter_data_src_erp.Forms
         {
             try
             {
+                var periodo = await _compraSrc.GetPeriodo(ExtraStatic.idRecepcion);
+                if (periodo != DateTime.MinValue) 
+                {
+                    string año = periodo.Year.ToString(); 
+                    string mesNombre = periodo.ToString("MMMM", new System.Globalization.CultureInfo("es-ES"));
+
+                    mesNombre = char.ToUpper(mesNombre[0]) + mesNombre.Substring(1);
+
+
+                    cbAño.SelectedItem = año;
+                    cbMes.SelectedItem = mesNombre;
+                }
+
                 sucursales = (await _repo.getAllSucursal()).ToList();
 
                 var sucursalesUnicas = sucursales

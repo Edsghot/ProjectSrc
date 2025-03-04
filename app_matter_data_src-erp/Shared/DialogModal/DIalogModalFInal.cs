@@ -1,4 +1,5 @@
-﻿using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
+﻿using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
+using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
@@ -11,11 +12,13 @@ namespace app_matter_data_src_erp.Shared.DialogModal
     public partial class DIalogModalFInal : Form
     {
         private readonly ICompraSrcRepository repo;
+        private readonly ICompraSrcImportadosInputPort port;
         public DIalogModalFInal()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             repo = new CompraSrcRepository();
+            port = new CompraSrcImportadosAdapter();
         }
 
         private void DIalogModalFInal_Load(object sender, EventArgs e)
@@ -23,13 +26,14 @@ namespace app_matter_data_src_erp.Shared.DialogModal
 
         }
 
-        private void btnContinuar_Click(object sender, EventArgs e)
+        private async void btnContinuar_Click(object sender, EventArgs e)
         {
-
-            repo.InsertarEliminarComprobanteSrc(ExtraStatic.idRecepcion).GetAwaiter();
+            await port.InsertarDelTemporalActualizar(ExtraStatic.idRecepcion);
+            var data = await port.GetAllByIdRecepcion(ExtraStatic.idRecepcion);
+            repo.InsertarEliminarComprobanteSrc(ExtraStatic.idRecepcion,data.NCompraErp,data.IdPeriodo,data.FechaLlegada?? DateTime.Now,data.Scop).GetAwaiter();
 
             var resultado = MessageBox.Show(
-                "¿Desea continuar utilizando la aplicación?\nTu importación se actualizará apenas salgas de la aplicación",
+                "¿Desea dejar de utilizar la aplicación?\nTu importación se actualizará apenas salgas de la aplicación",
                 "Confirmación",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
@@ -37,15 +41,18 @@ namespace app_matter_data_src_erp.Shared.DialogModal
 
             if (resultado == DialogResult.Yes)
             {
-                  ControlStatic.CierreTotal = true;
+                this.Close();
+                ControlStatic.CierreModalEditar = true;
+                ControlStatic.CierreDIalogvIew = true;
+                ControlStatic.CierreTotal = true;
+             
             }
             else
             {
-                ControlStatic.CierreDIalogvIew = true;
-                ControlStatic.CierreModalEditar = true;
-                ControlStatic.actualizarData = true;
                 this.Close();
-            }
+                ControlStatic.CierreModalEditar = true;
+                ControlStatic.CierreDIalogvIew = true;
+            }  
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

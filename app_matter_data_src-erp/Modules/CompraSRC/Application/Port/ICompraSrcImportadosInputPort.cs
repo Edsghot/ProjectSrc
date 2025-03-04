@@ -16,6 +16,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Port
         Task<CompraTemporalMonitoreoSrcDto> GetAllByIdRecepcion(string idRecepcion);
         Task<string> GetIdRecepcion(string codigo, string ruc);
         Task<List<CompraTemporalMonitoreoSrcDto>> GetComprasPorIdRecepcion(string idRecepcion);
+        Task InsertarDelTemporalActualizar(string idRecepcion);
+        Task<DateTime> GetPeriodo(string idRecepcion);
 
     }
 }

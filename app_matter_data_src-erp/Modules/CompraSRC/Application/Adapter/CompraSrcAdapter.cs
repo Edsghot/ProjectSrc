@@ -49,8 +49,11 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             
             foreach (var compra in compraDtos)
             {
-                await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
-                await Escanear(compra.NumCompra,compra.SerieCompra,compra.DocumentoProveedor);
+                await Escanear(compra.NumCompra, compra.SerieCompra, compra.DocumentoProveedor);
+            
+                var data = await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
+
+                  
             }
 
             // Procesar después de que todas las tareas hayan terminado
@@ -466,7 +469,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             var compra = DataStaticDto.data.FirstOrDefault(c => c.IdRecepcion == IdRecepcion);
             compra.idPeriodo = idPeriodo;
             compra.cantidad = compra.Compras.Count;
-            compra.FechaEmision = dataPeriodo.FechaFin;
 
            // await compraSrcRepository.InsertarCompraTemporal(compra);
             foreach (var detalle in compra.Compras)
@@ -478,7 +480,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
             await compraSrcRepository.sp_InsertTemporalBitacoraSrc(new TemporalBitacoraSrcDto
             {
-                IdRecepcionSrc = IdRecepcion,
+                IdRecepcionSrc = compra.IdRecepcion,
                 Serie = compra.SerieCompra,
                 NumCompra = compra.NumCompra,
                 Comentario = "Enviado a migrar al ERP",
@@ -493,7 +495,9 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
         public async Task<bool> validarImportacion(string serie,string numCompra,string idRecepcion)
         {
-            numCompra = new string(numCompra.Where(c => char.IsDigit(c) && c != '0').ToArray());
+            numCompra = new string(numCompra.Where(c => char.IsDigit(c) && c != '0').ToArray()); // Elimina los ceros
+
+            numCompra = numCompra.PadLeft(8, '0');
 
             var data = await compraSrcRepository.BuscarCompraPorSerieYNumero(serie, numCompra,idRecepcion);
 
@@ -501,11 +505,13 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             {
 
                 var dataaa= await apiClient.PutComprobanteAsync(idRecepcion, true);
-                DataStaticDto.data.RemoveAll(x => x.IdRecepcion == idRecepcion);
+                //DataStaticDto.data.RemoveAll(x => x.IdRecepcion == idRecepcion);
 
                 return true;
 
             }
+
+            var dataaa2 = await apiClient.PutComprobanteAsync(idRecepcion, false);
             return false;
         }
 

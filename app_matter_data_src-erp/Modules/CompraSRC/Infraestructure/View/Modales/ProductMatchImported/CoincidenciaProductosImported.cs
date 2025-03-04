@@ -69,6 +69,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
                 coincidencias = await _repo.ObtenerCoincidenciasProdSrcPorRuc(this.rucRecuperado);
 
                  coincidencia2 = await _repo.ObtenerCompraMonitoreoTemporalPorIdRecepcion(ExtraStatic.idRecepcion);
+                txtScop.Text = coincidencia2[0].Scop;
             }
             catch (Exception ex)
             {
@@ -110,7 +111,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
             {
                 column.ReadOnly = true;
             }
-            txtScop.Text = "xdddd";
+           
             txtScop.MaxLength = 17;
 
             dataTable.Columns[3].ReadOnly = false; 
@@ -288,6 +289,8 @@ namespace app_matter_data_src_erp.Forms.DialogView
                     string idProductoErp2 = row.Cells[0].Value.ToString();
                     string nombreProdErp2 = row.Cells[1].Value.ToString();
                     string nombreProdSrc2 = row.Cells[2].Value.ToString();
+                    var api = decimal.Parse(row.Cells[3].Value.ToString());
+                    var temp = decimal.Parse(row.Cells[4].Value.ToString());
 
                     var productoInsertar = new InsertProdCuencidenciaDto
                     {
@@ -302,7 +305,7 @@ namespace app_matter_data_src_erp.Forms.DialogView
 
                     var arr = CodigoCompraCompleto.Split('-');
 
-                     _repo.ActualizarProductoCompraTemporalMonitoreoSRC(idProductoErp2, arr[1], arr[0], nombreProdSrc2).GetAwaiter();
+                     _repo.ActualizarProductoCompraTemporalMonitoreoSRC(idProductoErp2, arr[1], arr[0], nombreProdSrc2, api, temp,txtScop.Text).GetAwaiter();
                     DataStaticDto.data[_index].Coicidencia = "Revisado";
                 }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
@@ -30,9 +31,11 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository
         Task<List<CompraTemporalMonitoreoSrcDto>> ObtenerCompraTemporalMonitoreoSrc(int? estado = null);
         Task<List<CoincidenciaProdSrcDto>> BuscarProductoPorNombreCuencidenciaSrc(string NombreProd, string rucEmpresa);
         Task<List<CompraTemporalMonitoreoSrcDto>> ObtenerCompraMonitoreoTemporalPorIdRecepcion(string idRecepcion);
-        Task ActualizarProductoCompraTemporalMonitoreoSRC(string idProducto, string numCompra, string serieCompra, string NomProducto);
-        Task InsertarEliminarComprobanteSrc(string idRecepcionSrc);
+        Task ActualizarProductoCompraTemporalMonitoreoSRC(string idProducto, string numCompra, string serieCompra, string NomProducto, decimal api, decimal temp,string scop);
+        Task InsertarEliminarComprobanteSrc(string idRecepcionSrc, string nCompra, int idPeriodo, DateTime fechaLlegada, string scop);
         Task InsertarDetalleTemporalSrc(DetalleTemporalBitacoraSrcDto data);
         Task sp_InsertTemporalBitacoraSrc(TemporalBitacoraSrcDto data);
+        Task ActualizaCabeceraTemporalMonitoreoSRC(string idRecepcion, int idSucursal, int IdPeriodo);
+        Task InsertarCompraTemporalActualizar(CompraTemporalMonitoreoSrcDto data);
     }
 }
