@@ -28,10 +28,12 @@ namespace app_matter_data_src_erp.Shared.DialogModal
 
         private async void btnContinuar_Click(object sender, EventArgs e)
         {
+            
             await port.InsertarDelTemporalActualizar(ExtraStatic.idRecepcion);
             var data = await port.GetAllByIdRecepcion(ExtraStatic.idRecepcion);
+            repo.UpdateConfiguracionInicial(1).GetAwaiter().GetResult();
             repo.InsertarEliminarComprobanteSrc(ExtraStatic.idRecepcion,data.NCompraErp,data.IdPeriodo,data.FechaLlegada?? DateTime.Now,data.Scop).GetAwaiter();
-
+            
             var resultado = MessageBox.Show(
                 "¿Desea dejar de utilizar la aplicación?\nTu importación se actualizará apenas salgas de la aplicación",
                 "Confirmación",

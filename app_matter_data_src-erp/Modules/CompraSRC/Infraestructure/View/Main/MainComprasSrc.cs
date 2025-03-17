@@ -2,7 +2,10 @@
 using app_matter_data_src_erp.Forms.Overlay;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter;
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
+using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
 using FontAwesome.Sharp; 
 using System;
 using System.Drawing;
@@ -97,15 +100,29 @@ namespace app_matter_data_src_erp
 
         private async void MainComprasSrc_Load(object sender, EventArgs e)
         {
-
             var data = await compra.GetMenu();
 
-            lblRuc.Text =  data.Ruc;
-            lblEmpresa.Text =  data.NomRuc;
-            lblSucursal.Text =  data.NomSucursal;
+            lblRuc.Text = data.Ruc;
+            lblEmpresa.Text = data.NomRuc;
+            lblSucursal.Text = data.NomSucursal;
 
+            ICompraSrcRepository repository = new CompraSrcRepository();
+            var dataRepo = await repository.GetConfiguracionInicial();
 
+            switch (dataRepo.reiniciar)
+            {
+                case 0:
+
+                    break;
+                case 1:
+                    DataStaticDto.data = await compra.ObtenerDataSrc();
+                    await repository.UpdateConfiguracionInicial(0);
+                    LoadUserControl(new UCComprasImportadas(), btnOption2);
+                    break;
+
+            }
         }
+
 
         private void MainComprasSrc_Activated(object sender, EventArgs e)
         {

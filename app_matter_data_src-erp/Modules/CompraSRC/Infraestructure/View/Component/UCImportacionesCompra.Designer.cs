@@ -86,7 +86,7 @@ namespace app_matter_data_src_erp.Forms
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(397, 40);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Importación de compras\nServicios de Recepción de Comprobantes (SRC)";
+            this.label1.Text = "Migración de compras\nServicios de Recepción de Comprobantes (SRC)";
             // 
             // dateInicio
             // 

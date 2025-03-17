@@ -10,6 +10,10 @@ using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Static;
 using System.Collections.Generic;
 using System.Linq;
+using app_matter_data_src_erp.Forms.DialogView;
+using System.Threading.Tasks;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
+using ExpressMapper.Extensions;
 
 namespace app_matter_data_src_erp.Forms
 {
@@ -19,6 +23,7 @@ namespace app_matter_data_src_erp.Forms
         private int rowsPerPage = 15;
         private int totalRows;
         private readonly ICompraSrcImportadosInputPort _compraSrc;
+        private List<SucursalDto> sucursales;
 
         public UCComprasImportadas()
         {
@@ -33,6 +38,7 @@ namespace app_matter_data_src_erp.Forms
             this.dataTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.dataTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dataTable.ColumnHeadersHeight = 45;
+            this.sucursales = new List<SucursalDto>();
 
             _compraSrc = new CompraSrcImportadosAdapter();
             LoadData();
@@ -42,9 +48,13 @@ namespace app_matter_data_src_erp.Forms
         private async void LoadData()
         {
             ControlStatic.actualizarData = false;
+            label5.Text = "Resultados compras sucursal: Todos";
             try
             {
                 var data = await _compraSrc.ListarImportados(3);
+
+                data = data.OrderByDescending(x => x.FechaImportacion).Take(10).ToList();
+                await LoadSucursalData();
 
                 if (data == null || data.Count == 0)
                 {
@@ -54,22 +64,31 @@ namespace app_matter_data_src_erp.Forms
                 }
 
                 pictureNone.Visible = false;
-                dataTable.Rows.Clear(); 
-
+                dataTable.Rows.Clear();
+                int cont = 0;
                 foreach (var compra in data)
                 {
+                    var mensajeee = compra.Actualizar ?  "Actualizado": "Ok";
                     dataTable.Rows.Add(
+                        cont+1,
                         compra.SerieCompra + "-" + compra.NumCompra, 
                         compra.RucPersona,
                         compra.NomPersona,
-                        compra.Fecha.ToString("dd/MM/yyyy"), 
-                        compra.Igv,
+                       compra.FechaImportacion,
                         compra.SubTotal,
+                        compra.Igv,
                         compra.Total,
-                        compra.Estado == 3 ? "Importado" : "Procesando",
-                        "ok",
-                        "Editar"
+                        compra.Estado == 3 ? "Migrado" : "Procesando",
+                        compra.Actualizar == true ? "Cerrado" : "Editar"
                     );
+                    if (compra.Actualizar)
+                    {
+                        DataGridViewCell cell = dataTable.Rows[cont].Cells["Column10"];
+                        cell.ReadOnly = true;
+                        cell.Style.ForeColor = Color.Gray;
+                        cell.Style.BackColor = Color.LightGray;
+                    }
+                    cont++;
                 }
 
                 totalRows = data.Count;
@@ -86,9 +105,19 @@ namespace app_matter_data_src_erp.Forms
         {
             if (dataTable.Columns[e.ColumnIndex].Name == "Column10")
             {
-                e.CellStyle.ForeColor = Color.Chocolate;
+                DataGridViewCell cell = dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
-                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                if (cell.ReadOnly)
+                {
+                    e.CellStyle.ForeColor = Color.Chocolate;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                }
+                else
+                {
+                    e.CellStyle.ForeColor = Color.Gray;
+                    e.CellStyle.BackColor = Color.LightGray;
+                }
+
             }
         }
 
@@ -100,12 +129,20 @@ namespace app_matter_data_src_erp.Forms
                 var columnName = dataTable.Columns[e.ColumnIndex].Name;
                 OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
 
+                string valorColumna9 = dataTable.Rows[e.RowIndex].Cells[9].Value?.ToString();
+
+                if (valorColumna9 == "Cerrado")
+                {
+                    MessageBox.Show("Esta compra ya ha sido actualizada y no puede actualizarse nuevamente, ya que solo se permite una actualización", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return; 
+                }
+                
                 if (columnName == "Column10")
                 {
                     ControlStatic.CierreDIalogvIew = false;
                     int rowIndex = e.RowIndex;
-                    string code = dataTable.Rows[e.RowIndex].Cells[0].Value.ToString();
-                    string ruc = dataTable.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    string code = dataTable.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    string ruc = dataTable.Rows[e.RowIndex].Cells[2].Value.ToString();
 
                     if (!string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(ruc))
                     {
@@ -139,7 +176,7 @@ namespace app_matter_data_src_erp.Forms
         private void cbAño_SelectedIndexChanged(object sender, EventArgs e)
         {
             SeleccionesGlobalesDto.AñoSeleccionado = cbAño.SelectedItem.ToString();
-            LoadData();
+ 
         }
         private int ObtenerNumeroMes(string mes)
         {
@@ -152,6 +189,41 @@ namespace app_matter_data_src_erp.Forms
 
             return meses.ContainsKey(mes) ? meses[mes] : 0;
         }
+        private async Task LoadSucursalData()
+        {
+            try
+            {
+                //sucursales = await GetSimulatedSucursales();
+                 sucursales = _compraSrc.GetAllSucursales();
+
+                var sucursalesUnicas = sucursales
+                    .GroupBy(s => s.NomPuntoVenta)
+                    .Select(g => g.First())
+                    .ToList();
+
+                cbSucursal.DataSource = sucursalesUnicas;
+                cbSucursal.DisplayMember = "NomPuntoVenta";
+                cbSucursal.ValueMember = "IdPuntoVenta";
+                var sucursalesSeleccionadas = sucursalesUnicas
+                    .Where(s => s.SucursalSRC == "True" && sucursales.Any(a => a.IdPuntoVenta == s.IdPuntoVenta && a.AlmacenSrc == "True"))
+                    .ToList();
+
+                if (sucursalesSeleccionadas.Any())
+                {
+                    var sucursalSeleccionada = sucursalesSeleccionadas.First();
+                    cbSucursal.SelectedValue = sucursalSeleccionada.IdPuntoVenta;
+   
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró ninguna sucursal con SucursalSRC == 'True' y AlmacenSrc == 'True'");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar las sucursales: {ex.Message}");
+            }
+        }
 
         private async void btnBuscar_Click(object sender, EventArgs e)
         {
@@ -159,27 +231,39 @@ namespace app_matter_data_src_erp.Forms
             dataTable.Rows.Clear();
             currentPage = 1;
 
-            if (cbMes.SelectedItem == null || cbAño.SelectedItem == null)
+            string sucursalSeleccionada = cbSucursal.Text;
+            label5.Text = "Resultados compras sucursal: "+ sucursalSeleccionada;
+            string mesTexto = cbMes.SelectedItem?.ToString();
+            string añoTexto = cbAño.SelectedItem?.ToString();
+
+            int? mesNumero = null;
+            int? año = null;
+
+            // Validar el mes si está seleccionado
+            if (!string.IsNullOrEmpty(mesTexto))
             {
-                MessageBox.Show("Por favor, seleccione un mes y un año.", "Campos vacíos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                mesNumero = ObtenerNumeroMes(mesTexto);
+                if (mesNumero == 0)
+                {
+                    MessageBox.Show("Seleccione un mes válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
 
-            string mesTexto = cbMes.SelectedItem.ToString();
-            string añoTexto = cbAño.SelectedItem.ToString();
-
-            int mesNumero = ObtenerNumeroMes(mesTexto);
-            if (mesNumero == 0)
+            // Validar el año si está seleccionado
+            if (!string.IsNullOrEmpty(añoTexto) && int.TryParse(añoTexto, out int parsedAño))
             {
-                MessageBox.Show("Seleccione un mes válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                año = parsedAño;
             }
 
-            int año;
-            if (!int.TryParse(añoTexto, out año))
+            // Obtener código de sucursal si se ha seleccionado alguna
+            if (!string.IsNullOrEmpty(sucursalSeleccionada) && sucursalSeleccionada != "Todos")
             {
-                MessageBox.Show("Seleccione un año válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                sucursalSeleccionada = _compraSrc.GetCodigoSucursal(sucursalSeleccionada);
+            }
+            else
+            {
+                sucursalSeleccionada = null; // No aplicar filtro si es "Todos"
             }
 
             pictureNone.Visible = false;
@@ -189,7 +273,12 @@ namespace app_matter_data_src_erp.Forms
             {
                 var data = await _compraSrc.ListarImportados(3);
 
-                var datosFiltrados = data.Where(c => c.Fecha.Year == año && c.Fecha.Month == mesNumero).ToList();
+                // Aplicar los filtros dinámicamente
+                var datosFiltrados = data.Where(c =>
+                    (string.IsNullOrEmpty(sucursalSeleccionada) || c.Sucursal == sucursalSeleccionada) &&
+                    (!año.HasValue || c.FechaPeriodo.Year == año.Value) &&
+                    (!mesNumero.HasValue || c.FechaPeriodo.Month == mesNumero.Value)
+                ).ToList();
 
                 dataTable.Rows.Clear();
 
@@ -200,20 +289,29 @@ namespace app_matter_data_src_erp.Forms
                 else
                 {
                     pictureNone.Visible = false;
+                    int cont = 0;
                     foreach (var compra in datosFiltrados)
                     {
                         dataTable.Rows.Add(
+                            cont + 1,
                             compra.SerieCompra + "-" + compra.NumCompra,
                             compra.RucPersona,
                             compra.NomPersona,
-                            compra.Fecha.ToString("dd/MM/yyyy"),
-                            compra.Igv,
+                            compra.FechaImportacion,
                             compra.SubTotal,
+                            compra.Igv,
                             compra.Total,
-                            compra.Estado == 3 ? "Importado" : "Procesando",
-                            "ok",
-                            "Editar"
+                            compra.Estado == 3 ? "Migrado" : "Procesando",
+                            compra.Actualizar ? "Cerrado" : "Editar"
                         );
+                        if (compra.Actualizar)
+                        {
+                            DataGridViewCell cell = dataTable.Rows[cont].Cells["Column10"];
+                            cell.ReadOnly = true;
+                            cell.Style.ForeColor = Color.Gray;
+                            cell.Style.BackColor = Color.LightGray;
+                        }
+                        cont++;
                     }
                 }
 
@@ -227,6 +325,9 @@ namespace app_matter_data_src_erp.Forms
 
             mainForm.HideOverlay();
         }
+
+
+
 
         //----------------------------------------------------------------------------------- BUTTON LIMPIAR
         private async void btnLimpiar_Click(object sender, EventArgs e)
@@ -243,5 +344,9 @@ namespace app_matter_data_src_erp.Forms
             }
         }
 
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -466,7 +466,7 @@ namespace app_matter_data_src_erp.Forms
 
                 if (estado == "No Listo" || estado == "Error")
                 {
-                    MessageBox.Show($"No se puede seleccionar la fila con código de compra {row.Cells["Column1"].Value} porque está en estado '{estado}'.");
+                    MessageBox.Show($"No se puede seleccionar el nro de comprobante {row.Cells["Column1"].Value} porque está en estado '{estado}'.");
                     return;
                 }
 
@@ -488,7 +488,7 @@ namespace app_matter_data_src_erp.Forms
             }
             else
             {
-                MessageBox.Show("No se encontraron códigos de compra o documentos del proveedor en las filas seleccionadas.");
+                MessageBox.Show("debe seleccionar algun comprobante para migrar al ERP");
             }
         }
 

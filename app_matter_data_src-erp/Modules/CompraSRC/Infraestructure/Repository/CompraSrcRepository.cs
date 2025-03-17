@@ -9,6 +9,7 @@ using app_matter_data_src_erp.Configuration.Constants;
 using app_matter_data_src_erp.Global.DataBase;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.bitacora;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Configuracion;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Proveedor;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
@@ -221,6 +222,16 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
             await DataBaseHelper.ExecuteStoredProcedureAsync("sp_InsertTemporalBitacoraSrc", parameters);
         }
 
+        public async Task UpdateConfiguracionInicial(int  reiniciar)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@reiniciar", reiniciar)
+            };
+
+            await DataBaseHelper.ExecuteStoredProcedureAsync("Sp_UpdateConfiguracionFormSrc", parameters);
+        }
+
         public async Task InsertarDetalleTemporalSrc(DetalleTemporalBitacoraSrcDto data)
         {
             var parameters = new[]
@@ -250,39 +261,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
                 .ToList();
 
             return products;
-        }
-
-        public async Task InsertarDCompra(CompraDetalleDto dCompra)
-        {
-            var parameters = new[]
-            {
-        new SqlParameter("@nCompra", dCompra.nCompra ?? (object)DBNull.Value),
-        new SqlParameter("@idProducto", dCompra.IdProducto ),
-        new SqlParameter("@Cantidad", dCompra.Cantidad),
-        new SqlParameter("@Bultos", dCompra.Bultos), // Valor por defecto
-        new SqlParameter("@Precio", dCompra.PrecioUnitarioSinIgv),
-        new SqlParameter("@idTipoIgv", 28), // Valor por defecto
-        new SqlParameter("@pIgv", dCompra.Igv),
-        new SqlParameter("@Flete", 1), // Valor por defecto
-        new SqlParameter("@FechaVenc", new DateTime(1900, 1, 1)),
-            // Se asegura que acepte NULL
-        new SqlParameter("@Bonificacion", false), // Valor por defecto
-        new SqlParameter("@CUR", Guid.NewGuid()), // Valor por defecto
-        new SqlParameter("@PrecioBase", dCompra.PrecioUnitarioSinIgv),
-        new SqlParameter("@Descuento1", 0), // Si Dscto es NULL, usa 0
-        new SqlParameter("@Descuento2", 1), // Valor por defecto
-        new SqlParameter("@Descuento3", 1), // Valor por defecto
-        new SqlParameter("@Descuento4", 1), // Valor por defecto
-        new SqlParameter("@temperatura", (object)dCompra.Temp ?? DBNull.Value),
-           new SqlParameter("@DT",  DateTime.Now ),
-
-        new SqlParameter("@cantidadRecibidaGuia", 0), // Valor por defecto
-        new SqlParameter("@pPercepcionCompTeso", 0), // Valor por defecto
-        new SqlParameter("@esOrdenCompraGuiaCompra", false), // Valor por defecto
-        new SqlParameter("@fise", (object)dCompra.fise ?? 0) // Si fise es NULL, usa 0
-    };
-
-            await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertDCompraErp", parameters);
         }
 
 
@@ -346,95 +324,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository
             await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertarEliminarComprobanteSrc", parameters);
         }
 
-        public async Task  InsertarCompraAsync(CompraDto compra)
-        {
-            try
-            {
-                compra.nOrdenCompra = null; // Asegurar que tiene un valor dentro del rango permitido
-                compra.Condicion = "R";
-               
-                var parameters = new[]
-                {
-            new SqlParameter("@nCompra", compra.SerieCompra+compra.NumCompra),
-            new SqlParameter("@idCliPro", compra.idCliPro),
-            new SqlParameter("@idClaseDoc", compra.idClaseDoc),
-            new SqlParameter("@idAlmacen", compra.IdAlmacen),
-            new SqlParameter("@FechaDig", compra.FechaDig),
-            new SqlParameter("@Fecha", compra.FechaEmision),
-            new SqlParameter("@FechaOperativa", compra.FechaOperativa),
-            new SqlParameter("@FechaVenc", compra.FechaVencimiento),
-            new SqlParameter("@idPeriodo", compra.idPeriodo),
-            new SqlParameter("@Moneda", compra.Moneda),
-            new SqlParameter("@TipoCambio", compra.TipoCambio),
-            new SqlParameter("@Condicion", compra.Condicion),
-            new SqlParameter("@NGuiaRemision", compra.NGuiaRemision),
-            new SqlParameter("@idTransportista", (object)compra.idTransportista ?? DBNull.Value),
-            new SqlParameter("@idPlaca", (object)compra.idPlaca ?? DBNull.Value),
-            new SqlParameter("@idChofer", (object)compra.idChofer ?? DBNull.Value),
-            new SqlParameter("@IdPlantilla", compra.IdPlantilla),
-            new SqlParameter("@Obs", compra.Observacion),
-            new SqlParameter("@SubTotal", compra.SubTotal),
-            new SqlParameter("@igv", compra.TotalIGV != null ? compra.TotalIGV : 0.00m),
-            new SqlParameter("@Total", compra.TotalPagar),
-            new SqlParameter("@Importacion", compra.Importacion),
-            new SqlParameter("@Automatica", compra.Automatica),
-            new SqlParameter("@numConstanciaDep", (object)compra.numConstanciaDep ?? DBNull.Value),
-            new SqlParameter("@fecConstanciaDep", (object)compra.fecConstanciaDep ?? DBNull.Value),
-            new SqlParameter("@FechaLlegada", (object)compra.FechaLlegada ?? DBNull.Value),
-            new SqlParameter("@IdTurno", (object)compra.IdTurno ?? DBNull.Value),
-            new SqlParameter("@RelGuiaCompra", compra.RelGuiaCompra),
-            new SqlParameter("@PrecioIncluyeIGV", compra.PrecioIncluyeIGV),
-            new SqlParameter("@tipoFechaRegCompras", (object)compra.tipoFechaRegCompras ?? DBNull.Value),
-            new SqlParameter("@fechaEspecialRC", (object)compra.fechaEspecialRC ?? DBNull.Value),
-            new SqlParameter("@servicioIntangible", compra.servicioIntangible),
-            new SqlParameter("@idTipoOperacion", (object)compra.idTipoOperacion ?? DBNull.Value),
-            new SqlParameter("@idDepartamento", compra.idDepartamento),
-            new SqlParameter("@nOrdenCompra", compra.nOrdenCompra),
-            new SqlParameter("@detraccion", compra.detraccion),
-            new SqlParameter("@tieneConsignaciones", compra.tieneConsignaciones),
-            new SqlParameter("@fleteTotal", compra.fleteTotal),
-            new SqlParameter("@distribuir", compra.distribuir),
-            new SqlParameter("@idProcesoAsociado",  DBNull.Value),
-            new SqlParameter("@nProcesoAsociado", (object)compra.nProcesoAsociado ?? DBNull.Value),
-            new SqlParameter("@guiaRecibida", (object)compra.guiaRecibida ?? DBNull.Value),
-            new SqlParameter("@nPercepcion", (object)compra.nPercepcion ?? DBNull.Value),
-            new SqlParameter("@fechaPercepcion", (object)compra.fechaPercepcion ?? DBNull.Value),
-            new SqlParameter("@percepcionTotal", compra.TotalPercepcion),
-new SqlParameter("@pRetencion", compra.pRetencion != null ? compra.pRetencion : 0.00m),
-
-            new SqlParameter("@nCompraPlus", compra.nCompraPlus),
-            new SqlParameter("@nOrdenCompraProveedor", (object)compra.nOrdenCompraProveedor ?? DBNull.Value),
-            new SqlParameter("@fiseTotal", compra.fiseTotal),
-            new SqlParameter("@idClasificacionBienesServicios", (object)compra.idClasificacionBienesServicios ?? DBNull.Value),
-            new SqlParameter("@idTipoFacturacionGuiaRemision", compra.idTipoFacturacionGuiaRemision)
-        };
-
-                // 🔍 **Verificar si algún parámetro está excediendo la longitud permitida**
-                foreach (var param in parameters)
-                {
-                    if (param.Value != DBNull.Value && param.Value is string strValue)
-                    {
-                        int maxLength = GetMaxLength(param.ParameterName);
-                        if (maxLength > 0 && strValue.Length > maxLength)
-                        {
-                            throw new Exception($"⚠️ El parámetro {param.ParameterName} excede el límite de {maxLength} caracteres. Valor recibido: '{strValue}'");
-                        }
-                    }
-                }
-
-                // 📌 **Ejecutar el procedimiento almacenado**
-                await DataBaseHelper.ExecuteStoredProcedureAsync("InsertCompraErp", parameters);
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception($"❌ Error ejecutando el procedimiento almacenado 'InsertCompraErp': {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"❌ Error en la inserción: {ex.Message}");
-            }
-        }
-
         public async Task<List<CompraTemporalMonitoreoSrcDto>> ObtenerCompraTemporalMonitoreoSrc(int? estado = null)
         {
             var parameters = new[]
@@ -450,6 +339,9 @@ new SqlParameter("@pRetencion", compra.pRetencion != null ? compra.pRetencion : 
 
             return compraMonitoreos;
         }
+
+
+
         public async Task<List<CompraTemporalMonitoreoSrcDto>> ObtenerCompraMonitoreoTemporalPorIdRecepcion(string idRecepcion)
         {
             var parameters = new[]
@@ -567,8 +459,8 @@ new SqlParameter("@pRetencion", compra.pRetencion != null ? compra.pRetencion : 
                 new SqlParameter("@nomChofer", string.Empty),
                 new SqlParameter("@breveteChofer", string.Empty),
                 new SqlParameter("@destinoRC", 10),
-                new SqlParameter("@obs", "Migrado desde el SRC"),
-                new SqlParameter("@subTotal", compra.TotalGravadas),
+                new SqlParameter("@obs", string.IsNullOrEmpty(compra.Observacion) ? "-" : compra.Observacion),
+                new SqlParameter("@subTotal", compra.TotalPagar-compra.TotalIGV),
                 new SqlParameter("@igv", compra.TotalIGV),
                 new SqlParameter("@total", compra.TotalPagar),
                 new SqlParameter("@nDetraccion", string.Empty),
@@ -602,6 +494,38 @@ new SqlParameter("@pRetencion", compra.pRetencion != null ? compra.pRetencion : 
             await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertCompraTemporal", parameters);
 
            
+        }
+
+        public async Task<GetConfiguracionDto> GetConfiguracionInicial()
+        {
+          
+            var data = await DataBaseHelper.ExecuteStoredProcedureAsync("Sp_GetConfigurationSrc");
+
+            var configuracion = data.AsEnumerable()
+                .Select<DataRow, GetConfiguracionDto>(row => Mapper.Map<DataRow, GetConfiguracionDto>(row))
+                .ToList();
+            if(configuracion.Count <= 0)
+            {
+                return new GetConfiguracionDto();
+            }
+            return configuracion[0];
+        }
+        public async Task<GetProductExtDto> getIdProductoExt(string idProducto)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@idProducto", idProducto)
+            };
+            var data = await DataBaseHelper.ExecuteStoredProcedureAsync("Sp_GetIdProductoExt",parameters);
+
+            var configuracion = data.AsEnumerable()
+                .Select<DataRow, GetProductExtDto>(row => Mapper.Map<DataRow, GetProductExtDto>(row))
+                .ToList();
+            if (configuracion.Count <= 0)
+            {
+                return new GetProductExtDto();
+            }
+            return configuracion[0];
         }
 
         private int GetMaxLength(string paramName)

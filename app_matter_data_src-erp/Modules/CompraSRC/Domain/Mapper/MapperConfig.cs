@@ -1,4 +1,5 @@
 ﻿using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Configuracion;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
 using ExpressMapper;
@@ -9,6 +10,9 @@ public static class MapperConfig
 {
     public static void RegisterMappings()
     {
+        Mapper.Register<DataRow, GetConfiguracionDto>()
+             .Member(dest => dest.reiniciar, src => src["reiniciar"] != DBNull.Value ? Convert.ToInt32(src["reiniciar"]) : 0);
+
         Mapper.Register<DataRow, ProductDto>()
             .Member(dest => dest.ProductId, src => src["ProductoId"] != DBNull.Value ? src["ProductoId"].ToString() : "")
             .Member(dest => dest.ProductName, src => src["NombreProducto"] != DBNull.Value ? src["NombreProducto"].ToString() : "");
@@ -52,6 +56,11 @@ public static class MapperConfig
             .Member(dest => dest.IdPlantilla, src => src["idPlantilla"] != DBNull.Value ? src["idPlantilla"].ToString() : "")
             .Member(dest => dest.NomPlantilla, src => src["nomPlantilla"] != DBNull.Value ? src["nomPlantilla"].ToString() : "")
             .Member(dest => dest.CompraSrc, src => src["CompraSrc"] != DBNull.Value ? Convert.ToBoolean(src["CompraSrc"]) : false);
+
+        Mapper.Register<DataRow, GetProductExtDto>()
+           .Member(dest => dest.IdProductoExt, src => src["idProductoExt"] != DBNull.Value ? src["idProductoExt"].ToString() : "")
+           .Member(dest => dest.Combustible, src => src["Combustible"] != DBNull.Value ? Convert.ToBoolean(src["Combustible"]) : false);
+        
 
         Mapper.Register<DataRow, TipoOperacionDto>()
             .Member(dest => dest.IdTipoOperacion, src => src["idTipoOperacion"] != DBNull.Value ? Convert.ToInt32(src["idTipoOperacion"]) : 0)
@@ -113,7 +122,8 @@ public static class MapperConfig
            .Member(dest => dest.IdRecepcionSrc, src => src["idRecepcionSrc"] != DBNull.Value ? src["idRecepcionSrc"].ToString() : null)
            .Member(dest => dest.IdPeriodo, src => src["idPeriodo"] != DBNull.Value ? Convert.ToInt32(src["idPeriodo"]) : (int?)null)
            .Member(dest => dest.FechaPeriodo, src => src["fechaPeriodo"] != DBNull.Value ? Convert.ToDateTime(src["fechaPeriodo"]) : (DateTime?)null)
-
+           .Member(dest => dest.FechaImportacion, src => src["FechaImportacion"] != DBNull.Value ? Convert.ToDateTime(src["FechaImportacion"]) : (DateTime?)null)
+           .Member(dest => dest.Actualizar, src => src["actualizar"] != DBNull.Value ? Convert.ToBoolean(src["actualizar"]) : (bool?)null)
            .Member(dest => dest.NCompraErp, src => src["nCompraErp"] != DBNull.Value ? src["nCompraErp"].ToString() : null)
            .Member(dest => dest.Scop, src => src["Scop"] != DBNull.Value ? src["Scop"].ToString() : null)
            ;

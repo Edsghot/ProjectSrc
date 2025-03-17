@@ -68,8 +68,11 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto
         public string NCompraErp { get; set; }
         public string Scop { get; set; }
       
+        public bool Actualizar { get; set; }
         public string Accion { get; set; } = "Editar";
         public string EstadoComprobante { get; set; }
+
+        public DateTime FechaImportacion { get; set; }
     }
 
 }

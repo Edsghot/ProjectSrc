@@ -86,6 +86,7 @@
     <Compile Include="Modules\CompraSRC\Application\Port\ICompraSrcInputPort.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\bitacora\DetalleTemporalBitacoraSrcDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\bitacora\TemporalBitacoraSrcDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\Configuracion\GetConfiguracionDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\Constantes\StatusConstant.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\DatosImportadosStatic.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\ExtraStatic.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\CliProveedorDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\CoincidenciaProdSrcDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\CompraTemporalMonitoreoSrcDto.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\GetProductExtDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\insertCompraDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\InsertProdCuencidenciaDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\PeriodoDto.cs" />
@@ -299,6 +301,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Modules\CompraSRC\Domain\Dto\RepoDto\NewFolder1\" />
     <Folder Include="Modules\ValidationSunat\Application\" />
     <Folder Include="Modules\ValidationSunat\Domain\" />
   </ItemGroup>

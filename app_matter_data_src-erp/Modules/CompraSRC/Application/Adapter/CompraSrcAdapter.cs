@@ -20,6 +20,7 @@ using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Constantes;
 using System.Windows.Forms.VisualStyles;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.bitacora;
+using System.Reflection;
 
 namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 {
@@ -470,7 +471,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             compra.idPeriodo = idPeriodo;
             compra.cantidad = compra.Compras.Count;
 
-           // await compraSrcRepository.InsertarCompraTemporal(compra);
+            // await compraSrcRepository.InsertarCompraTemporal(compra);
             foreach (var detalle in compra.Compras)
             {
                 detalle.nCompra = compra.SerieCompra + compra.NumCompra;
@@ -497,15 +498,17 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
         {
             numCompra = new string(numCompra.Where(c => char.IsDigit(c) && c != '0').ToArray()); // Elimina los ceros
 
-            numCompra = numCompra.PadLeft(8, '0');
+            numCompra = numCompra.PadLeft(10, '0');
 
-            var data = await compraSrcRepository.BuscarCompraPorSerieYNumero(serie, numCompra,idRecepcion);
+            var conjunto = "F" + serie + numCompra;
+
+            var data = await compraSrcRepository.BuscarCompraPorSerieYNumero(serie, conjunto, idRecepcion);
 
             if(data.Resultado == 1)
             {
 
                 var dataaa= await apiClient.PutComprobanteAsync(idRecepcion, true);
-                //DataStaticDto.data.RemoveAll(x => x.IdRecepcion == idRecepcion);
+           
 
                 return true;
 
@@ -533,6 +536,12 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 if (data.Count > 0) {
                     compra.IdProducto = data[0].IdProductoErp;
                     compra.NomProductoErp = data[0].NombreProdErp;
+                    var era = await compraSrcRepository.getIdProductoExt(compra.IdProducto);
+
+                    if (era.Combustible)
+                    {
+                        DataCompra.Combustible = true;
+                    }
                 }
                 if (data.Count == 0)
                 {
@@ -550,6 +559,10 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
             var dataProd = data.Compras.FirstOrDefault(x => x.Descripcion == nomProducto);
             dataProd.Api = api;
             dataProd.Temp = temp;
+        }
+        public async Task updateConfiguration(int reiniciar)
+        {
+            await compraSrcRepository.UpdateConfiguracionInicial(reiniciar);
         }
     }
 }

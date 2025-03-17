@@ -23,21 +23,18 @@ namespace app_matter_data_src_erp
         /// Punto de entrada principal para la aplicación.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        static  void Main(string[] args)
         {
 
             MapperConfig.RegisterMappings();
 
             Logs.initLogs("Desarrollo.txt");
-            GetCredentialsProduccion(args);
+            GetCredentialsDesarrollo(args);
 
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(GlobalExceptionHandler);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-
-
 
             //var resultado = repo.InsertProdCuencidencia(new InsertProdCuencidenciaDto
             //{
@@ -50,6 +47,21 @@ namespace app_matter_data_src_erp
             //var res3 = repo.ObtenerCoincidenciasProdSrcPorRuc("123456789").GetAwaiter().GetResult();
             //Application.Run(new MainValidationSunat());
 
+            ICompraSrcRepository repository = new CompraSrcRepository();
+
+            var dataRepo =  (repository.GetConfiguracionInicial()).GetAwaiter().GetResult();
+
+            if(dataRepo.reiniciar == 2)
+            {
+                repository.UpdateConfiguracionInicial(0).GetAwaiter().GetResult();
+                Application.Exit();
+                return;
+            }
+
+            if (dataRepo.reiniciar == 0)
+            {
+                repository.UpdateConfiguracionInicial(2).GetAwaiter().GetResult();
+            }
 
             switch (Credentials.IdFormulario)
             {

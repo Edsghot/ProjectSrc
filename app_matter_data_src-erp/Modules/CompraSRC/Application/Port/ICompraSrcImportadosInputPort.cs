@@ -1,6 +1,7 @@
 ﻿using app_matter_data_src_erp.Global.ApiClient;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Port
         Task<List<CompraTemporalMonitoreoSrcDto>> GetComprasPorIdRecepcion(string idRecepcion);
         Task InsertarDelTemporalActualizar(string idRecepcion);
         Task<DateTime> GetPeriodo(string idRecepcion);
-
+        Task updateConfiguration(int reiniciar);
+        List<SucursalDto> GetAllSucursales();
+        string GetCodigoSucursal(string nameSucursal);
     }
 }

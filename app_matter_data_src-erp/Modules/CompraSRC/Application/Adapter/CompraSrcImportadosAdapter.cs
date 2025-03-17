@@ -2,6 +2,7 @@
 using app_matter_data_src_erp.Modules.CompraSRC.Application.Port;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository;
 using app_matter_data_src_erp.Modules.CompraSRC.Infraestructure.Repository;
 using System;
@@ -28,8 +29,10 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
         {
 
             var data = await compraSrcRepository.ObtenerCompraTemporalMonitoreoSrc(estatus);
+            var sucursal = (await  compraSrcRepository.getAllSucursal()).ToList();
 
             DatosImportadosStatic.Data = data;
+            DatosImportadosStatic.Sucursales = sucursal;
             return data;
         }
 
@@ -50,6 +53,42 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
 
             return data;
         }
+
+        public List<SucursalDto> GetAllSucursales()
+        {
+            var data = DatosImportadosStatic.Sucursales.ToList(); // Clonamos la lista
+
+            // Buscar si ya existe un elemento con "Todos"
+            var sucursalTodos = data.FirstOrDefault(s => s.NomPuntoVenta == "Todos");
+
+            // Si no existe, lo agregamos al final
+            if (sucursalTodos == null)
+            {
+                sucursalTodos = new SucursalDto
+                {
+                    IdPuntoVenta = "-1", // Valor especial para diferenciarlo
+                    NomPuntoVenta = "Todos",
+                    SucursalSRC = "False",
+                    AlmacenSrc = "False"
+                };
+                data.Add(sucursalTodos);
+            }
+
+            // Reordenar la lista para que "Todos" quede al inicio
+            data = data.OrderBy(s => s.NomPuntoVenta == "Todos" ? 0 : 1).ToList();
+
+            return data;
+        }
+
+
+
+        public string GetCodigoSucursal(string nameSucursal)
+        {
+            var data = DatosImportadosStatic.Sucursales.FirstOrDefault(x => x.NomPuntoVenta == nameSucursal);
+
+            return data.IdPuntoVenta;
+        }
+
 
         public async Task<List<CompraTemporalMonitoreoSrcDto>> GetComprasPorIdRecepcion(string idRecepcion)
         {
@@ -72,6 +111,11 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Adapter
                 
                  await compraSrcRepository.InsertarCompraTemporalActualizar(item);
             }
+        }
+
+        public async Task updateConfiguration(int reiniciar)
+        {
+             await compraSrcRepository.UpdateConfiguracionInicial(reiniciar);
         }
     }
 }

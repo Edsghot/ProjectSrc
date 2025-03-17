@@ -217,8 +217,17 @@ namespace app_matter_data_src_erp.Forms.DialogView
                     };
 
                     await compra.EscanearDCompra(idProductoErp2, nombreProdSrc2);
+
+                    var data = await _repo.getIdProductoExt(idProductoErp2);
+
+                    if (data.Combustible)
+                    {
+                        DataStaticDto.data[_index].Combustible = true;
+                    }
+
                     var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();
                     DataStaticDto.data[_index].EstadoProductos = true;
+                    
                     HFunciones.ActualizarEstados();
                 }
 

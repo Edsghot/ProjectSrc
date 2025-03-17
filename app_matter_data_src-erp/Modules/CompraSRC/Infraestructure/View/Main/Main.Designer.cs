@@ -225,7 +225,7 @@
             this.btnOption2.Name = "btnOption2";
             this.btnOption2.Size = new System.Drawing.Size(286, 63);
             this.btnOption2.TabIndex = 3;
-            this.btnOption2.Text = "Compras importadas\r\n";
+            this.btnOption2.Text = "Compras migradas";
             this.btnOption2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnOption2.UseVisualStyleBackColor = true;
             this.btnOption2.Click += new System.EventHandler(this.btnOption2_Click);
@@ -245,7 +245,7 @@
             this.btnOption1.Name = "btnOption1";
             this.btnOption1.Size = new System.Drawing.Size(276, 76);
             this.btnOption1.TabIndex = 2;
-            this.btnOption1.Text = "Importación de \r\ncompras SRC\r\n";
+            this.btnOption1.Text = "Migración de \r\ncompras SRC\r\n";
             this.btnOption1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnOption1.UseVisualStyleBackColor = false;
             this.btnOption1.Click += new System.EventHandler(this.btnOption1_Click);

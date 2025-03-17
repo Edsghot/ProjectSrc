@@ -31,6 +31,7 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto
 
         // ✅ Se agrega el campo Bultos
         public int Bultos { get; set; } = 1; // Valor por defecto
+
     }
 
 }

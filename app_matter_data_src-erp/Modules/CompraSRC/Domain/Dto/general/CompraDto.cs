@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 public class CompraDto
 {
+    public bool Combustible { get; set; }
     public string idCompraSerie { get; set; }
     public string NomTipoDocumento { get; set; }
     public string AbrevTipoDocumento { get; set; }

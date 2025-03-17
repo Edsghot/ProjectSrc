@@ -22,6 +22,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Application.Port
         Task<bool> ProductsValidated(string idRecepcion);
         Task ActualizarSucursal(string idRecepcion, string IdPuntoVenta, string nomPuntoVenta);
         Task ActualizarScopApiTemp(string idRecepcion, string nomProducto, string scop, decimal api, decimal temp);
-
+        Task updateConfiguration(int reiniciar);
     }
 }

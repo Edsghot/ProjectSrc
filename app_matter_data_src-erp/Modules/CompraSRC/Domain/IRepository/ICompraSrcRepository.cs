@@ -4,6 +4,7 @@ using System.Data;
 using System.Threading.Tasks;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.bitacora;
+using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Configuracion;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Proveedor;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.RepoDto;
 using app_matter_data_src_erp.Modules.CompraSRC.Domain.Dto.Sucursal;
@@ -24,8 +25,6 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository
         Task<List<PlantillasDto>> spListarEspecificasCompras();
         Task<List<TipoOperacionDto>> sp_GetTipoOperacion(string codSunat);
         Task InsertarCliPro(ProveedorDto proveedor);
-        Task InsertarCompraAsync(CompraDto compra);
-        Task InsertarDCompra(CompraDetalleDto dCompra);
         Task InsertarCompraTemporal(CompraDto compra,CompraDetalleDto data);
         Task<ValidarImpoDto> BuscarCompraPorSerieYNumero(string serie, string compra,string idRecepcion);
         Task<List<CompraTemporalMonitoreoSrcDto>> ObtenerCompraTemporalMonitoreoSrc(int? estado = null);
@@ -37,5 +36,8 @@ namespace app_matter_data_src_erp.Modules.CompraSRC.Domain.IRepository
         Task sp_InsertTemporalBitacoraSrc(TemporalBitacoraSrcDto data);
         Task ActualizaCabeceraTemporalMonitoreoSRC(string idRecepcion, int idSucursal, int IdPeriodo);
         Task InsertarCompraTemporalActualizar(CompraTemporalMonitoreoSrcDto data);
+        Task<GetConfiguracionDto> GetConfiguracionInicial();
+        Task UpdateConfiguracionInicial(int reiniciar);
+        Task<GetProductExtDto> getIdProductoExt(string idProducto);
     }
 }

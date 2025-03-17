@@ -56,7 +56,7 @@
             this.panel1.Controls.Add(this.btnSalir);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-2, -4);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(406, 52);
             this.panel1.TabIndex = 0;
@@ -75,7 +75,7 @@
             this.btnSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnSalir.IconSize = 22;
             this.btnSalir.Location = new System.Drawing.Point(364, 14);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(2);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(28, 28);
             this.btnSalir.TabIndex = 2;
@@ -90,7 +90,7 @@
             this.label1.Location = new System.Drawing.Point(166, 18);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 22);
+            this.label1.Size = new System.Drawing.Size(74, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "Sucursal";
             // 
@@ -102,7 +102,7 @@
             this.panel2.Controls.Add(this.btnContinuar);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Location = new System.Drawing.Point(16, 62);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(367, 208);
             this.panel2.TabIndex = 1;
@@ -113,7 +113,7 @@
             this.panel6.Controls.Add(this.txtDireccion);
             this.panel6.Controls.Add(this.label3);
             this.panel6.Location = new System.Drawing.Point(13, 84);
-            this.panel6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel6.Margin = new System.Windows.Forms.Padding(2);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(339, 47);
             this.panel6.TabIndex = 17;
@@ -124,9 +124,9 @@
             this.txtDireccion.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDireccion.Location = new System.Drawing.Point(10, 18);
-            this.txtDireccion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDireccion.Margin = new System.Windows.Forms.Padding(2);
             this.txtDireccion.Name = "txtDireccion";
-            this.txtDireccion.Size = new System.Drawing.Size(314, 23);
+            this.txtDireccion.Size = new System.Drawing.Size(314, 19);
             this.txtDireccion.TabIndex = 7;
             this.txtDireccion.Text = "Av. Arequipa 456 - JLBYR";
             // 
@@ -137,7 +137,7 @@
             this.label3.Location = new System.Drawing.Point(8, 3);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 15);
+            this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Dirección";
             // 
@@ -147,7 +147,7 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.cbAlmacen);
             this.panel4.Location = new System.Drawing.Point(190, 37);
-            this.panel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(162, 33);
             this.panel4.TabIndex = 16;
@@ -164,9 +164,9 @@
             "Almacen3",
             "Almacen4"});
             this.cbAlmacen.Location = new System.Drawing.Point(12, 5);
-            this.cbAlmacen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbAlmacen.Margin = new System.Windows.Forms.Padding(2);
             this.cbAlmacen.Name = "cbAlmacen";
-            this.cbAlmacen.Size = new System.Drawing.Size(135, 30);
+            this.cbAlmacen.Size = new System.Drawing.Size(135, 25);
             this.cbAlmacen.TabIndex = 7;
             this.cbAlmacen.Text = "Almacen1";
             this.cbAlmacen.SelectedIndexChanged += new System.EventHandler(this.cbAlmacen_SelectedIndexChanged);
@@ -177,7 +177,7 @@
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.cbSucursal);
             this.panel5.Location = new System.Drawing.Point(13, 37);
-            this.panel5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel5.Margin = new System.Windows.Forms.Padding(2);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(162, 33);
             this.panel5.TabIndex = 15;
@@ -194,9 +194,9 @@
             "Sucursal 3",
             "Sucursal 4"});
             this.cbSucursal.Location = new System.Drawing.Point(12, 5);
-            this.cbSucursal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbSucursal.Margin = new System.Windows.Forms.Padding(2);
             this.cbSucursal.Name = "cbSucursal";
-            this.cbSucursal.Size = new System.Drawing.Size(137, 30);
+            this.cbSucursal.Size = new System.Drawing.Size(137, 25);
             this.cbSucursal.TabIndex = 7;
             this.cbSucursal.Text = "Sucursal 1";
             this.cbSucursal.SelectedIndexChanged += new System.EventHandler(this.cbSucursal_SelectedIndexChanged);
@@ -210,7 +210,7 @@
             this.btnContinuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnContinuar.ForeColor = System.Drawing.Color.White;
             this.btnContinuar.Location = new System.Drawing.Point(87, 147);
-            this.btnContinuar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnContinuar.Margin = new System.Windows.Forms.Padding(2);
             this.btnContinuar.Name = "btnContinuar";
             this.btnContinuar.Size = new System.Drawing.Size(187, 41);
             this.btnContinuar.TabIndex = 7;
@@ -225,7 +225,7 @@
             this.label2.Location = new System.Drawing.Point(13, 13);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(163, 18);
+            this.label2.Size = new System.Drawing.Size(138, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "Datos de la sucursal";
             // 
@@ -239,7 +239,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Sucursal";
             this.Load += new System.EventHandler(this.Sucursal_Load);
