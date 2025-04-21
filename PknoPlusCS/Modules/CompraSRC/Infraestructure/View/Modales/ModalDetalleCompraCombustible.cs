@@ -148,7 +148,7 @@ namespace PknoPlusCS.Forms.DialogView
             this.Close();
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -166,6 +166,7 @@ namespace PknoPlusCS.Forms.DialogView
                     Convert.ToDecimal(row.Cells[5].Value ?? 0)).GetAwaiter();
                 }
             }
+            await compraInput.createBackup();
             this.Close();
             mainForm.ShowToast("Datos guardados.", "success");
 

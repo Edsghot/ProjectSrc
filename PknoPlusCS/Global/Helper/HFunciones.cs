@@ -63,7 +63,7 @@ namespace PknoPlusCS.Global.Helper
             foreach (var data in DataStaticDto.data)
             {
 
-                if (data.EstadoProductos && data.EstadoFechaLlegada && data.EstadoSucursal && data.EstadoAlmacen && data.EstadoAsiento)
+                if (data.EstadoProductos && data.EstadoFechaLlegada && data.EstadoSucursal && data.EstadoAlmacen && data.EstadoAsiento && data.Estado == StatusConstant.NoListo)
                 {
                     data.Estado = StatusConstant.Listo;
                 }
@@ -87,7 +87,6 @@ namespace PknoPlusCS.Global.Helper
                     else
                     {
                         Logs.WriteLog("ERROR", "API_KEY no encontrado en el registro.");
-
                     }
                 }
                 else

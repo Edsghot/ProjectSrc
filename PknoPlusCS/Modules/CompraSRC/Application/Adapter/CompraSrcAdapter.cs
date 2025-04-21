@@ -29,6 +29,51 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
         public async Task<List<CompraDto>> ObtenerDataSrc()
         {
+            var backupRestablecido = await compraSrcRepository.getBackup();
+
+            if (backupRestablecido.Count == 0) {
+
+                await obtenerDataDelSrc();
+            }
+            else
+            {
+                DataStaticDto.data = backupRestablecido;
+                var compraDtos = DataStaticDto.data;
+
+
+                foreach (var compra in compraDtos)
+                {
+                    await Escanear(compra.NumCompra, compra.SerieCompra, compra.DocumentoProveedor);
+
+                    var data = await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
+
+
+                }
+
+                foreach (var compra in compraDtos)
+                {
+                    var errors = await Validations(compra);
+
+                    if (errors.IndError)
+                    {
+                        compra.Errores = errors;
+                        compra.Estado = StatusConstant.Error;
+                    }
+
+                }
+            }
+
+
+            return DataStaticDto.data;
+        }
+
+        public async Task createBackup()
+        {
+            await compraSrcRepository.crearBackup(DataStaticDto.data);
+        }
+
+        public async Task<List<CompraDto>> obtenerDataDelSrc()
+        {
             var response = await apiClient.GetApiDataAsync();
 
             if (response == null || response.Resultado == null)
@@ -39,17 +84,16 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             DataStaticDto.data = response.Resultado;
             var compraDtos = DataStaticDto.data;
 
-            
+
             foreach (var compra in compraDtos)
             {
                 await Escanear(compra.NumCompra, compra.SerieCompra, compra.DocumentoProveedor);
-            
+
                 var data = await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
 
-                  
+
             }
 
-            // Procesar después de que todas las tareas hayan terminado
             foreach (var compra in compraDtos)
             {
                 var errors = await Validations(compra);
@@ -59,21 +103,21 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                     compra.Errores = errors;
                     compra.Estado = StatusConstant.Error;
                 }
-    
+
             }
 
             return DataStaticDto.data;
         }
 
 
-        public async Task<CompraDto> ObtenerCompraPorIdRecepcion(string idRecepcion)
+        public CompraDto ObtenerCompraPorIdRecepcion(string idRecepcion)
         {
             
             var compra = DataStaticDto.data.FirstOrDefault(c => c.IdRecepcion == idRecepcion);
             return compra;
         }
 
-        public async Task<CompraDto> ObtenerCompraPorDocumentoProveedor(string documentoProveedor, string codigo)
+        public  CompraDto ObtenerCompraPorDocumentoProveedor(string documentoProveedor, string codigo)
         {
             if (DataStaticDto.data == null)
             {
@@ -521,7 +565,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
         public async Task ActualizarSucursal(string idRecepcion,string IdPuntoVenta,string nomPuntoVenta)
         {
-            var dataCompra = await ObtenerCompraPorIdRecepcion(idRecepcion);
+            var dataCompra =  ObtenerCompraPorIdRecepcion(idRecepcion);
             dataCompra.SucursalId = IdPuntoVenta;
             dataCompra.NewSucursal = nomPuntoVenta;
             dataCompra.Sucursal = nomPuntoVenta;
@@ -529,7 +573,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
         public async Task<bool> ProductsValidated(string idRecepcion)
         {
-            var DataCompra = await ObtenerCompraPorIdRecepcion(idRecepcion);
+            var DataCompra =  ObtenerCompraPorIdRecepcion(idRecepcion);
             foreach(var compra in DataCompra.Compras)
             {
                 var data = await compraSrcRepository.BuscarProductoPorNombreCuencidenciaSrc(compra.Descripcion, DataCompra.DocumentoProveedor);

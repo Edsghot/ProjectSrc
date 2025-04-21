@@ -39,5 +39,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Domain.IRepository
         Task<GetConfiguracionDto> GetConfiguracionInicial();
         Task UpdateConfiguracionInicial(int reiniciar);
         Task<GetProductExtDto> getIdProductoExt(string idProducto);
+        Task<List<CompraDto>> getBackup();
+        Task crearBackup(List<CompraDto> data);
     }
 }

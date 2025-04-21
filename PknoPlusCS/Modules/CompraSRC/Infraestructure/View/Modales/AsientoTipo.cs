@@ -10,6 +10,9 @@ using PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto;
 using System.Linq;
 using System.Threading.Tasks;
 using PknoPlusCS.Global.Helper;
+using System.Windows.Media.Media3D;
+using PknoPlusCS.Modules.CompraSRC.Application.Port;
+using PknoPlusCS.Modules.CompraSRC.Application.Adapter;
 
 namespace PknoPlusCS.Forms.DialogView
 {
@@ -17,6 +20,7 @@ namespace PknoPlusCS.Forms.DialogView
     {
         private readonly MainComprasSrc mainForm;
         private readonly ICompraSrcRepository _repo;
+        private readonly ICompraSrcInputPort _compraSrc;
         private readonly int _index;
         private List<PlantillasDto> planillas;
         public AsientoTipo(MainComprasSrc main, int index)
@@ -26,6 +30,7 @@ namespace PknoPlusCS.Forms.DialogView
             this.mainForm = main;
             _index = index;
             _repo = new CompraSrcRepository();
+            _compraSrc = new CompraSrcAdapter();
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -82,6 +87,7 @@ namespace PknoPlusCS.Forms.DialogView
                     DataStaticDto.data[_index].EstadoAsiento = true;
                     HFunciones.ActualizarEstados();
                     mainForm.ShowToast("Datos de la plantilla añadidos con éxito.", "success");
+                    _compraSrc.createBackup().GetAwaiter().GetResult();
                     this.Close();
                 }
                 catch (Exception ex)

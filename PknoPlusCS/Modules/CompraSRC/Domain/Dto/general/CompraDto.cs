@@ -39,7 +39,6 @@ public class CompraDto
     public List<CompraDetalleDto> Compras { get; set; }
     public string GuiaRemisionAsociada { get; set; }
     public string CorrelativoReferencia { get; set; }
-    [JsonConverter(typeof(DateTimeConverter), "yyyy-MM-dd")]
     public DateTime FechaEmisionReferencia { get; set; } = new DateTime(2000, 1, 1);
     public string PlacaTransportista { get; set; }
     public string LicenciaTransportista { get; set; }

@@ -15,6 +15,9 @@ using PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Sucursal;
 using PknoPlusCS.Modules.CompraSRC.Domain.IRepository;
 using ExpressMapper;
+using PknoPlusCS.Global.Helper;
+using RestSharp.Extensions;
+using Newtonsoft.Json;
 
 namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
 {
@@ -349,9 +352,9 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@idRecepcionSrc", idRecepcion)
             };
 
-            var data = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_ObtenerCompraTemporalMonitoreo", parameters);
+             var data = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_ObtenerCompraTemporalMonitoreo", parameters));
 
-            var compraMonitoreos = data.AsEnumerable()
+             var compraMonitoreos = data.AsEnumerable()
                 .Select<DataRow, CompraTemporalMonitoreoSrcDto>(row => Mapper.Map<DataRow, CompraTemporalMonitoreoSrcDto>(row))
                 .ToList();
 
@@ -528,6 +531,34 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             return configuracion[0];
         }
 
+        public async Task crearBackup(List<CompraDto> data)
+        {
+            var backup = JsonConvert.SerializeObject(data);
+
+            var backupEncriptado = HFunciones.Codificar(backup);
+
+            var parameters = new[]
+            {
+                new SqlParameter("@jsonNuevo", backupEncriptado)
+            };
+            await DataBaseHelper.ExecuteStoredProcedureAsync("sp_createJsonBackupSrc", parameters);
+        }
+
+
+        public async Task<List<CompraDto>> getBackup()
+        {
+            var dt = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_listarJsonBackupSrc");
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                string json = dt.Rows[0]["jsonRespaldado"].ToString();
+                string backupDesencriptado = HFunciones.Codificar(json);
+                return JsonConvert.DeserializeObject<List<CompraDto>>(backupDesencriptado);
+            }
+            else
+            {
+                return new List<CompraDto>();
+            }
+        }
         private int GetMaxLength(string paramName)
         {
             switch (paramName)

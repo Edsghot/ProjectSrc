@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>10.10.10.79,LeyNatural,Perseverante%24,BDCentralSanLuis,20273363026,7,1,2075625,1,1</StartArguments>
+    <StartArguments>PC-TEC-LIM06,Realidad,Pureza%24,BDCentralSanLuis,20273363026,7,1,2075625,46,1</StartArguments>
   </PropertyGroup>
   <PropertyGroup>
     <ReferencePath>PKSRV-DATABASE-\SQLSERVER2017,LeyNatural,Perseverante$,BDPinpad,12,</ReferencePath>

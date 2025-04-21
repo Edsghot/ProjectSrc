@@ -51,7 +51,7 @@ namespace PknoPlusCS.Forms.DialogView
             this.rucRecuperado = ruc;
 
 
-            LoadData(detallesCompra);
+            LoadData(detallesCompra).GetAwaiter().GetResult();
         }
         private async Task LoadData(List<CompraTemporalMonitoreoSrcDto> detallesCompra)
         {
@@ -137,22 +137,22 @@ namespace PknoPlusCS.Forms.DialogView
             nextPageButton.Enabled = currentPage < totalPages;
         }
 
-        private void previousPageButton_Click(object sender, EventArgs e)
+        private async void previousPageButton_Click(object sender, EventArgs e)
         {
             if (currentPage > 1)
             {
                 currentPage--;
-                LoadData(detallesCompra);
+                await LoadData(detallesCompra);
             }
         }
 
-        private void nextPageButton_Click(object sender, EventArgs e)
+        private async void nextPageButton_Click(object sender, EventArgs e)
         {
             int totalPages = (int)Math.Ceiling((double)totalRows / rowsPerPage);
             if (currentPage < totalPages)
             {
                 currentPage++;
-                LoadData(detallesCompra);
+                await LoadData(detallesCompra);
             }
         }
 

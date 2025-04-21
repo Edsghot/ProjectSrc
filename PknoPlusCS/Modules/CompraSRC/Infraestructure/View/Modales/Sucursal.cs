@@ -1,4 +1,6 @@
 ﻿using PknoPlusCS.Global.Helper;
+using PknoPlusCS.Modules.CompraSRC.Application.Adapter;
+using PknoPlusCS.Modules.CompraSRC.Application.Port;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Sucursal;
 using PknoPlusCS.Modules.CompraSRC.Domain.IRepository;
@@ -16,6 +18,7 @@ namespace PknoPlusCS.Forms.DialogView
     {
         private readonly MainComprasSrc mainForm;
         private readonly ICompraSrcRepository _repo;
+        private readonly ICompraSrcInputPort _compraSrc;
         private readonly int _index;
 
         private List<SucursalDto> sucursales;
@@ -30,6 +33,7 @@ namespace PknoPlusCS.Forms.DialogView
 
             _index = index;
             _repo = new CompraSrcRepository();
+            _compraSrc = new CompraSrcAdapter();
         }
 
         private async void Sucursal_Load(object sender, EventArgs e)
@@ -111,6 +115,7 @@ namespace PknoPlusCS.Forms.DialogView
                         DataStaticDto.data[_index].EstadoSucursal = true;
                         HFunciones.ActualizarEstados();
                         mainForm.ShowToast("Datos de la sucursal añadidos con éxito.", "success");
+                        await _compraSrc.createBackup();
                         this.Close();
                    
                 }

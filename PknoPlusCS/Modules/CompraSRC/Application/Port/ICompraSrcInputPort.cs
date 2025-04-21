@@ -12,7 +12,6 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Port
     {
         Task<List<CompraDto>> ObtenerDataSrc();
         Task<string> GetIdRecepcion(string documentoProveedor, string codigo);
-        Task<CompraDto> ObtenerCompraPorIdRecepcion(string IdRecepcion);
         Task<MenuDto> GetMenu();
         Task<bool> InsertCompra(int mes, int anio, string IdRecepcion);
         Task EscanearDCompra(string IdProduct, string NombreProducto);
@@ -23,5 +22,9 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Port
         Task ActualizarSucursal(string idRecepcion, string IdPuntoVenta, string nomPuntoVenta);
         Task ActualizarScopApiTemp(string idRecepcion, string nomProducto, string scop, decimal api, decimal temp);
         Task updateConfiguration(int reiniciar);
+        Task<List<CompraDto>> obtenerDataDelSrc();
+        Task createBackup();
+        CompraDto ObtenerCompraPorIdRecepcion(string idRecepcion);
+        CompraDto ObtenerCompraPorDocumentoProveedor(string documentoProveedor, string codigo);
     }
 }

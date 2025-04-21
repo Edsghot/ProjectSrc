@@ -303,7 +303,7 @@ namespace PknoPlusCS.Forms
                         var idRecepcion = await _compraSrc.GetIdRecepcion(codigoProveedor, codigo);
                         if (!string.IsNullOrEmpty(idRecepcion))
                         {
-                            CompraDto compra = await _compraSrc.ObtenerCompraPorIdRecepcion(idRecepcion);
+                            CompraDto compra =  _compraSrc.ObtenerCompraPorIdRecepcion(idRecepcion);
                             if (compra != null)
                             {
                                 List<CompraDetalleDto> detallesCompra = compra.Compras;
@@ -344,6 +344,7 @@ namespace PknoPlusCS.Forms
                     string direccion = DataStaticDto.data[realIndex].Sucursal;
                     Sucursal modal = new Sucursal((MainComprasSrc)this.ParentForm, direccion, realIndex);
                     overlayForm.ShowOverlayWithModal(modal);
+                    await _compraSrc.createBackup();
                 }
 
                 if (columnName == "Column4")
@@ -385,7 +386,7 @@ namespace PknoPlusCS.Forms
                         var idRecepcion = await _compraSrc.GetIdRecepcion(codigoProveedor, codigo);
                         if (!string.IsNullOrEmpty(idRecepcion))
                         {
-                            CompraDto compra = await _compraSrc.ObtenerCompraPorIdRecepcion(idRecepcion);
+                            CompraDto compra =  _compraSrc.ObtenerCompraPorIdRecepcion(idRecepcion);
                             if (compra != null)
                             {
                                 CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.idCompraSerie, compra.Compras, DataStaticDto.data[realIndex].DocumentoProveedor, realIndex);
@@ -462,18 +463,22 @@ namespace PknoPlusCS.Forms
                     return;
                 }
 
-                string estado = DataStaticDto.data[realIndex].Estado;
+
+
+                var codigoCompra = row.Cells["Column1"].Value?.ToString();
+
+                var documentoProveedor = row.Cells["Column5"].Value?.ToString();
+
+                var idRecepcion = await _compraSrc.GetIdRecepcion(documentoProveedor, codigoCompra);
+
+                var dataSeleccionado =  _compraSrc.ObtenerCompraPorIdRecepcion(idRecepcion);
+                string estado = dataSeleccionado.Estado;
 
                 if (estado == "No Listo" || estado == "Error")
                 {
                     MessageBox.Show($"No se puede seleccionar el nro de comprobante {row.Cells["Column1"].Value} porque está en estado '{estado}'.");
                     return;
                 }
-
-                var codigoCompra = row.Cells["Column1"].Value?.ToString();
-                var documentoProveedor = row.Cells["Column5"].Value?.ToString();
-
-                var idRecepcion = await _compraSrc.GetIdRecepcion(documentoProveedor, codigoCompra);
 
                 if (!string.IsNullOrEmpty(codigoCompra) && !string.IsNullOrEmpty(documentoProveedor))
                 {
@@ -523,7 +528,7 @@ namespace PknoPlusCS.Forms
 
             try
             {
-                var nuevosDatos = await _compraSrc.ObtenerDataSrc();
+                var nuevosDatos = await _compraSrc.obtenerDataDelSrc();
 
                 if (nuevosDatos == null || nuevosDatos.Count == 0)
                 {
