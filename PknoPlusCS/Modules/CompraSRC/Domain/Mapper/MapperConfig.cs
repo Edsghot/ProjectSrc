@@ -5,6 +5,8 @@ using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Sucursal;
 using ExpressMapper;
 using System;
 using System.Data;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Permisos;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Validacion;
 
 public static class MapperConfig
 {
@@ -51,6 +53,23 @@ public static class MapperConfig
             .Member(dest => dest.FechaI, src => src["FechaI"] != DBNull.Value ? Convert.ToDateTime(src["FechaI"]) : DateTime.MinValue)
             .Member(dest => dest.FechaFin, src => src["FechaF"] != DBNull.Value ? Convert.ToDateTime(src["FechaF"]) : DateTime.MinValue)
             .Member(dest => dest.Cerrado, src => src["Cerrado"] != DBNull.Value ? Convert.ToBoolean(src["Cerrado"]) : false);
+
+        Mapper.Register<DataRow, ValidarCierreDto>()
+           .Member(dest => dest.numeroError, src => src["numeroError"] != DBNull.Value ? Convert.ToInt32(src["numeroError"]) : 0)
+           .Member(dest => dest.descripcionError, src => src["descripcionError"] != DBNull.Value ? src["descripcionError"].ToString() : "")
+           .Member(dest => dest.situacion, src => src["situacion"] != DBNull.Value ? Convert.ToInt32(src["situacion"]) : 0)
+           .Member(dest => dest.idUsuario, src => src["idUsuario"] != DBNull.Value ? Convert.ToInt32(src["idUsuario"]) : 0)
+           .Member(dest => dest.nomUsuario, src => src["nomUsuario"] != DBNull.Value ? src["nomUsuario"].ToString() : "")
+           .Member(dest => dest.esExcepcion, src => src["esExcepcion"] != DBNull.Value ? Convert.ToInt32(src["esExcepcion"]) : 0)
+           .Member(dest => dest.nomArea, src => src["nomArea"] != DBNull.Value ? src["nomArea"].ToString() : "")
+           .Member(dest => dest.manejaTurnos, src => src["manejaTurnos"] != DBNull.Value ? Convert.ToInt32(src["manejaTurnos"]) : 0)
+           .Member(dest => dest.fechaCierre, src => src["fechaCierre"] != DBNull.Value ? Convert.ToDateTime(src["fechaCierre"]) : DateTime.MinValue);
+
+        Mapper.Register<DataRow, PermisosInterfacesDto>()
+        .Member(dest => dest.IdUsuario, src => src["IdUsuario"] != DBNull.Value ? Convert.ToInt32(src["idUsuario"]) : 0)
+        .Member(dest => dest.IdInterface, src => src["IdInterface"] != DBNull.Value ? Convert.ToInt32(src["idInterface"]) : 0)
+        .Member(dest => dest.IdAccion, src => src["IdAccion"] != DBNull.Value ? Convert.ToInt32(src["idAccion"]) : 0)
+        .Member(dest => dest.Habilitado, src => src["Habilitado"] != DBNull.Value ? Convert.ToBoolean(src["habilitado"]) : false);
 
         Mapper.Register<DataRow, PlantillasDto>()
             .Member(dest => dest.IdPlantilla, src => src["idPlantilla"] != DBNull.Value ? src["idPlantilla"].ToString() : "")

@@ -3,6 +3,7 @@ using PknoPlusCS.Modules.CompraSRC.Application.Port;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Sucursal;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Validacion;
 using PknoPlusCS.Modules.CompraSRC.Domain.IRepository;
 using PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository;
 using System;
@@ -28,8 +29,8 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
         public async Task<List<CompraTemporalMonitoreoSrcDto>> ListarImportados(int estatus)
         {
 
-            var data = await compraSrcRepository.ObtenerCompraTemporalMonitoreoSrc(estatus);
-            var sucursal = (await  compraSrcRepository.getAllSucursal()).ToList();
+            var data =  compraSrcRepository.ObtenerCompraTemporalMonitoreoSrc(estatus);
+            var sucursal = (  compraSrcRepository.getAllSucursal()).ToList();
 
             DatosImportadosStatic.Data = data;
             DatosImportadosStatic.Sucursales = sucursal;
@@ -92,13 +93,13 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
         public async Task<List<CompraTemporalMonitoreoSrcDto>> GetComprasPorIdRecepcion(string idRecepcion)
         {
-            var data = await compraSrcRepository.ObtenerCompraMonitoreoTemporalPorIdRecepcion(idRecepcion);
+            var data =  compraSrcRepository.ObtenerCompraMonitoreoSrcPorIdRecepcion(idRecepcion);
             return data;
         }
 
         public async Task<DateTime> GetPeriodo(string idRecepcion)
         {
-            var data = await compraSrcRepository.ObtenerCompraMonitoreoTemporalPorIdRecepcion(idRecepcion);
+            var data =  compraSrcRepository.ObtenerCompraMonitoreoTemporalPorIdRecepcion(idRecepcion);
 
             return data[0].FechaPeriodo;
         }
@@ -110,7 +111,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             foreach (var item in dataa) {
                 try
                 {
-                    await compraSrcRepository.InsertarCompraTemporalActualizar(item);
+                     compraSrcRepository.InsertarCompraTemporalActualizar(item);
                 }
                 catch (Exception ex)
                 {
@@ -121,7 +122,13 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
         public async Task updateConfiguration(int reiniciar)
         {
-             await compraSrcRepository.UpdateConfiguracionInicial(reiniciar);
+              compraSrcRepository.UpdateConfiguracionInicial(reiniciar);
+        }
+
+        public ValidarCierreDto validarCierreArea(DateTime fecha, int idPuntoVenta)
+        {
+           return compraSrcRepository.validarCompraCerrado(fecha, idPuntoVenta);
+           
         }
     }
 }

@@ -27,8 +27,8 @@ namespace PknoPlusCS.Forms.DialogView
         private readonly ICompraSrcRepository _repo;
         private readonly List<CompraDetalleDto> detallesCompra;
         private readonly ICompraSrcInputPort compra;
-        private readonly int _index;
-        public CoincidenciaProductos(MainComprasSrc main, string codigoCompra, List<CompraDetalleDto> detallesCompra, string ruc, int index)
+        private readonly string _idRecepcion;
+        public CoincidenciaProductos(MainComprasSrc main, string codigoCompra, List<CompraDetalleDto> detallesCompra, string ruc, string idRecepcion)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -42,7 +42,7 @@ namespace PknoPlusCS.Forms.DialogView
 
             this.dataTable.Columns[2].HeaderCell.Style.BackColor = Color.LightSteelBlue;
             _repo = new CompraSrcRepository();
-            _index = index;
+            _idRecepcion = idRecepcion;
             dataTable.CellClick += dataTable_CellClick;
             dataTable.CellPainting += dataTable_CellPainting;
             lblNumeroCompra.Text = codigoCompra;
@@ -66,7 +66,7 @@ namespace PknoPlusCS.Forms.DialogView
             List<CoincidenciaProdSrcDto> coincidencias = new List<CoincidenciaProdSrcDto>();
             try
             {
-                coincidencias = await _repo.ObtenerCoincidenciasProdSrcPorRuc(this.rucRecuperado);
+                coincidencias =  _repo.ObtenerCoincidenciasProdSrcPorRuc(this.rucRecuperado);
             }
             catch (Exception ex)
             {
@@ -86,7 +86,7 @@ namespace PknoPlusCS.Forms.DialogView
                 {
                     try
                     {
-                        var response = await _repo.searchProducts(detalle.Descripcion);
+                        var response =  _repo.searchProducts(detalle.Descripcion);
                         if (response != null && response.Any())
                         {
                             var firstProduct = response.First();
@@ -218,15 +218,17 @@ namespace PknoPlusCS.Forms.DialogView
 
                     await compra.EscanearDCompra(idProductoErp2, nombreProdSrc2);
 
-                    var data = await _repo.getIdProductoExt(idProductoErp2);
+                    var data =  _repo.getIdProductoExt(idProductoErp2);
+
+                    var CompraModificable = compra.ObtenerCompraPorIdRecepcion(_idRecepcion);
 
                     if (data.Combustible)
                     {
-                        DataStaticDto.data[_index].Combustible = true;
+                        CompraModificable.Combustible = true;
                     }
 
-                    var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();
-                    DataStaticDto.data[_index].EstadoProductos = true;
+                   _repo.InsertProdCuencidencia(productoInsertar);
+                    CompraModificable.EstadoProductos = true;
                     
                     HFunciones.ActualizarEstados();
                 }
@@ -240,7 +242,7 @@ namespace PknoPlusCS.Forms.DialogView
                     MessageBox.Show("Se registró con éxito.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                await compra.createBackup();
+                compra.createBackup();
 
                 this.Close();
             }

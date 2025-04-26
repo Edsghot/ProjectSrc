@@ -14,6 +14,7 @@ using PknoPlusCS.Modules.CompraSRC.Domain.IRepository;
 using PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto;
 using PknoPlusCS.Global.DataBase;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Permisos;
 
 namespace PknoPlusCS
 {
@@ -26,59 +27,78 @@ namespace PknoPlusCS
         static  void Main(string[] args)
         {
 
-            MapperConfig.RegisterMappings();
-
-            Logs.initLogs("Desarrollo.txt");
-            GetCredentialsDesarrollo(args);
-
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(GlobalExceptionHandler);
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            //var resultado = repo.InsertProdCuencidencia(new InsertProdCuencidenciaDto
-            //{
-            //    IdProductoErp = "1",
-            //    NombreProdErp = "Producto 1",
-            //    NombreProdSrc = "Producto 1",
-            //    RucEmpresa = "123456789"
-            //}).GetAwaiter();
-            //var res2 = repo.getAllSucursal().GetAwaiter().GetResult();
-            //var res3 = repo.ObtenerCoincidenciasProdSrcPorRuc("123456789").GetAwaiter().GetResult();
-            //Application.Run(new MainValidationSunat());
-
-            ICompraSrcRepository repository = new CompraSrcRepository();
-
-            var dataRepo =  (repository.GetConfiguracionInicial()).GetAwaiter().GetResult();
-
-            if(dataRepo.reiniciar == 2)
+            try
             {
-                repository.UpdateConfiguracionInicial(0).GetAwaiter().GetResult();
-                Application.Exit();
-                return;
-            }
+                MapperConfig.RegisterMappings();
 
-            if (dataRepo.reiniciar == 0)
+                Logs.initLogs("Desarrollo.txt");
+                GetCredentialsProduccion(args);
+
+                Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(GlobalExceptionHandler);
+                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+                ICompraSrcRepository repository = new CompraSrcRepository();
+
+                var dataRepo = repository.GetConfiguracionInicial();
+
+                DataPermisoStaticDto.dataPermisos = repository.sp_ObtenerPermisosPorInterfaceYUsuarioSrc(Credentials.IdUsuario);
+
+                foreach (var permiso in DataPermisoStaticDto.dataPermisos)
+                {
+                    switch (permiso.IdAccion)
+                    {
+                        case 235:
+                            DataPermisoStaticDto.MigrarCompras = permiso.Habilitado;
+                            break;
+                        case 237:
+                            DataPermisoStaticDto.EditarDetalle = permiso.Habilitado;
+                            break;
+                        case 238:
+                            DataPermisoStaticDto.Escanear = permiso.Habilitado;
+                            break;
+                        case 236:
+                            DataPermisoStaticDto.EditarMigracion = permiso.Habilitado;
+                            break;
+                    }
+                }
+
+                if (dataRepo.reiniciar == 2)
+                {
+                    repository.UpdateConfiguracionInicial(0);
+                    Application.Exit();
+                    return;
+                }
+
+                if (dataRepo.reiniciar == 0)
+                {
+                    repository.UpdateConfiguracionInicial(2);
+                }
+
+                switch (Credentials.IdFormulario)
+                {
+                    case (int)Formularios.FormularioCompraSrc:
+                        Logs.initLogs("CompraSrc.txt");
+
+                        Logs.WriteLog("ERROR", "Escogio el CompraSrc");
+                        Application.Run(new MainComprasSrc());
+                        break;
+                    case (int)Formularios.FormularioValidation:
+                        Logs.initLogs("ValidationSunat.txt");
+                        Application.Run(new MainValidationSunat());
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
             {
-                repository.UpdateConfiguracionInicial(2).GetAwaiter().GetResult();
+
+                Logs.WriteLog("ERROR", "es: ."+ ex.Message + ex);
+                // Aquí puedes registrar el error y mostrar un mensaje al usuario
+                MessageBox.Show("Ocurrió un error inesperado. Por favor revisa el log para más detalles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            switch (Credentials.IdFormulario)
-            {
-                case (int)Formularios.FormularioCompraSrc:
-                    Logs.initLogs("CompraSrc.txt");
-                    Application.Run(new MainComprasSrc());
-
-                    break;
-                case (int)Formularios.FormularioValidation:
-                    Logs.initLogs("ValidationSunat.txt");
-                    Application.Run(new MainValidationSunat());
-
-                    break;
-                default:
-                    break;
-            }
-
         }
 
         private static void GetCredentialsDesarrollo(string[] argss)
@@ -89,7 +109,7 @@ namespace PknoPlusCS
             MessageBox.Show($"Argumentos recibidos: {argsConcatenados}");
             var args = argss[0].Split(',');
 
-            if (args.Length != 10)
+            if (args.Length != 11)
             {
                 MessageBox.Show("Error: Se esperaban al menos 10 datos en la cadena de entrada.");
                 Logs.WriteLog("ERROR", "Se esperaban al menos 10 datos en la cadena de entrada.");
@@ -103,12 +123,14 @@ namespace PknoPlusCS
             //var user = HFunciones.Codificar(args[1]);
             //var password = HFunciones.Codificar(args[2]);
             //var db = HFunciones.Codificar(args[3]);
+
             Credentials.Ruc = args[4].ToString();
             Credentials.IdPuntoVenta = int.Parse(args[5]);
             Credentials.IdDepartamento = int.Parse(args[6]);
             Credentials.IdTurno = int.Parse(args[7]);
             Credentials.IdComputadora = int.Parse(args[8]);
-            Credentials.IdFormulario = int.Parse(args[9]);
+            Credentials.IdUsuario = int.Parse(args[9]);
+            Credentials.IdFormulario = int.Parse(args[10]);
             HFunciones.GetConnectionStringFromRegistry();
             Credentials.DataBaseConection = "Data Source=" + servidor + ";Initial Catalog=" + db + ";User ID=" + user + ";Password=" + password + ";Max Pool Size=200000;TrustServerCertificate=true";
 
@@ -134,7 +156,7 @@ namespace PknoPlusCS
 
                var args = argss[0].Split(',');
 
-                if (args.Length != 10)
+                if (args.Length != 11)
                 {
                     MessageBox.Show("Error: Se esperaban al menos 10 datos en la cadena de entrada.");
                     Logs.WriteLog("ERROR", "Se esperaban al menos 10 datos en la cadena de entrada.");
@@ -155,7 +177,8 @@ namespace PknoPlusCS
                 Credentials.IdTurno = int.Parse(args[7]);
 
                 Credentials.IdComputadora = int.Parse(args[8]);
-                Credentials.IdFormulario = int.Parse(args[9]);
+                Credentials.IdUsuario = int.Parse(args[9]);
+                Credentials.IdFormulario = int.Parse(args[10]);
                 HFunciones.GetConnectionStringFromRegistry();
 
                 Credentials.DataBaseConection = "Data Source=" + servidor + ";Initial Catalog=" + db + ";User ID=" + user + ";Password=" + password + ";Max Pool Size=200000;TrustServerCertificate=true";

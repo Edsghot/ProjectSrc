@@ -18,12 +18,15 @@ using ExpressMapper;
 using PknoPlusCS.Global.Helper;
 using RestSharp.Extensions;
 using Newtonsoft.Json;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Permisos;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Validacion;
+using System.Windows.Media.Media3D;
 
 namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
 {
     public class CompraSrcRepository : ICompraSrcRepository
     {
-        public async Task<IEnumerable<ProductDto>> searchProducts(string nameProduct)
+        public IEnumerable<ProductDto> searchProducts(string nameProduct)
         {
 
             var parameters = new[]
@@ -31,7 +34,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@NombreProducto", nameProduct)
             };
 
-            var data = await DataBaseHelper.ExecuteStoredProcedureAsync("spBuscarProductoCercano", parameters);
+            var data = DataBaseHelper.ExecuteStoredProcedure("spBuscarProductoCercano", parameters);
 
             var products = data.AsEnumerable().Select<DataRow, ProductDto>(row => Mapper.Map<DataRow, ProductDto>(row)).ToList();
 
@@ -40,7 +43,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
         }
 
 
-        public async Task InsertProdCuencidencia(InsertProdCuencidenciaDto data)
+        public void InsertProdCuencidencia(InsertProdCuencidenciaDto data)
         {
             var parameters = new[]
             {
@@ -49,12 +52,12 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@NombreProdSrc", data.NombreProdSrc),
                 new SqlParameter("@RucEmpresa", data.RucEmpresa)
             };
-            await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertarOActualizarCoincidenciaProdSrc", parameters);
+            DataBaseHelper.ExecuteStoredProcedureWithParams("spInsertarOActualizarCoincidenciaProdSrc", parameters);
         }
 
-        public async Task<IEnumerable<SucursalDto>> getAllSucursal()
+        public IEnumerable<SucursalDto> getAllSucursal()
         {
-            var result = await DataBaseHelper.ExecuteStoredProcedureAsync("spObtenerPuntosVentaConAlmacen");
+            var result =  DataBaseHelper.ExecuteStoredProcedure("spObtenerPuntosVentaConAlmacen");
 
             var puntosVentaConAlmacen = result.AsEnumerable()
                 .Select<DataRow, SucursalDto>(row => Mapper.Map<DataRow, SucursalDto>(row))
@@ -63,7 +66,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             return puntosVentaConAlmacen;
         }
 
-        public async Task<List<CoincidenciaProdSrcDto>> ObtenerCoincidenciasProdSrcPorRuc(string rucEmpresa)
+        public List<CoincidenciaProdSrcDto> ObtenerCoincidenciasProdSrcPorRuc(string rucEmpresa)
         {
             var parameters = new[]
             {
@@ -71,7 +74,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@RucEmpresa", rucEmpresa)
              };
 
-            var result = await DataBaseHelper.ExecuteStoredProcedureAsync("spObtenerCoincidenciasProdSrcPorRuc", parameters);
+            var result = DataBaseHelper.ExecuteStoredProcedure("spObtenerCoincidenciasProdSrcPorRuc", parameters);
 
             var coincidencias = result.AsEnumerable()
                 .Select<DataRow, CoincidenciaProdSrcDto>(row => Mapper.Map<DataRow, CoincidenciaProdSrcDto>(row))
@@ -79,7 +82,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
 
             return coincidencias;
         }
-        public async Task<List<CoincidenciaProdSrcDto>> BuscarProductoPorNombreCuencidenciaSrc(string NombreProd,string rucEmpresa)
+        public List<CoincidenciaProdSrcDto> BuscarProductoPorNombreCuencidenciaSrc(string NombreProd, string rucEmpresa)
         {
             var parameters = new[]
             {
@@ -87,7 +90,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@Ruc", rucEmpresa)
              };
 
-            var result = await DataBaseHelper.ExecuteStoredProcedureAsync("spBuscarProductoPorNombreCuencidenciaSrc", parameters);
+            var result = DataBaseHelper.ExecuteStoredProcedure("spBuscarProductoPorNombreCuencidenciaSrc", parameters);
 
             var coincidencias = result.AsEnumerable()
                 .Select<DataRow, CoincidenciaProdSrcDto>(row => Mapper.Map<DataRow, CoincidenciaProdSrcDto>(row))
@@ -96,7 +99,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             return coincidencias;
         }
 
-        public async Task<ValidarImpoDto> BuscarCompraPorSerieYNumero(string serie,string compra,string idRecepcion)
+        public ValidarImpoDto BuscarCompraPorSerieYNumero(string serie, string compra, string idRecepcion)
         {
             var parameters = new[]
             {
@@ -106,23 +109,23 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@idRecepcion", idRecepcion)
             };
 
-            var result = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_BuscarCompraPorSerieYNumero", parameters);
+            var result = DataBaseHelper.ExecuteStoredProcedure("sp_BuscarCompraPorSerieYNumero", parameters);
 
             var coincidencias = result.AsEnumerable()
                 .Select<DataRow, ValidarImpoDto>(row => Mapper.Map<DataRow, ValidarImpoDto>(row))
                 .ToList();
 
-            return coincidencias.FirstOrDefault() ?? new ValidarImpoDto(); 
+            return coincidencias.FirstOrDefault() ?? new ValidarImpoDto();
         }
 
-        public async Task<List<CliProveedorDto>> GetCliProByRUCOrRazonComercial(string rucEmpresa, string razonSocial)
+        public List<CliProveedorDto> GetCliProByRUCOrRazonComercial(string rucEmpresa, string razonSocial)
         {
             var parameters = new[]
             {
                 new SqlParameter("@RUC", rucEmpresa)
             };
 
-            var result = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_GetCliProByRUCRazonComercial", parameters);
+            var result = DataBaseHelper.ExecuteStoredProcedure("sp_GetCliProByRUCRazonComercial", parameters);
 
             var coincidencias = result.AsEnumerable()
                 .Select<DataRow, CliProveedorDto>(row => Mapper.Map<DataRow, CliProveedorDto>(row))
@@ -132,14 +135,14 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
         }
 
 
-        public async Task<List<ClaseTipoSunatDto>> GetClaseDocByTipoSunat(string tipoSunat)
+        public List<ClaseTipoSunatDto> GetClaseDocByTipoSunat(string tipoSunat)
         {
             var parameters = new[]
             {
                 new SqlParameter("@TipoSunat", tipoSunat)
             };
 
-            var result = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_GetClaseDocByTipoSunat", parameters);
+            var result = DataBaseHelper.ExecuteStoredProcedure("sp_GetClaseDocByTipoSunat", parameters);
 
             var coincidencias = result.AsEnumerable()
                 .Select<DataRow, ClaseTipoSunatDto>(row => Mapper.Map<DataRow, ClaseTipoSunatDto>(row))
@@ -148,7 +151,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             return coincidencias;
         }
 
-        public async Task<List<PeriodoDto>> ObtenerPeriodosPorFecha(int anio, int mes)
+        public List<PeriodoDto> ObtenerPeriodosPorFecha(int anio, int mes)
         {
             var parameters = new[]
             {
@@ -157,7 +160,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
 
             };
 
-            var result = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_ObtenerPeriodosPorFecha", parameters);
+            var result = DataBaseHelper.ExecuteStoredProcedure("sp_ObtenerPeriodosPorFecha", parameters);
 
             var coincidencias = result.AsEnumerable()
                 .Select<DataRow, PeriodoDto>(row => Mapper.Map<DataRow, PeriodoDto>(row))
@@ -166,10 +169,10 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             return coincidencias;
         }
 
-        public async Task<List<PlantillasDto>> spListarEspecificasCompras()
+        public List<PlantillasDto> spListarEspecificasCompras()
         {
 
-            var result = await DataBaseHelper.ExecuteStoredProcedureAsync("spListarEspecificasCompras");
+            var result =  DataBaseHelper.ExecuteStoredProcedure("spListarEspecificasCompras");
 
             var coincidencias = result.AsEnumerable()
                 .Select<DataRow, PlantillasDto>(row => Mapper.Map<DataRow, PlantillasDto>(row))
@@ -178,7 +181,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             return coincidencias;
         }
 
-        public async Task<List<TipoOperacionDto>> sp_GetTipoOperacion(string codSunat)
+        public List<TipoOperacionDto> sp_GetTipoOperacion(string codSunat)
         {
 
             var parameters = new[]
@@ -187,7 +190,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
 
             };
 
-            var result = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_GetTipoOperacion", parameters);
+            var result = DataBaseHelper.ExecuteStoredProcedure("sp_GetTipoOperacion", parameters);
 
             var coincidencias = result.AsEnumerable()
                 .Select<DataRow, TipoOperacionDto>(row => Mapper.Map<DataRow, TipoOperacionDto>(row))
@@ -196,18 +199,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             return coincidencias;
         }
 
-        public async Task ActualizarPuntoVentaYAlmacen(int idPuntoVenta, int idAlmacen)
-        {
-            var parameters = new[]
-            {
-                    new SqlParameter("@IdPuntoVenta", idPuntoVenta),
-                    new SqlParameter("@IdAlmacen", idAlmacen)
-                };
-
-            await DataBaseHelper.ExecuteStoredProcedureAsync("spActualizarPuntoVentaYAlmacenSrc", parameters);
-        }
-
-        public async Task sp_InsertTemporalBitacoraSrc(TemporalBitacoraSrcDto data)
+        public void sp_InsertTemporalBitacoraSrc(TemporalBitacoraSrcDto data)
         {
             var parameters = new[]
             {
@@ -222,20 +214,20 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@fiseTotal", data.FiseTotal)
             };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("sp_InsertTemporalBitacoraSrc", parameters);
+            DataBaseHelper.ExecuteStoredProcedureWithParams("sp_InsertTemporalBitacoraSrc", parameters);
         }
 
-        public async Task UpdateConfiguracionInicial(int  reiniciar)
+        public void UpdateConfiguracionInicial(int reiniciar)
         {
             var parameters = new[]
             {
                 new SqlParameter("@reiniciar", reiniciar)
             };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("Sp_UpdateConfiguracionFormSrc", parameters);
+            DataBaseHelper.ExecuteStoredProcedureWithParams("Sp_UpdateConfiguracionFormSrc", parameters);
         }
 
-        public async Task InsertarDetalleTemporalSrc(DetalleTemporalBitacoraSrcDto data)
+        public void InsertarDetalleTemporalSrc(DetalleTemporalBitacoraSrcDto data)
         {
             var parameters = new[]
             {
@@ -247,17 +239,17 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@fecha", DateTime.Now)
             };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("sp_insertDetalleTemporalSrc", parameters);
+            DataBaseHelper.ExecuteStoredProcedure("sp_insertDetalleTemporalSrc", parameters);
         }
 
 
-        public async Task<IEnumerable<ProductDto>> BuscarProductoPorId(string idProducto)
+        public IEnumerable<ProductDto> BuscarProductoPorId(string idProducto)
         {
             var parameters = new[]
             {
         new SqlParameter("@IdProducto", idProducto)};
 
-            var data = await DataBaseHelper.ExecuteStoredProcedureAsync("spBuscarProductoPorId", parameters);
+            var data = DataBaseHelper.ExecuteStoredProcedure("spBuscarProductoPorId", parameters);
 
             var products = data.AsEnumerable()
                 .Select<DataRow, ProductDto>(row => Mapper.Map<DataRow, ProductDto>(row))
@@ -267,7 +259,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
         }
 
 
-        public async Task InsertarCliPro(ProveedorDto proveedor)
+        public void InsertarCliPro(ProveedorDto proveedor)
         {
             var parameters = new[]
             {
@@ -282,10 +274,10 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@IdPuntoVenta", Credentials.IdPuntoVenta), // Valor por defecto
             };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("sp_InsertCliPro", parameters);
+            DataBaseHelper.ExecuteStoredProcedureWithParams("sp_InsertCliPro", parameters);
         }
 
-        public async Task ActualizarProductoCompraTemporalMonitoreoSRC(string idProducto,string numCompra,string serieCompra,string NomProducto,decimal api,decimal temp,string scop)
+        public void ActualizarProductoCompraTemporalMonitoreoSRC(string idProducto, string numCompra, string serieCompra, string NomProducto, decimal api, decimal temp, string scop)
         {
             var parameters = new[]
             {
@@ -296,12 +288,11 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@api", api),
                 new SqlParameter("@temp", temp),
                 new SqlParameter("@scop",scop)
-                // Valor por defecto
             };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("spActualizarCompraTemporalMonitoreoSRC", parameters);
-        } 
-        public async Task ActualizaCabeceraTemporalMonitoreoSRC(string idRecepcion,int idSucursal,int IdPeriodo)
+            DataBaseHelper.ExecuteStoredProcedureWithParams("spActualizarCompraTemporalMonitoreoSRC", parameters);
+        }
+        public void ActualizaCabeceraTemporalMonitoreoSRC(string idRecepcion, int idSucursal, int IdPeriodo)
         {
             var parameters = new[]
             {
@@ -310,9 +301,9 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@idPeriodo", IdPeriodo)
             };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("spActualizaCabeceraTemporalMonitoreoSRC", parameters);
-        } 
-        public async Task InsertarEliminarComprobanteSrc(string idRecepcionSrc,string nCompra,int idPeriodo,DateTime fechaLlegada,string scop)
+            DataBaseHelper.ExecuteStoredProcedureWithParams("spActualizaCabeceraTemporalMonitoreoSRC", parameters);
+        }
+        public void InsertarEliminarComprobanteSrc(string idRecepcionSrc, string nCompra, int idPeriodo, DateTime fechaLlegada, string scop)
         {
             var parameters = new[]
             {
@@ -324,17 +315,17 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@nOrdenCompra", scop),
             };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertarEliminarComprobanteSrc", parameters);
+            DataBaseHelper.ExecuteStoredProcedureWithParams("spInsertarEliminarComprobanteSrc", parameters);
         }
 
-        public async Task<List<CompraTemporalMonitoreoSrcDto>> ObtenerCompraTemporalMonitoreoSrc(int? estado = null)
+        public List<CompraTemporalMonitoreoSrcDto> ObtenerCompraTemporalMonitoreoSrc(int? estado = null)
         {
             var parameters = new[]
             {
                 new SqlParameter("@estado", estado ?? (object)DBNull.Value)
             };
 
-            var data = await DataBaseHelper.ExecuteStoredProcedureAsync("spObtenerCompraTemporalMonitoreoSRC", parameters);
+            var data = DataBaseHelper.ExecuteStoredProcedure("spObtenerCompraTemporalMonitoreoSRC", parameters);
 
             var compraMonitoreos = data.AsEnumerable()
                 .Select<DataRow, CompraTemporalMonitoreoSrcDto>(row => Mapper.Map<DataRow, CompraTemporalMonitoreoSrcDto>(row))
@@ -343,16 +334,39 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             return compraMonitoreos;
         }
 
+        public ValidarCierreDto validarCompraCerrado(DateTime fecha, int idPuntoVenta)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@fecha", fecha ),
+                new SqlParameter("@idPuntoVenta", idPuntoVenta)
+            };
+
+            var data = DataBaseHelper.ExecuteStoredProcedure("sp_ConsultarSituacionCierreCompras", parameters);
+
+            var compraMonitoreos = data.AsEnumerable()
+                .Select<DataRow, ValidarCierreDto>(row => Mapper.Map<DataRow, ValidarCierreDto>(row))
+                .ToList();
+
+            if(compraMonitoreos.Count == 0)
+            {
+                return new ValidarCierreDto();
+            }
+
+            return compraMonitoreos[0];
+        }
 
 
-        public async Task<List<CompraTemporalMonitoreoSrcDto>> ObtenerCompraMonitoreoTemporalPorIdRecepcion(string idRecepcion)
+
+
+        public List<CompraTemporalMonitoreoSrcDto> ObtenerCompraMonitoreoTemporalPorIdRecepcion(string idRecepcion)
         {
             var parameters = new[]
             {
                 new SqlParameter("@idRecepcionSrc", idRecepcion)
             };
 
-             var data = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_ObtenerCompraTemporalMonitoreo", parameters));
+             var data =  DataBaseHelper.ExecuteStoredProcedure("sp_ObtenerCompraTemporalMonitoreo", parameters);
 
              var compraMonitoreos = data.AsEnumerable()
                 .Select<DataRow, CompraTemporalMonitoreoSrcDto>(row => Mapper.Map<DataRow, CompraTemporalMonitoreoSrcDto>(row))
@@ -360,9 +374,26 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
 
             return compraMonitoreos;
         }
-        public async Task InsertarCompraTemporalActualizar(CompraTemporalMonitoreoSrcDto data)
+
+        public List<CompraTemporalMonitoreoSrcDto> ObtenerCompraMonitoreoSrcPorIdRecepcion(string idRecepcion)
         {
-            
+            var parameters = new[]
+            {
+                new SqlParameter("@idRecepcionSrc", idRecepcion)
+            };
+
+            var data = DataBaseHelper.ExecuteStoredProcedure("sp_ObtenerCompraTemporalMonitoreoSRC", parameters);
+
+            var compraMonitoreos = data.AsEnumerable()
+               .Select<DataRow, CompraTemporalMonitoreoSrcDto>(row => Mapper.Map<DataRow, CompraTemporalMonitoreoSrcDto>(row))
+               .ToList();
+
+            return compraMonitoreos;
+        }
+
+        public void InsertarCompraTemporalActualizar(CompraTemporalMonitoreoSrcDto data)
+        {
+
             var parameters = new[]
             {
                 new SqlParameter("@idComputadora", Credentials.IdComputadora),
@@ -418,15 +449,17 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 //mostrando......................................................
                 new SqlParameter("@NomProductoSrc", data.NomProductoSrc),
                 new SqlParameter("@IdRecepcionSrc", data.IdRecepcionSrc),
-                new SqlParameter("@IdPeriodo", data.IdPeriodo)
+                new SqlParameter("@IdPeriodo", data.IdPeriodo),
+                // new SqlParameter("@fiseSrc", data.fiseTotal),
+                //new SqlParameter("@idAsientoTipo", data.IdPlantilla),
             };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertCompraTemporalSRC", parameters);
+            DataBaseHelper.ExecuteStoredProcedureWithParams("spInsertCompraTemporalSRC", parameters);
 
 
         }
 
-        public async Task InsertarCompraTemporal(CompraDto compra, CompraDetalleDto dCompra)
+        public void InsertarCompraTemporal(CompraDto compra, CompraDetalleDto dCompra)
         {
             compra.Condicion = "R";
 
@@ -435,14 +468,13 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 compra.FechaVencimiento = compra.FechaVencimiento.AddDays(1);
             }
 
-
             var parameters = new[]
             {
                 new SqlParameter("@idComputadora", Credentials.IdComputadora),
                 new SqlParameter("@tipoDoc", "FAC"),
                 new SqlParameter("@serieCompra", compra.SerieCompra ?? string.Empty),
                 new SqlParameter("@numCompra", compra.NumCompra?.TrimStart('0').PadLeft(8, '0') ?? string.Empty),
-    
+
                 new SqlParameter("@rucPersona", compra.DocumentoProveedor ?? string.Empty),
                 new SqlParameter("@nomPersona", compra.RazonSocial ?? string.Empty),
                 new SqlParameter("@sucursal", compra.SucursalId ?? string.Empty),
@@ -491,18 +523,20 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 //mostrando......................................................
                 new SqlParameter("@NomProductoSrc", dCompra.Descripcion),
                 new SqlParameter("@IdRecepcionSrc", compra.IdRecepcion),
-                new SqlParameter("@IdPeriodo", compra.idPeriodo)
+                new SqlParameter("@IdPeriodo", compra.idPeriodo),
+                new SqlParameter("@fiseSrc", compra.fiseTotal),
+                new SqlParameter("@idAsientoTipo", compra.IdPlantilla),
             };
 
-            await DataBaseHelper.ExecuteStoredProcedureAsync("spInsertCompraTemporal", parameters);
+            DataBaseHelper.ExecuteStoredProcedureWithParams("spInsertCompraTemporal", parameters);
 
-           
+
         }
 
-        public async Task<GetConfiguracionDto> GetConfiguracionInicial()
+        public GetConfiguracionDto GetConfiguracionInicial()
         {
           
-            var data = await DataBaseHelper.ExecuteStoredProcedureAsync("Sp_GetConfigurationSrc");
+            var data =  DataBaseHelper.ExecuteStoredProcedure("Sp_GetConfigurationSrc");
 
             var configuracion = data.AsEnumerable()
                 .Select<DataRow, GetConfiguracionDto>(row => Mapper.Map<DataRow, GetConfiguracionDto>(row))
@@ -513,13 +547,13 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             }
             return configuracion[0];
         }
-        public async Task<GetProductExtDto> getIdProductoExt(string idProducto)
+        public GetProductExtDto getIdProductoExt(string idProducto)
         {
             var parameters = new[]
             {
                 new SqlParameter("@idProducto", idProducto)
             };
-            var data = await DataBaseHelper.ExecuteStoredProcedureAsync("Sp_GetIdProductoExt",parameters);
+            var data = DataBaseHelper.ExecuteStoredProcedure("Sp_GetIdProductoExt", parameters);
 
             var configuracion = data.AsEnumerable()
                 .Select<DataRow, GetProductExtDto>(row => Mapper.Map<DataRow, GetProductExtDto>(row))
@@ -531,7 +565,8 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             return configuracion[0];
         }
 
-        public async Task crearBackup(List<CompraDto> data)
+
+        public void crearBackup(List<CompraDto> data)
         {
             var backup = JsonConvert.SerializeObject(data);
 
@@ -541,13 +576,13 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             {
                 new SqlParameter("@jsonNuevo", backupEncriptado)
             };
-            await DataBaseHelper.ExecuteStoredProcedureAsync("sp_createJsonBackupSrc", parameters);
+            DataBaseHelper.ExecuteStoredProcedureWithParams("sp_createJsonBackupSrc", parameters);
         }
 
 
-        public async Task<List<CompraDto>> getBackup()
+        public List<CompraDto> getBackup()
         {
-            var dt = await DataBaseHelper.ExecuteStoredProcedureAsync("sp_listarJsonBackupSrc");
+            var dt = DataBaseHelper.ExecuteStoredProcedure("sp_listarJsonBackupSrc");
             if (dt != null && dt.Rows.Count > 0)
             {
                 string json = dt.Rows[0]["jsonRespaldado"].ToString();
@@ -559,6 +594,25 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 return new List<CompraDto>();
             }
         }
+
+        public List<PermisosInterfacesDto> sp_ObtenerPermisosPorInterfaceYUsuarioSrc(int idUsuario)
+        {
+
+            var parameters = new[]
+             {
+                new SqlParameter("@IdUsuario", idUsuario),
+
+            };
+
+            var result =  DataBaseHelper.ExecuteStoredProcedure("sp_ObtenerPermisosPorInterfaceYUsuarioSrc", parameters);
+
+            var data = result.AsEnumerable()
+                .Select<DataRow, PermisosInterfacesDto>(row => Mapper.Map<DataRow, PermisosInterfacesDto>(row))
+                .ToList();
+
+            return data;
+        }
+
         private int GetMaxLength(string paramName)
         {
             switch (paramName)

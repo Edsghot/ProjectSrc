@@ -15,6 +15,7 @@ namespace PknoPlusCS.Configuration.Constants
         public static int IdDepartamento { get; set; }
         public static int IdTurno { get; set; }
         public static string Ruc { get; set; }
+        public static int IdUsuario { get; set; }
 
     }
 }

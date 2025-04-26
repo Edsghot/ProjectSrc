@@ -2,6 +2,7 @@
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Sucursal;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Validacion;
 using PknoPlusCS.Modules.CompraSRC.Domain.IRepository;
 using System;
 using System.Collections.Generic;
@@ -22,5 +23,6 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Port
         Task updateConfiguration(int reiniciar);
         List<SucursalDto> GetAllSucursales();
         string GetCodigoSucursal(string nameSucursal);
+        ValidarCierreDto validarCierreArea(DateTime fecha, int idPuntoVenta);
     }
 }

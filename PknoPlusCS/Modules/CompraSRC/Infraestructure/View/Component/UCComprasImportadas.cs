@@ -14,6 +14,9 @@ using PknoPlusCS.Forms.DialogView;
 using System.Threading.Tasks;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Sucursal;
 using ExpressMapper.Extensions;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Permisos;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Validacion;
+using System.Windows.Media.Media3D;
 
 namespace PknoPlusCS.Forms
 {
@@ -24,6 +27,7 @@ namespace PknoPlusCS.Forms
         private int totalRows;
         private readonly ICompraSrcImportadosInputPort _compraSrc;
         private List<SucursalDto> sucursales;
+        private ValidarCierreDto validarAreaCerrado;
 
         public UCComprasImportadas()
         {
@@ -63,11 +67,15 @@ namespace PknoPlusCS.Forms
                     return;
                 }
 
+
                 pictureNone.Visible = false;
                 dataTable.Rows.Clear();
                 int cont = 0;
                 foreach (var compra in data)
                 {
+            
+
+                    validarAreaCerrado = _compraSrc.validarCierreArea(compra.FechaImportacion, int.Parse(compra.Sucursal));
                     var mensajeee = compra.Actualizar ?  "Actualizado": "Ok";
                     dataTable.Rows.Add(
                         cont+1,
@@ -81,12 +89,13 @@ namespace PknoPlusCS.Forms
                         compra.Estado == 3 ? "Migrado" : "Procesando",
                         compra.Actualizar == true ? "Cerrado" : "Editar"
                     );
-                    if (compra.Actualizar)
+                    if (compra.Actualizar || validarAreaCerrado.situacion != true)
                     {
                         DataGridViewCell cell = dataTable.Rows[cont].Cells["Column10"];
                         cell.ReadOnly = true;
                         cell.Style.ForeColor = Color.Gray;
                         cell.Style.BackColor = Color.LightGray;
+                      
                     }
                     cont++;
                 }
@@ -130,7 +139,13 @@ namespace PknoPlusCS.Forms
                 OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
 
                 string valorColumna9 = dataTable.Rows[e.RowIndex].Cells[9].Value?.ToString();
-
+               
+                if (!DataPermisoStaticDto.EditarMigracion)
+                {
+                    MessageBox.Show("No tienes permisos para editar compras", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                 
+                    return;
+                }
                 if (valorColumna9 == "Cerrado")
                 {
                     MessageBox.Show("Esta compra ya ha sido actualizada y no puede actualizarse nuevamente, ya que solo se permite una actualización", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -147,6 +162,14 @@ namespace PknoPlusCS.Forms
                     if (!string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(ruc))
                     {
                         var idRecepcion = await _compraSrc.GetIdRecepcion(code, ruc);
+                        var data = await _compraSrc.GetAllByIdRecepcion(idRecepcion);
+
+                        validarAreaCerrado = _compraSrc.validarCierreArea(data.FechaImportacion, int.Parse(data.Sucursal));
+                        if(validarAreaCerrado.situacion != true)
+                        {
+                            MessageBox.Show("No se puede editar la compra porque el área está cerrada", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
                         ExtraStatic.idRecepcion = idRecepcion;
                         var modal = new DialogModal("¡Importante!", "Al editar esta compra, se eliminará la importación registrada en el ERP y se creara un nuevo registro de importación.", "warning", code, idRecepcion, ruc);
                         overlayForm.ShowOverlayWithModal(modal);

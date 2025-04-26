@@ -66,9 +66,9 @@ namespace PknoPlusCS.Forms.DialogView
             List<CoincidenciaProdSrcDto> coincidencias = new List<CoincidenciaProdSrcDto>();
             try
             {
-                coincidencias = await _repo.ObtenerCoincidenciasProdSrcPorRuc(this.rucRecuperado);
+                coincidencias =  _repo.ObtenerCoincidenciasProdSrcPorRuc(this.rucRecuperado);
 
-                 coincidencia2 = await _repo.ObtenerCompraMonitoreoTemporalPorIdRecepcion(ExtraStatic.idRecepcion);
+                 coincidencia2 =  _repo.ObtenerCompraMonitoreoTemporalPorIdRecepcion(ExtraStatic.idRecepcion);
                 txtScop.Text = coincidencia2[0].Scop;
             }
             catch (Exception ex)
@@ -89,7 +89,7 @@ namespace PknoPlusCS.Forms.DialogView
                 {
                     try
                     {
-                        var response = await _repo.searchProducts(detalle.NomProductoSrc);
+                        var response =  _repo.searchProducts(detalle.NomProductoSrc);
                         if (response != null && response.Any())
                         {
                             var firstProduct = response.First();
@@ -301,11 +301,11 @@ namespace PknoPlusCS.Forms.DialogView
                     };
 
                     await compra.EscanearDCompra(idProductoErp2, nombreProdSrc2);
-                    var response = _repo.InsertProdCuencidencia(productoInsertar).GetAwaiter();
+                    _repo.InsertProdCuencidencia(productoInsertar);
 
                     var arr = CodigoCompraCompleto.Split('-');
 
-                     _repo.ActualizarProductoCompraTemporalMonitoreoSRC(idProductoErp2, arr[1], arr[0], nombreProdSrc2, api, temp,txtScop.Text).GetAwaiter();
+                     _repo.ActualizarProductoCompraTemporalMonitoreoSRC(idProductoErp2, arr[1], arr[0], nombreProdSrc2, api, temp,txtScop.Text);
                     DataStaticDto.data[_index].Coicidencia = "Revisado";
                 }
 

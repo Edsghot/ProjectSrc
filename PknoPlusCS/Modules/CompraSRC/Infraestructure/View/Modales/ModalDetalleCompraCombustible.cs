@@ -166,7 +166,7 @@ namespace PknoPlusCS.Forms.DialogView
                     Convert.ToDecimal(row.Cells[5].Value ?? 0)).GetAwaiter();
                 }
             }
-            await compraInput.createBackup();
+            compraInput.createBackup();
             this.Close();
             mainForm.ShowToast("Datos guardados.", "success");
 

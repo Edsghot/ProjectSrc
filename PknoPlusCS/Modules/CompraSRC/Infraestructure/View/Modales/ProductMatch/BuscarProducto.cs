@@ -84,7 +84,7 @@ namespace PknoPlusCS.Forms.DialogView.ProductMatch
             {
                 if (cmbSearchOption.SelectedItem.ToString() == "Nombre")
                 {
-                    var response = await _repo.searchProducts(searchQuery);
+                    var response =  _repo.searchProducts(searchQuery);
 
                     if (response != null && response.Any())
                     {
@@ -102,7 +102,7 @@ namespace PknoPlusCS.Forms.DialogView.ProductMatch
                 }
                 else if (cmbSearchOption.SelectedItem.ToString() == "ID de producto")
                 {
-                    var response = await _repo.BuscarProductoPorId(searchQuery);
+                    var response =  _repo.BuscarProductoPorId(searchQuery);
 
                     if (response != null && response.Any())
                     {

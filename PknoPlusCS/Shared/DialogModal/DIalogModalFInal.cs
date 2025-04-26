@@ -31,12 +31,11 @@ namespace PknoPlusCS.Shared.DialogModal
             
             port.InsertarDelTemporalActualizar(ExtraStatic.idRecepcion).GetAwaiter().GetResult();
             var data = await port.GetAllByIdRecepcion(ExtraStatic.idRecepcion);
-            repo.UpdateConfiguracionInicial(1).GetAwaiter().GetResult();
-            repo.InsertarEliminarComprobanteSrc(ExtraStatic.idRecepcion,data.NCompraErp,data.IdPeriodo,data.FechaLlegada?? DateTime.Now,data.Scop).GetAwaiter();
+             repo.UpdateConfiguracionInicial(1);
+            repo.InsertarEliminarComprobanteSrc(ExtraStatic.idRecepcion,data.NCompraErp,data.IdPeriodo,data.FechaLlegada?? DateTime.Now,data.Scop);
             
             var resultado = MessageBox.Show(
-                "¿Desea dejar de utilizar la aplicación?\nTu importación se actualizará apenas salgas de la aplicación",
-                "Confirmación",
+                "La edicion del registro se realizara en breve... \n Desea cerrar el formulario?", "Confirmación",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );
@@ -60,6 +59,16 @@ namespace PknoPlusCS.Shared.DialogModal
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

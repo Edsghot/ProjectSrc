@@ -5,6 +5,7 @@ using PknoPlusCS.Modules.CompraSRC.Application.Adapter;
 using PknoPlusCS.Modules.CompraSRC.Application.Port;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Constantes;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Permisos;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -28,8 +29,16 @@ namespace PknoPlusCS.Forms
             InitializeComponent();
             dataTable.CellFormatting += dataTable_CellFormatting;
             dataTable.CellClick += dataTable_CellClick;
-          
 
+            if (!DataPermisoStaticDto.MigrarCompras)
+            {
+                btnImportar.BackColor = Color.LightGray;
+            }
+            if (!DataPermisoStaticDto.Escanear) { 
+                btnEscanear.BackColor = Color.LightGray;
+            }
+            btnImportar.Enabled = DataPermisoStaticDto.MigrarCompras;
+            btnEscanear.Enabled = DataPermisoStaticDto.Escanear;
 
             dateInicio.ValueChanged += (sender, args) =>
             {
@@ -285,10 +294,15 @@ namespace PknoPlusCS.Forms
         //----------------------------------------------------------------------------------- TABLE CLICK
         private async void dataTable_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+
+            if (!DataPermisoStaticDto.EditarDetalle)
+            {
+                MessageBox.Show("No tiene permisos para editar los detalles de la compra");
+                return;
+            }
             if (e.RowIndex >= 0 && e.RowIndex < dataTable.Rows.Count && e.ColumnIndex >= 0 && e.ColumnIndex < dataTable.Columns.Count)
             {
 
-                int realIndex = (currentPage - 1) * rowsPerPage + e.RowIndex;
                 var columnName = dataTable.Columns[e.ColumnIndex].Name;
                 OverlayFormModal overlayForm = new OverlayFormModal(this.ParentForm);
 
@@ -339,17 +353,23 @@ namespace PknoPlusCS.Forms
                     }
                 }
 
-                if (columnName == "Column3")
+                var codigoProveedorG = dataTable.Rows[e.RowIndex].Cells["Column5"].Value?.ToString();
+                var codigoG = dataTable.Rows[e.RowIndex].Cells["Column1"].Value?.ToString();
+
+                var idRecepcionG = await _compraSrc.GetIdRecepcion(codigoProveedorG, codigoG);
+                var CompraEscogido = _compraSrc.ObtenerCompraPorIdRecepcion(idRecepcionG);
+
+                    if (columnName == "Column3")
                 {
-                    string direccion = DataStaticDto.data[realIndex].Sucursal;
-                    Sucursal modal = new Sucursal((MainComprasSrc)this.ParentForm, direccion, realIndex);
+                    string direccion = CompraEscogido.Sucursal;
+                    Sucursal modal = new Sucursal((MainComprasSrc)this.ParentForm, direccion, idRecepcionG);
                     overlayForm.ShowOverlayWithModal(modal);
-                    await _compraSrc.createBackup();
+                     _compraSrc.createBackup();
                 }
 
                 if (columnName == "Column4")
                 {
-                    AsientoTipo modal = new AsientoTipo((MainComprasSrc)this.ParentForm, realIndex);
+                    AsientoTipo modal = new AsientoTipo((MainComprasSrc)this.ParentForm, idRecepcionG);
                     overlayForm.ShowOverlayWithModal(modal);
                 }
 
@@ -367,8 +387,8 @@ namespace PknoPlusCS.Forms
                     dateTimePicker.ValueChanged += (s, args) =>
                     {
                         dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dateTimePicker.Value.ToString("dd/MM/yyyy");
-                        DataStaticDto.data[realIndex].FechaLlegada = dateTimePicker.Value.ToString("dd/MM/yyyy");
-                        DataStaticDto.data[realIndex].EstadoFechaLlegada = true;
+                        CompraEscogido.FechaLlegada = dateTimePicker.Value.ToString("dd/MM/yyyy");
+                        CompraEscogido.EstadoFechaLlegada = true;
                         HFunciones.ActualizarEstados();
                         dataTable.Controls.Remove(dateTimePicker);
                     };
@@ -389,9 +409,10 @@ namespace PknoPlusCS.Forms
                             CompraDto compra =  _compraSrc.ObtenerCompraPorIdRecepcion(idRecepcion);
                             if (compra != null)
                             {
-                                CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.idCompraSerie, compra.Compras, DataStaticDto.data[realIndex].DocumentoProveedor, realIndex);
+                                CoincidenciaProductos modal = new CoincidenciaProductos((MainComprasSrc)this.ParentForm, compra.idCompraSerie, compra.Compras, CompraEscogido.DocumentoProveedor, CompraEscogido.IdRecepcion);
                                 overlayForm.ShowOverlayWithModal(modal);
                                 ActualizarTabla();
+                                _compraSrc.createBackup();
                             }
                             else
                             {
@@ -427,10 +448,12 @@ namespace PknoPlusCS.Forms
 
                 if (columnName == "Column13")
                 {
-                    DataStaticDto.data[realIndex].Seleccionado = !DataStaticDto.data[realIndex].Seleccionado;
-                    dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = DataStaticDto.data[realIndex].Seleccionado;
+                    CompraEscogido.Seleccionado = !CompraEscogido.Seleccionado;
+                    dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = CompraEscogido.Seleccionado;
                     dataTable.Refresh(); 
                 }
+
+                 _compraSrc.createBackup();
 
             }
         }

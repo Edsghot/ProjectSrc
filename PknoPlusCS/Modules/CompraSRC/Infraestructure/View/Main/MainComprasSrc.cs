@@ -60,6 +60,7 @@ namespace PknoPlusCS
 
         private void LoadUserControl(UserControl userControl, IconButton senderButton)
         {
+
             if (activeControl != null)
             {
                 pnlContainer.Controls.Remove(activeControl);
@@ -107,7 +108,7 @@ namespace PknoPlusCS
             lblSucursal.Text = data.NomSucursal;
 
             ICompraSrcRepository repository = new CompraSrcRepository();
-            var dataRepo = await repository.GetConfiguracionInicial();
+            var dataRepo =  repository.GetConfiguracionInicial();
 
             switch (dataRepo.reiniciar)
             {
@@ -116,7 +117,7 @@ namespace PknoPlusCS
                     break;
                 case 1:
                     DataStaticDto.data = await compra.ObtenerDataSrc();
-                    await repository.UpdateConfiguracionInicial(0);
+                     repository.UpdateConfiguracionInicial(0);
                     LoadUserControl(new UCComprasImportadas(), btnOption2);
                     break;
 

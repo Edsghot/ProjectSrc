@@ -21,14 +21,14 @@ namespace PknoPlusCS.Forms.DialogView
         private readonly MainComprasSrc mainForm;
         private readonly ICompraSrcRepository _repo;
         private readonly ICompraSrcInputPort _compraSrc;
-        private readonly int _index;
+        private readonly string _idRecepcion;
         private List<PlantillasDto> planillas;
-        public AsientoTipo(MainComprasSrc main, int index)
+        public AsientoTipo(MainComprasSrc main, string idRecepcion)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.mainForm = main;
-            _index = index;
+            _idRecepcion = idRecepcion;
             _repo = new CompraSrcRepository();
             _compraSrc = new CompraSrcAdapter();
         }
@@ -42,7 +42,7 @@ namespace PknoPlusCS.Forms.DialogView
         {
             try
             {
-                planillas = (await _repo.spListarEspecificasCompras()).ToList();
+                planillas = ( _repo.spListarEspecificasCompras()).ToList();
 
                 var planillasUnicas = planillas
                     .GroupBy(p => p.NomPlantilla)
@@ -80,14 +80,15 @@ namespace PknoPlusCS.Forms.DialogView
             {
                 var idPlantilla = (planillaSeleccionada.IdPlantilla).ToString();
                 var nomPlantilla = (planillaSeleccionada.NomPlantilla).ToString();
+                var dataModificar = _compraSrc.ObtenerCompraPorIdRecepcion(_idRecepcion);
                 try
                 {
-                    DataStaticDto.data[_index].IdPlantilla = idPlantilla;
-                    DataStaticDto.data[_index].NomPlantilla = nomPlantilla;
-                    DataStaticDto.data[_index].EstadoAsiento = true;
+                    dataModificar.IdPlantilla = idPlantilla;
+                    dataModificar.NomPlantilla = nomPlantilla;
+                    dataModificar.EstadoAsiento = true;
                     HFunciones.ActualizarEstados();
                     mainForm.ShowToast("Datos de la plantilla añadidos con éxito.", "success");
-                    _compraSrc.createBackup().GetAwaiter().GetResult();
+                    _compraSrc.createBackup();
                     this.Close();
                 }
                 catch (Exception ex)

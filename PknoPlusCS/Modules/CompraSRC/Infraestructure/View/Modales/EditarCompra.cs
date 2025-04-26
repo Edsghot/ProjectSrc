@@ -74,16 +74,14 @@ namespace PknoPlusCS.Forms
                 var almacen = Convert.ToInt32(almacenSeleccionado.IdAlmacen);
                 try
                 {
-                    await _repo.ActualizarPuntoVentaYAlmacen(idPunto, almacen);
-                    var dataPeriodo = (await _repo.ObtenerPeriodosPorFecha(anio,mes))[0];
+                    var dataPeriodo = ( _repo.ObtenerPeriodosPorFecha(anio,mes))[0];
                     var idPeriodo = dataPeriodo.IdPeriodo;
-                    await _repo.ActualizaCabeceraTemporalMonitoreoSRC(ExtraStatic.idRecepcion, idPunto, idPeriodo);
+                     _repo.ActualizaCabeceraTemporalMonitoreoSRC(ExtraStatic.idRecepcion, idPunto, idPeriodo);
 
                     var modal = new DIalogModalFInal();
                     modal.TopMost = true;
                     modal.ShowDialog();
                     this.Close();
-
                 }
                 catch (Exception ex)
                 {    
@@ -114,7 +112,7 @@ namespace PknoPlusCS.Forms
                     cbMes.SelectedItem = mesNombre;
                 }
 
-                sucursales = (await _repo.getAllSucursal()).ToList();
+                sucursales = ( _repo.getAllSucursal()).ToList();
 
                 var sucursalesUnicas = sucursales
                     .GroupBy(s => s.NomPuntoVenta)

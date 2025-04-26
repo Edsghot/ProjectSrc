@@ -19,11 +19,11 @@ namespace PknoPlusCS.Forms.DialogView
         private readonly MainComprasSrc mainForm;
         private readonly ICompraSrcRepository _repo;
         private readonly ICompraSrcInputPort _compraSrc;
-        private readonly int _index;
+        private readonly string _idRecepcion;
 
         private List<SucursalDto> sucursales;
 
-        public Sucursal(MainComprasSrc main, string direccion, int index)
+        public Sucursal(MainComprasSrc main, string direccion, string idRecepcionSrc)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -31,7 +31,7 @@ namespace PknoPlusCS.Forms.DialogView
 
             txtDireccion.Text = string.IsNullOrEmpty(direccion) ? "Pendiente" : direccion;
 
-            _index = index;
+            _idRecepcion = idRecepcionSrc;
             _repo = new CompraSrcRepository();
             _compraSrc = new CompraSrcAdapter();
         }
@@ -46,7 +46,7 @@ namespace PknoPlusCS.Forms.DialogView
             try
             {
                 //sucursales = await GetSimulatedSucursales();
-                sucursales = (await _repo.getAllSucursal()).ToList();
+                sucursales = ( _repo.getAllSucursal()).ToList();
 
                 var sucursalesUnicas = sucursales
                     .GroupBy(s => s.NomPuntoVenta)
@@ -58,7 +58,7 @@ namespace PknoPlusCS.Forms.DialogView
                 cbSucursal.ValueMember = "IdPuntoVenta";
 
                 var sucursalesSeleccionadas = sucursalesUnicas
-                    .Where(s => s.SucursalSRC == "True" && sucursales.Any(a => a.IdPuntoVenta == s.IdPuntoVenta && a.AlmacenSrc == "True"))
+                    .Where(s =>  sucursales.Any(a => a.IdPuntoVenta == s.IdPuntoVenta))
                     .ToList();
 
                 if (sucursalesSeleccionadas.Any())
@@ -105,17 +105,18 @@ namespace PknoPlusCS.Forms.DialogView
             {
                 var idPunto = Convert.ToInt32(almacenSeleccionado.IdPuntoVenta);
                 var almacen = Convert.ToInt32(almacenSeleccionado.IdAlmacen);
+                var dataAmodificar = _compraSrc.ObtenerCompraPorIdRecepcion(_idRecepcion);
                 try
                 {
-                    await _repo.ActualizarPuntoVentaYAlmacen(idPunto, almacen);
-                        DataStaticDto.data[_index].Sucursal = txtDireccion.Text;
-                        DataStaticDto.data[_index].NewSucursal = txtDireccion.Text;
-                        DataStaticDto.data[_index].IdAlmacen = almacen;
-                        DataStaticDto.data[_index].EstadoAlmacen = true;
-                        DataStaticDto.data[_index].EstadoSucursal = true;
-                        HFunciones.ActualizarEstados();
+                        dataAmodificar.Sucursal = almacenSeleccionado.NomPuntoVenta;
+                        dataAmodificar.NewSucursal = almacenSeleccionado.NomAlmacen;
+                        dataAmodificar.IdAlmacen = almacen;
+                        dataAmodificar.EstadoAlmacen = true;
+                        dataAmodificar.EstadoSucursal = true;
+                        dataAmodificar.SucursalId = idPunto.ToString();
+                    HFunciones.ActualizarEstados();
                         mainForm.ShowToast("Datos de la sucursal añadidos con éxito.", "success");
-                        await _compraSrc.createBackup();
+                        _compraSrc.createBackup();
                         this.Close();
                    
                 }
@@ -130,7 +131,7 @@ namespace PknoPlusCS.Forms.DialogView
         {
             if (cbSucursal.SelectedItem is SucursalDto sucursalSeleccionada)
             {
-                txtDireccion.Text = sucursalSeleccionada.LocalFisico;
+                txtDireccion.Text = sucursalSeleccionada.NomPuntoVenta;
 
                 var almacenes = sucursales
                     .Where(a => a.IdPuntoVenta == sucursalSeleccionada.IdPuntoVenta)

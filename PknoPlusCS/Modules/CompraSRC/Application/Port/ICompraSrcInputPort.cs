@@ -23,7 +23,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Port
         Task ActualizarScopApiTemp(string idRecepcion, string nomProducto, string scop, decimal api, decimal temp);
         Task updateConfiguration(int reiniciar);
         Task<List<CompraDto>> obtenerDataDelSrc();
-        Task createBackup();
+        void createBackup();
         CompraDto ObtenerCompraPorIdRecepcion(string idRecepcion);
         CompraDto ObtenerCompraPorDocumentoProveedor(string documentoProveedor, string codigo);
     }

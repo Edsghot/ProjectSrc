@@ -102,6 +102,64 @@ namespace PknoPlusCS.Global.DataBase
             return dataTable;
         }
 
+        public static DataTable ExecuteStoredProcedure(string procedureName, params SqlParameter[] parameters)
+        {
+            var dataTable = new DataTable();
+
+            try
+            {
+                using (var connection = new SqlConnection(Credentials.DataBaseConection))
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand(procedureName, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddRange(parameters);
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            dataTable.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error ejecutando el procedimiento almacenado '{procedureName}': {ex.Message}", "Error");
+            }
+
+            return dataTable;
+        }
+
+        public static DataTable ExecuteStoredProcedure(string procedureName)
+        {
+            var dataTable = new DataTable();
+
+            try
+            {
+                using (var connection = new SqlConnection(Credentials.DataBaseConection))
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand(procedureName, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            dataTable.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error ejecutando el procedimiento almacenado '{procedureName}': {ex.Message}", "Error");
+            }
+
+            return dataTable;
+        }
+
+
         // Método sincrónico para ejecutar un procedimiento almacenado con parámetros
         public static void ExecuteStoredProcedureWithParams(string procedureName, params SqlParameter[] parameters)
         {

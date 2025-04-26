@@ -31,18 +31,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnContinuar = new System.Windows.Forms.Button();
-            this.lblSubtitle = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.iconPicture = new FontAwesome.Sharp.IconPictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnCerrar);
             this.panel1.Controls.Add(this.btnContinuar);
-            this.panel1.Controls.Add(this.lblSubtitle);
             this.panel1.Controls.Add(this.lblTitle);
             this.panel1.Controls.Add(this.iconPicture);
             this.panel1.Location = new System.Drawing.Point(11, 11);
@@ -84,18 +86,6 @@
             this.btnContinuar.UseVisualStyleBackColor = false;
             this.btnContinuar.Click += new System.EventHandler(this.btnContinuar_Click);
             // 
-            // lblSubtitle
-            // 
-            this.lblSubtitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubtitle.Location = new System.Drawing.Point(15, 119);
-            this.lblSubtitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblSubtitle.Name = "lblSubtitle";
-            this.lblSubtitle.Size = new System.Drawing.Size(206, 81);
-            this.lblSubtitle.TabIndex = 3;
-            this.lblSubtitle.Text = "Para realizar una nueva modificación tendrás que hacerla directamente desde el ER" +
-    "P de forma manual.";
-            this.lblSubtitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lblTitle
             // 
             this.lblTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -107,8 +97,9 @@
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(208, 35);
             this.lblTitle.TabIndex = 2;
-            this.lblTitle.Text = "¿Estás seguro?";
+            this.lblTitle.Text = "¿Estás seguro de ";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // iconPicture
             // 
@@ -125,6 +116,35 @@
             this.iconPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.iconPicture.TabIndex = 1;
             this.iconPicture.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(13, 112);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(208, 35);
+            this.label1.TabIndex = 7;
+            this.label1.Text = " realizar la modificacion?";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(13, 135);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(208, 33);
+            this.label2.TabIndex = 8;
+            this.label2.Text = " modificación?";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DIalogModalFInal
             // 
@@ -148,8 +168,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.Button btnContinuar;
-        private System.Windows.Forms.Label lblSubtitle;
         private System.Windows.Forms.Label lblTitle;
         private FontAwesome.Sharp.IconPictureBox iconPicture;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
