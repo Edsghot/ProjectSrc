@@ -42,6 +42,8 @@ namespace PknoPlusCS.Forms.DialogView
         {
             try
             {
+                var compra = _compraSrc.ObtenerCompraPorIdRecepcion(_idRecepcion);
+
                 planillas = ( _repo.spListarEspecificasCompras()).ToList();
 
                 var planillasUnicas = planillas
@@ -57,7 +59,7 @@ namespace PknoPlusCS.Forms.DialogView
 
                 if (planillasUnicas.Any())
                 {
-                    var planillaSeleccionada = planillasUnicas.First();
+                    var planillaSeleccionada = planillasUnicas.FirstOrDefault(x => x.IdPlantilla == compra.IdPlantilla);
                     cbAsientoTipo.SelectedValue = planillaSeleccionada.IdPlantilla;
 
                     // Aquí puedes agregar cualquier lógica adicional que necesites para las planillas seleccionadas

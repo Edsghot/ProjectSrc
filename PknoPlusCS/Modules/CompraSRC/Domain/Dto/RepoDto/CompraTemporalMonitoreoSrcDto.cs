@@ -73,6 +73,8 @@ namespace PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto
         public string EstadoComprobante { get; set; }
 
         public DateTime FechaImportacion { get; set; }
+        public decimal FiseSrc { get; set; }
+        public string idAsientoTipo { get; set; }
     }
 
 }

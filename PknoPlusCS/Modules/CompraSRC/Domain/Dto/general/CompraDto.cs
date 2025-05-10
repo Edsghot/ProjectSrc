@@ -88,6 +88,7 @@ public class CompraDto
     public DateTime? fechaEspecialRC { get; set; } = new DateTime(2000, 1, 1);
     public bool servicioIntangible { get; set; }
     public int idTipoOperacion { get; set; }
+    public int igvCosto { get; set; }
     public int idDepartamento { get; set; }
     public string nOrdenCompra { get; set; }
     public decimal detraccion { get; set; }

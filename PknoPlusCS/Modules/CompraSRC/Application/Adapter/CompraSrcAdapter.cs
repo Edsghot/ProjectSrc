@@ -15,6 +15,7 @@ using PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.bitacora;
 using PknoPlusCS.Configuration.Logs;
 using System.Windows;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Validacion;
 
 namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 {
@@ -46,7 +47,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             else
             {
 
-                Logs.WriteLog("INFO", "Obteiendo datos del SRC restablecido");
+                Logs.WriteLog("INFO", "Obteniendo datos del SRC restablecido");
                 backup = true;
                 DataStaticDto.data = backupRestablecido;
 
@@ -57,6 +58,9 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                     var data = await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
 
                 }
+
+                //DataStaticDto.data = await obtenerDataDelSrc();
+                createBackup();
                 Logs.WriteLog("INFO", "termino la validacion de la importacion");
 
                 Logs.WriteLog("INFO", "Iniciadndo validar y bsuqueda de errores en compras " + DataStaticDto.data.Count());
@@ -97,6 +101,11 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             Logs.WriteLog("INFO", "Resultado: "+response.Resultado);
 
             Logs.WriteLog("INFO", "response.MensajeError: " + response.MensajeError);
+            if (response.TieneError == true)
+            {
+                MessageBox.Show("Error al consultar la informacion en el SRC: \n\n - Revisa tu conexion a internet\n - Revisa que tengas acceso a la api del SRC \n - vuelve a abrir el formulario \n\n -* error devuelto del api key:\n" + response.MensajeError);
+                return new List<CompraDto>();
+            }
 
             if (response == null || response.Resultado == null)
             {
@@ -116,8 +125,9 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
                 var data = await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
 
-
             }
+
+            createBackup();
 
             foreach (var compra in compraDtos)
             {
@@ -456,17 +466,31 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                         Message = "Tienes que enviar el codigo de tratamiento ya sea 10 o 30 (exonerado o inafecto)"
                     });
                     
-                    if(compra.Tratamiento == "10" && compra.Igv > 0)
+                    if(compra.Tratamiento == "10" && compra.Igv <=  0)
                     {
                         genericError.IndError = true;
                         ErrorDetail.Add(new validationErrorDto
                         {
                             Detail = "compra.Igv y compra.Tratamiento",
                             Field = compra.Tratamiento,
-                            Message = "Si se trata de una gravada(Operacion onerosa) se necesita agregar el IGV"
+                            Message = "Si se trata de una gravada(Operacion gravada) se necesita agregar el IGV"
                         });
                     }
-                
+
+                    if (compra.Tratamiento == "20" && compra.Igv > 0)
+                    {
+                        genericError.IndError = true;
+                        ErrorDetail.Add(new validationErrorDto
+                        {
+                            Detail = "compra.Igv y compra.Tratamiento",
+                            Field = compra.Tratamiento,
+                            Message = "Si se trata de una operacion exonerada no debe tener igv"
+                        });
+                    }
+
+
+                    data.igvCosto = compra.Tratamiento == "20" ? 1 : 0;
+
                 }
 
             }
@@ -480,7 +504,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                 genericError.IndError = true;
                 ErrorDetail.Add(new validationErrorDto
                 {
-                    Detail = "Monto total igual o menor a 0",
+                    Detail = "compra.Total",
                     Field = data.TotalPagar,
                     Message = "El monto de la compra no puede ser cero o menor"
                 });
@@ -514,10 +538,9 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             data.guiaRecibida = -1;
             data.nPercepcion = "0";
             //data.Fecha{Percepcion
-            data.pRetencion = 0;
+            data.pRetencion = data.TotalPercepcion > 0 ? 1: 0;
             data.nCompraPlus = data.SerieCompra + data.NumCompra;
             data.nOrdenCompraProveedor = "0";
-            data.fiseTotal = 0;
             data.idClasificacionBienesServicios = 1;
             data.idTipoFacturacionGuiaRemision = 2;
             data.nProcesoAsociado = "0";
@@ -561,7 +584,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                 Scop = compra.Scop,
                 IdPeriodo = idPeriodo,
                 FechaPeriodo = dataPeriodo.FechaFin,
-                FiseTotal = compra.fiseTotal,
+                FiseTotal = compra.Compras.FirstOrDefault().Fise,
             });
 
             return true;
@@ -569,8 +592,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
         public async Task<bool> validarImportacion(string serie,string numCompra,string idRecepcion)
         {
-            numCompra = new string(numCompra.Where(c => char.IsDigit(c) && c != '0').ToArray()); // Elimina los ceros
-
+           
             numCompra = numCompra.PadLeft(10, '0');
 
             var conjunto = "F" + serie + numCompra;
@@ -581,11 +603,19 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             {
 
                 var dataaa= await apiClient.PutComprobanteAsync(idRecepcion, true);
-                var dataModificar = DataStaticDto.data.FirstOrDefault(x => x.IdRecepcion == idRecepcion);
-                dataModificar.Estado = StatusConstant.Importado;
-                createBackup();
-                var _ = await obtenerDataDelSrc();
-                return true;
+                var dataModificado = DataStaticDto.data.FirstOrDefault(x => x.IdRecepcion == idRecepcion);
+             
+                if (!dataaa.TieneError)
+                {
+                    dataModificado.Estado = StatusConstant.Migrado;
+                    return true;
+
+                }
+                else
+                {
+                    MessageBox.Show("Error al actualizar la factura: " + conjunto + "\n \n - Revisa tu conexion a internet\n - Revisa que tengas acceso a la api del SRC \n - vuelve a abrir el formulario \n\n - error devuelto del api key:\n" + dataaa.MensajeError);
+                    return false;
+                }
             }
 
             return false;
@@ -636,6 +666,11 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
         public async Task updateConfiguration(int reiniciar)
         {
              compraSrcRepository.UpdateConfiguracionInicial(reiniciar);
+        }
+        public ValidarCierreDto validarCierreArea(DateTime fecha, int idPuntoVenta)
+        {
+            return compraSrcRepository.validarCompraCerrado(fecha, idPuntoVenta);
+
         }
     }
 }

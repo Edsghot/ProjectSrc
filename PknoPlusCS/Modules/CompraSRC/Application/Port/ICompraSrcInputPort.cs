@@ -3,6 +3,8 @@ using PknoPlusCS.Modules.CompraSRC.Domain.Dto.general;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Static;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Sucursal;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Validacion;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,5 +28,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Port
         void createBackup();
         CompraDto ObtenerCompraPorIdRecepcion(string idRecepcion);
         CompraDto ObtenerCompraPorDocumentoProveedor(string documentoProveedor, string codigo);
+
+        ValidarCierreDto validarCierreArea(DateTime fecha, int idPuntoVenta);
     }
 }

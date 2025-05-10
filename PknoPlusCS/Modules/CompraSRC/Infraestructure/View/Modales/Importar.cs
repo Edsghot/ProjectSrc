@@ -105,7 +105,7 @@ namespace PknoPlusCS.Forms.DialogView
 
             if (resultado == DialogResult.Yes)
             {
-
+                Environment.Exit(1);
                 ControlStatic.CierreTotal = true;
             }
             else

@@ -12,7 +12,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Domain.Dto.Constantes
         public static string EnProceso = "En Proceso";
         public static string Error = "Error";
         public static string Listo = "Listo";
-        public static string Importado = "Importado";
+        public static string Migrado = "Migrado";
         public static string Pendiente = "Pendiente";
     }
 }

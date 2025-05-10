@@ -17,6 +17,8 @@ using ExpressMapper.Extensions;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Permisos;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Validacion;
 using System.Windows.Media.Media3D;
+using PknoPlusCS.Modules.CompraSRC.Domain.IRepository;
+using PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository;
 
 namespace PknoPlusCS.Forms
 {
@@ -26,6 +28,7 @@ namespace PknoPlusCS.Forms
         private int rowsPerPage = 15;
         private int totalRows;
         private readonly ICompraSrcImportadosInputPort _compraSrc;
+        private readonly ICompraSrcRepository compraSrcRepository;
         private List<SucursalDto> sucursales;
         private ValidarCierreDto validarAreaCerrado;
 
@@ -43,8 +46,10 @@ namespace PknoPlusCS.Forms
             this.dataTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dataTable.ColumnHeadersHeight = 45;
             this.sucursales = new List<SucursalDto>();
+            compraSrcRepository = new CompraSrcRepository();
 
             _compraSrc = new CompraSrcImportadosAdapter();
+            compraSrcRepository.UpdateConfiguracionInicial(2);
             LoadData();
         }
 
@@ -167,7 +172,7 @@ namespace PknoPlusCS.Forms
                         validarAreaCerrado = _compraSrc.validarCierreArea(data.FechaImportacion, int.Parse(data.Sucursal));
                         if(validarAreaCerrado.situacion != true)
                         {
-                            MessageBox.Show("No se puede editar la compra porque el área está cerrada", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("No se puede editar la compra porque el área está cerrado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             return;
                         }
                         ExtraStatic.idRecepcion = idRecepcion;

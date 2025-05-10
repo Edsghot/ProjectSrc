@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainComprasSrc));
             this.lblSucursal = new System.Windows.Forms.Label();
             this.lblEmpresa = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -52,33 +53,19 @@
             // 
             // lblSucursal
             // 
-            this.lblSucursal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSucursal.AutoSize = true;
-            this.lblSucursal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.lblSucursal, "lblSucursal");
             this.lblSucursal.ForeColor = System.Drawing.Color.White;
-            this.lblSucursal.Location = new System.Drawing.Point(949, 63);
-            this.lblSucursal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSucursal.Name = "lblSucursal";
-            this.lblSucursal.Size = new System.Drawing.Size(16, 15);
-            this.lblSucursal.TabIndex = 8;
-            this.lblSucursal.Text = "...";
             // 
             // lblEmpresa
             // 
-            this.lblEmpresa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEmpresa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.lblEmpresa, "lblEmpresa");
             this.lblEmpresa.ForeColor = System.Drawing.Color.White;
-            this.lblEmpresa.Location = new System.Drawing.Point(949, 7);
-            this.lblEmpresa.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEmpresa.Name = "lblEmpresa";
-            this.lblEmpresa.Size = new System.Drawing.Size(171, 39);
-            this.lblEmpresa.TabIndex = 6;
-            this.lblEmpresa.Text = "...";
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.Color.Navy;
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.lbl5);
@@ -89,144 +76,77 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(-1, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1138, 91);
-            this.panel1.TabIndex = 0;
             // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label5, "label5");
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(876, 63);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 15);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Sucursal:";
             // 
             // lbl5
             // 
-            this.lbl5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl5.AutoSize = true;
-            this.lbl5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.lbl5, "lbl5");
             this.lbl5.ForeColor = System.Drawing.Color.White;
-            this.lbl5.Location = new System.Drawing.Point(864, 7);
-            this.lbl5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl5.Name = "lbl5";
-            this.lbl5.Size = new System.Drawing.Size(82, 15);
-            this.lbl5.TabIndex = 11;
-            this.lbl5.Text = "Bienvenido:";
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label3, "label3");
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(898, 46);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 15);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "RUC:";
             // 
             // lblRuc
             // 
-            this.lblRuc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRuc.AutoSize = true;
-            this.lblRuc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.lblRuc, "lblRuc");
             this.lblRuc.ForeColor = System.Drawing.Color.White;
-            this.lblRuc.Location = new System.Drawing.Point(949, 46);
-            this.lblRuc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblRuc.Name = "lblRuc";
-            this.lblRuc.Size = new System.Drawing.Size(16, 15);
-            this.lblRuc.TabIndex = 9;
-            this.lblRuc.Text = "...";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::PknoPlusCS.Properties.Resources.logo;
-            this.pictureBox1.Location = new System.Drawing.Point(21, 17);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(44, 60);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label2, "label2");
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(71, 51);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 9);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "ESTACIONES DE SERVICIO";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label1, "label1");
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(70, 31);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "ERP PECANO";
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
+            resources.ApplyResources(this.label6, "label6");
             this.label6.BackColor = System.Drawing.Color.Gainsboro;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(83, 581);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(36, 15);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "v1.01";
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.btnOption2);
             this.panel2.Controls.Add(this.btnOption1);
             this.panel2.Controls.Add(this.pictureBox2);
-            this.panel2.Location = new System.Drawing.Point(-1, 92);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(211, 617);
-            this.panel2.TabIndex = 1;
             // 
             // btnOption2
             // 
             this.btnOption2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOption2.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-            this.btnOption2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOption2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.btnOption2, "btnOption2");
             this.btnOption2.IconChar = FontAwesome.Sharp.IconChar.FloppyDisk;
             this.btnOption2.IconColor = System.Drawing.Color.Black;
             this.btnOption2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnOption2.IconSize = 38;
-            this.btnOption2.Location = new System.Drawing.Point(-5, 65);
             this.btnOption2.Name = "btnOption2";
-            this.btnOption2.Size = new System.Drawing.Size(286, 63);
-            this.btnOption2.TabIndex = 3;
-            this.btnOption2.Text = "Compras migradas";
-            this.btnOption2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnOption2.UseVisualStyleBackColor = true;
             this.btnOption2.Click += new System.EventHandler(this.btnOption2_Click);
             // 
@@ -234,58 +154,37 @@
             // 
             this.btnOption1.BackColor = System.Drawing.Color.MediumBlue;
             this.btnOption1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnOption1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOption1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.btnOption1, "btnOption1");
             this.btnOption1.ForeColor = System.Drawing.Color.White;
             this.btnOption1.IconChar = FontAwesome.Sharp.IconChar.RightFromBracket;
             this.btnOption1.IconColor = System.Drawing.Color.White;
             this.btnOption1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnOption1.IconSize = 44;
-            this.btnOption1.Location = new System.Drawing.Point(-5, -9);
             this.btnOption1.Name = "btnOption1";
-            this.btnOption1.Size = new System.Drawing.Size(276, 76);
-            this.btnOption1.TabIndex = 2;
-            this.btnOption1.Text = "Migración de \r\ncompras SRC\r\n";
-            this.btnOption1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnOption1.UseVisualStyleBackColor = false;
             this.btnOption1.Click += new System.EventHandler(this.btnOption1_Click);
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Image = global::PknoPlusCS.Properties.Resources.pictureVs1;
-            this.pictureBox2.Location = new System.Drawing.Point(73, 576);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(55, 26);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
             // 
             // pnlContainer
             // 
-            this.pnlContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.pnlContainer, "pnlContainer");
             this.pnlContainer.BackColor = System.Drawing.SystemColors.Control;
-            this.pnlContainer.Location = new System.Drawing.Point(212, 94);
-            this.pnlContainer.Margin = new System.Windows.Forms.Padding(2);
             this.pnlContainer.Name = "pnlContainer";
-            this.pnlContainer.Size = new System.Drawing.Size(927, 614);
-            this.pnlContainer.TabIndex = 2;
             // 
             // MainComprasSrc
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1138, 707);
             this.Controls.Add(this.pnlContainer);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainComprasSrc";
-            this.Text = "ERP PECANO";
             this.Activated += new System.EventHandler(this.MainComprasSrc_Activated);
             this.Load += new System.EventHandler(this.MainComprasSrc_Load);
             this.panel1.ResumeLayout(false);

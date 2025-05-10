@@ -235,12 +235,12 @@ namespace PknoPlusCS.Forms
             this.btnEscanear.IconColor = System.Drawing.Color.White;
             this.btnEscanear.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnEscanear.IconSize = 35;
-            this.btnEscanear.Location = new System.Drawing.Point(1207, 30);
+            this.btnEscanear.Location = new System.Drawing.Point(1139, 30);
             this.btnEscanear.Margin = new System.Windows.Forms.Padding(2);
             this.btnEscanear.Name = "btnEscanear";
-            this.btnEscanear.Size = new System.Drawing.Size(106, 42);
+            this.btnEscanear.Size = new System.Drawing.Size(174, 42);
             this.btnEscanear.TabIndex = 9;
-            this.btnEscanear.Text = "Escanear";
+            this.btnEscanear.Text = "Actualizar compras pendientes";
             this.btnEscanear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnEscanear.UseVisualStyleBackColor = false;
             this.btnEscanear.Click += new System.EventHandler(this.btnEscanear_Click);

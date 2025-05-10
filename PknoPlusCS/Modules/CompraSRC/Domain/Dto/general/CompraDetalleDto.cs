@@ -16,10 +16,9 @@ namespace PknoPlusCS.Modules.CompraSRC.Domain.Dto
         public string Descripcion { get; set; }
         public decimal Api { get; set; }
         public decimal Temp { get; set; }
-        public decimal fise { get; set; }
         public decimal PrecioUnitarioSinIgv { get; set; }
         public decimal PrecioUnitarioConIgv { get; set; }
-        public string Fise { get; set; }
+        public decimal Fise { get; set; }
         public decimal Dscto { get; set; }
         public decimal Isc { get; set; }
         public bool TieneIGV { get; set; }

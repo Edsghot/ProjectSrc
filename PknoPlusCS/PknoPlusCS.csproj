@@ -42,7 +42,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>C:\Aplicaciones\Pecano\FormIntegracion\PknoPlusCS\</OutputPath>
+    <OutputPath>C:\Aplicaciones\Pecano\FormIntegraciones\PknoPlusCS\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

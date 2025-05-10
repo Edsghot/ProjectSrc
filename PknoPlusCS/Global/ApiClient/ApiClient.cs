@@ -25,7 +25,7 @@ namespace PknoPlusCS.Global.ApiClient
             try
             {
                 var client = new RestClient("https://fn-ose-beta.azurewebsites.net");
-                var request = new RestRequest("/api/erp/comprobante?ruc="+Credentials.Ruc, Method.GET);
+                var request = new RestRequest("/api/erp/comprobante?ruc="+Credentials.Ruc+"&"+Guid.NewGuid().ToString(), Method.GET);
 
                 request.AddHeader("x_api_key", ApiKeySrc.apiKey);
                 var response = client.Execute(request);
@@ -67,6 +67,7 @@ namespace PknoPlusCS.Global.ApiClient
                                     TotalOtrosTributos = resultado["TotalOtrosTributos"]?.ToObject<decimal>() ?? 0,
                                     TotalInafecta = resultado["TotalInafecta"]?.ToObject<decimal>() ?? 0,
                                     TotalPercepcion = resultado["TotalPercepcion"]?.ToObject<decimal>() ?? 0,
+                                    fiseTotal = resultado["FiseTotal"]?.ToObject<decimal>() ?? 0,
                                     TotalIGV = resultado["TotalIGV"]?.ToObject<decimal>() ?? 0,
                                     TotalPagar = resultado["TotalPagar"]?.ToObject<decimal>() ?? 0,
                                     GuiaRemisionAsociada = resultado["GuiaRemisionAsociada"]?.ToString(),
@@ -75,7 +76,7 @@ namespace PknoPlusCS.Global.ApiClient
                                     PlacaTransportista = resultado["PlacaTransportista"]?.ToString(),
                                     LicenciaTransportista = resultado["LicenciaTransportista"]?.ToString(),
                                     MarcaTransportista = resultado["MarcaTransportista"]?.ToString(),
-                                    IdRecepcion = resultado["idRecepcion"]?.ToString(),
+                                    IdRecepcion = resultado["IdRecepcion"]?.ToString(),
                                     Compras = new List<CompraDetalleDto>()
                                 };
 
@@ -95,10 +96,10 @@ namespace PknoPlusCS.Global.ApiClient
                                             Descripcion = detalle["Descripcion"]?.ToString(),
                                             Api = 0,
                                             Temp = 0,
-                                            Fise = detalle["Fise"]?.ToObject<string>(),
+                                            Fise = detalle["Fise"]?.ToObject<decimal>() ?? 0,
                                             PrecioUnitarioSinIgv = detalle["PrecioUnitarioSinIgv"]?.ToObject<decimal>() ?? 0,
                                             PrecioUnitarioConIgv = detalle["PrecioUnitarioConIgv"]?.ToObject<decimal>() ?? 0,
-                                            Dscto = detalle["dscto"].ToObject<decimal>(),
+                                            Dscto = detalle["Dscto"].ToObject<decimal>(),
                                             Isc = detalle["ISC"]?.ToObject<decimal>() ?? 0,
                                             TieneIGV = detalle["TieneIGV"]?.ToObject<bool>() ?? false,
                                             Igv = detalle["IGV"]?.ToObject<decimal>() ?? 0,
@@ -129,7 +130,7 @@ namespace PknoPlusCS.Global.ApiClient
                             return new ResponseApiGenericDto
                             {
                                 MensajeError = "No se encontraron resultados.",
-                                TieneError = true,
+                                TieneError = false,
                             };
                         }
                     }
@@ -176,7 +177,7 @@ namespace PknoPlusCS.Global.ApiClient
             try
             {
                 var client = new RestClient("https://api.apis.net.pe");
-                var request = new RestRequest($"/v2/sunat/ruc/full?numero={ruc}", Method.GET);
+                var request = new RestRequest($"/v2/sunat/ruc/full?numero={ruc}" + "&" + Guid.NewGuid().ToString(), Method.GET);
 
                 // Añadir el token de autenticación
                 request.AddHeader("Authorization", "Bearer apis-token-12636.0Asvi6Ccr2gs17peOWeh1WApXmvRB8z5");
@@ -204,7 +205,7 @@ namespace PknoPlusCS.Global.ApiClient
             try
             {
                 var client = new RestClient("https://fn-ose-beta.azurewebsites.net");
-                var request = new RestRequest($"/api/recepcion/comprobante?idRecepcion={idRecepcion}&status="+status+ "&ruc="+Credentials.Ruc, Method.PUT);
+                var request = new RestRequest($"/api/recepcion/comprobante?idRecepcion={idRecepcion}&status="+status+ "&ruc="+Credentials.Ruc + "&" + Guid.NewGuid().ToString(), Method.PUT);
 
        
                 request.AddHeader("x_api_key", ApiKeySrc.apiKey);

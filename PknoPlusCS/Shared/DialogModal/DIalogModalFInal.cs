@@ -31,7 +31,7 @@ namespace PknoPlusCS.Shared.DialogModal
             
             port.InsertarDelTemporalActualizar(ExtraStatic.idRecepcion).GetAwaiter().GetResult();
             var data = await port.GetAllByIdRecepcion(ExtraStatic.idRecepcion);
-             repo.UpdateConfiguracionInicial(1);
+            repo.UpdateConfiguracionInicial(1);
             repo.InsertarEliminarComprobanteSrc(ExtraStatic.idRecepcion,data.NCompraErp,data.IdPeriodo,data.FechaLlegada?? DateTime.Now,data.Scop);
             
             var resultado = MessageBox.Show(
@@ -43,6 +43,7 @@ namespace PknoPlusCS.Shared.DialogModal
             if (resultado == DialogResult.Yes)
             {
                 this.Close();
+                Environment.Exit(1);
                 ControlStatic.CierreModalEditar = true;
                 ControlStatic.CierreDIalogvIew = true;
                 ControlStatic.CierreTotal = true;
@@ -67,6 +68,11 @@ namespace PknoPlusCS.Shared.DialogModal
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

@@ -11,7 +11,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Markup;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace PknoPlusCS.Forms
 {
@@ -126,6 +129,10 @@ namespace PknoPlusCS.Forms
             for (int i = (currentPage - 1) * rowsPerPage; i < Math.Min(currentPage * rowsPerPage, totalRows); i++)
             {
                 var compra = compraData[i];
+                if(compra.Estado == StatusConstant.Migrado)
+                {
+                    continue;
+                }
                 dataTable.Rows.Add(
                     compra.Seleccionado,
                     compra.idCompraSerie,
@@ -190,10 +197,10 @@ namespace PknoPlusCS.Forms
             if (columnName == "Column1")
             {
                 e.CellStyle.ForeColor = Color.Green;
-                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                e.CellStyle.Font = new Font(e.CellStyle.Font, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline);
             }
 
-            else if (columnName == "Column3" || columnName == "Column4" || columnName == "Column10" || columnName == "Column11")
+            if (columnName == "Column3" || columnName == "Column4" || columnName == "Column10" || columnName == "Column11")
             {
                 e.Value = StatusConstant.Pendiente;
                 e.CellStyle.ForeColor = Color.Chocolate;
@@ -216,7 +223,7 @@ namespace PknoPlusCS.Forms
                     }
                    
                 }
-                else if (columnName == "Column10" && dataItem.FechaLlegada != null)
+                else if (columnName == "Column10")
                 {
                     e.Value = dataItem.FechaLlegada;
                     e.CellStyle.ForeColor = Color.Green;
@@ -244,7 +251,7 @@ namespace PknoPlusCS.Forms
                     e.Value = dataItem.Estado;
                     e.CellStyle.ForeColor = Color.Red;
                     e.CellStyle.SelectionForeColor = Color.Red;
-                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline);
                     return;
                 }
                 if (dataItem.Estado == StatusConstant.NoListo)
@@ -252,7 +259,7 @@ namespace PknoPlusCS.Forms
                     e.Value = dataItem.Estado;
                     e.CellStyle.ForeColor = Color.Chocolate;
                     e.CellStyle.SelectionForeColor = Color.Chocolate;
-                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, System.Drawing.FontStyle.Bold);
                     return;
                 }
                 if (dataItem.Estado == StatusConstant.Listo)
@@ -260,15 +267,15 @@ namespace PknoPlusCS.Forms
                     e.Value = dataItem.Estado;
                     e.CellStyle.ForeColor = Color.Green;
                     e.CellStyle.SelectionForeColor = Color.Green;
-                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, System.Drawing.FontStyle.Bold);
                     return;
                 }
-                if (dataItem.Estado == StatusConstant.Importado)
+                if (dataItem.Estado == StatusConstant.Migrado)
                 {
                     e.Value = dataItem.Estado;
                     e.CellStyle.ForeColor = Color.Blue;
                     e.CellStyle.SelectionForeColor = Color.Blue;
-                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, System.Drawing.FontStyle.Bold);
                     return;
                 }
                 if (dataItem.Estado == StatusConstant.Pendiente)
@@ -276,7 +283,7 @@ namespace PknoPlusCS.Forms
                     e.Value = dataItem.Estado;
                     e.CellStyle.ForeColor = Color.Orange;
                     e.CellStyle.SelectionForeColor = Color.Orange;
-                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, System.Drawing.FontStyle.Bold);
                     return;
                 }
                 if (dataItem.Estado == StatusConstant.EnProceso)
@@ -284,7 +291,7 @@ namespace PknoPlusCS.Forms
                     e.Value = dataItem.Estado;
                     e.CellStyle.ForeColor = Color.Goldenrod;
                     e.CellStyle.SelectionForeColor = Color.Goldenrod;
-                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold | FontStyle.Underline);
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline);
                     return;
                 }
 
@@ -380,8 +387,8 @@ namespace PknoPlusCS.Forms
                     dateTimePicker.Value = DateTime.TryParse(cellValue, out DateTime parsedDate) ? parsedDate : DateTime.Now;
 
                     Rectangle rect = dataTable.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
-                    dateTimePicker.Size = new Size(rect.Width, rect.Height);
-                    dateTimePicker.Location = new Point(rect.Left, rect.Top + 6);
+                    dateTimePicker.Size = new System.Drawing.Size(rect.Width, rect.Height);
+                    dateTimePicker.Location = new System.Drawing.Point(rect.Left, rect.Top + 6);
                     dataTable.Controls.Add(dateTimePicker);
 
                     dateTimePicker.ValueChanged += (s, args) =>
@@ -495,9 +502,15 @@ namespace PknoPlusCS.Forms
                 var idRecepcion = await _compraSrc.GetIdRecepcion(documentoProveedor, codigoCompra);
 
                 var dataSeleccionado =  _compraSrc.ObtenerCompraPorIdRecepcion(idRecepcion);
+                var validarAreaCerrado = _compraSrc.validarCierreArea(dataSeleccionado.FechaEmision, int.Parse(dataSeleccionado.SucursalId));
+                if (validarAreaCerrado.situacion != true)
+                {
+                    MessageBox.Show("No se puede migrar la compra porque el área está cerrado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 string estado = dataSeleccionado.Estado;
 
-                if (estado == "No Listo" || estado == "Error")
+                if (estado == "No Listo" || estado == "Error" || estado == "En Proceso")
                 {
                     MessageBox.Show($"No se puede seleccionar el nro de comprobante {row.Cells["Column1"].Value} porque está en estado '{estado}'.");
                     return;
@@ -547,32 +560,28 @@ namespace PknoPlusCS.Forms
             }
 
             mainForm.ShowOverlay();
-            await Task.Delay(500);
 
             try
             {
+                dataTable.Rows.Clear(); 
                 var nuevosDatos = await _compraSrc.obtenerDataDelSrc();
 
-                if (nuevosDatos == null || nuevosDatos.Count == 0)
-                {
-                    MessageBox.Show("No se encontraron nuevos datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
                     int datosActuales = DataStaticDto.data.Count;
                     int nuevosRegistros = nuevosDatos.Count;
 
-                    if (nuevosRegistros > datosActuales)
-                    {
-                        var datosParaAgregar = nuevosDatos.Skip(datosActuales).ToList();
-                        DataStaticDto.data.AddRange(datosParaAgregar);
-                        compraData.AddRange(datosParaAgregar);
+
+                    
+                        DataStaticDto.data = nuevosDatos;
                         totalRows = compraData.Count;
 
-                        foreach (var compra in datosParaAgregar)
+                        foreach (var compra in DataStaticDto.data)
                         {
                             try
                             {
+                            if(compra.Estado == StatusConstant.Migrado)
+                            {
+                                continue;
+                            }
                                 dataTable.Rows.Add(
                                     compra.Seleccionado,
                                     compra.idCompraSerie,
@@ -596,12 +605,8 @@ namespace PknoPlusCS.Forms
                         }
 
                         UpdatePagination();
-                    }
-                    else
-                    {
-                      mainForm.ShowToast("No hay nuevos registros para agregar...", "info");                   
-                    }
-                }
+                    
+                
             }
             catch (Exception ex)
             {

@@ -145,6 +145,9 @@ public static class MapperConfig
            .Member(dest => dest.Actualizar, src => src["actualizar"] != DBNull.Value ? Convert.ToBoolean(src["actualizar"]) : (bool?)null)
            .Member(dest => dest.NCompraErp, src => src["nCompraErp"] != DBNull.Value ? src["nCompraErp"].ToString() : null)
            .Member(dest => dest.Scop, src => src["Scop"] != DBNull.Value ? src["Scop"].ToString() : null)
+           .Member(dest => dest.FiseSrc, src => src["fiseSrc"] != DBNull.Value ? Convert.ToDecimal(src["fiseSrc"]) : (decimal?)null)
+           .Member(dest => dest.idAsientoTipo, src => src["idAsientoTipoSrc"] != DBNull.Value ? src["idAsientoTipoSrc"].ToString() : null)
+
            ;
 
     }

@@ -57,17 +57,15 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
         public List<SucursalDto> GetAllSucursales()
         {
-            var data = DatosImportadosStatic.Sucursales.ToList(); // Clonamos la lista
+            var data = DatosImportadosStatic.Sucursales.ToList(); 
 
-            // Buscar si ya existe un elemento con "Todos"
             var sucursalTodos = data.FirstOrDefault(s => s.NomPuntoVenta == "Todos");
 
-            // Si no existe, lo agregamos al final
             if (sucursalTodos == null)
             {
                 sucursalTodos = new SucursalDto
                 {
-                    IdPuntoVenta = "-1", // Valor especial para diferenciarlo
+                    IdPuntoVenta = "-1", 
                     NomPuntoVenta = "Todos",
                     SucursalSRC = "False",
                     AlmacenSrc = "False"
@@ -75,7 +73,6 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                 data.Add(sucursalTodos);
             }
 
-            // Reordenar la lista para que "Todos" quede al inicio
             data = data.OrderBy(s => s.NomPuntoVenta == "Todos" ? 0 : 1).ToList();
 
             return data;
