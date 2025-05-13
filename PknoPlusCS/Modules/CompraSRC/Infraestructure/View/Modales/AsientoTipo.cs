@@ -66,12 +66,12 @@ namespace PknoPlusCS.Forms.DialogView
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró ninguna planilla activa.");
+                    MessageBox.Show(@"No se encontró ninguna planilla activa.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar las planillas: {ex.Message}");
+                MessageBox.Show($@"Error al cargar las planillas: {ex.Message}");
             }
         }
 

@@ -74,7 +74,7 @@ namespace PknoPlusCS.Forms.DialogView.ProductMatch
             string searchQuery = txtSearch.Text.Trim();
             if (string.IsNullOrWhiteSpace(searchQuery) || searchQuery == "¿Qué deseas buscar?")
             {
-                MessageBox.Show("Por favor, ingrese un término de búsqueda.");
+                MessageBox.Show(@"Por favor, ingrese un término de búsqueda.");
                 return;
             }
 
@@ -121,7 +121,7 @@ namespace PknoPlusCS.Forms.DialogView.ProductMatch
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocurrió un error al buscar el producto: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ocurrió un error al buscar el producto: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

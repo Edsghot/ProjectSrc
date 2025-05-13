@@ -103,7 +103,7 @@ namespace PknoPlusCS.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocurrió un error al cargar los datos:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ocurrió un error al cargar los datos:\n{ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -122,7 +122,7 @@ namespace PknoPlusCS.Forms
 
             if (compraData == null || compraData.Count == 0)
             {
-                MessageBox.Show("No se encontraron datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se encontraron datos.", @"Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -229,9 +229,9 @@ namespace PknoPlusCS.Forms
                     e.CellStyle.ForeColor = Color.Green;
                     e.CellStyle.SelectionForeColor = Color.Black;
                 }
-                else if (columnName == "Column3" && dataItem.NewSucursal != null)
+                else if (columnName == "Column3" && dataItem.Sucursal != null)
                 {
-                    e.Value = dataItem.NewSucursal;
+                    e.Value = dataItem.Sucursal;
                     e.CellStyle.ForeColor = Color.Green;
                     e.CellStyle.SelectionForeColor = Color.Black;
                 }
@@ -304,7 +304,7 @@ namespace PknoPlusCS.Forms
 
             if (!DataPermisoStaticDto.EditarDetalle)
             {
-                MessageBox.Show("No tiene permisos para editar los detalles de la compra");
+                MessageBox.Show(@"No tiene permisos para editar los detalles de la compra");
                 return;
             }
             if (e.RowIndex >= 0 && e.RowIndex < dataTable.Rows.Count && e.ColumnIndex >= 0 && e.ColumnIndex < dataTable.Columns.Count)
@@ -346,17 +346,17 @@ namespace PknoPlusCS.Forms
                             }
                             else
                             {
-                                MessageBox.Show("No se encontraron las compras!.");
+                                MessageBox.Show(@"No se encontraron las compras!.");
                             }
                         }
                         else
                         {
-                            MessageBox.Show("NO se encontró el id de recepción!.");
+                            MessageBox.Show(@"NO se encontró el id de recepción!.");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("El código del proveedor y de compra no es válido!.");
+                        MessageBox.Show(@"El código del proveedor y de compra no es válido!.");
                     }
                 }
 
@@ -423,17 +423,17 @@ namespace PknoPlusCS.Forms
                             }
                             else
                             {
-                                MessageBox.Show("No tiene compras!.");
+                                MessageBox.Show(@"No tiene compras!.");
                             }
                         }
                         else
                         {
-                            MessageBox.Show("NO se encontró el id de recepción!.");
+                            MessageBox.Show(@"NO se encontró el id de recepción!.");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("El código del proveedor y de compra no es válido!.");
+                        MessageBox.Show(@"El código del proveedor y de compra no es válido!.");
                     }
                 }
 
@@ -489,7 +489,7 @@ namespace PknoPlusCS.Forms
 
                 if (realIndex < 0 || realIndex >= DataStaticDto.data.Count)
                 {
-                    MessageBox.Show("Error al obtener el índice real de la fila seleccionada.");
+                    MessageBox.Show(@"Error al obtener el índice real de la fila seleccionada.");
                     return;
                 }
 
@@ -505,14 +505,14 @@ namespace PknoPlusCS.Forms
                 var validarAreaCerrado = _compraSrc.validarCierreArea(dataSeleccionado.FechaEmision, int.Parse(dataSeleccionado.SucursalId));
                 if (validarAreaCerrado.situacion != true)
                 {
-                    MessageBox.Show("No se puede migrar la compra porque el área está cerrado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se puede migrar la compra porque el área está cerrado", @"Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 string estado = dataSeleccionado.Estado;
 
                 if (estado == "No Listo" || estado == "Error" || estado == "En Proceso")
                 {
-                    MessageBox.Show($"No se puede seleccionar el nro de comprobante {row.Cells["Column1"].Value} porque está en estado '{estado}'.");
+                    MessageBox.Show($@"No se puede seleccionar el nro de comprobante {row.Cells["Column1"].Value} porque está en estado '{estado}'.");
                     return;
                 }
 
@@ -529,7 +529,7 @@ namespace PknoPlusCS.Forms
             }
             else
             {
-                MessageBox.Show("debe seleccionar algun comprobante para migrar al ERP");
+                MessageBox.Show(@"debe seleccionar algun comprobante para migrar al ERP");
             }
         }
 
@@ -540,7 +540,7 @@ namespace PknoPlusCS.Forms
         {
             var confirmResult = MessageBox.Show(
                 "Si procedes con la ejecución, la tabla se refrescará y cualquier cambio hecho se perderá. ¿Deseas continuar?",
-                "Confirmación",
+                @"Confirmación",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
@@ -554,7 +554,7 @@ namespace PknoPlusCS.Forms
 
             if (!(this.FindForm() is MainComprasSrc mainForm))
             {
-                MessageBox.Show("No se pudo encontrar el formulario principal.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se pudo encontrar el formulario principal.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 btnEscanear.Enabled = true;
                 return;
             }
@@ -600,7 +600,7 @@ namespace PknoPlusCS.Forms
                             }
                             catch (Exception filaEx)
                             {
-                                MessageBox.Show($"Error al agregar fila: {filaEx.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show($"Error al agregar fila: {filaEx.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
 
@@ -610,7 +610,7 @@ namespace PknoPlusCS.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocurrió un error al escanear:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ocurrió un error al escanear:\n{ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -629,7 +629,7 @@ namespace PknoPlusCS.Forms
 
             if (string.IsNullOrEmpty(dateInicio) && string.IsNullOrEmpty(dateFin) && string.IsNullOrEmpty(selectC))
             {
-                MessageBox.Show("Por favor seleccione una fecha de inicio, una fecha de fin o un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor seleccione una fecha de inicio, una fecha de fin o un estado.", @"Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -639,7 +639,7 @@ namespace PknoPlusCS.Forms
             var data = DataStaticDto.data;
             if (data == null || data.Count == 0)
             {
-                MessageBox.Show("No se encontraron datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se encontraron datos.", @"Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

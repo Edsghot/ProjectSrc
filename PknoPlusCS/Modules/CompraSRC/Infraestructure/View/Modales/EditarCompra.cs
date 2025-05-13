@@ -85,7 +85,7 @@ namespace PknoPlusCS.Forms
                 }
                 catch (Exception ex)
                 {    
-                    MessageBox.Show($"Error al actualizar la compra: {ex.Message}");
+                    MessageBox.Show($@"Error al actualizar la compra: {ex.Message}");
                 }
             }
         }
@@ -150,12 +150,12 @@ namespace PknoPlusCS.Forms
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró ninguna sucursal con SucursalSRC == 'True' y AlmacenSrc == 'True'");
+                    MessageBox.Show(@"No se encontró ninguna sucursal con SucursalSRC == 'True' y AlmacenSrc == 'True'");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar las sucursales: {ex.Message}");
+                MessageBox.Show($@"Error al cargar las sucursales: {ex.Message}");
             }
         }
         private void cbSucursal_SelectedIndexChanged(object sender, EventArgs e)

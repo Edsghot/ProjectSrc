@@ -35,7 +35,7 @@ namespace PknoPlusCS.Shared.DialogModal
             repo.InsertarEliminarComprobanteSrc(ExtraStatic.idRecepcion,data.NCompraErp,data.IdPeriodo,data.FechaLlegada?? DateTime.Now,data.Scop);
             
             var resultado = MessageBox.Show(
-                "La edicion del registro se realizara en breve... \n Desea cerrar el formulario?", "Confirmación",
+                "La edicion del registro se realizara en breve... \n Desea cerrar el formulario?", @"Confirmación",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );

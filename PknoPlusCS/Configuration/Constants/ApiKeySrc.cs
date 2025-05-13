@@ -8,6 +8,6 @@ namespace PknoPlusCS.Configuration.Constants
 {
     public static class ApiKeySrc
     {
-        public static string apiKey { get; set; } = "";
+        public static string ApiKey { get; set; } = "";
     }
 }

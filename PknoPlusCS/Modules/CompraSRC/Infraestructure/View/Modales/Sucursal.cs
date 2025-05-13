@@ -20,6 +20,7 @@ namespace PknoPlusCS.Forms.DialogView
         private readonly ICompraSrcRepository _repo;
         private readonly ICompraSrcInputPort _compraSrc;
         private readonly string _idRecepcion;
+        private readonly string _nomPuntoVida;
 
         private List<SucursalDto> sucursales;
 
@@ -28,6 +29,7 @@ namespace PknoPlusCS.Forms.DialogView
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.mainForm = main;
+            _nomPuntoVida = direccion;
 
             txtDireccion.Text = string.IsNullOrEmpty(direccion) ? "Pendiente" : direccion;
 
@@ -63,7 +65,8 @@ namespace PknoPlusCS.Forms.DialogView
 
                 if (sucursalesSeleccionadas.Any())
                 {
-                    var sucursalSeleccionada = sucursalesSeleccionadas.First();
+
+                    var sucursalSeleccionada = sucursalesSeleccionadas.FirstOrDefault(x => x.NomPuntoVenta == _nomPuntoVida);
                     cbSucursal.SelectedValue = sucursalSeleccionada.IdPuntoVenta;
                     txtDireccion.Text = sucursalSeleccionada.LocalFisico;
 
@@ -76,7 +79,7 @@ namespace PknoPlusCS.Forms.DialogView
                     cbAlmacen.ValueMember = "IdAlmacen";
 
                     var almacenesConAlmacenSrcTrue = almacenes
-                        .Where(a => a.AlmacenSrc == "True")
+                        .Where(a => a.IdAlmacen == sucursalSeleccionada.IdAlmacen)
                         .ToList();
                     if (almacenesConAlmacenSrcTrue.Any())
                     {
@@ -85,12 +88,12 @@ namespace PknoPlusCS.Forms.DialogView
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró ninguna sucursal con SucursalSRC == 'True' y AlmacenSrc == 'True'");
+                    MessageBox.Show(@"No se encontró ninguna sucursal con SucursalSRC == 'True' y AlmacenSrc == 'True'");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar las sucursales: {ex.Message}");
+                MessageBox.Show($@"Error al cargar las sucursales: {ex.Message}");
             }
         }
 

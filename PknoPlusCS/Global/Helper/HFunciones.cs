@@ -82,7 +82,7 @@ namespace PknoPlusCS.Global.Helper
 
                     if (!string.IsNullOrEmpty(apiKeyValue))
                     {
-                        ApiKeySrc.apiKey = apiKeyValue;
+                        ApiKeySrc.ApiKey = apiKeyValue;
                     }
                     else
                     {

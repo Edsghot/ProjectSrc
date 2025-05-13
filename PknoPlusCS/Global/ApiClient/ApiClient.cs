@@ -27,7 +27,7 @@ namespace PknoPlusCS.Global.ApiClient
                 var client = new RestClient("https://fn-ose-beta.azurewebsites.net");
                 var request = new RestRequest("/api/erp/comprobante?ruc="+Credentials.Ruc+"&"+Guid.NewGuid().ToString(), Method.GET);
 
-                request.AddHeader("x_api_key", ApiKeySrc.apiKey);
+                request.AddHeader("x_api_key", ApiKeySrc.ApiKey);
                 var response = client.Execute(request);
 
                 if (response.IsSuccessful)
@@ -208,7 +208,7 @@ namespace PknoPlusCS.Global.ApiClient
                 var request = new RestRequest($"/api/recepcion/comprobante?idRecepcion={idRecepcion}&status="+status+ "&ruc="+Credentials.Ruc + "&" + Guid.NewGuid().ToString(), Method.PUT);
 
        
-                request.AddHeader("x_api_key", ApiKeySrc.apiKey);
+                request.AddHeader("x_api_key", ApiKeySrc.ApiKey);
                 var response = await client.ExecuteAsync(request);
 
                 if (response.IsSuccessful)

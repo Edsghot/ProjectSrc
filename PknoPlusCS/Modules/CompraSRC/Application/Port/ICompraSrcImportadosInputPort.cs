@@ -20,7 +20,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Port
         Task<List<CompraTemporalMonitoreoSrcDto>> GetComprasPorIdRecepcion(string idRecepcion);
         Task InsertarDelTemporalActualizar(string idRecepcion);
         Task<DateTime> GetPeriodo(string idRecepcion);
-        Task updateConfiguration(int reiniciar);
+        void updateConfiguration(int reiniciar);
         List<SucursalDto> GetAllSucursales();
         string GetCodigoSucursal(string nameSucursal);
         ValidarCierreDto validarCierreArea(DateTime fecha, int idPuntoVenta);

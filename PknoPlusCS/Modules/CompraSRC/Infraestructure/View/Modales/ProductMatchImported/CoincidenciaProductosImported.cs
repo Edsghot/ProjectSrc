@@ -73,7 +73,7 @@ namespace PknoPlusCS.Forms.DialogView
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al obtener coincidencias por RUC: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al obtener coincidencias por RUC: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             for (int i = (currentPage - 1) * rowsPerPage; i < Math.Min(currentPage * rowsPerPage, totalRows); i++)
@@ -102,7 +102,7 @@ namespace PknoPlusCS.Forms.DialogView
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error al consumir la API: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Error al consumir la API: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         dataTable.Rows.Add("", "", detalle.NomProductoSrc);
                     }
                 }
@@ -277,7 +277,7 @@ namespace PknoPlusCS.Forms.DialogView
                     row.Cells[1].Value == null || string.IsNullOrWhiteSpace(row.Cells[1].Value.ToString()) ||
                     row.Cells[2].Value == null || string.IsNullOrWhiteSpace(row.Cells[2].Value.ToString()))
                 {
-                    MessageBox.Show("Debe completar todas las filas antes de continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Debe completar todas las filas antes de continuar.", @"Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -315,7 +315,7 @@ namespace PknoPlusCS.Forms.DialogView
                 }
                 else
                 {
-                    MessageBox.Show("Se registró con éxito.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Se registró con éxito.", @"OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 this.Close();
@@ -328,7 +328,7 @@ namespace PknoPlusCS.Forms.DialogView
                 }
                 else
                 {
-                    MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

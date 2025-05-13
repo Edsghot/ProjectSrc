@@ -69,7 +69,7 @@ namespace PknoPlusCS.Forms.DialogView
 
                 if(id.Combustible && (id.Scop == "" || id.Scop == null))
                 {
-                    MessageBox.Show("Debe agregar el SCOP antes de migrarlo por que se trata de productos de combustible");
+                    MessageBox.Show(@"Debe agregar el SCOP antes de migrarlo por que se trata de productos de combustible");
                     this.Close();
                     return;
                 }
@@ -98,7 +98,7 @@ namespace PknoPlusCS.Forms.DialogView
 
             var resultado = MessageBox.Show(
                 "¿Desea continuar utilizando la aplicación?\nTu importación se actualizará apenas salgas de la aplicación",
-                "Confirmación",
+                @"Confirmación",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );

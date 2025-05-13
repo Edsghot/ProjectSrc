@@ -3,7 +3,6 @@ using System;
 using System.Threading.Tasks;
 using PknoPlusCS.Global.ApiClient;
 using System.Linq;
-using System.Data;
 using PknoPlusCS.Configuration.Constants;
 using PknoPlusCS.Modules.CompraSRC.Application.Port;
 using PknoPlusCS.Modules.CompraSRC.Domain.IRepository;
@@ -21,19 +20,12 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 {
     public class CompraSrcAdapter : ICompraSrcInputPort
     {
-        private readonly IApiClient apiClient;
-        private readonly ICompraSrcRepository compraSrcRepository;
-        private bool backup;
-
-        public CompraSrcAdapter()
-        {
-            this.apiClient = new ApiClient();
-            compraSrcRepository = new CompraSrcRepository();
-        }
-
+        private readonly IApiClient _apiClient = new ApiClient();
+        private readonly ICompraSrcRepository _compraSrcRepository = new CompraSrcRepository();
+        
         public async Task<List<CompraDto>> ObtenerDataSrc()
         {
-            var backupRestablecido =  compraSrcRepository.getBackup();
+            var backupRestablecido =  _compraSrcRepository.getBackup();
 
             Logs.WriteLog("INFO", "Backup "+backupRestablecido.Count());
 
@@ -48,15 +40,12 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             {
 
                 Logs.WriteLog("INFO", "Obteniendo datos del SRC restablecido");
-                backup = true;
                 DataStaticDto.data = backupRestablecido;
 
                 Logs.WriteLog("INFO", "Iniciando la validacion");
                 foreach (var compra in DataStaticDto.data)
                 {
-                  
-                    var data = await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
-
+                    await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
                 }
 
                 //DataStaticDto.data = await obtenerDataDelSrc();
@@ -86,12 +75,12 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
         public void createBackup()
         {
-             compraSrcRepository.crearBackup(DataStaticDto.data);
+             _compraSrcRepository.crearBackup(DataStaticDto.data);
         }
 
         public async Task<List<CompraDto>> obtenerDataDelSrc()
         {
-            var response = await apiClient.GetApiDataAsync();
+            var response = await _apiClient.GetApiDataAsync();
 
 
             Logs.WriteLog("INFO", "response> "+response);
@@ -101,13 +90,14 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             Logs.WriteLog("INFO", "Resultado: "+response.Resultado);
 
             Logs.WriteLog("INFO", "response.MensajeError: " + response.MensajeError);
-            if (response.TieneError == true)
+            if (response.TieneError)
             {
-                MessageBox.Show("Error al consultar la informacion en el SRC: \n\n - Revisa tu conexion a internet\n - Revisa que tengas acceso a la api del SRC \n - vuelve a abrir el formulario \n\n -* error devuelto del api key:\n" + response.MensajeError);
+                MessageBox.Show(
+                    $"Error al consultar la informacion en el SRC: \n\n - Revisa tu conexion a internet\n - Revisa que tengas acceso a la api del SRC \n - vuelve a abrir el formulario \n\n -* error devuelto del api key:\n{response.MensajeError}");
                 return new List<CompraDto>();
             }
 
-            if (response == null || response.Resultado == null)
+            if (response.Resultado == null)
             {
                 MessageBox.Show("No se encontraron informacion en la api consultada");
                 return new List<CompraDto>();
@@ -116,20 +106,18 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             Logs.WriteLog("INFO", "Se termino la consulta al api de la sunat");
 
             DataStaticDto.data = response.Resultado;
-            var compraDtos = DataStaticDto.data;
 
 
-            foreach (var compra in compraDtos)
+            foreach (var compra in DataStaticDto.data)
             {
                 await Escanear(compra.NumCompra, compra.SerieCompra, compra.DocumentoProveedor);
 
-                var data = await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
-
+                await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
             }
 
             createBackup();
 
-            foreach (var compra in compraDtos)
+            foreach (var compra in DataStaticDto.data)
             {
                 var errors = await Validations(compra);
 
@@ -217,7 +205,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
             data.idCompraSerie = data.SerieCompra + "-" + data.NumCompra;
         
-            var result =  compraSrcRepository.GetCliProByRUCOrRazonComercial(data.DocumentoProveedor, data.RazonSocial);
+            var result =  _compraSrcRepository.GetCliProByRUCOrRazonComercial(data.DocumentoProveedor, data.RazonSocial);
 
             if (result != null && result.Count > 0)
             {
@@ -225,25 +213,25 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             }
             else
             {
-                var dataSunat = await apiClient.GetValidSunat(data.DocumentoProveedor);
-                 compraSrcRepository.InsertarCliPro(dataSunat);
-                var result1 =  compraSrcRepository.GetCliProByRUCOrRazonComercial(data.DocumentoProveedor, data.RazonSocial);
+                var dataSunat = await _apiClient.GetValidSunat(data.DocumentoProveedor);
+                 _compraSrcRepository.InsertarCliPro(dataSunat);
+                var result1 =  _compraSrcRepository.GetCliProByRUCOrRazonComercial(data.DocumentoProveedor, data.RazonSocial);
                 data.idCliPro = result1[0].IdCliPro;
             }
 
             data.FechaLlegada = data.FechaEmision.ToString();
        
 
-                var dataSucursal = ( compraSrcRepository.getAllSucursal()).ToList();
+                var dataSucursal = ( _compraSrcRepository.getAllSucursal()).ToList();
                 data.NewSucursal = dataSucursal[0].NomPuntoVenta;
                 data.SucursalId = dataSucursal[0].IdPuntoVenta;
                 data.Sucursal = dataSucursal[0].NomPuntoVenta;
                 data.IdAlmacen = Int32.Parse(dataSucursal[0].IdAlmacen);
             
-            data.IdPlantilla = ( compraSrcRepository.spListarEspecificasCompras())[0].IdPlantilla;
-            data.NomPlantilla = ( compraSrcRepository.spListarEspecificasCompras())[0].NomPlantilla;
+            data.IdPlantilla = ( _compraSrcRepository.spListarEspecificasCompras())[0].IdPlantilla;
+            data.NomPlantilla = ( _compraSrcRepository.spListarEspecificasCompras())[0].NomPlantilla;
 
-            data.idTipoOperacion = ( compraSrcRepository.sp_GetTipoOperacion("02"))[0].IdTipoOperacion;
+            data.idTipoOperacion = ( _compraSrcRepository.sp_GetTipoOperacion("02"))[0].IdTipoOperacion;
 
             data.EstadoProductos = await ProductsValidated(data.IdRecepcion);
 
@@ -287,8 +275,8 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
         public async Task<MenuDto> GetMenu()
         {
 
-            var data = await apiClient.GetValidSunat(Credentials.Ruc);
-            var sucursal = ( compraSrcRepository.getAllSucursal()).ToList();
+            var data = await _apiClient.GetValidSunat(Credentials.Ruc);
+            var sucursal = ( _compraSrcRepository.getAllSucursal()).ToList();
 
             return new MenuDto
             {
@@ -527,7 +515,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             data.idTransportista = 1;
             data.idPlaca = 1;
             data.idChofer = 1;
-            data.Moneda = (data.Moneda.Trim() != "PEN") ? "E" : "N";
+            data.Moneda = data.Moneda = (data.Moneda.Trim() == "PEN") ? "N" : (data.Moneda.Trim() == "E" || data.Moneda.Trim() == "N" ? data.Moneda.Trim() : "E");
             data.idDepartamento = Credentials.IdDepartamento;
             //data.nOrdenCompra 
             data.detraccion = 0;
@@ -560,7 +548,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
         public async Task<bool> InsertCompra(int mes, int anio, string IdRecepcion)
         {
-            var dataPeriodo = ( compraSrcRepository.ObtenerPeriodosPorFecha(anio, mes))[0];
+            var dataPeriodo = ( _compraSrcRepository.ObtenerPeriodosPorFecha(anio, mes))[0];
             var idPeriodo = dataPeriodo.IdPeriodo;
 
             var compra = DataStaticDto.data.FirstOrDefault(c => c.IdRecepcion == IdRecepcion);
@@ -571,11 +559,11 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             foreach (var detalle in compra.Compras)
             {
                 detalle.nCompra = compra.SerieCompra + compra.NumCompra;
-                 compraSrcRepository.InsertarCompraTemporal(compra,detalle);
+                 _compraSrcRepository.InsertarCompraTemporal(compra,detalle);
                 compra.Estado = StatusConstant.EnProceso;
             }
 
-             compraSrcRepository.sp_InsertTemporalBitacoraSrc(new TemporalBitacoraSrcDto
+             _compraSrcRepository.sp_InsertTemporalBitacoraSrc(new TemporalBitacoraSrcDto
             {
                 IdRecepcionSrc = compra.IdRecepcion,
                 Serie = compra.SerieCompra,
@@ -597,16 +585,17 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
             var conjunto = "F" + serie + numCompra;
 
-            var data =  compraSrcRepository.BuscarCompraPorSerieYNumero(serie, conjunto, idRecepcion);
+            var data =  _compraSrcRepository.BuscarCompraPorSerieYNumero(serie, conjunto, idRecepcion);
 
             if(data.Resultado == 1)
             {
 
-                var dataaa= await apiClient.PutComprobanteAsync(idRecepcion, true);
-                var dataModificado = DataStaticDto.data.FirstOrDefault(x => x.IdRecepcion == idRecepcion);
+                var dataaa= await _apiClient.PutComprobanteAsync(idRecepcion, true);
              
                 if (!dataaa.TieneError)
                 {
+
+                    var dataModificado = DataStaticDto.data.FirstOrDefault(x => x.IdRecepcion == idRecepcion);
                     dataModificado.Estado = StatusConstant.Migrado;
                     return true;
 
@@ -634,12 +623,12 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             var DataCompra =  ObtenerCompraPorIdRecepcion(idRecepcion);
             foreach(var compra in DataCompra.Compras)
             {
-                var data =  compraSrcRepository.BuscarProductoPorNombreCuencidenciaSrc(compra.Descripcion, DataCompra.DocumentoProveedor);
+                var data =  _compraSrcRepository.BuscarProductoPorNombreCuencidenciaSrc(compra.Descripcion, DataCompra.DocumentoProveedor);
 
                 if (data.Count > 0) {
                     compra.IdProducto = data[0].IdProductoErp;
                     compra.NomProductoErp = data[0].NombreProdErp;
-                    var era =  compraSrcRepository.getIdProductoExt(compra.IdProducto);
+                    var era =  _compraSrcRepository.getIdProductoExt(compra.IdProducto);
 
                     if (era.Combustible)
                     {
@@ -665,11 +654,11 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
         }
         public async Task updateConfiguration(int reiniciar)
         {
-             compraSrcRepository.UpdateConfiguracionInicial(reiniciar);
+             _compraSrcRepository.UpdateConfiguracionInicial(reiniciar);
         }
         public ValidarCierreDto validarCierreArea(DateTime fecha, int idPuntoVenta)
         {
-            return compraSrcRepository.validarCompraCerrado(fecha, idPuntoVenta);
+            return _compraSrcRepository.validarCompraCerrado(fecha, idPuntoVenta);
 
         }
     }

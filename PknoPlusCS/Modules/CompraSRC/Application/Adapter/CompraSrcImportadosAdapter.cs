@@ -117,7 +117,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
             }
         }
 
-        public async Task updateConfiguration(int reiniciar)
+        public void updateConfiguration(int reiniciar)
         {
               compraSrcRepository.UpdateConfiguracionInicial(reiniciar);
         }

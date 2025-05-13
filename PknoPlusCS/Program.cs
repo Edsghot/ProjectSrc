@@ -1,19 +1,12 @@
 ﻿using PknoPlusCS.Configuration.Constants;
 using PknoPlusCS.Modules;
-using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PknoPlusCS.Configuration.Enum;
 using PknoPlusCS.Configuration.Logs;
 using PknoPlusCS.Global.Helper;
 using PknoPlusCS.Modules.CompraSRC.Domain.IRepository;
 using PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository;
-using PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto;
-using PknoPlusCS.Global.DataBase;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Permisos;
 
 namespace PknoPlusCS
@@ -34,8 +27,8 @@ namespace PknoPlusCS
                 Logs.initLogs("Desarrollo.txt");
                 GetCredentialsProduccion(args);
 
-                Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(GlobalExceptionHandler);
-                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
+                Application.ThreadException += GlobalExceptionHandler;
+                AppDomain.CurrentDomain.UnhandledException += GlobalExceptionHandler;
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
@@ -88,8 +81,6 @@ namespace PknoPlusCS
                         Logs.initLogs("ValidationSunat.txt");
                         Application.Run(new MainValidationSunat());
                         break;
-                    default:
-                        break;
                 }
             }
             catch (Exception ex)
@@ -97,7 +88,7 @@ namespace PknoPlusCS
 
                 Logs.WriteLog("ERROR", "es: ."+ ex.Message + ex);
                 // Aquí puedes registrar el error y mostrar un mensaje al usuario
-                MessageBox.Show("Ocurrió un error inesperado. Por favor revisa el log para más detalles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"Ocurrió un error inesperado. Por favor revisa el log para más detalles.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -106,12 +97,12 @@ namespace PknoPlusCS
             string argsConcatenados = string.Join(", ", argss);
 
             // Mostrar la cadena concatenada en un MessageBox
-            MessageBox.Show($"Argumentos recibidos: {argsConcatenados}");
+            MessageBox.Show($@"Argumentos recibidos: {argsConcatenados}");
             var args = argss[0].Split(',');
 
             if (args.Length != 11)
             {
-                MessageBox.Show("Error: Se esperaban al menos 10 datos en la cadena de entrada.");
+                MessageBox.Show(@"Error: Se esperaban al menos 10 datos en la cadena de entrada.");
                 Logs.WriteLog("ERROR", "Se esperaban al menos 10 datos en la cadena de entrada.");
                 return;
             }
@@ -124,7 +115,7 @@ namespace PknoPlusCS
             //var password = HFunciones.Codificar(args[2]);
             //var db = HFunciones.Codificar(args[3]);
 
-            Credentials.Ruc = args[4].ToString();
+            Credentials.Ruc = args[4];
             Credentials.IdPuntoVenta = int.Parse(args[5]);
             Credentials.IdDepartamento = int.Parse(args[6]);
             Credentials.IdTurno = int.Parse(args[7]);
@@ -152,13 +143,11 @@ namespace PknoPlusCS
         {
             try
             {
-                string argsConcatenados = string.Join(", ", argss);
-
-               var args = argss[0].Split(',');
+                var args = argss[0].Split(',');
 
                 if (args.Length != 11)
                 {
-                    MessageBox.Show("Error: Se esperaban al menos 10 datos en la cadena de entrada.");
+                    MessageBox.Show(@"Error: Se esperaban al menos 10 datos en la cadena de entrada.");
                     Logs.WriteLog("ERROR", "Se esperaban al menos 10 datos en la cadena de entrada.");
                     return;
                 }
@@ -171,7 +160,7 @@ namespace PknoPlusCS
                 var password = HFunciones.Codificar(args[2]);
                 var db = HFunciones.Codificar(args[3]);
 
-                Credentials.Ruc = args[4].ToString();
+                Credentials.Ruc = args[4];
                 Credentials.IdPuntoVenta = int.Parse(args[5]);
                 Credentials.IdDepartamento = int.Parse(args[6]);
                 Credentials.IdTurno = int.Parse(args[7]);
@@ -208,7 +197,9 @@ namespace PknoPlusCS
             Logs.WriteLog("ERROR", $"Ocurrió una excepción: {ex.Message}");
 
             // Muestra un cuadro de mensaje para informar al usuario
-            MessageBox.Show("Ocurrió un error inesperado. Por favor, contacta al soporte.\n\n"+ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(@"Ocurrió un error inesperado. Por favor, contacta al soporte.
+
+"+ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

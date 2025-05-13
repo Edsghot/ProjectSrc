@@ -70,7 +70,7 @@ namespace PknoPlusCS.Forms.DialogView.DialogModal
                     this.Close();
                     break;
                 default:
-                    MessageBox.Show("Tipo no soportado para continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Tipo no soportado para continuar.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
         }
