@@ -22,6 +22,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
     {
         private readonly IApiClient _apiClient = new ApiClient();
         private readonly ICompraSrcRepository _compraSrcRepository = new CompraSrcRepository();
+        private bool _migracion;
         
         public async Task<List<CompraDto>> ObtenerDataSrc()
         {
@@ -46,6 +47,12 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                 foreach (var compra in DataStaticDto.data)
                 {
                     await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
+                }
+
+                if (_migracion)
+                {
+                    MessageBox.Show("Sus compras del src fueron migrados con exito!", "ERP PECANO");
+                    _migracion = false;
                 }
 
                 //DataStaticDto.data = await obtenerDataDelSrc();
@@ -114,6 +121,13 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
                 await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
             }
+
+            if(_migracion)
+            {
+                MessageBox.Show("INFO", "Sus compras del src fueron migrados con exito! ");
+                _migracion = false;
+            }
+
 
             createBackup();
 
@@ -587,7 +601,8 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
             var data =  _compraSrcRepository.BuscarCompraPorSerieYNumero(serie, conjunto, idRecepcion);
 
-            if(data.Resultado == 1)
+            var dataModificado = DataStaticDto.data.FirstOrDefault(x => x.IdRecepcion == idRecepcion);
+            if (data.Resultado == 1 && dataModificado.Estado != StatusConstant.Migrado)
             {
 
                 var dataaa= await _apiClient.PutComprobanteAsync(idRecepcion, true);
@@ -595,8 +610,8 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                 if (!dataaa.TieneError)
                 {
 
-                    var dataModificado = DataStaticDto.data.FirstOrDefault(x => x.IdRecepcion == idRecepcion);
                     dataModificado.Estado = StatusConstant.Migrado;
+                    _migracion = true;
                     return true;
 
                 }

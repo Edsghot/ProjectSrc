@@ -141,7 +141,7 @@ namespace PknoPlusCS.Forms
                     compra.RazonSocial,
                     compra.DocumentoProveedor,
                     compra.RazonSocial,
-                    "s/." + (compra.TotalPagar - compra.TotalIGV),
+                    "s/." + (compra.TotalGravadas),
                     compra.TotalIGV,
                     "s/." + (compra.TotalPagar),
                     compra.FechaVencimiento.ToString("dd/MM/yyyy"),
@@ -191,7 +191,12 @@ namespace PknoPlusCS.Forms
             int realIndex = (currentPage - 1) * rowsPerPage + e.RowIndex;
             if (realIndex >= DataStaticDto.data.Count) return;
 
-            var dataItem = compraData[realIndex];
+            var dataCompra = compraData.Where(x => x.Estado != StatusConstant.Migrado).ToList();
+            if(dataCompra.Count == 0)
+            {
+                return;
+            }
+            var dataItem = dataCompra[realIndex];
             var columnName = dataTable.Columns[e.ColumnIndex].Name;
 
             if (columnName == "Column1")
@@ -590,7 +595,7 @@ namespace PknoPlusCS.Forms
                                     compra.RazonSocial,
                                     compra.DocumentoProveedor,
                                     compra.RazonSocial,
-                                    "s/." + (compra.TotalPagar - compra.TotalIGV),
+                                    "s/." + (compra.TotalGravadas),
                                     compra.TotalIGV,
                                     "s/." + (compra.TotalPagar),
                                     compra.FechaVencimiento.ToString("dd/MM/yyyy"),
@@ -605,8 +610,10 @@ namespace PknoPlusCS.Forms
                         }
 
                         UpdatePagination();
-                    
-                
+                        if (nuevosRegistros > 0)
+                        {
+                            _
+                        }
             }
             catch (Exception ex)
             {
