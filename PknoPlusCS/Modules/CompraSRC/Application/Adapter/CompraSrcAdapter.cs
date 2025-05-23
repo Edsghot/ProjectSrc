@@ -49,12 +49,6 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                     await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
                 }
 
-                if (_migracion)
-                {
-                    MessageBox.Show("Sus compras del src fueron migrados con exito!", "ERP PECANO");
-                    _migracion = false;
-                }
-
                 //DataStaticDto.data = await obtenerDataDelSrc();
                 createBackup();
                 Logs.WriteLog("INFO", "termino la validacion de la importacion");
@@ -74,6 +68,12 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                 }
 
                 Logs.WriteLog("INFO", "Termino de validar y busqueda de errores " + DataStaticDto.data.Count());
+            }
+
+            if (ExtraStatic.contadorMigrado == 1 && !ExtraStatic.mensajeMigrado)
+            {
+                MessageBox.Show("Sus compras del SRC fueron migrados con exito!");
+                ExtraStatic.mensajeMigrado = true;
             }
 
 
@@ -121,13 +121,6 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
 
                 await validarImportacion(compra.SerieCompra, compra.NumCompra, compra.IdRecepcion);
             }
-
-            if(_migracion)
-            {
-                MessageBox.Show("INFO", "Sus compras del src fueron migrados con exito! ");
-                _migracion = false;
-            }
-
 
             createBackup();
 
@@ -611,7 +604,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                 {
 
                     dataModificado.Estado = StatusConstant.Migrado;
-                    _migracion = true;
+                    ExtraStatic.contadorMigrado++;
                     return true;
 
                 }

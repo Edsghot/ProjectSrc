@@ -80,7 +80,7 @@ namespace PknoPlusCS.Forms
                 {
             
 
-                    validarAreaCerrado = _compraSrc.validarCierreArea(compra.FechaImportacion, int.Parse(compra.Sucursal));
+                    validarAreaCerrado = _compraSrc.validarCierreArea(compra.Fecha, int.Parse(compra.Sucursal));
                     var mensajeee = compra.Actualizar ?  "Actualizado": "Ok";
                     dataTable.Rows.Add(
                         cont+1,
@@ -169,7 +169,7 @@ namespace PknoPlusCS.Forms
                         var idRecepcion = await _compraSrc.GetIdRecepcion(code, ruc);
                         var data = await _compraSrc.GetAllByIdRecepcion(idRecepcion);
 
-                        validarAreaCerrado = _compraSrc.validarCierreArea(data.FechaImportacion, int.Parse(data.Sucursal));
+                        validarAreaCerrado = _compraSrc.validarCierreArea(data.Fecha, int.Parse(data.Sucursal));
                         if(validarAreaCerrado.situacion != true)
                         {
                             MessageBox.Show("No se puede editar la compra porque el área está cerrado", @"Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);

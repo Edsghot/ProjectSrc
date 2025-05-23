@@ -52,6 +52,7 @@ namespace PknoPlusCS.Forms
                 lblDateFin.Text = dateFin.Value.ToString("dd/MM/yyyy");
             };
 
+
             _compraSrc = new CompraSrcAdapter();
 
         }
@@ -543,87 +544,59 @@ namespace PknoPlusCS.Forms
         //----------------------------------------------------------------------------------- BUTTON SCANNER
         private async void btnEscanear_Click(object sender, EventArgs e)
         {
-            var confirmResult = MessageBox.Show(
-                "Si procedes con la ejecución, la tabla se refrescará y cualquier cambio hecho se perderá. ¿Deseas continuar?",
-                @"Confirmación",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
+                var confirmResult = MessageBox.Show(
+                    "Si procedes con la ejecución, la tabla se refrescará y cualquier cambio hecho se perderá. ¿Deseas continuar?",
+                    @"Confirmación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
 
-            if (confirmResult == DialogResult.No)
-            {
-                return;
-            }
+                if (confirmResult == DialogResult.No)
+                    return;
 
-            btnEscanear.Enabled = false;
+                btnEscanear.Enabled = false;
 
+                if (!(this.FindForm() is MainComprasSrc mainForm))
+                {
+                    MessageBox.Show("No se pudo encontrar el formulario principal.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    btnEscanear.Enabled = true;
+                    return;
+                }
 
-            if (!(this.FindForm() is MainComprasSrc mainForm))
-            {
-                MessageBox.Show("No se pudo encontrar el formulario principal.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                btnEscanear.Enabled = true;
-                return;
-            }
+                mainForm.ShowOverlay();
 
-            mainForm.ShowOverlay();
+                try
+                {
+                    // 1. Obtener datos del origen
+                    var nuevosDatos = await _compraSrc.obtenerDataDelSrc();
 
-            try
-            {
-                dataTable.Rows.Clear(); 
-                var nuevosDatos = await _compraSrc.obtenerDataDelSrc();
+                    // 2. Filtrar registros (excluyendo los que están en estado 'Migrado')
+                    var datosFiltrados = nuevosDatos
+                        .Where(c => c.Estado != StatusConstant.Migrado)
+                        .ToList();
 
-                    int datosActuales = DataStaticDto.data.Count;
-                    int nuevosRegistros = nuevosDatos.Count;
+                    // 3. Actualizar la fuente de datos estática
+                    DataStaticDto.data = datosFiltrados;
 
+                    // 4. Limpiar DataGridView y establecer nueva fuente
+                    dataTable.DataSource = null;
+                    dataTable.Rows.Clear(); // solo por si acaso
+                    compraData = datosFiltrados; // Asumiendo que `compraData` se usa como cache en paginación
 
-                    
-                        DataStaticDto.data = nuevosDatos;
-                        totalRows = compraData.Count;
-
-                        foreach (var compra in DataStaticDto.data)
-                        {
-                            try
-                            {
-                            if(compra.Estado == StatusConstant.Migrado)
-                            {
-                                continue;
-                            }
-                                dataTable.Rows.Add(
-                                    compra.Seleccionado,
-                                    compra.idCompraSerie,
-                                    compra.FechaEmision.ToString("dd/MM/yyyy"),
-                                    compra.Sucursal,
-                                    compra.RazonSocial,
-                                    compra.DocumentoProveedor,
-                                    compra.RazonSocial,
-                                    "s/." + (compra.TotalGravadas),
-                                    compra.TotalIGV,
-                                    "s/." + (compra.TotalPagar),
-                                    compra.FechaVencimiento.ToString("dd/MM/yyyy"),
-                                    compra.RazonSocial,
-                                    compra.Estado
-                                );
-                            }
-                            catch (Exception filaEx)
-                            {
-                                MessageBox.Show($"Error al agregar fila: {filaEx.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                        }
-
-                        UpdatePagination();
-                        if (nuevosRegistros > 0)
-                        {
-                            _
-                        }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ocurrió un error al escanear:\n{ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                mainForm.HideOverlay();
-                btnEscanear.Enabled = true;
-            }
+                    totalRows = datosFiltrados.Count;
+                    currentPage = 1;
+                    LoadPageData(); // para que la paginación y formato funcionen
+                    UpdatePagination();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error al escanear:\n{ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    mainForm.HideOverlay();
+                    btnEscanear.Enabled = true;
+               }
+            
         }
 
 

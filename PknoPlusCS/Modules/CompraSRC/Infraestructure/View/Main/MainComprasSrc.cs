@@ -10,6 +10,7 @@ using FontAwesome.Sharp;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using PknoPlusCS.Configuration.Constants;
 
 namespace PknoPlusCS
 {
@@ -26,6 +27,7 @@ namespace PknoPlusCS
             this.StartPosition = FormStartPosition.CenterScreen;
             LoadUserControl(new UCImportacionesCompra(), btnOption1);
             compra = new CompraSrcAdapter();
+           this.Text += ApiKeySrc.Version;
         }
         // ------------------------------------------------------------- TOAST
         public void ShowToast(string message, string type)

@@ -9,5 +9,6 @@ namespace PknoPlusCS.Configuration.Constants
     public static class ApiKeySrc
     {
         public static string ApiKey { get; set; } = "";
+        public static string Version { get; set; } = " (v.1.0)";
     }
 }
