@@ -144,6 +144,7 @@
     <Compile Include="Modules\CompraSRC\Domain\Dto\RepoDto\ValidarImpoDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\Static\MenuDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\Static\ControlStatic.cs" />
+    <Compile Include="Modules\CompraSRC\Domain\Dto\Static\TiposDeProductos.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\Sucursal\SucursalDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\general\validationErrorDto.cs" />
     <Compile Include="Modules\CompraSRC\Domain\Dto\Validacion\ValidarCierreDto.cs" />
@@ -212,6 +213,12 @@
     </Compile>
     <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatch\CoincidenciaProductos.Designer.cs">
       <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ResumenImportacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\ResumenImportacion.Designer.cs">
+      <DependentUpon>ResumenImportacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Modules\CompraSRC\Infraestructure\View\Modales\Sucursal.cs">
       <SubType>Form</SubType>
@@ -297,6 +304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\ProductMatch\CoincidenciaProductos.resx">
       <DependentUpon>CoincidenciaProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\ResumenImportacion.resx">
+      <DependentUpon>ResumenImportacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\CompraSRC\Infraestructure\View\Modales\Sucursal.resx">
       <DependentUpon>Sucursal.cs</DependentUpon>

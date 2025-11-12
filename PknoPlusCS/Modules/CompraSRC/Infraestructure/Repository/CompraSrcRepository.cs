@@ -258,6 +258,22 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             return products;
         }
 
+       
+            public IEnumerable<ProductDto> BuscarProductoPorTipoAuxiliar(string idProducto)
+        {
+            var parameters = new[]
+            {
+        new SqlParameter("@IdProducto", idProducto)};
+
+            var data = DataBaseHelper.ExecuteStoredProcedure("spBuscarProductoPorId", parameters);
+
+            var products = data.AsEnumerable()
+                .Select<DataRow, ProductDto>(row => Mapper.Map<DataRow, ProductDto>(row))
+                .ToList();
+
+            return products;
+        }
+
 
         public void InsertarCliPro(ProveedorDto proveedor)
         {

@@ -12,5 +12,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto
         public string NombreProdErp { get; set; }
         public string NombreProdSrc { get; set; }
         public string RucEmpresa { get; set; }
+        public int idTipoAuxiliar { get; set; }
+        public string NombreTipoAuxiliar { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using PknoPlusCS.Modules.CompraSRC.Application.Port;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Constantes;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Permisos;
+using PknoPlusCS.Modules.CompraSRC.Infraestructure.View.Modales;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -134,6 +135,11 @@ namespace PknoPlusCS.Forms
                 {
                     continue;
                 }
+                var simbolo = compra.Moneda == "N" ? "S/. " : "$. ";
+
+                var subTotal = compra.TotalGravadas == 0 ? compra.TotalExoneradas : compra.TotalGravadas;
+
+
                 dataTable.Rows.Add(
                     compra.Seleccionado,
                     compra.idCompraSerie,
@@ -142,9 +148,9 @@ namespace PknoPlusCS.Forms
                     compra.RazonSocial,
                     compra.DocumentoProveedor,
                     compra.RazonSocial,
-                    "s/." + (compra.TotalGravadas),
+                    simbolo + subTotal,
                     compra.TotalIGV,
-                    "s/." + (compra.TotalPagar),
+                    simbolo + (compra.TotalPagar),
                     compra.FechaVencimiento.ToString("dd/MM/yyyy"),
                     compra.RazonSocial,
                     compra.Estado
@@ -530,7 +536,8 @@ namespace PknoPlusCS.Forms
 
             if (codigosYIdRecepcion.Count > 0)
             {
-                var modal = new Importar((MainComprasSrc)this.ParentForm, codigosYIdRecepcion);
+
+                var modal = new ResumenImportacion((MainComprasSrc)this.ParentForm, codigosYIdRecepcion);
                 overlayForm.ShowOverlayWithModal(modal);
             }
             else

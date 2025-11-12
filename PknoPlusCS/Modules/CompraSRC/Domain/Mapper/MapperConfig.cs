@@ -17,7 +17,9 @@ public static class MapperConfig
 
         Mapper.Register<DataRow, ProductDto>()
             .Member(dest => dest.ProductId, src => src["ProductoId"] != DBNull.Value ? src["ProductoId"].ToString() : "")
-            .Member(dest => dest.ProductName, src => src["NombreProducto"] != DBNull.Value ? src["NombreProducto"].ToString() : "");
+            .Member(dest => dest.ProductName, src => src["NombreProducto"] != DBNull.Value ? src["NombreProducto"].ToString() : "")
+            .Member(dest => dest.IdTipoAuxiliar, src => src["IdTipoAuxiliar"] != DBNull.Value ? Convert.ToInt32(src["IdTipoAuxiliar"]) : 0)
+            .Member(dest => dest.NomTipoAuxiliar, src => src["NomTipoAuxiliar"] != DBNull.Value ? src["NomTipoAuxiliar"].ToString() : "");
 
         Mapper.Register<DataRow, ValidarImpoDto>()
            .Member(dest => dest.Resultado, src => src["Resultado"] != DBNull.Value ? Convert.ToInt32(src["Resultado"]) : 0);

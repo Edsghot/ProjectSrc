@@ -56,7 +56,7 @@
             this.label1.Location = new System.Drawing.Point(257, 22);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(156, 22);
+            this.label1.Size = new System.Drawing.Size(133, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "Buscar producto";
             // 
@@ -163,7 +163,7 @@
             this.txtSearch.Location = new System.Drawing.Point(9, 9);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(2);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(365, 23);
+            this.txtSearch.Size = new System.Drawing.Size(365, 19);
             this.txtSearch.TabIndex = 6;
             // 
             // panel4
@@ -190,7 +190,7 @@
             this.cmbSearchOption.Location = new System.Drawing.Point(10, 5);
             this.cmbSearchOption.Margin = new System.Windows.Forms.Padding(2);
             this.cmbSearchOption.Name = "cmbSearchOption";
-            this.cmbSearchOption.Size = new System.Drawing.Size(123, 30);
+            this.cmbSearchOption.Size = new System.Drawing.Size(123, 25);
             this.cmbSearchOption.TabIndex = 7;
             // 
             // panel3
@@ -211,6 +211,7 @@
             this.lvResults.Size = new System.Drawing.Size(582, 240);
             this.lvResults.TabIndex = 2;
             this.lvResults.UseCompatibleStateImageBehavior = false;
+            this.lvResults.SelectedIndexChanged += new System.EventHandler(this.lvResults_SelectedIndexChanged_1);
             // 
             // label2
             // 
@@ -219,7 +220,7 @@
             this.label2.Location = new System.Drawing.Point(10, 7);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 16);
+            this.label2.Size = new System.Drawing.Size(74, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Resultados:";
             // 

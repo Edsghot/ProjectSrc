@@ -93,7 +93,6 @@ namespace PknoPlusCS.Global.Helper
                 {
                     Logs.WriteLog("ERROR", "La clave MigrarCompraSrc no existe en el registro.");
                     MostrarErrorYSalir("ERROR", "La clave MigrarCompraSrc no existe en el regedit");
-
                 }
             }
             catch (UnauthorizedAccessException ex)
@@ -113,11 +112,11 @@ namespace PknoPlusCS.Global.Helper
             MessageBox.Show(mensaje+ (detalle == "" ? "": ("\n \n detalle: " + detalle)), titulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
             if (formulario != null)
             {
-                formulario.Close(); // Cierra el formulario si se proporcionó
+                formulario.Close(); 
             }
             else
             {
-                Environment.Exit(1);// Cierra toda la aplicación si no se pasa formulario
+                Environment.Exit(1);
             }
         }
     }

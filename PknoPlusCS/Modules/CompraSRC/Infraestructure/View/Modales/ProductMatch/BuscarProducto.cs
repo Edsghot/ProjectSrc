@@ -1,4 +1,5 @@
-﻿using PknoPlusCS.Modules.CompraSRC.Domain.IRepository;
+﻿using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Static;
+using PknoPlusCS.Modules.CompraSRC.Domain.IRepository;
 using PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository;
 using System;
 using System.Drawing;
@@ -29,9 +30,11 @@ namespace PknoPlusCS.Forms.DialogView.ProductMatch
             lvResults.View = View.Details;
             lvResults.FullRowSelect = true;
             lvResults.Columns.Clear();
-            lvResults.Columns.Add("Código", 80);
-            lvResults.Columns.Add("Nombre", 480);
+            lvResults.Columns.Add("Código", 70);
 
+            lvResults.Columns.Add("tipo auxiliar", 80);
+            lvResults.Columns.Add("nombre auxiliar", 110);
+            lvResults.Columns.Add("Nombre", 480);
             lvResults.SelectedIndexChanged += LvResults_SelectedIndexChanged;
         }
 
@@ -91,7 +94,11 @@ namespace PknoPlusCS.Forms.DialogView.ProductMatch
                         foreach (var product in response)
                         {
                             ListViewItem item = new ListViewItem(product.ProductId);
+
+                            item.SubItems.Add(product.IdTipoAuxiliar.ToString());
+                            item.SubItems.Add(product.NomTipoAuxiliar);
                             item.SubItems.Add(product.ProductName);
+
                             lvResults.Items.Add(item);
                         }
                     }
@@ -100,6 +107,7 @@ namespace PknoPlusCS.Forms.DialogView.ProductMatch
                         lvResults.Items.Add(new ListViewItem(new[] { "N/A", "No se encontraron productos" }));
                     }
                 }
+               
                 else if (cmbSearchOption.SelectedItem.ToString() == "ID de producto")
                 {
                     var response =  _repo.BuscarProductoPorId(searchQuery);
@@ -109,7 +117,11 @@ namespace PknoPlusCS.Forms.DialogView.ProductMatch
                         foreach (var product in response)
                         {
                             ListViewItem item = new ListViewItem(product.ProductId);
+
+                            item.SubItems.Add(product.IdTipoAuxiliar.ToString());
+                            item.SubItems.Add(product.NomTipoAuxiliar);
                             item.SubItems.Add(product.ProductName);
+
                             lvResults.Items.Add(item);
                         }
                     }
@@ -131,9 +143,13 @@ namespace PknoPlusCS.Forms.DialogView.ProductMatch
             {
                 var selectedItem = lvResults.SelectedItems[0];
                 _productId = selectedItem.Text;
-                _productName = selectedItem.SubItems[1].Text;
+                _productName = selectedItem.SubItems[3].Text;
 
-               
+                TiposDeProductosStatic.IdTipoAuxiliar = int.Parse(selectedItem.SubItems[1].Text);
+                TiposDeProductosStatic.NameTipoAuxiliar = selectedItem.SubItems[2].Text;
+
+
+
                 this.Close();
             }
         }
@@ -141,6 +157,11 @@ namespace PknoPlusCS.Forms.DialogView.ProductMatch
         public string GetSelectedProduct()
         {
             return _productName;
+        }
+
+        private void lvResults_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

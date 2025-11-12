@@ -30,6 +30,8 @@ namespace PknoPlusCS.Modules.CompraSRC.Domain.Dto
 
         // ✅ Se agrega el campo Bultos
         public int Bultos { get; set; } = 1; // Valor por defecto
+        public int IdTipoAuxiliar { get; set; }
+        public string NombreTipoProducto { get;set; } = string.Empty;
 
     }
 

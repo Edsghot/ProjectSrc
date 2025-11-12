@@ -63,6 +63,16 @@ namespace PknoPlusCS.Forms.DialogView
         {
             int mesSeleccionado = cbMes.SelectedIndex + 1;
             int anioSeleccionado = Int32.Parse(cbAño.SelectedItem.ToString());
+    
+            int mesActual = DateTime.Now.Month;
+            int anioActual = DateTime.Now.Year;
+
+            if (anioSeleccionado > anioActual ||
+               (anioSeleccionado == anioActual && mesSeleccionado > mesActual))
+            {
+                MessageBox.Show("No puede seleccionar un mes o año superior al actual.");
+                return;
+            }
             foreach (var idRecepcion in codigosYIdRecepcion)
             {
                 var id = DataStaticDto.data.FirstOrDefault(x => x.IdRecepcion == idRecepcion.Item2);

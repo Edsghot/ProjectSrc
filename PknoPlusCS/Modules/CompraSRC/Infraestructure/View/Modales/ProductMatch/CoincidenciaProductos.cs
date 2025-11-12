@@ -4,6 +4,7 @@ using PknoPlusCS.Modules.CompraSRC.Application.Adapter;
 using PknoPlusCS.Modules.CompraSRC.Application.Port;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Static;
 using PknoPlusCS.Modules.CompraSRC.Domain.IRepository;
 using PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository;
 using System;
@@ -213,22 +214,29 @@ namespace PknoPlusCS.Forms.DialogView
                         IdProductoErp = idProductoErp2,
                         NombreProdErp = nombreProdErp2,
                         NombreProdSrc = nombreProdSrc2,
-                        RucEmpresa = rucRecuperado
+                        RucEmpresa = rucRecuperado,
+                        idTipoAuxiliar = TiposDeProductosStatic.IdTipoAuxiliar,
+                        NombreTipoAuxiliar = TiposDeProductosStatic.NameTipoAuxiliar
                     };
 
                     await compra.EscanearDCompra(idProductoErp2, nombreProdSrc2);
 
                     var data =  _repo.getIdProductoExt(idProductoErp2);
 
-                    var CompraModificable = compra.ObtenerCompraPorIdRecepcion(_idRecepcion);
+                    var compraModificable = compra.ObtenerCompraPorIdRecepcion(_idRecepcion);
+
+                    var productoEditado = compraModificable.Compras.FirstOrDefault(x => x.IdProducto == productoInsertar.IdProductoErp);
+                    productoEditado.IdTipoAuxiliar = productoInsertar.idTipoAuxiliar;
+                    productoEditado.NombreTipoProducto = productoInsertar.NombreTipoAuxiliar;
 
                     if (data.Combustible)
                     {
-                        CompraModificable.Combustible = true;
+                        compraModificable.Combustible = true;
                     }
 
                    _repo.InsertProdCuencidencia(productoInsertar);
-                    CompraModificable.EstadoProductos = true;
+                    compraModificable.EstadoProductos = true;
+                   
                     
                     HFunciones.ActualizarEstados();
                 }

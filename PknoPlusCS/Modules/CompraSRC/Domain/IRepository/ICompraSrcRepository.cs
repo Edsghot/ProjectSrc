@@ -20,6 +20,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Domain.IRepository
         IEnumerable<SucursalDto> getAllSucursal();
         List<CoincidenciaProdSrcDto> ObtenerCoincidenciasProdSrcPorRuc(string rucEmpresa);
         IEnumerable<ProductDto> BuscarProductoPorId(string idProducto);
+        IEnumerable<ProductDto> BuscarProductoPorTipoAuxiliar(string idProducto);
         List<CliProveedorDto> GetCliProByRUCOrRazonComercial(string rucEmpresa, string razonSocial);
         List<ClaseTipoSunatDto> GetClaseDocByTipoSunat(string tipoSunat);
         List<PeriodoDto> ObtenerPeriodosPorFecha(int anio, int mes);
