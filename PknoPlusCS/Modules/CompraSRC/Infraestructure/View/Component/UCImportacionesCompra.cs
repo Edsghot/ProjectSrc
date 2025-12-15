@@ -33,6 +33,7 @@ namespace PknoPlusCS.Forms
             InitializeComponent();
             dataTable.CellFormatting += dataTable_CellFormatting;
             dataTable.CellClick += dataTable_CellClick;
+            dataTable.CellContentClick += dataTable_CellContentClick;
 
             if (!DataPermisoStaticDto.MigrarCompras)
             {
@@ -83,6 +84,36 @@ namespace PknoPlusCS.Forms
         {
             await InitializeData();
             AgregarColumnaCheckBox();
+        }
+
+        private void dataTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verificar si es la columna IncluyeIgvEnPrecio
+            if (e.ColumnIndex == dataTable.Columns["ColumnIncluyeIgv"].Index && e.RowIndex >= 0)
+            {
+                try
+                {
+                    int realIndex = (currentPage - 1) * rowsPerPage + e.RowIndex;
+
+                    var dataComprasFiltradas = DataStaticDto.data.Where(x => x.Estado != StatusConstant.Migrado).ToList();
+
+                    if (realIndex >= 0 && realIndex < dataComprasFiltradas.Count)
+                    {
+                        var compra = dataComprasFiltradas[realIndex];
+
+                        DataGridViewCheckBoxCell checkBoxCell = (DataGridViewCheckBoxCell)dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    
+
+                        compra.IncluyeIgvEnCosto = !compra.IncluyeIgvEnCosto;
+                        dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = compra.IncluyeIgvEnCosto;
+                        dataTable.Refresh();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al actualizar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private async Task InitializeData()
@@ -146,6 +177,7 @@ namespace PknoPlusCS.Forms
                     compra.FechaEmision.ToString("dd/MM/yyyy"),
                     compra.Sucursal,
                     compra.RazonSocial,
+                    compra.IncluyeIgvEnCosto,
                     compra.DocumentoProveedor,
                     compra.RazonSocial,
                     simbolo + subTotal,
@@ -418,8 +450,8 @@ namespace PknoPlusCS.Forms
 
                 if (columnName == "Column11")
                 {
-                    string codigoProveedor = dataTable.Rows[e.RowIndex].Cells[5].Value.ToString();
-                    string codigo = dataTable.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    string codigoProveedor = dataTable.Rows[e.RowIndex].Cells["Column5"].Value.ToString();
+                    string codigo = dataTable.Rows[e.RowIndex].Cells["Column1"].Value.ToString();
                     if (!string.IsNullOrEmpty(codigoProveedor) && !string.IsNullOrEmpty(codigo))
                     {
                         var idRecepcion = await _compraSrc.GetIdRecepcion(codigoProveedor, codigo);
@@ -451,9 +483,9 @@ namespace PknoPlusCS.Forms
 
                 if (columnName == "Column12")
                 {
-                    string estado = dataTable.Rows[e.RowIndex].Cells[12].Value.ToString();
-                    string codigoCompra = dataTable.Rows[e.RowIndex].Cells[1].Value.ToString();
-                    string ruc = dataTable.Rows[e.RowIndex].Cells[5].Value.ToString();
+                    string estado = dataTable.Rows[e.RowIndex].Cells["Column12"].Value.ToString();
+                    string codigoCompra = dataTable.Rows[e.RowIndex].Cells["Column1"].Value.ToString();
+                    string ruc = dataTable.Rows[e.RowIndex].Cells["Column5"].Value.ToString();
                     var idRecepcion = await _compraSrc.GetIdRecepcion(ruc, codigoCompra);
 
                     var errores = _compraSrc.GetErrorsDetail(idRecepcion);

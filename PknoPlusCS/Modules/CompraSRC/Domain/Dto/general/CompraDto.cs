@@ -84,6 +84,7 @@ public class CompraDto
     public int IdTurno { get; set; }
     public bool RelGuiaCompra { get; set; }
     public bool PrecioIncluyeIGV { get; set; }
+    public bool IncluyeIgvEnCosto { get; set; }
     public int tipoFechaRegCompras { get; set; }
     public DateTime? fechaEspecialRC { get; set; } = new DateTime(2000, 1, 1);
     public bool servicioIntangible { get; set; }

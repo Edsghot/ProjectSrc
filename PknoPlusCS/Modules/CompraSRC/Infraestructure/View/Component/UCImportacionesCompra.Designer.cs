@@ -54,6 +54,7 @@ namespace PknoPlusCS.Forms
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIncluyeIgv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -323,6 +324,7 @@ namespace PknoPlusCS.Forms
             this.Column2,
             this.Column3,
             this.Column4,
+            this.ColumnIncluyeIgv,
             this.Column5,
             this.Column6,
             this.Column7,
@@ -388,6 +390,12 @@ namespace PknoPlusCS.Forms
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             this.Column4.Width = 125;
+
+            this.ColumnIncluyeIgv.HeaderText = "Incluye\r\nIGV en Costo";
+            this.ColumnIncluyeIgv.MinimumWidth = 6;
+            this.ColumnIncluyeIgv.Name = "ColumnIncluyeIgv";
+            this.ColumnIncluyeIgv.ReadOnly = false;  // IMPORTANTE: permitir edición
+            this.ColumnIncluyeIgv.Width = 150;
             // 
             // Column5
             // 
@@ -595,6 +603,7 @@ namespace PknoPlusCS.Forms
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column4;
+        private DataGridViewCheckBoxColumn ColumnIncluyeIgv;
         private DataGridViewTextBoxColumn Column5;
         private DataGridViewTextBoxColumn Column6;
         private DataGridViewTextBoxColumn Column7;

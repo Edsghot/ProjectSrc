@@ -636,6 +636,8 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
                 if (data.Count > 0) {
                     compra.IdProducto = data[0].IdProductoErp;
                     compra.NomProductoErp = data[0].NombreProdErp;
+                    compra.IdTipoAuxiliar = int.TryParse(data[0].IdTipoAuxiliar, out int valor)? valor: 0; ;
+                    compra.NombreTipoProducto = data[0].NomTipoAuxiliar;
                     var era =  _compraSrcRepository.getIdProductoExt(compra.IdProducto);
 
                     if (era.Combustible)

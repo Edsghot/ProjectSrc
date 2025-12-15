@@ -22,7 +22,6 @@ namespace PknoPlusCS.Modules
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-            LoadUserControl(new UCImportacionesCompra(), btnOption1);
         }
         // ------------------------------------------------------------- TOAST
         public void ShowToast(string message, string type)
@@ -57,14 +56,7 @@ namespace PknoPlusCS.Modules
 
         private void LoadUserControl(UserControl userControl, IconButton senderButton)
         {
-            if (activeControl != null)
-            {
-                pnlContainer.Controls.Remove(activeControl);
-            }
-
-            activeControl = userControl;
-            activeControl.Dock = DockStyle.Fill;
-            pnlContainer.Controls.Add(activeControl);
+            
 
             HighlightButton(senderButton);
         }
@@ -93,6 +85,16 @@ namespace PknoPlusCS.Modules
         private void btnOption2_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UCComprasImportadas(), (IconButton)sender);
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

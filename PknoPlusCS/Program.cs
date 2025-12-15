@@ -32,47 +32,47 @@ namespace PknoPlusCS
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                ICompraSrcRepository repository = new CompraSrcRepository();
-
-                var dataRepo = repository.GetConfiguracionInicial();
-
-                DataPermisoStaticDto.dataPermisos = repository.sp_ObtenerPermisosPorInterfaceYUsuarioSrc(Credentials.IdUsuario);
-
-                foreach (var permiso in DataPermisoStaticDto.dataPermisos)
-                {
-                    switch (permiso.IdAccion)
-                    {
-                        case 235:
-                            DataPermisoStaticDto.MigrarCompras = permiso.Habilitado;
-                            break;
-                        case 237:
-                            DataPermisoStaticDto.EditarDetalle = permiso.Habilitado;
-                            break;
-                        case 238:
-                            DataPermisoStaticDto.Escanear = permiso.Habilitado;
-                            break;
-                        case 236:
-                            DataPermisoStaticDto.EditarMigracion = permiso.Habilitado;
-                            break;
-                    }
-                }
-
-                if (dataRepo.reiniciar == 2)
-                {
-                    repository.UpdateConfiguracionInicial(0);
-                    Application.Exit();
-                    return;
-                }
-
-                if (dataRepo.reiniciar == 0)
-                {
-                    repository.UpdateConfiguracionInicial(2);
-                }
-
                 switch (Credentials.IdFormulario)
                 {
                     case (int)Formularios.FormularioCompraSrc:
                         Logs.initLogs("CompraSrc.txt");
+
+                        ICompraSrcRepository repository = new CompraSrcRepository();
+
+                        var dataRepo = repository.GetConfiguracionInicial();
+
+                        DataPermisoStaticDto.dataPermisos = repository.sp_ObtenerPermisosPorInterfaceYUsuarioSrc(Credentials.IdUsuario);
+
+                        foreach (var permiso in DataPermisoStaticDto.dataPermisos)
+                        {
+                            switch (permiso.IdAccion)
+                            {
+                                case 235:
+                                    DataPermisoStaticDto.MigrarCompras = permiso.Habilitado;
+                                    break;
+                                case 237:
+                                    DataPermisoStaticDto.EditarDetalle = permiso.Habilitado;
+                                    break;
+                                case 238:
+                                    DataPermisoStaticDto.Escanear = permiso.Habilitado;
+                                    break;
+                                case 236:
+                                    DataPermisoStaticDto.EditarMigracion = permiso.Habilitado;
+                                    break;
+                            }
+                        }
+
+                        if (dataRepo.reiniciar == 2)
+                        {
+                            repository.UpdateConfiguracionInicial(0);
+                            Application.Exit();
+                            return;
+                        }
+
+                        if (dataRepo.reiniciar == 0)
+                        {
+                            repository.UpdateConfiguracionInicial(2);
+                        }
 
                         Logs.WriteLog("ERROR", "Escogio el CompraSrc");
                         Application.Run(new MainComprasSrc());
@@ -97,7 +97,7 @@ namespace PknoPlusCS
             string argsConcatenados = string.Join(", ", argss);
 
             // Mostrar la cadena concatenada en un MessageBox
-            MessageBox.Show($@"Argumentos recibidos: {argsConcatenados}");
+           // MessageBox.Show($@"Argumentos recibidos: {argsConcatenados}");
             var args = argss[0].Split(',');
 
             if (args.Length != 11)
@@ -122,7 +122,7 @@ namespace PknoPlusCS
             Credentials.IdComputadora = int.Parse(args[8]);
             Credentials.IdUsuario = int.Parse(args[9]);
             Credentials.IdFormulario = int.Parse(args[10]);
-            HFunciones.GetConnectionStringFromRegistry();
+            HFunciones.GetConnectionStringFromRegistry(Credentials.Ruc);
             Credentials.DataBaseConection = "Data Source=" + servidor + ";Initial Catalog=" + db + ";User ID=" + user + ";Password=" + password + ";Max Pool Size=200000;TrustServerCertificate=true";
 
             // Logging the values
@@ -168,7 +168,7 @@ namespace PknoPlusCS
                 Credentials.IdComputadora = int.Parse(args[8]);
                 Credentials.IdUsuario = int.Parse(args[9]);
                 Credentials.IdFormulario = int.Parse(args[10]);
-                HFunciones.GetConnectionStringFromRegistry();
+                HFunciones.GetConnectionStringFromRegistry(Credentials.Ruc);
 
                 Credentials.DataBaseConection = "Data Source=" + servidor + ";Initial Catalog=" + db + ";User ID=" + user + ";Password=" + password + ";Max Pool Size=200000;TrustServerCertificate=true";
 

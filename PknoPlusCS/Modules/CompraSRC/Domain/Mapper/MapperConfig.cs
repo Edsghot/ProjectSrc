@@ -40,6 +40,8 @@ public static class MapperConfig
             .Member(dest => dest.NombreProdSrc, src => src["NombreProdSrc"] != DBNull.Value ? src["NombreProdSrc"].ToString() : "")
             .Member(dest => dest.RucEmpresa, src => src["RucEmpresa"] != DBNull.Value ? src["RucEmpresa"].ToString() : "")
             .Member(dest => dest.Validado, src => src["Validado"] != DBNull.Value ? Convert.ToBoolean(src["Validado"]) : false)
+            .Member(dest => dest.IdTipoAuxiliar, src => src["IdTipoAuxiliar"] != DBNull.Value ? src["IdTipoAuxiliar"].ToString() : "")
+            .Member(dest => dest.NomTipoAuxiliar, src => src["NomTipoAuxiliar"] != DBNull.Value ? src["NomTipoAuxiliar"].ToString() : "")
             .Member(dest => dest.FechaValidacion, src => src["FechaValidacion"] != DBNull.Value ? Convert.ToDateTime(src["FechaValidacion"]) : DateTime.MinValue);
 
         Mapper.Register<DataRow, CliProveedorDto>()

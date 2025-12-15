@@ -16,5 +16,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto
         public string RucEmpresa { get; set; }
         public bool Validado { get; set; }
         public DateTime FechaValidacion { get; set; }
+        public string IdTipoAuxiliar { get; set; } 
+        public string NomTipoAuxiliar { get; set; }
     }
 }

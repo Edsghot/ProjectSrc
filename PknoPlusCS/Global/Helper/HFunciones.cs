@@ -70,40 +70,43 @@ namespace PknoPlusCS.Global.Helper
 
             }
         }
-        public static void GetConnectionStringFromRegistry()
+        public static void GetConnectionStringFromRegistry(string ruc)
         {
             try
             {
-                var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\MigrarCompraSrc");
+                string subKeyPath = $@"SOFTWARE\Pecano\MigrarCompraSrc\Comercio{ruc}";
+                string subKeyPathWow = $@"SOFTWARE\WOW6432Node\Pecano\MigrarCompraSrc\Comercio{ruc}";
+
+                var key = Registry.LocalMachine.OpenSubKey(subKeyPath)
+                          ?? Registry.LocalMachine.OpenSubKey(subKeyPathWow);
 
                 if (key != null)
                 {
                     var apiKeyValue = key.GetValue("API_KEY")?.ToString();
-
                     if (!string.IsNullOrEmpty(apiKeyValue))
                     {
                         ApiKeySrc.ApiKey = apiKeyValue;
                     }
                     else
                     {
-                        Logs.WriteLog("ERROR", "API_KEY no encontrado en el registro.");
+                        Logs.WriteLog("ERROR", $"API_KEY no encontrado en el registro para Comercio{ruc}.");
                     }
                 }
                 else
                 {
-                    Logs.WriteLog("ERROR", "La clave MigrarCompraSrc no existe en el registro.");
-                    MostrarErrorYSalir("ERROR", "La clave MigrarCompraSrc no existe en el regedit");
+                    Logs.WriteLog("ERROR", $"La clave Comercio{ruc} no existe en el registro.");
+                    MostrarErrorYSalir("ERROR", $"La clave Comercio{ruc} no existe en el regedit");
                 }
             }
             catch (UnauthorizedAccessException ex)
             {
                 Logs.WriteLog("ERROR", "No tienes permisos para acceder al registro: " + ex.Message);
-                MostrarErrorYSalir("ERROR", "La clave migrarCompraSrc no existe en el regedit", ex.Message);
+                MostrarErrorYSalir("ERROR", $"La clave Comercio{ruc} no existe en el regedit", ex.Message);
             }
             catch (Exception ex)
             {
                 Logs.WriteLog("ERROR", "Error leyendo el registro de regedit: " + ex.Message);
-                MostrarErrorYSalir("ERROR", "La clave migrarCompraSrc no existe en el regedit",ex.Message);
+                MostrarErrorYSalir("ERROR", $"La clave Comercio{ruc} no existe en el regedit", ex.Message);
             }
         }
 

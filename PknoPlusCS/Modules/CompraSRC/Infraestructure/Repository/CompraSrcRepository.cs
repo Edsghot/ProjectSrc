@@ -442,14 +442,14 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@total", data.Total),
                 new SqlParameter("@nDetraccion", string.Empty),
                 new SqlParameter("@fDetraccion",  (object)DBNull.Value),
-                new SqlParameter("@fechaLlegada", data.FechaLlegada ?? (object)DBNull.Value),
+                new SqlParameter("@fechaLlegada", data.FechaLlegada),
                 new SqlParameter("@precioIncluyeIGV", data.PrecioIncluyeIGV),
                 new SqlParameter("@tipoOperacion", 2),
                 new SqlParameter("@centroCostos", data.Sucursal),
-                new SqlParameter("@seriePer", string.IsNullOrEmpty(data.SeriePer) ? (object)DBNull.Value : data.SeriePer),
-                new SqlParameter("@numPer", string.IsNullOrEmpty(data.NumCompra) ? (object)DBNull.Value : data.NumCompra),
-                new SqlParameter("@fechaPercepcion", (object)DBNull.Value),
-                new SqlParameter("@perTotal", data.PerTotal),
+                new SqlParameter("@seriePer",data.PerTotal > 0 ? data.SerieCompra: ""),
+                new SqlParameter("@numPer", data.PerTotal > 0 ? data.NumCompra?.TrimStart('0').PadLeft(8, '0'): ""),
+                new SqlParameter("@fechaPercepcion", (object)data.FechaPercepcion ?? DBNull.Value),
+                new SqlParameter("@perTotal", data.PerTotal != null ? data.PerTotal : 0.00m),
                 new SqlParameter("@pRetencion",data.PRetencion),
                 new SqlParameter("@validarTotales", true),
                 new SqlParameter("@idProductoExt",data.IdProductoExt),
@@ -516,7 +516,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@total", compra.TotalPagar),
                 new SqlParameter("@nDetraccion", string.Empty),
                 new SqlParameter("@fDetraccion",  (object)DBNull.Value),
-                new SqlParameter("@fechaLlegada", compra.FechaLlegada ?? (object)DBNull.Value),
+                new SqlParameter("@fechaLlegada", ParseFecha(compra.FechaLlegada)),
                 new SqlParameter("@precioIncluyeIGV", compra.PrecioIncluyeIGV),
                 new SqlParameter("@tipoOperacion", compra.idTipoOperacion),
                 new SqlParameter("@centroCostos", compra.SucursalId),
@@ -534,7 +534,7 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
                 new SqlParameter("@fechaVencProducto", (object)compra.FechaVencimiento ?? DBNull.Value),
                 new SqlParameter("@api", dCompra.Api),
                 new SqlParameter("@temperatura", dCompra.Temp),
-                new SqlParameter("@igvCosto", compra.igvCosto),
+                new SqlParameter("@igvCosto", compra.IncluyeIgvEnCosto),
                 new SqlParameter("@serieProducto", string.Empty),
                 //mostrando......................................................
                 new SqlParameter("@NomProductoSrc", dCompra.Descripcion),
@@ -547,6 +547,18 @@ namespace PknoPlusCS.Modules.CompraSRC.Infraestructure.Repository
             var data = DataBaseHelper.ExecuteStoredProcedure("spInsertCompraTemporal", parameters);
 
 
+        }
+        private DateTime ParseFecha(string fecha)
+        {
+            if (string.IsNullOrWhiteSpace(fecha))
+                return DateTime.Now;
+
+            fecha = fecha.Replace("a.m.", "").Replace("p.m.", "").Replace("a. m.", "").Replace("p. m.", "").Trim();
+
+            if (DateTime.TryParse(fecha, out DateTime resultado))
+                return resultado;
+
+            return DateTime.Now;
         }
 
         public GetConfiguracionDto GetConfiguracionInicial()
