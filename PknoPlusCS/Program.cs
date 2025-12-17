@@ -39,6 +39,7 @@ namespace PknoPlusCS
 
                         ICompraSrcRepository repository = new CompraSrcRepository();
 
+                        HFunciones.GetConnectionStringFromRegistry(Credentials.Ruc);
                         var dataRepo = repository.GetConfiguracionInicial();
 
                         DataPermisoStaticDto.dataPermisos = repository.sp_ObtenerPermisosPorInterfaceYUsuarioSrc(Credentials.IdUsuario);
@@ -79,6 +80,8 @@ namespace PknoPlusCS
                         break;
                     case (int)Formularios.FormularioValidation:
                         Logs.initLogs("ValidationSunat.txt");
+
+                        HFunciones.GetConnectionStringFromRegistryValidationSunat(Credentials.Ruc);
                         Application.Run(new MainValidationSunat());
                         break;
                 }
@@ -87,7 +90,6 @@ namespace PknoPlusCS
             {
 
                 Logs.WriteLog("ERROR", "es: ."+ ex.Message + ex);
-                // Aquí puedes registrar el error y mostrar un mensaje al usuario
                 MessageBox.Show(@"Ocurrió un error inesperado. Por favor revisa el log para más detalles.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -122,7 +124,8 @@ namespace PknoPlusCS
             Credentials.IdComputadora = int.Parse(args[8]);
             Credentials.IdUsuario = int.Parse(args[9]);
             Credentials.IdFormulario = int.Parse(args[10]);
-            HFunciones.GetConnectionStringFromRegistry(Credentials.Ruc);
+
+
             Credentials.DataBaseConection = "Data Source=" + servidor + ";Initial Catalog=" + db + ";User ID=" + user + ";Password=" + password + ";Max Pool Size=200000;TrustServerCertificate=true";
 
             // Logging the values
@@ -168,7 +171,6 @@ namespace PknoPlusCS
                 Credentials.IdComputadora = int.Parse(args[8]);
                 Credentials.IdUsuario = int.Parse(args[9]);
                 Credentials.IdFormulario = int.Parse(args[10]);
-                HFunciones.GetConnectionStringFromRegistry(Credentials.Ruc);
 
                 Credentials.DataBaseConection = "Data Source=" + servidor + ";Initial Catalog=" + db + ";User ID=" + user + ";Password=" + password + ";Max Pool Size=200000;TrustServerCertificate=true";
 

@@ -179,7 +179,6 @@ namespace PknoPlusCS.Global.ApiClient
                 var client = new RestClient("https://api.apis.net.pe");
                 var request = new RestRequest($"/v2/sunat/ruc/full?numero={ruc}" + "&" + Guid.NewGuid().ToString(), Method.GET);
 
-                // Añadir el token de autenticación
                 request.AddHeader("Authorization", "Bearer apis-token-12636.0Asvi6Ccr2gs17peOWeh1WApXmvRB8z5");
 
                 var response = await client.ExecuteAsync(request);
@@ -236,6 +235,52 @@ namespace PknoPlusCS.Global.ApiClient
                 };
             }
         }
+        public async Task<ValidarComprobanteResponseDto> ValidarComprobanteSunatAsync(ValidarComprobanteRequestDto request)
+        {
+            try
+            {
+                var client = new RestClient("https://fn-ose-beta.azurewebsites.net");
+                var restRequest = new RestRequest("/api/recepcion/validarerp?code="+ ApiKeySrc.ApiKey+"&" + Guid.NewGuid().ToString(), Method.GET);
+
+                restRequest.AddHeader("Content-Type", "application/json");
+                restRequest.AddJsonBody(new
+                {
+                    ReceptorRUC = request.ReceptorRUC,
+                    EmisorRUC = request.EmisorRUC,
+                    TipoDocumento = request.TipoDocumento,
+                    NumeroSerie = request.NumeroSerie,
+                    FechaEmision = request.FechaEmision,
+                    ImporteTotal = request.ImporteTotal
+                });
+
+                var response = await client.ExecuteAsync(restRequest);
+
+                if (response.IsSuccessful)
+                {
+                    var result = JsonConvert.DeserializeObject<ValidarComprobanteResponseDto>(response.Content);
+                    return result;
+                }
+                else
+                {
+                    return new ValidarComprobanteResponseDto
+                    {
+                        TieneError = true,
+                        MensajeError = $"HTTP Error: {response.StatusCode} - {response.ErrorMessage}",
+                        CodigoError = response.StatusCode.ToString()
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ValidarComprobanteResponseDto
+                {
+                    TieneError = true,
+                    MensajeError = $"Exception: {ex.Message}",
+                    CodigoError = "500"
+                };
+            }
+        }
+
 
 
     }

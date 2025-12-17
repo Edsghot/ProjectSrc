@@ -9,5 +9,6 @@ namespace PknoPlusCS.Global.ApiClient
         Task<ResponseApiGenericDto> GetApiDataAsync();
         Task<ProveedorDto> GetValidSunat(string ruc);
         Task<ResponseApiGenericDto> PutComprobanteAsync(string idRecepcion, bool status);
+        Task<ValidarComprobanteResponseDto> ValidarComprobanteSunatAsync(ValidarComprobanteRequestDto request);
     }
 }

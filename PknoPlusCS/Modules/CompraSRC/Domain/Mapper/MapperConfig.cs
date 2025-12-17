@@ -1,12 +1,13 @@
-﻿using PknoPlusCS.Modules.CompraSRC.Domain.Dto;
+﻿using ExpressMapper;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Configuracion;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Permisos;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.RepoDto;
 using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Sucursal;
-using ExpressMapper;
+using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Validacion;
+using PknoPlusCS.Modules.ValidationSunat.Domain.Dto;
 using System;
 using System.Data;
-using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Permisos;
-using PknoPlusCS.Modules.CompraSRC.Domain.Dto.Validacion;
 
 public static class MapperConfig
 {
@@ -150,9 +151,30 @@ public static class MapperConfig
            .Member(dest => dest.NCompraErp, src => src["nCompraErp"] != DBNull.Value ? src["nCompraErp"].ToString() : null)
            .Member(dest => dest.Scop, src => src["Scop"] != DBNull.Value ? src["Scop"].ToString() : null)
            .Member(dest => dest.FiseSrc, src => src["fiseSrc"] != DBNull.Value ? Convert.ToDecimal(src["fiseSrc"]) : (decimal?)null)
-           .Member(dest => dest.idAsientoTipo, src => src["idAsientoTipoSrc"] != DBNull.Value ? src["idAsientoTipoSrc"].ToString() : null)
+           .Member(dest => dest.idAsientoTipo, src => src["idAsientoTipoSrc"] != DBNull.Value ? src["idAsientoTipoSrc"].ToString() : null)           ;
+            Mapper.Register<DataRow, ListCpesDto>()
+                .Member(dest => dest.Id, src => src["Id"] != DBNull.Value ? Convert.ToInt32(src["Id"]) : 0)
+                .Member(dest => dest.NumDocPlus, src => src["NumDocPlus"] != DBNull.Value ? src["NumDocPlus"].ToString() : "")
+                .Member(dest => dest.TipoComprobante, src => src["TipoComprobante"] != DBNull.Value ? src["TipoComprobante"].ToString() : "")
+                .Member(dest => dest.Serie, src => src["Serie"] != DBNull.Value ? src["Serie"].ToString() : "")
+                .Member(dest => dest.NCorrelativo, src => src["NCorrelativo"] != DBNull.Value ? src["NCorrelativo"].ToString() : "")
+                .Member(dest => dest.NroComprobante, src => src["NroComprobante"] != DBNull.Value ? src["NroComprobante"].ToString() : "")
+                .Member(dest => dest.EstadoCompro, src => src["EstadoCompro"] != DBNull.Value ? src["EstadoCompro"].ToString() : "")
+                .Member(dest => dest.Ruc, src => src["RUC"] != DBNull.Value ? src["RUC"].ToString() : "")
+                .Member(dest => dest.RazonSocial, src => src["RazonSocial"] != DBNull.Value ? src["RazonSocial"].ToString() : "")
+                .Member(dest => dest.FechaEmision, src => src["FechaEmision"] != DBNull.Value ? Convert.ToDateTime(src["FechaEmision"]) : DateTime.MinValue)
+                .Member(dest => dest.Moneda, src => src["Moneda"] != DBNull.Value ? src["Moneda"].ToString() : "")
+                .Member(dest => dest.ImporteSoles, src => src["ImporteSoles"] != DBNull.Value ? Convert.ToDecimal(src["ImporteSoles"]) : 0m)
+                .Member(dest => dest.ImporteDolares, src => src["ImporteDolares"] != DBNull.Value ? Convert.ToDecimal(src["ImporteDolares"]) : 0m)
+                .Member(dest => dest.CantidadValidaciones, src => src["CantidadValidaciones"] != DBNull.Value ? Convert.ToInt32(src["CantidadValidaciones"]) : 0)
+                .Member(dest => dest.EstadoSunat, src => src["EstadoSUNAT"] != DBNull.Value ? src["EstadoSUNAT"].ToString() : "")
+                .Member(dest => dest.Mes, src => src["Mes"] != DBNull.Value ? Convert.ToInt32(src["Mes"]) : 0)
+                .Member(dest => dest.Anio, src => src["Anio"] != DBNull.Value ? Convert.ToInt32(src["Anio"]) : 0)
+                .Member(dest => dest.FechaCreacion, src => src["FechaCreacion"] != DBNull.Value ? Convert.ToDateTime(src["FechaCreacion"]) : DateTime.MinValue)
+                .Member(dest => dest.FechaActualizacion, src => src["FechaActualizacion"] != DBNull.Value ? Convert.ToDateTime(src["FechaActualizacion"]) : (DateTime?)null);
 
-           ;
+            Mapper.Register<DataRow, ResultadoUpsertDto>()
+                .Member(dest => dest.RegistrosProcesados, src => src["RegistrosProcesados"] != DBNull.Value ? Convert.ToInt32(src["RegistrosProcesados"]) : 0);
 
     }
 
