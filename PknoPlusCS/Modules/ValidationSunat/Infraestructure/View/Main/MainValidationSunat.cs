@@ -1,7 +1,5 @@
 ﻿using FontAwesome.Sharp;
-using Guna.UI2.WinForms;
 using PknoPlusCS.Configuration.Constants;
-using PknoPlusCS.Forms;
 using PknoPlusCS.Forms.Overlay;
 using PknoPlusCS.Modules.ValidationSunat.Application.Adapter;
 using PknoPlusCS.Modules.ValidationSunat.Application.Port;
@@ -12,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PknoPlusCS.Modules
@@ -26,10 +25,10 @@ namespace PknoPlusCS.Modules
         private readonly IValidationSunatInputPort _adapter;
         private List<ListCpesDto> _datosOriginales;
 
-        private readonly Color COLOR_SIN_VALIDAR = Color.FromArgb(158, 158, 158);      
-        private readonly Color COLOR_ACEPTADO = Color.FromArgb(76, 175, 80);           
-        private readonly Color COLOR_NO_EXISTE = Color.FromArgb(244, 67, 54);          
-        private readonly Color COLOR_ANULADO = Color.FromArgb(198, 40, 40);            
+        private readonly Color COLOR_SIN_VALIDAR = Color.FromArgb(158, 158, 158);
+        private readonly Color COLOR_ACEPTADO = Color.FromArgb(76, 175, 80);
+        private readonly Color COLOR_NO_EXISTE = Color.FromArgb(244, 67, 54);
+        private readonly Color COLOR_ANULADO = Color.FromArgb(198, 40, 40);
 
         public MainValidationSunat()
         {
@@ -154,7 +153,7 @@ namespace PknoPlusCS.Modules
             gunaEstadoCompro.SelectedIndex = estadoComproActual != null && gunaEstadoCompro.Items.Contains(estadoComproActual)
                 ? gunaEstadoCompro.Items.IndexOf(estadoComproActual) : 0;
 
-      
+
             gunaEstadoSunat.Items.Clear();
             gunaEstadoSunat.Items.Add("Estado Sunat");
             var estadosSunatUnicos = _datosOriginales
@@ -318,7 +317,7 @@ namespace PknoPlusCS.Modules
             gunaDataGrid.CellBorderStyle = DataGridViewCellBorderStyle.None;
             gunaDataGrid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             gunaDataGrid.EnableHeadersVisualStyles = false;
-            gunaDataGrid.GridColor = Color.White; 
+            gunaDataGrid.GridColor = Color.White;
 
             gunaDataGrid.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
             {
@@ -380,7 +379,7 @@ namespace PknoPlusCS.Modules
 
         private void GunaDataGrid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
- 
+
             if (e.ColumnIndex >= 0 && e.RowIndex >= 0 &&
                 gunaDataGrid.Columns[e.ColumnIndex].Name == "colEstadoSunat")
             {
@@ -451,7 +450,7 @@ namespace PknoPlusCS.Modules
 
         #region Búsqueda Principal
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private async void btnBuscar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -473,44 +472,54 @@ namespace PknoPlusCS.Modules
                 int anio = int.Parse(cbAnio.SelectedItem.ToString());
 
                 this.Cursor = Cursors.WaitCursor;
+                ShowOverlay("Cargando datos...");
 
-                var resultado = _repo.UpsertCPESComprasValidados(4, mes, anio);
-                Console.WriteLine($"Registros procesados: {resultado.RegistrosProcesados}");
-
-                _datosOriginales = _repo.ListarCPESComprasValidados(mes, anio);
-                gunaDataGrid.DataSource = _datosOriginales;
-
-                panel7.Enabled = true;
-
-                CargarFiltrosDinamicos();
-
-
-                ResetearFiltros();
-
-                if (_datosOriginales.Count == 0)
+                try
                 {
-                    MessageBox.Show("No se encontraron registros para el período seleccionado",
-                        "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                var sumaSoles = _datosOriginales.Sum(x => x.ImporteSoles);
-                var sumaDolares = _datosOriginales.Sum(x => x.ImporteDolares);
-                lblTotalSoles.Text = sumaSoles.ToString("N2");
-                lblTotalDolares.Text = sumaDolares.ToString("N2");
+                   
+                    await Task.Run(() =>
+                    {
+                        var resultado = _repo.UpsertCPESComprasValidados(4, mes, anio);
+                        Console.WriteLine($"Registros procesados: {resultado.RegistrosProcesados}");
 
-                btnExportar.Enabled = true;
-                BtnValidarSunat.Enabled = true;
-                lblTotalRegistro.Text = _datosOriginales.Count.ToString();
-                iconButton1.BackColor = Color.FromArgb(202, 0, 57);
-                iconSunat.BackColor = Color.Blue;
-                iconExportar.BackColor = Color.FromArgb(203, 98, 1);
+                        _datosOriginales = _repo.ListarCPESComprasValidados(mes, anio);
+                    });
+                    gunaDataGrid.DataSource = _datosOriginales;
+
+                    panel7.Enabled = true;
+
+                    CargarFiltrosDinamicos();
+                    ResetearFiltros();
+
+                    if (_datosOriginales.Count == 0)
+                    {
+                        MessageBox.Show("No se encontraron registros para el período seleccionado",
+                            "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    var sumaSoles = _datosOriginales.Sum(x => x.ImporteSoles);
+                    var sumaDolares = _datosOriginales.Sum(x => x.ImporteDolares);
+                    lblTotalSoles.Text = sumaSoles.ToString("N2");
+                    lblTotalDolares.Text = sumaDolares.ToString("N2");
+
+                    btnExportar.Enabled = true;
+                    BtnValidarSunat.Enabled = true;
+                    lblTotalRegistro.Text = _datosOriginales.Count.ToString();
+                    iconButton1.BackColor = Color.FromArgb(202, 0, 57);
+                    iconSunat.BackColor = Color.Blue;
+                    iconExportar.BackColor = Color.FromArgb(203, 98, 1);
+                }
+                finally
+                {
+                    HideOverlay();
+                    this.Cursor = Cursors.Default;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al buscar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
+                HideOverlay();
                 this.Cursor = Cursors.Default;
+                MessageBox.Show($"Error al buscar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -581,8 +590,8 @@ namespace PknoPlusCS.Modules
             gunaEstadoCompro.SelectedIndex = 0;
             gunaEstadoSunat.SelectedIndex = 0;
 
-            guna2TextBox1.Text = "";
-            guna2TextBox2.Text = "";
+            guna2TextBox1.Text = string.Empty;
+            guna2TextBox2.Text = string.Empty;
 
             gunaDateIni.Value = DateTime.Now;
             gunaDateIni.CustomFormat = "'Fecha inicio'";
@@ -603,36 +612,6 @@ namespace PknoPlusCS.Modules
 
         #endregion
 
-        #region Toast y Overlay
-
-        public void ShowToast(string message, string type)
-        {
-            var toast = new Toast(message, type)
-            {
-                Location = new Point(this.Width - 630, this.Height - 105),
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
-            };
-
-            this.Controls.Add(toast);
-            toast.BringToFront();
-        }
-
-        public void ShowOverlay()
-        {
-            if (overlay == null || overlay.IsDisposed)
-            {
-                overlay = new OverlayForm(this);
-            }
-            overlay.Show();
-            overlay.BringToFront();
-        }
-
-        public void HideOverlay()
-        {
-            overlay?.Hide();
-        }
-
-        #endregion
 
         #region Eventos UI
 
@@ -674,9 +653,8 @@ namespace PknoPlusCS.Modules
             );
         }
 
-        private  void BtnValidarSunat_Click(object sender, EventArgs e)
+        private async void BtnValidarSunat_Click(object sender, EventArgs e)
         {
-
             if (_datosOriginales == null || _datosOriginales.Count == 0)
             {
                 MessageBox.Show("No hay datos para validar. Primero realice una búsqueda.",
@@ -702,13 +680,14 @@ namespace PknoPlusCS.Modules
             if (confirmacion != DialogResult.Yes)
                 return;
 
+            this.Cursor = Cursors.WaitCursor;
+            BtnValidarSunat.Enabled = false;
+            BtnValidarSunat.Text = "Validando...";
+            ShowOverlay("Validando con SUNAT...");
+
             try
             {
-                this.Cursor = Cursors.WaitCursor;
-                BtnValidarSunat.Enabled = false;
-                BtnValidarSunat.Text = "Validando...";
-
-                var resultado =  _adapter.ValidarSunatAsync(_datosOriginales, Credentials.Ruc);
+                var resultado = await _adapter.ValidarSunatAsync(_datosOriginales, Credentials.Ruc);
 
                 int mes = cbMes.SelectedIndex + 1;
                 int anio = int.Parse(cbAnio.SelectedItem.ToString());
@@ -736,12 +715,12 @@ namespace PknoPlusCS.Modules
             }
             finally
             {
+                HideOverlay();
                 this.Cursor = Cursors.Default;
                 BtnValidarSunat.Enabled = true;
                 BtnValidarSunat.Text = "Validar con SUNAT";
             }
         }
-
         private void btnExportar_Click(object sender, EventArgs e)
         {
             var datosExportar = gunaDataGrid.DataSource as List<ListCpesDto>;
@@ -753,11 +732,12 @@ namespace PknoPlusCS.Modules
                 return;
             }
 
+            this.Cursor = Cursors.WaitCursor;
+            btnExportar.Enabled = false;
+            ShowOverlay("Exportando a Excel...");
+
             try
             {
-                this.Cursor = Cursors.WaitCursor;
-                btnExportar.Enabled = false;
-
                 int mes = cbMes.SelectedIndex + 1;
                 int anio = int.Parse(cbAnio.SelectedItem.ToString());
 
@@ -786,6 +766,7 @@ namespace PknoPlusCS.Modules
             }
             finally
             {
+                HideOverlay();
                 this.Cursor = Cursors.Default;
                 btnExportar.Enabled = true;
             }
@@ -795,5 +776,43 @@ namespace PknoPlusCS.Modules
         {
 
         }
+        #region Toast y Overlay
+
+        public void ShowToast(string message, string type)
+        {
+            var toast = new Toast(message, type)
+            {
+                Location = new Point(this.Width - 630, this.Height - 105),
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
+            };
+
+            this.Controls.Add(toast);
+            toast.BringToFront();
+        }
+
+        public void ShowOverlay(string message = "")
+        {
+            if (overlay == null || overlay.IsDisposed)
+            {
+                overlay = new OverlayForm(this);
+            }
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                overlay.SetMessage(message);
+            }
+
+            overlay.Show();
+            overlay.BringToFront();
+            Application.DoEvents(); // Forzar actualización de UI
+        }
+
+        public void HideOverlay()
+        {
+            overlay?.Hide();
+        }
+
+        #endregion
+
     }
 }

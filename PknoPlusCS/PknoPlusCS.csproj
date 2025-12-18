@@ -420,6 +420,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images.ico" />
+    <None Include="Resources\Cargando.gif" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">

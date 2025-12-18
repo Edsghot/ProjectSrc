@@ -22,7 +22,6 @@ namespace PknoPlusCS.Modules.CompraSRC.Application.Adapter
     {
         private readonly IApiClient _apiClient = new ApiClient();
         private readonly ICompraSrcRepository _compraSrcRepository = new CompraSrcRepository();
-        private bool _migracion;
         
         public async Task<List<CompraDto>> ObtenerDataSrc()
         {

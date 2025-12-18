@@ -41,8 +41,17 @@ namespace PknoPlusCS.Modules
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.iconExportar = new FontAwesome.Sharp.IconButton();
+            this.btnExportar = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblTotalRegistro = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblTotalDolares = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblTotalSoles = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.gunaDataGrid = new Guna.UI2.WinForms.Guna2DataGridView();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.guna2TextBox2 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.gunaDateFin = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -61,15 +70,6 @@ namespace PknoPlusCS.Modules
             this.btnBuscar = new FontAwesome.Sharp.IconButton();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
-            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblTotalSoles = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblTotalDolares = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.btnExportar = new Guna.UI2.WinForms.Guna2Button();
-            this.iconExportar = new FontAwesome.Sharp.IconButton();
-            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblTotalRegistro = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numDocPlusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipoComprobanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -88,10 +88,10 @@ namespace PknoPlusCS.Modules
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gunaDataGrid)).BeginInit();
             this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listCpesDtoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,6 +123,7 @@ namespace PknoPlusCS.Modules
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
@@ -176,6 +177,115 @@ namespace PknoPlusCS.Modules
             this.panel2.Size = new System.Drawing.Size(1422, 816);
             this.panel2.TabIndex = 1;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // iconExportar
+            // 
+            this.iconExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.iconExportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(171)))), ((int)(((byte)(168)))));
+            this.iconExportar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iconExportar.FlatAppearance.BorderSize = 0;
+            this.iconExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconExportar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconExportar.ForeColor = System.Drawing.Color.White;
+            this.iconExportar.IconChar = FontAwesome.Sharp.IconChar.ArrowRightFromFile;
+            this.iconExportar.IconColor = System.Drawing.Color.White;
+            this.iconExportar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconExportar.IconSize = 30;
+            this.iconExportar.Location = new System.Drawing.Point(1188, 764);
+            this.iconExportar.Margin = new System.Windows.Forms.Padding(2);
+            this.iconExportar.Name = "iconExportar";
+            this.iconExportar.Size = new System.Drawing.Size(33, 41);
+            this.iconExportar.TabIndex = 36;
+            this.iconExportar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iconExportar.UseVisualStyleBackColor = false;
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExportar.BorderRadius = 7;
+            this.btnExportar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnExportar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnExportar.Enabled = false;
+            this.btnExportar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(98)))), ((int)(((byte)(1)))));
+            this.btnExportar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportar.ForeColor = System.Drawing.Color.White;
+            this.btnExportar.Location = new System.Drawing.Point(1169, 764);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(195, 41);
+            this.btnExportar.TabIndex = 37;
+            this.btnExportar.Text = "Exportar";
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Panel1.Controls.Add(this.lblTotalRegistro);
+            this.guna2Panel1.Controls.Add(this.lblTotalDolares);
+            this.guna2Panel1.Controls.Add(this.guna2HtmlLabel2);
+            this.guna2Panel1.Controls.Add(this.lblTotalSoles);
+            this.guna2Panel1.Controls.Add(this.guna2HtmlLabel1);
+            this.guna2Panel1.Location = new System.Drawing.Point(22, 719);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(1384, 36);
+            this.guna2Panel1.TabIndex = 25;
+            // 
+            // lblTotalRegistro
+            // 
+            this.lblTotalRegistro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblTotalRegistro.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalRegistro.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalRegistro.Location = new System.Drawing.Point(152, 3);
+            this.lblTotalRegistro.Name = "lblTotalRegistro";
+            this.lblTotalRegistro.Size = new System.Drawing.Size(12, 23);
+            this.lblTotalRegistro.TabIndex = 3;
+            this.lblTotalRegistro.Text = "0";
+            // 
+            // lblTotalDolares
+            // 
+            this.lblTotalDolares.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalDolares.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalDolares.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalDolares.Location = new System.Drawing.Point(1131, 3);
+            this.lblTotalDolares.Name = "lblTotalDolares";
+            this.lblTotalDolares.Size = new System.Drawing.Size(34, 23);
+            this.lblTotalDolares.TabIndex = 2;
+            this.lblTotalDolares.Text = "0.00";
+            // 
+            // guna2HtmlLabel2
+            // 
+            this.guna2HtmlLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(0, 3);
+            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(146, 23);
+            this.guna2HtmlLabel2.TabIndex = 3;
+            this.guna2HtmlLabel2.Text = "Cantidad registros:";
+            // 
+            // lblTotalSoles
+            // 
+            this.lblTotalSoles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalSoles.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalSoles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalSoles.Location = new System.Drawing.Point(1019, 3);
+            this.lblTotalSoles.Name = "lblTotalSoles";
+            this.lblTotalSoles.Size = new System.Drawing.Size(34, 23);
+            this.lblTotalSoles.TabIndex = 1;
+            this.lblTotalSoles.Text = "0.00";
+            // 
+            // guna2HtmlLabel1
+            // 
+            this.guna2HtmlLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(837, 3);
+            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(94, 23);
+            this.guna2HtmlLabel1.TabIndex = 0;
+            this.guna2HtmlLabel1.Text = "Monto total";
             // 
             // gunaDataGrid
             // 
@@ -278,6 +388,27 @@ namespace PknoPlusCS.Modules
             this.panel7.Size = new System.Drawing.Size(1384, 142);
             this.panel7.TabIndex = 23;
             this.panel7.Paint += new System.Windows.Forms.PaintEventHandler(this.panel7_Paint);
+            // 
+            // iconButton1
+            // 
+            this.iconButton1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.iconButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(171)))), ((int)(((byte)(168)))));
+            this.iconButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iconButton1.FlatAppearance.BorderSize = 0;
+            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButton1.ForeColor = System.Drawing.Color.White;
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
+            this.iconButton1.IconColor = System.Drawing.Color.White;
+            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButton1.IconSize = 30;
+            this.iconButton1.Location = new System.Drawing.Point(984, 82);
+            this.iconButton1.Margin = new System.Windows.Forms.Padding(2);
+            this.iconButton1.Name = "iconButton1";
+            this.iconButton1.Size = new System.Drawing.Size(46, 42);
+            this.iconButton1.TabIndex = 36;
+            this.iconButton1.UseVisualStyleBackColor = false;
+            this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
             // 
             // guna2TextBox2
             // 
@@ -434,9 +565,6 @@ namespace PknoPlusCS.Modules
             // 
             // BtnResetearFiltro
             // 
-            this.BtnResetearFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnResetearFiltro.BackColor = System.Drawing.Color.Transparent;
             this.BtnResetearFiltro.BorderRadius = 10;
             this.BtnResetearFiltro.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -565,7 +693,6 @@ namespace PknoPlusCS.Modules
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(87)))), ((int)(((byte)(123)))));
             this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscar.FlatAppearance.BorderSize = 0;
@@ -585,7 +712,6 @@ namespace PknoPlusCS.Modules
             // 
             // guna2Button1
             // 
-            this.guna2Button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.guna2Button1.BackColor = System.Drawing.Color.Transparent;
             this.guna2Button1.BorderRadius = 10;
             this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -611,137 +737,6 @@ namespace PknoPlusCS.Modules
             this.label6.Size = new System.Drawing.Size(142, 16);
             this.label6.TabIndex = 6;
             this.label6.Text = "Seleccione el periodo:";
-            // 
-            // iconButton1
-            // 
-            this.iconButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(171)))), ((int)(((byte)(168)))));
-            this.iconButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.iconButton1.FlatAppearance.BorderSize = 0;
-            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton1.ForeColor = System.Drawing.Color.White;
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
-            this.iconButton1.IconColor = System.Drawing.Color.White;
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton1.IconSize = 30;
-            this.iconButton1.Location = new System.Drawing.Point(984, 82);
-            this.iconButton1.Margin = new System.Windows.Forms.Padding(2);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(46, 42);
-            this.iconButton1.TabIndex = 36;
-            this.iconButton1.UseVisualStyleBackColor = false;
-            this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
-            // 
-            // guna2Panel1
-            // 
-            this.guna2Panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Panel1.Controls.Add(this.lblTotalRegistro);
-            this.guna2Panel1.Controls.Add(this.lblTotalDolares);
-            this.guna2Panel1.Controls.Add(this.guna2HtmlLabel2);
-            this.guna2Panel1.Controls.Add(this.lblTotalSoles);
-            this.guna2Panel1.Controls.Add(this.guna2HtmlLabel1);
-            this.guna2Panel1.Location = new System.Drawing.Point(22, 719);
-            this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(1384, 36);
-            this.guna2Panel1.TabIndex = 25;
-            // 
-            // guna2HtmlLabel1
-            // 
-            this.guna2HtmlLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(879, 3);
-            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(94, 23);
-            this.guna2HtmlLabel1.TabIndex = 0;
-            this.guna2HtmlLabel1.Text = "Monto total";
-            // 
-            // lblTotalSoles
-            // 
-            this.lblTotalSoles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTotalSoles.BackColor = System.Drawing.Color.Transparent;
-            this.lblTotalSoles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalSoles.Location = new System.Drawing.Point(1027, 3);
-            this.lblTotalSoles.Name = "lblTotalSoles";
-            this.lblTotalSoles.Size = new System.Drawing.Size(34, 23);
-            this.lblTotalSoles.TabIndex = 1;
-            this.lblTotalSoles.Text = "0.00";
-            // 
-            // lblTotalDolares
-            // 
-            this.lblTotalDolares.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTotalDolares.BackColor = System.Drawing.Color.Transparent;
-            this.lblTotalDolares.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalDolares.Location = new System.Drawing.Point(1147, 3);
-            this.lblTotalDolares.Name = "lblTotalDolares";
-            this.lblTotalDolares.Size = new System.Drawing.Size(34, 23);
-            this.lblTotalDolares.TabIndex = 2;
-            this.lblTotalDolares.Text = "0.00";
-            // 
-            // btnExportar
-            // 
-            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExportar.BorderRadius = 7;
-            this.btnExportar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnExportar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnExportar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnExportar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnExportar.Enabled = false;
-            this.btnExportar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(98)))), ((int)(((byte)(1)))));
-            this.btnExportar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportar.ForeColor = System.Drawing.Color.White;
-            this.btnExportar.Location = new System.Drawing.Point(1169, 764);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(195, 41);
-            this.btnExportar.TabIndex = 37;
-            this.btnExportar.Text = "Exportar";
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
-            // 
-            // iconExportar
-            // 
-            this.iconExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconExportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(171)))), ((int)(((byte)(168)))));
-            this.iconExportar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.iconExportar.FlatAppearance.BorderSize = 0;
-            this.iconExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconExportar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconExportar.ForeColor = System.Drawing.Color.White;
-            this.iconExportar.IconChar = FontAwesome.Sharp.IconChar.ArrowRightFromFile;
-            this.iconExportar.IconColor = System.Drawing.Color.White;
-            this.iconExportar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconExportar.IconSize = 30;
-            this.iconExportar.Location = new System.Drawing.Point(1188, 764);
-            this.iconExportar.Margin = new System.Windows.Forms.Padding(2);
-            this.iconExportar.Name = "iconExportar";
-            this.iconExportar.Size = new System.Drawing.Size(33, 41);
-            this.iconExportar.TabIndex = 36;
-            this.iconExportar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconExportar.UseVisualStyleBackColor = false;
-            // 
-            // guna2HtmlLabel2
-            // 
-            this.guna2HtmlLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(0, 3);
-            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(146, 23);
-            this.guna2HtmlLabel2.TabIndex = 3;
-            this.guna2HtmlLabel2.Text = "Cantidad registros:";
-            // 
-            // lblTotalRegistro
-            // 
-            this.lblTotalRegistro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblTotalRegistro.BackColor = System.Drawing.Color.Transparent;
-            this.lblTotalRegistro.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalRegistro.Location = new System.Drawing.Point(152, 3);
-            this.lblTotalRegistro.Name = "lblTotalRegistro";
-            this.lblTotalRegistro.Size = new System.Drawing.Size(12, 23);
-            this.lblTotalRegistro.TabIndex = 3;
-            this.lblTotalRegistro.Text = "0";
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -861,13 +856,13 @@ namespace PknoPlusCS.Modules
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.guna2Panel1.ResumeLayout(false);
+            this.guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gunaDataGrid)).EndInit();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            this.guna2Panel1.ResumeLayout(false);
-            this.guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listCpesDtoBindingSource)).EndInit();
             this.ResumeLayout(false);
 
