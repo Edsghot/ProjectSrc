@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -24,11 +25,17 @@ namespace PknoPlusCS.Modules
         private readonly IRepositoryValidationSunat _repo;
         private readonly IValidationSunatInputPort _adapter;
         private List<ListCpesDto> _datosOriginales;
+        private CancellationTokenSource _cancellationTokenSource;
 
         private readonly Color COLOR_SIN_VALIDAR = Color.FromArgb(158, 158, 158);
         private readonly Color COLOR_ACEPTADO = Color.FromArgb(76, 175, 80);
         private readonly Color COLOR_NO_EXISTE = Color.FromArgb(244, 67, 54);
         private readonly Color COLOR_ANULADO = Color.FromArgb(198, 40, 40);
+        private bool _gridExpandido;
+        private int _gridTopOriginal;
+        private int _gridHeightOriginal;
+        private Point _btnExpandirLocationOriginal;
+        private Control _btnExpandirParentOriginal;
 
         public MainValidationSunat()
         {
@@ -38,12 +45,17 @@ namespace PknoPlusCS.Modules
             _adapter = new ValidationSunatAdapter();
 
             HabilitarDoubleBuffering(gunaDataGrid);
+            this.WindowState = FormWindowState.Maximized;
 
             ConfigurarComboBoxMeses();
             ConfigurarComboBoxAnios();
             ConfigurarDatePickers();
             ConfigurarFiltrosIniciales();
             ConfigurarDataGrid();
+            _gridTopOriginal = gunaDataGrid.Top;
+            _gridHeightOriginal = gunaDataGrid.Height;
+            _btnExpandirLocationOriginal = btnExpandir.Location;
+            _btnExpandirParentOriginal = btnExpandir.Parent;
         }
 
         #region Configuración Inicial
@@ -179,7 +191,9 @@ namespace PknoPlusCS.Modules
             {
                 HeaderText = "N° Item",
                 Name = "colId",
-                Width = 30,
+                Width = 70,
+                MinimumWidth = 60,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter }
             });
@@ -189,25 +203,31 @@ namespace PknoPlusCS.Modules
                 DataPropertyName = "TipoComprobante",
                 HeaderText = "Tipo de comprobante",
                 Name = "colTipoComprobante",
-                Width = 140,
+                Width = 200,
+                MinimumWidth = 160,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                 DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter }
             });
 
             gunaDataGrid.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "NroComprobante",
-                HeaderText = "N° compro.",
+                HeaderText = "N° comprobante",
                 Name = "colNroComprobante",
-                Width = 100,
+                Width = 200,
+                MinimumWidth = 150,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                 DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter }
             });
 
             gunaDataGrid.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "EstadoCompro",
-                HeaderText = "Estado compro.",
+                DataPropertyName = "EstadoComprobante",
+                HeaderText = "Estado comprobante",
                 Name = "colEstadoCompro",
-                Width = 100,
+                Width = 150,
+                MinimumWidth = 100,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                 DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter }
             });
 
@@ -216,7 +236,9 @@ namespace PknoPlusCS.Modules
                 DataPropertyName = "Ruc",
                 HeaderText = "RUC",
                 Name = "colRuc",
-                Width = 100,
+                Width = 110,
+                MinimumWidth = 90,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                 DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter }
             });
 
@@ -225,7 +247,8 @@ namespace PknoPlusCS.Modules
                 DataPropertyName = "RazonSocial",
                 HeaderText = "Razón social",
                 Name = "colRazonSocial",
-                Width = 250,
+                MinimumWidth = 150,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleLeft }
             });
 
@@ -234,7 +257,9 @@ namespace PknoPlusCS.Modules
                 DataPropertyName = "FechaEmision",
                 HeaderText = "Fecha de emisión",
                 Name = "colFechaEmision",
-                Width = 90,
+                Width = 120,
+                MinimumWidth = 90,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Format = "dd/MM/yyyy",
@@ -247,7 +272,9 @@ namespace PknoPlusCS.Modules
                 DataPropertyName = "Moneda",
                 HeaderText = "Moneda",
                 Name = "colMoneda",
-                Width = 50,
+                Width = 70,
+                MinimumWidth = 50,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                 DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter }
             });
 
@@ -256,7 +283,9 @@ namespace PknoPlusCS.Modules
                 DataPropertyName = "ImporteSoles",
                 HeaderText = "Importe Soles (S/)",
                 Name = "colImporteSoles",
-                Width = 115,
+                Width = 130,
+                MinimumWidth = 100,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Format = "N2",
@@ -269,7 +298,9 @@ namespace PknoPlusCS.Modules
                 DataPropertyName = "ImporteDolares",
                 HeaderText = "Importe Dólares ($)",
                 Name = "colImporteDolares",
-                Width = 115,
+                Width = 130,
+                MinimumWidth = 100,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Format = "N2",
@@ -283,6 +314,8 @@ namespace PknoPlusCS.Modules
                 HeaderText = "Estado SUNAT",
                 Name = "colEstadoSunat",
                 Width = 120,
+                MinimumWidth = 100,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                 DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter }
             });
 
@@ -291,6 +324,29 @@ namespace PknoPlusCS.Modules
             gunaDataGrid.CellFormatting += GunaDataGrid_CellFormatting;
             gunaDataGrid.CellPainting += GunaDataGrid_CellPainting;
             gunaDataGrid.RowPostPaint += GunaDataGrid_RowPostPaint;
+            gunaDataGrid.RowPrePaint += GunaDataGrid_RowPrePaint;
+            gunaDataGrid.SelectionChanged += GunaDataGrid_SelectionChanged;
+            gunaDataGrid.CurrentCellChanged += GunaDataGrid_CurrentCellChanged;
+        }
+        private void GunaDataGrid_CurrentCellChanged(object sender, EventArgs e)
+        {
+            gunaDataGrid.Invalidate();
+        }
+        private void GunaDataGrid_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            e.PaintParts &= ~DataGridViewPaintParts.Focus;
+            e.PaintParts &= ~DataGridViewPaintParts.SelectionBackground;
+        }
+
+        private void GunaDataGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in gunaDataGrid.Rows)
+            {
+                if (row.Visible)
+                {
+                    gunaDataGrid.InvalidateRow(row.Index);
+                }
+            }
         }
 
         private void GunaDataGrid_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -317,36 +373,50 @@ namespace PknoPlusCS.Modules
             gunaDataGrid.CellBorderStyle = DataGridViewCellBorderStyle.None;
             gunaDataGrid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             gunaDataGrid.EnableHeadersVisualStyles = false;
-            gunaDataGrid.GridColor = Color.White;
+            gunaDataGrid.GridColor = Color.FromArgb(230, 230, 230);
 
             gunaDataGrid.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
             {
                 BackColor = Color.FromArgb(250, 250, 250),
-                ForeColor = Color.FromArgb(100, 100, 100),
-                Font = new Font("Segoe UI", 9F, FontStyle.Regular),
+                ForeColor = Color.Black,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
                 Alignment = DataGridViewContentAlignment.MiddleCenter,
                 Padding = new Padding(5)
             };
             gunaDataGrid.ColumnHeadersHeight = 45;
 
+            Color rowBackColor = Color.White;
+            Color altRowBackColor = Color.FromArgb(252, 252, 252);
+            Color rowForeColor = Color.FromArgb(70, 70, 70);
+
             gunaDataGrid.DefaultCellStyle = new DataGridViewCellStyle
             {
-                BackColor = Color.White,
-                ForeColor = Color.FromArgb(70, 70, 70),
+                BackColor = rowBackColor,
+                ForeColor = rowForeColor,
                 Font = new Font("Segoe UI", 9F),
-                SelectionBackColor = Color.FromArgb(235, 245, 255),
-                SelectionForeColor = Color.FromArgb(70, 70, 70),
+                SelectionBackColor = rowBackColor,
+                SelectionForeColor = rowForeColor,
                 Padding = new Padding(3)
             };
 
             gunaDataGrid.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
             {
-                BackColor = Color.FromArgb(252, 252, 252),
-                ForeColor = Color.FromArgb(70, 70, 70),
+                BackColor = altRowBackColor,
+                ForeColor = rowForeColor,
                 Font = new Font("Segoe UI", 9F),
-                SelectionBackColor = Color.FromArgb(235, 245, 255),
-                SelectionForeColor = Color.FromArgb(70, 70, 70)
+                SelectionBackColor = altRowBackColor,
+                SelectionForeColor = rowForeColor
             };
+
+            gunaDataGrid.ThemeStyle.RowsStyle.BackColor = rowBackColor;
+            gunaDataGrid.ThemeStyle.RowsStyle.ForeColor = rowForeColor;
+            gunaDataGrid.ThemeStyle.RowsStyle.SelectionBackColor = rowBackColor;
+            gunaDataGrid.ThemeStyle.RowsStyle.SelectionForeColor = rowForeColor;
+
+            gunaDataGrid.ThemeStyle.AlternatingRowsStyle.BackColor = altRowBackColor;
+            gunaDataGrid.ThemeStyle.AlternatingRowsStyle.ForeColor = rowForeColor;
+            gunaDataGrid.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = altRowBackColor;
+            gunaDataGrid.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = rowForeColor;
 
             gunaDataGrid.RowTemplate.Height = 42;
 
@@ -359,6 +429,8 @@ namespace PknoPlusCS.Modules
             gunaDataGrid.MultiSelect = false;
             gunaDataGrid.ScrollBars = ScrollBars.Both;
             gunaDataGrid.BackgroundColor = Color.White;
+            gunaDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            gunaDataGrid.AllowUserToResizeColumns = true;
         }
 
         private void GunaDataGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -379,16 +451,34 @@ namespace PknoPlusCS.Modules
 
         private void GunaDataGrid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
 
-            if (e.ColumnIndex >= 0 && e.RowIndex >= 0 &&
-                gunaDataGrid.Columns[e.ColumnIndex].Name == "colEstadoSunat")
+            // Pintar el fondo correctamente para TODAS las celdas primero
+            Color bgColor = (e.RowIndex % 2 == 0) ? Color.White : Color.FromArgb(252, 252, 252);
+
+            using (var brush = new SolidBrush(bgColor))
             {
-                e.PaintBackground(e.ClipBounds, true);
+                e.Graphics.FillRectangle(brush, e.CellBounds);
+            }
 
+            // Dibujar la línea inferior de la celda (borde horizontal)
+            using (var pen = new Pen(Color.FromArgb(230, 230, 230)))
+            {
+                e.Graphics.DrawLine(pen,
+                    e.CellBounds.Left,
+                    e.CellBounds.Bottom - 1,
+                    e.CellBounds.Right - 1,
+                    e.CellBounds.Bottom - 1);
+            }
+
+            // Solo para la columna EstadoSunat, dibujar el badge
+            if (gunaDataGrid.Columns[e.ColumnIndex].Name == "colEstadoSunat")
+            {
                 if (e.Value != null && !string.IsNullOrEmpty(e.Value.ToString()))
                 {
                     string estado = e.Value.ToString();
-                    Color bgColor = GetColorEstado(estado);
+                    Color badgeColor = GetColorEstado(estado);
 
                     int badgeWidth = Math.Min(e.CellBounds.Width - 16, 90);
                     int badgeHeight = 24;
@@ -397,11 +487,11 @@ namespace PknoPlusCS.Modules
 
                     Rectangle rect = new Rectangle(x, y, badgeWidth, badgeHeight);
 
-                    using (var brush = new SolidBrush(bgColor))
+                    using (var badgeBrush = new SolidBrush(badgeColor))
                     using (var path = CrearRectanguloRedondeado(rect, 12))
                     {
                         e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                        e.Graphics.FillPath(brush, path);
+                        e.Graphics.FillPath(badgeBrush, path);
                     }
 
                     TextRenderer.DrawText(
@@ -413,9 +503,15 @@ namespace PknoPlusCS.Modules
                         TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
                     );
                 }
-
-                e.Handled = true;
             }
+            else
+            {
+                // Para las demás celdas, pintar el contenido normalmente
+                e.PaintContent(e.CellBounds);
+            }
+
+            // IMPORTANTE: Marcar como manejado para TODAS las celdas
+            e.Handled = true;
         }
         private Color GetColorEstado(string estado)
         {
@@ -471,19 +567,26 @@ namespace PknoPlusCS.Modules
                 int mes = cbMes.SelectedIndex + 1;
                 int anio = int.Parse(cbAnio.SelectedItem.ToString());
 
+                _cancellationTokenSource?.Cancel();
+                _cancellationTokenSource?.Dispose();
+                _cancellationTokenSource = new CancellationTokenSource();
+
                 this.Cursor = Cursors.WaitCursor;
                 ShowOverlay("Cargando datos...");
 
                 try
                 {
-                   
                     await Task.Run(() =>
                     {
+                        _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+
                         var resultado = _repo.UpsertCPESComprasValidados(4, mes, anio);
-                        Console.WriteLine($"Registros procesados: {resultado.RegistrosProcesados}");
+
+                        _cancellationTokenSource.Token.ThrowIfCancellationRequested();
 
                         _datosOriginales = _repo.ListarCPESComprasValidados(mes, anio);
-                    });
+                    }, _cancellationTokenSource.Token);
+
                     gunaDataGrid.DataSource = _datosOriginales;
 
                     panel7.Enabled = true;
@@ -499,8 +602,8 @@ namespace PknoPlusCS.Modules
 
                     var sumaSoles = _datosOriginales.Sum(x => x.ImporteSoles);
                     var sumaDolares = _datosOriginales.Sum(x => x.ImporteDolares);
-                    lblTotalSoles.Text = sumaSoles.ToString("N2");
-                    lblTotalDolares.Text = sumaDolares.ToString("N2");
+                    lblTotalSoles.Text = "S/ "+sumaSoles.ToString("N2");
+                    lblTotalDolares.Text = "$ "+sumaDolares.ToString("N2");
 
                     btnExportar.Enabled = true;
                     BtnValidarSunat.Enabled = true;
@@ -508,6 +611,10 @@ namespace PknoPlusCS.Modules
                     iconButton1.BackColor = Color.FromArgb(202, 0, 57);
                     iconSunat.BackColor = Color.Blue;
                     iconExportar.BackColor = Color.FromArgb(203, 98, 1);
+                }
+                catch (OperationCanceledException)
+                {
+                    Console.WriteLine("Operación cancelada por el usuario");
                 }
                 finally
                 {
@@ -522,7 +629,6 @@ namespace PknoPlusCS.Modules
                 MessageBox.Show($"Error al buscar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         #endregion
 
         #region Filtros
@@ -630,7 +736,7 @@ namespace PknoPlusCS.Modules
         {
             ResetearFiltros();
         }
-
+      
         private void iconButton1_Click(object sender, EventArgs e)
         {
             ResetearFiltros();
@@ -652,7 +758,6 @@ namespace PknoPlusCS.Modules
                 new object[] { true }
             );
         }
-
         private async void BtnValidarSunat_Click(object sender, EventArgs e)
         {
             if (_datosOriginales == null || _datosOriginales.Count == 0)
@@ -680,6 +785,10 @@ namespace PknoPlusCS.Modules
             if (confirmacion != DialogResult.Yes)
                 return;
 
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = new CancellationTokenSource();
+
             this.Cursor = Cursors.WaitCursor;
             BtnValidarSunat.Enabled = false;
             BtnValidarSunat.Text = "Validando...";
@@ -688,6 +797,8 @@ namespace PknoPlusCS.Modules
             try
             {
                 var resultado = await _adapter.ValidarSunatAsync(_datosOriginales, Credentials.Ruc);
+
+                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
 
                 int mes = cbMes.SelectedIndex + 1;
                 int anio = int.Parse(cbAnio.SelectedItem.ToString());
@@ -707,6 +818,10 @@ namespace PknoPlusCS.Modules
                     "Resultado",
                     MessageBoxButtons.OK,
                     resultado.Exitosos > 0 ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
+            }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("Validación cancelada por el usuario");
             }
             catch (Exception ex)
             {
@@ -792,27 +907,126 @@ namespace PknoPlusCS.Modules
 
         public void ShowOverlay(string message = "")
         {
-            if (overlay == null || overlay.IsDisposed)
+            try
             {
-                overlay = new OverlayForm(this);
-            }
+                if (overlay == null || overlay.IsDisposed)
+                {
+                    overlay = new OverlayForm(this);
+                }
 
-            if (!string.IsNullOrEmpty(message))
+                if (!string.IsNullOrEmpty(message))
+                {
+                    overlay.SetMessage(message);
+                }
+
+                overlay.Show();
+                overlay.BringToFront();
+            }
+            catch
             {
-                overlay.SetMessage(message);
             }
-
-            overlay.Show();
-            overlay.BringToFront();
-            Application.DoEvents(); // Forzar actualización de UI
         }
 
         public void HideOverlay()
         {
-            overlay?.Hide();
+            try
+            {
+                if (overlay != null && !overlay.IsDisposed)
+                {
+                    overlay.Hide();
+                }
+            }
+            catch
+            {
+            }
         }
 
         #endregion
 
+        private void MainValidationSunat_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (_cancellationTokenSource != null)
+                {
+                    _cancellationTokenSource.Cancel();
+                    _cancellationTokenSource.Dispose();
+                    _cancellationTokenSource = null;
+                }
+
+                if (overlay != null)
+                {
+                    try
+                    {
+                        overlay.ForceClose();
+                    }
+                    catch { }
+                    overlay = null;
+                }
+
+                if (gunaDataGrid != null)
+                {
+                    gunaDataGrid.DataSource = null;
+                }
+                _datosOriginales = null;
+            }
+            catch { }
+            finally
+            {
+                Environment.Exit(0);
+            }
+        }
+
+
+        private void MainValidationSunat_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            if (!_gridExpandido)
+            {
+                _btnExpandirLocationOriginal = btnExpandir.Location;
+                _btnExpandirParentOriginal = btnExpandir.Parent;
+
+                _gridTopOriginal = gunaDataGrid.Top;
+                _gridHeightOriginal = gunaDataGrid.Height;
+
+                panel4.Visible = false;
+                panel7.Visible = false;
+
+                int gridBottom = gunaDataGrid.Bottom;
+
+                int nuevoTop = label8.Bottom + 10;
+
+                int nuevaAltura = gridBottom - nuevoTop;
+
+                gunaDataGrid.SetBounds(gunaDataGrid.Left, nuevoTop, gunaDataGrid.Width, nuevaAltura);
+
+                btnExpandir.Parent = panel2;
+                btnExpandir.Location = new Point(panel2.Width - btnExpandir.Width - 10, 10);
+                btnExpandir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                btnExpandir.IconChar = IconChar.Compress;
+                btnExpandir.BringToFront();
+
+                _gridExpandido = true;
+            }
+            else
+            {
+                panel4.Visible = true;
+                panel7.Visible = true;
+
+                gunaDataGrid.SetBounds(gunaDataGrid.Left, _gridTopOriginal, gunaDataGrid.Width, _gridHeightOriginal);
+
+                btnExpandir.Parent = _btnExpandirParentOriginal;
+                btnExpandir.Location = _btnExpandirLocationOriginal;
+                btnExpandir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                btnExpandir.IconChar = IconChar.Expand;
+                btnExpandir.BringToFront();
+
+                _gridExpandido = false;
+            }
+        }
     }
 }

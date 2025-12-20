@@ -41,15 +41,31 @@ namespace PknoPlusCS.Modules
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnExpandir = new FontAwesome.Sharp.IconButton();
             this.iconExportar = new FontAwesome.Sharp.IconButton();
+            this.lblTotalDolares = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnExportar = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblTotalRegistro = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblTotalDolares = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTotalSoles = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.gunaDataGrid = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numDocPlusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoComprobanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nCorrelativoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nroComprobanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estadoComproDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rucDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.razonSocialDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaEmisionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.monedaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.importeSolesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.importeDolaresDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estadoSunatDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.listCpesDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.guna2TextBox2 = new Guna.UI2.WinForms.Guna2TextBox();
@@ -70,29 +86,14 @@ namespace PknoPlusCS.Modules
             this.btnBuscar = new FontAwesome.Sharp.IconButton();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numDocPlusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoComprobanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.serieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nCorrelativoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nroComprobanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estadoComproDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rucDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.razonSocialDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaEmisionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monedaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.importeSolesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.importeDolaresDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estadoSunatDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.listCpesDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gunaDataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listCpesDtoBindingSource)).BeginInit();
             this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.listCpesDtoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -165,10 +166,14 @@ namespace PknoPlusCS.Modules
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
+            this.panel2.Controls.Add(this.btnExpandir);
             this.panel2.Controls.Add(this.iconExportar);
+            this.panel2.Controls.Add(this.lblTotalDolares);
             this.panel2.Controls.Add(this.btnExportar);
             this.panel2.Controls.Add(this.guna2Panel1);
+            this.panel2.Controls.Add(this.lblTotalSoles);
             this.panel2.Controls.Add(this.gunaDataGrid);
+            this.panel2.Controls.Add(this.guna2HtmlLabel1);
             this.panel2.Controls.Add(this.panel7);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.panel4);
@@ -177,6 +182,26 @@ namespace PknoPlusCS.Modules
             this.panel2.Size = new System.Drawing.Size(1422, 816);
             this.panel2.TabIndex = 1;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // btnExpandir
+            // 
+            this.btnExpandir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExpandir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(171)))), ((int)(((byte)(168)))));
+            this.btnExpandir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExpandir.FlatAppearance.BorderSize = 0;
+            this.btnExpandir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExpandir.ForeColor = System.Drawing.Color.White;
+            this.btnExpandir.IconChar = FontAwesome.Sharp.IconChar.Expand;
+            this.btnExpandir.IconColor = System.Drawing.Color.White;
+            this.btnExpandir.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnExpandir.IconSize = 30;
+            this.btnExpandir.Location = new System.Drawing.Point(1380, 262);
+            this.btnExpandir.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExpandir.Name = "btnExpandir";
+            this.btnExpandir.Size = new System.Drawing.Size(34, 31);
+            this.btnExpandir.TabIndex = 37;
+            this.btnExpandir.UseVisualStyleBackColor = false;
+            this.btnExpandir.Click += new System.EventHandler(this.iconButton2_Click);
             // 
             // iconExportar
             // 
@@ -198,6 +223,17 @@ namespace PknoPlusCS.Modules
             this.iconExportar.TabIndex = 36;
             this.iconExportar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.iconExportar.UseVisualStyleBackColor = false;
+            // 
+            // lblTotalDolares
+            // 
+            this.lblTotalDolares.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalDolares.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalDolares.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalDolares.Location = new System.Drawing.Point(1031, 773);
+            this.lblTotalDolares.Name = "lblTotalDolares";
+            this.lblTotalDolares.Size = new System.Drawing.Size(34, 23);
+            this.lblTotalDolares.TabIndex = 2;
+            this.lblTotalDolares.Text = "0.00";
             // 
             // btnExportar
             // 
@@ -223,10 +259,7 @@ namespace PknoPlusCS.Modules
             this.guna2Panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Panel1.Controls.Add(this.lblTotalRegistro);
-            this.guna2Panel1.Controls.Add(this.lblTotalDolares);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel2);
-            this.guna2Panel1.Controls.Add(this.lblTotalSoles);
-            this.guna2Panel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2Panel1.Location = new System.Drawing.Point(22, 719);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1384, 36);
@@ -242,17 +275,6 @@ namespace PknoPlusCS.Modules
             this.lblTotalRegistro.Size = new System.Drawing.Size(12, 23);
             this.lblTotalRegistro.TabIndex = 3;
             this.lblTotalRegistro.Text = "0";
-            // 
-            // lblTotalDolares
-            // 
-            this.lblTotalDolares.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTotalDolares.BackColor = System.Drawing.Color.Transparent;
-            this.lblTotalDolares.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalDolares.Location = new System.Drawing.Point(1131, 3);
-            this.lblTotalDolares.Name = "lblTotalDolares";
-            this.lblTotalDolares.Size = new System.Drawing.Size(34, 23);
-            this.lblTotalDolares.TabIndex = 2;
-            this.lblTotalDolares.Text = "0.00";
             // 
             // guna2HtmlLabel2
             // 
@@ -270,22 +292,11 @@ namespace PknoPlusCS.Modules
             this.lblTotalSoles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTotalSoles.BackColor = System.Drawing.Color.Transparent;
             this.lblTotalSoles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalSoles.Location = new System.Drawing.Point(1019, 3);
+            this.lblTotalSoles.Location = new System.Drawing.Point(889, 773);
             this.lblTotalSoles.Name = "lblTotalSoles";
             this.lblTotalSoles.Size = new System.Drawing.Size(34, 23);
             this.lblTotalSoles.TabIndex = 1;
             this.lblTotalSoles.Text = "0.00";
-            // 
-            // guna2HtmlLabel1
-            // 
-            this.guna2HtmlLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(837, 3);
-            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(94, 23);
-            this.guna2HtmlLabel1.TabIndex = 0;
-            this.guna2HtmlLabel1.Text = "Monto total";
             // 
             // gunaDataGrid
             // 
@@ -297,10 +308,8 @@ namespace PknoPlusCS.Modules
             this.gunaDataGrid.AutoGenerateColumns = false;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.GradientActiveCaption;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.gunaDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.gunaDataGrid.ColumnHeadersHeight = 20;
@@ -325,7 +334,7 @@ namespace PknoPlusCS.Modules
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.gunaDataGrid.DefaultCellStyle = dataGridViewCellStyle3;
@@ -337,8 +346,6 @@ namespace PknoPlusCS.Modules
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.gunaDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.gunaDataGrid.RowHeadersVisible = false;
@@ -366,6 +373,120 @@ namespace PknoPlusCS.Modules
             this.gunaDataGrid.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.gunaDataGrid.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.FillWeight = 80F;
+            this.idDataGridViewTextBoxColumn.HeaderText = "N° Item";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // numDocPlusDataGridViewTextBoxColumn
+            // 
+            this.numDocPlusDataGridViewTextBoxColumn.DataPropertyName = "NumDocPlus";
+            this.numDocPlusDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.numDocPlusDataGridViewTextBoxColumn.HeaderText = "NumDocPlus";
+            this.numDocPlusDataGridViewTextBoxColumn.Name = "numDocPlusDataGridViewTextBoxColumn";
+            // 
+            // tipoComprobanteDataGridViewTextBoxColumn
+            // 
+            this.tipoComprobanteDataGridViewTextBoxColumn.DataPropertyName = "TipoComprobante";
+            this.tipoComprobanteDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.tipoComprobanteDataGridViewTextBoxColumn.HeaderText = "TipoComprobante";
+            this.tipoComprobanteDataGridViewTextBoxColumn.Name = "tipoComprobanteDataGridViewTextBoxColumn";
+            // 
+            // serieDataGridViewTextBoxColumn
+            // 
+            this.serieDataGridViewTextBoxColumn.DataPropertyName = "Serie";
+            this.serieDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.serieDataGridViewTextBoxColumn.HeaderText = "Serie";
+            this.serieDataGridViewTextBoxColumn.Name = "serieDataGridViewTextBoxColumn";
+            // 
+            // nCorrelativoDataGridViewTextBoxColumn
+            // 
+            this.nCorrelativoDataGridViewTextBoxColumn.DataPropertyName = "NCorrelativo";
+            this.nCorrelativoDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.nCorrelativoDataGridViewTextBoxColumn.HeaderText = "NCorrelativo";
+            this.nCorrelativoDataGridViewTextBoxColumn.Name = "nCorrelativoDataGridViewTextBoxColumn";
+            // 
+            // nroComprobanteDataGridViewTextBoxColumn
+            // 
+            this.nroComprobanteDataGridViewTextBoxColumn.DataPropertyName = "NroComprobante";
+            this.nroComprobanteDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.nroComprobanteDataGridViewTextBoxColumn.HeaderText = "NroComprobante";
+            this.nroComprobanteDataGridViewTextBoxColumn.Name = "nroComprobanteDataGridViewTextBoxColumn";
+            // 
+            // estadoComproDataGridViewTextBoxColumn
+            // 
+            this.estadoComproDataGridViewTextBoxColumn.DataPropertyName = "EstadoCompro";
+            this.estadoComproDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.estadoComproDataGridViewTextBoxColumn.HeaderText = "EstadoCompro";
+            this.estadoComproDataGridViewTextBoxColumn.Name = "estadoComproDataGridViewTextBoxColumn";
+            // 
+            // rucDataGridViewTextBoxColumn
+            // 
+            this.rucDataGridViewTextBoxColumn.DataPropertyName = "Ruc";
+            this.rucDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.rucDataGridViewTextBoxColumn.HeaderText = "Ruc";
+            this.rucDataGridViewTextBoxColumn.Name = "rucDataGridViewTextBoxColumn";
+            // 
+            // razonSocialDataGridViewTextBoxColumn
+            // 
+            this.razonSocialDataGridViewTextBoxColumn.DataPropertyName = "RazonSocial";
+            this.razonSocialDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.razonSocialDataGridViewTextBoxColumn.HeaderText = "RazonSocial";
+            this.razonSocialDataGridViewTextBoxColumn.Name = "razonSocialDataGridViewTextBoxColumn";
+            // 
+            // fechaEmisionDataGridViewTextBoxColumn
+            // 
+            this.fechaEmisionDataGridViewTextBoxColumn.DataPropertyName = "FechaEmision";
+            this.fechaEmisionDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.fechaEmisionDataGridViewTextBoxColumn.HeaderText = "FechaEmision";
+            this.fechaEmisionDataGridViewTextBoxColumn.Name = "fechaEmisionDataGridViewTextBoxColumn";
+            // 
+            // monedaDataGridViewTextBoxColumn
+            // 
+            this.monedaDataGridViewTextBoxColumn.DataPropertyName = "Moneda";
+            this.monedaDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.monedaDataGridViewTextBoxColumn.HeaderText = "Moneda";
+            this.monedaDataGridViewTextBoxColumn.Name = "monedaDataGridViewTextBoxColumn";
+            // 
+            // importeSolesDataGridViewTextBoxColumn
+            // 
+            this.importeSolesDataGridViewTextBoxColumn.DataPropertyName = "ImporteSoles";
+            this.importeSolesDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.importeSolesDataGridViewTextBoxColumn.HeaderText = "ImporteSoles";
+            this.importeSolesDataGridViewTextBoxColumn.Name = "importeSolesDataGridViewTextBoxColumn";
+            // 
+            // importeDolaresDataGridViewTextBoxColumn
+            // 
+            this.importeDolaresDataGridViewTextBoxColumn.DataPropertyName = "ImporteDolares";
+            this.importeDolaresDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.importeDolaresDataGridViewTextBoxColumn.HeaderText = "ImporteDolares";
+            this.importeDolaresDataGridViewTextBoxColumn.Name = "importeDolaresDataGridViewTextBoxColumn";
+            // 
+            // estadoSunatDataGridViewTextBoxColumn
+            // 
+            this.estadoSunatDataGridViewTextBoxColumn.DataPropertyName = "EstadoSunat";
+            this.estadoSunatDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.estadoSunatDataGridViewTextBoxColumn.HeaderText = "EstadoSunat";
+            this.estadoSunatDataGridViewTextBoxColumn.Name = "estadoSunatDataGridViewTextBoxColumn";
+            // 
+            // listCpesDtoBindingSource
+            // 
+            this.listCpesDtoBindingSource.DataSource = typeof(PknoPlusCS.Modules.ValidationSunat.Domain.Dto.ListCpesDto);
+            // 
+            // guna2HtmlLabel1
+            // 
+            this.guna2HtmlLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(762, 773);
+            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(94, 23);
+            this.guna2HtmlLabel1.TabIndex = 0;
+            this.guna2HtmlLabel1.Text = "Monto total";
+            // 
             // panel7
             // 
             this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -385,7 +506,7 @@ namespace PknoPlusCS.Modules
             this.panel7.Location = new System.Drawing.Point(22, 151);
             this.panel7.Margin = new System.Windows.Forms.Padding(2);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1384, 142);
+            this.panel7.Size = new System.Drawing.Size(1342, 142);
             this.panel7.TabIndex = 23;
             this.panel7.Paint += new System.Windows.Forms.PaintEventHandler(this.panel7_Paint);
             // 
@@ -738,109 +859,6 @@ namespace PknoPlusCS.Modules
             this.label6.TabIndex = 6;
             this.label6.Text = "Seleccione el periodo:";
             // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.FillWeight = 80F;
-            this.idDataGridViewTextBoxColumn.HeaderText = "N° Item";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // numDocPlusDataGridViewTextBoxColumn
-            // 
-            this.numDocPlusDataGridViewTextBoxColumn.DataPropertyName = "NumDocPlus";
-            this.numDocPlusDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.numDocPlusDataGridViewTextBoxColumn.HeaderText = "NumDocPlus";
-            this.numDocPlusDataGridViewTextBoxColumn.Name = "numDocPlusDataGridViewTextBoxColumn";
-            // 
-            // tipoComprobanteDataGridViewTextBoxColumn
-            // 
-            this.tipoComprobanteDataGridViewTextBoxColumn.DataPropertyName = "TipoComprobante";
-            this.tipoComprobanteDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.tipoComprobanteDataGridViewTextBoxColumn.HeaderText = "TipoComprobante";
-            this.tipoComprobanteDataGridViewTextBoxColumn.Name = "tipoComprobanteDataGridViewTextBoxColumn";
-            // 
-            // serieDataGridViewTextBoxColumn
-            // 
-            this.serieDataGridViewTextBoxColumn.DataPropertyName = "Serie";
-            this.serieDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.serieDataGridViewTextBoxColumn.HeaderText = "Serie";
-            this.serieDataGridViewTextBoxColumn.Name = "serieDataGridViewTextBoxColumn";
-            // 
-            // nCorrelativoDataGridViewTextBoxColumn
-            // 
-            this.nCorrelativoDataGridViewTextBoxColumn.DataPropertyName = "NCorrelativo";
-            this.nCorrelativoDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.nCorrelativoDataGridViewTextBoxColumn.HeaderText = "NCorrelativo";
-            this.nCorrelativoDataGridViewTextBoxColumn.Name = "nCorrelativoDataGridViewTextBoxColumn";
-            // 
-            // nroComprobanteDataGridViewTextBoxColumn
-            // 
-            this.nroComprobanteDataGridViewTextBoxColumn.DataPropertyName = "NroComprobante";
-            this.nroComprobanteDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.nroComprobanteDataGridViewTextBoxColumn.HeaderText = "NroComprobante";
-            this.nroComprobanteDataGridViewTextBoxColumn.Name = "nroComprobanteDataGridViewTextBoxColumn";
-            // 
-            // estadoComproDataGridViewTextBoxColumn
-            // 
-            this.estadoComproDataGridViewTextBoxColumn.DataPropertyName = "EstadoCompro";
-            this.estadoComproDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.estadoComproDataGridViewTextBoxColumn.HeaderText = "EstadoCompro";
-            this.estadoComproDataGridViewTextBoxColumn.Name = "estadoComproDataGridViewTextBoxColumn";
-            // 
-            // rucDataGridViewTextBoxColumn
-            // 
-            this.rucDataGridViewTextBoxColumn.DataPropertyName = "Ruc";
-            this.rucDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.rucDataGridViewTextBoxColumn.HeaderText = "Ruc";
-            this.rucDataGridViewTextBoxColumn.Name = "rucDataGridViewTextBoxColumn";
-            // 
-            // razonSocialDataGridViewTextBoxColumn
-            // 
-            this.razonSocialDataGridViewTextBoxColumn.DataPropertyName = "RazonSocial";
-            this.razonSocialDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.razonSocialDataGridViewTextBoxColumn.HeaderText = "RazonSocial";
-            this.razonSocialDataGridViewTextBoxColumn.Name = "razonSocialDataGridViewTextBoxColumn";
-            // 
-            // fechaEmisionDataGridViewTextBoxColumn
-            // 
-            this.fechaEmisionDataGridViewTextBoxColumn.DataPropertyName = "FechaEmision";
-            this.fechaEmisionDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.fechaEmisionDataGridViewTextBoxColumn.HeaderText = "FechaEmision";
-            this.fechaEmisionDataGridViewTextBoxColumn.Name = "fechaEmisionDataGridViewTextBoxColumn";
-            // 
-            // monedaDataGridViewTextBoxColumn
-            // 
-            this.monedaDataGridViewTextBoxColumn.DataPropertyName = "Moneda";
-            this.monedaDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.monedaDataGridViewTextBoxColumn.HeaderText = "Moneda";
-            this.monedaDataGridViewTextBoxColumn.Name = "monedaDataGridViewTextBoxColumn";
-            // 
-            // importeSolesDataGridViewTextBoxColumn
-            // 
-            this.importeSolesDataGridViewTextBoxColumn.DataPropertyName = "ImporteSoles";
-            this.importeSolesDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.importeSolesDataGridViewTextBoxColumn.HeaderText = "ImporteSoles";
-            this.importeSolesDataGridViewTextBoxColumn.Name = "importeSolesDataGridViewTextBoxColumn";
-            // 
-            // importeDolaresDataGridViewTextBoxColumn
-            // 
-            this.importeDolaresDataGridViewTextBoxColumn.DataPropertyName = "ImporteDolares";
-            this.importeDolaresDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.importeDolaresDataGridViewTextBoxColumn.HeaderText = "ImporteDolares";
-            this.importeDolaresDataGridViewTextBoxColumn.Name = "importeDolaresDataGridViewTextBoxColumn";
-            // 
-            // estadoSunatDataGridViewTextBoxColumn
-            // 
-            this.estadoSunatDataGridViewTextBoxColumn.DataPropertyName = "EstadoSunat";
-            this.estadoSunatDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.estadoSunatDataGridViewTextBoxColumn.HeaderText = "EstadoSunat";
-            this.estadoSunatDataGridViewTextBoxColumn.Name = "estadoSunatDataGridViewTextBoxColumn";
-            // 
-            // listCpesDtoBindingSource
-            // 
-            this.listCpesDtoBindingSource.DataSource = typeof(PknoPlusCS.Modules.ValidationSunat.Domain.Dto.ListCpesDto);
-            // 
             // MainValidationSunat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -849,8 +867,12 @@ namespace PknoPlusCS.Modules
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MinimizeBox = false;
             this.Name = "MainValidationSunat";
             this.Text = "ERP PECAMP";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainValidationSunat_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainValidationSunat_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -859,11 +881,11 @@ namespace PknoPlusCS.Modules
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gunaDataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listCpesDtoBindingSource)).EndInit();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.listCpesDtoBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -919,6 +941,7 @@ namespace PknoPlusCS.Modules
         private Guna.UI2.WinForms.Guna2Button btnExportar;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTotalRegistro;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
+        private FontAwesome.Sharp.IconButton btnExpandir;
     }
 }
 

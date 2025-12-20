@@ -330,15 +330,15 @@ namespace PknoPlusCS.Modules.ValidationSunat.Application.Adapter
                     worksheet.Column(8).Width = 10;  
                     worksheet.Column(9).Width = 18;  
                     worksheet.Column(10).Width = 18;  
-                    worksheet.Column(11).Width = 15;  
+                    worksheet.Column(11).Width = 15;
 
-      
 
-                    string carpeta = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ReportesSunat");
+
+                    string carpeta = @"C:\TXT Pecano\VALIDEZ CPE";
                     if (!Directory.Exists(carpeta))
                         Directory.CreateDirectory(carpeta);
 
-                    string nombreArchivo = $"ValidacionSunat_{nombreMes}_{anio}_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+                    string nombreArchivo = $"ValidacionSunat_{nombreMes}_{anio}_{DateTime.Now:yyyyMMdd_HHmm}.xlsx";
                     string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
 
                     workbook.SaveAs(rutaCompleta);
