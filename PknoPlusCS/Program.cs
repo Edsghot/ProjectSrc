@@ -25,7 +25,7 @@ namespace PknoPlusCS
                 MapperConfig.RegisterMappings();
 
                 Logs.initLogs("Desarrollo.txt");
-                GetCredentialsProduccion(args);
+                GetCredentialsDesarrollo(args);
 
                 Application.ThreadException += GlobalExceptionHandler;
                 AppDomain.CurrentDomain.UnhandledException += GlobalExceptionHandler;

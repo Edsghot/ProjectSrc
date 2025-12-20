@@ -35,6 +35,7 @@ namespace PknoPlusCS.Modules
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainValidationSunat));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
@@ -50,21 +51,6 @@ namespace PknoPlusCS.Modules
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTotalSoles = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.gunaDataGrid = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numDocPlusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoComprobanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.serieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nCorrelativoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nroComprobanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estadoComproDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rucDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.razonSocialDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaEmisionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monedaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.importeSolesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.importeDolaresDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estadoSunatDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.listCpesDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.iconButton1 = new FontAwesome.Sharp.IconButton();
@@ -86,14 +72,29 @@ namespace PknoPlusCS.Modules
             this.btnBuscar = new FontAwesome.Sharp.IconButton();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numDocPlusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoComprobanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nCorrelativoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nroComprobanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estadoComproDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rucDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.razonSocialDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaEmisionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.monedaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.importeSolesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.importeDolaresDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estadoSunatDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.listCpesDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gunaDataGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.listCpesDtoBindingSource)).BeginInit();
             this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.listCpesDtoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -372,109 +373,6 @@ namespace PknoPlusCS.Modules
             this.gunaDataGrid.ThemeStyle.RowsStyle.Height = 22;
             this.gunaDataGrid.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.gunaDataGrid.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.FillWeight = 80F;
-            this.idDataGridViewTextBoxColumn.HeaderText = "N° Item";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // numDocPlusDataGridViewTextBoxColumn
-            // 
-            this.numDocPlusDataGridViewTextBoxColumn.DataPropertyName = "NumDocPlus";
-            this.numDocPlusDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.numDocPlusDataGridViewTextBoxColumn.HeaderText = "NumDocPlus";
-            this.numDocPlusDataGridViewTextBoxColumn.Name = "numDocPlusDataGridViewTextBoxColumn";
-            // 
-            // tipoComprobanteDataGridViewTextBoxColumn
-            // 
-            this.tipoComprobanteDataGridViewTextBoxColumn.DataPropertyName = "TipoComprobante";
-            this.tipoComprobanteDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.tipoComprobanteDataGridViewTextBoxColumn.HeaderText = "TipoComprobante";
-            this.tipoComprobanteDataGridViewTextBoxColumn.Name = "tipoComprobanteDataGridViewTextBoxColumn";
-            // 
-            // serieDataGridViewTextBoxColumn
-            // 
-            this.serieDataGridViewTextBoxColumn.DataPropertyName = "Serie";
-            this.serieDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.serieDataGridViewTextBoxColumn.HeaderText = "Serie";
-            this.serieDataGridViewTextBoxColumn.Name = "serieDataGridViewTextBoxColumn";
-            // 
-            // nCorrelativoDataGridViewTextBoxColumn
-            // 
-            this.nCorrelativoDataGridViewTextBoxColumn.DataPropertyName = "NCorrelativo";
-            this.nCorrelativoDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.nCorrelativoDataGridViewTextBoxColumn.HeaderText = "NCorrelativo";
-            this.nCorrelativoDataGridViewTextBoxColumn.Name = "nCorrelativoDataGridViewTextBoxColumn";
-            // 
-            // nroComprobanteDataGridViewTextBoxColumn
-            // 
-            this.nroComprobanteDataGridViewTextBoxColumn.DataPropertyName = "NroComprobante";
-            this.nroComprobanteDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.nroComprobanteDataGridViewTextBoxColumn.HeaderText = "NroComprobante";
-            this.nroComprobanteDataGridViewTextBoxColumn.Name = "nroComprobanteDataGridViewTextBoxColumn";
-            // 
-            // estadoComproDataGridViewTextBoxColumn
-            // 
-            this.estadoComproDataGridViewTextBoxColumn.DataPropertyName = "EstadoCompro";
-            this.estadoComproDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.estadoComproDataGridViewTextBoxColumn.HeaderText = "EstadoCompro";
-            this.estadoComproDataGridViewTextBoxColumn.Name = "estadoComproDataGridViewTextBoxColumn";
-            // 
-            // rucDataGridViewTextBoxColumn
-            // 
-            this.rucDataGridViewTextBoxColumn.DataPropertyName = "Ruc";
-            this.rucDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.rucDataGridViewTextBoxColumn.HeaderText = "Ruc";
-            this.rucDataGridViewTextBoxColumn.Name = "rucDataGridViewTextBoxColumn";
-            // 
-            // razonSocialDataGridViewTextBoxColumn
-            // 
-            this.razonSocialDataGridViewTextBoxColumn.DataPropertyName = "RazonSocial";
-            this.razonSocialDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.razonSocialDataGridViewTextBoxColumn.HeaderText = "RazonSocial";
-            this.razonSocialDataGridViewTextBoxColumn.Name = "razonSocialDataGridViewTextBoxColumn";
-            // 
-            // fechaEmisionDataGridViewTextBoxColumn
-            // 
-            this.fechaEmisionDataGridViewTextBoxColumn.DataPropertyName = "FechaEmision";
-            this.fechaEmisionDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.fechaEmisionDataGridViewTextBoxColumn.HeaderText = "FechaEmision";
-            this.fechaEmisionDataGridViewTextBoxColumn.Name = "fechaEmisionDataGridViewTextBoxColumn";
-            // 
-            // monedaDataGridViewTextBoxColumn
-            // 
-            this.monedaDataGridViewTextBoxColumn.DataPropertyName = "Moneda";
-            this.monedaDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.monedaDataGridViewTextBoxColumn.HeaderText = "Moneda";
-            this.monedaDataGridViewTextBoxColumn.Name = "monedaDataGridViewTextBoxColumn";
-            // 
-            // importeSolesDataGridViewTextBoxColumn
-            // 
-            this.importeSolesDataGridViewTextBoxColumn.DataPropertyName = "ImporteSoles";
-            this.importeSolesDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.importeSolesDataGridViewTextBoxColumn.HeaderText = "ImporteSoles";
-            this.importeSolesDataGridViewTextBoxColumn.Name = "importeSolesDataGridViewTextBoxColumn";
-            // 
-            // importeDolaresDataGridViewTextBoxColumn
-            // 
-            this.importeDolaresDataGridViewTextBoxColumn.DataPropertyName = "ImporteDolares";
-            this.importeDolaresDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.importeDolaresDataGridViewTextBoxColumn.HeaderText = "ImporteDolares";
-            this.importeDolaresDataGridViewTextBoxColumn.Name = "importeDolaresDataGridViewTextBoxColumn";
-            // 
-            // estadoSunatDataGridViewTextBoxColumn
-            // 
-            this.estadoSunatDataGridViewTextBoxColumn.DataPropertyName = "EstadoSunat";
-            this.estadoSunatDataGridViewTextBoxColumn.FillWeight = 73.40665F;
-            this.estadoSunatDataGridViewTextBoxColumn.HeaderText = "EstadoSunat";
-            this.estadoSunatDataGridViewTextBoxColumn.Name = "estadoSunatDataGridViewTextBoxColumn";
-            // 
-            // listCpesDtoBindingSource
-            // 
-            this.listCpesDtoBindingSource.DataSource = typeof(PknoPlusCS.Modules.ValidationSunat.Domain.Dto.ListCpesDto);
             // 
             // guna2HtmlLabel1
             // 
@@ -859,6 +757,109 @@ namespace PknoPlusCS.Modules
             this.label6.TabIndex = 6;
             this.label6.Text = "Seleccione el periodo:";
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.FillWeight = 80F;
+            this.idDataGridViewTextBoxColumn.HeaderText = "N° Item";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // numDocPlusDataGridViewTextBoxColumn
+            // 
+            this.numDocPlusDataGridViewTextBoxColumn.DataPropertyName = "NumDocPlus";
+            this.numDocPlusDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.numDocPlusDataGridViewTextBoxColumn.HeaderText = "NumDocPlus";
+            this.numDocPlusDataGridViewTextBoxColumn.Name = "numDocPlusDataGridViewTextBoxColumn";
+            // 
+            // tipoComprobanteDataGridViewTextBoxColumn
+            // 
+            this.tipoComprobanteDataGridViewTextBoxColumn.DataPropertyName = "TipoComprobante";
+            this.tipoComprobanteDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.tipoComprobanteDataGridViewTextBoxColumn.HeaderText = "TipoComprobante";
+            this.tipoComprobanteDataGridViewTextBoxColumn.Name = "tipoComprobanteDataGridViewTextBoxColumn";
+            // 
+            // serieDataGridViewTextBoxColumn
+            // 
+            this.serieDataGridViewTextBoxColumn.DataPropertyName = "Serie";
+            this.serieDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.serieDataGridViewTextBoxColumn.HeaderText = "Serie";
+            this.serieDataGridViewTextBoxColumn.Name = "serieDataGridViewTextBoxColumn";
+            // 
+            // nCorrelativoDataGridViewTextBoxColumn
+            // 
+            this.nCorrelativoDataGridViewTextBoxColumn.DataPropertyName = "NCorrelativo";
+            this.nCorrelativoDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.nCorrelativoDataGridViewTextBoxColumn.HeaderText = "NCorrelativo";
+            this.nCorrelativoDataGridViewTextBoxColumn.Name = "nCorrelativoDataGridViewTextBoxColumn";
+            // 
+            // nroComprobanteDataGridViewTextBoxColumn
+            // 
+            this.nroComprobanteDataGridViewTextBoxColumn.DataPropertyName = "NroComprobante";
+            this.nroComprobanteDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.nroComprobanteDataGridViewTextBoxColumn.HeaderText = "NroComprobante";
+            this.nroComprobanteDataGridViewTextBoxColumn.Name = "nroComprobanteDataGridViewTextBoxColumn";
+            // 
+            // estadoComproDataGridViewTextBoxColumn
+            // 
+            this.estadoComproDataGridViewTextBoxColumn.DataPropertyName = "EstadoCompro";
+            this.estadoComproDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.estadoComproDataGridViewTextBoxColumn.HeaderText = "EstadoCompro";
+            this.estadoComproDataGridViewTextBoxColumn.Name = "estadoComproDataGridViewTextBoxColumn";
+            // 
+            // rucDataGridViewTextBoxColumn
+            // 
+            this.rucDataGridViewTextBoxColumn.DataPropertyName = "Ruc";
+            this.rucDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.rucDataGridViewTextBoxColumn.HeaderText = "Ruc";
+            this.rucDataGridViewTextBoxColumn.Name = "rucDataGridViewTextBoxColumn";
+            // 
+            // razonSocialDataGridViewTextBoxColumn
+            // 
+            this.razonSocialDataGridViewTextBoxColumn.DataPropertyName = "RazonSocial";
+            this.razonSocialDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.razonSocialDataGridViewTextBoxColumn.HeaderText = "RazonSocial";
+            this.razonSocialDataGridViewTextBoxColumn.Name = "razonSocialDataGridViewTextBoxColumn";
+            // 
+            // fechaEmisionDataGridViewTextBoxColumn
+            // 
+            this.fechaEmisionDataGridViewTextBoxColumn.DataPropertyName = "FechaEmision";
+            this.fechaEmisionDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.fechaEmisionDataGridViewTextBoxColumn.HeaderText = "FechaEmision";
+            this.fechaEmisionDataGridViewTextBoxColumn.Name = "fechaEmisionDataGridViewTextBoxColumn";
+            // 
+            // monedaDataGridViewTextBoxColumn
+            // 
+            this.monedaDataGridViewTextBoxColumn.DataPropertyName = "Moneda";
+            this.monedaDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.monedaDataGridViewTextBoxColumn.HeaderText = "Moneda";
+            this.monedaDataGridViewTextBoxColumn.Name = "monedaDataGridViewTextBoxColumn";
+            // 
+            // importeSolesDataGridViewTextBoxColumn
+            // 
+            this.importeSolesDataGridViewTextBoxColumn.DataPropertyName = "ImporteSoles";
+            this.importeSolesDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.importeSolesDataGridViewTextBoxColumn.HeaderText = "ImporteSoles";
+            this.importeSolesDataGridViewTextBoxColumn.Name = "importeSolesDataGridViewTextBoxColumn";
+            // 
+            // importeDolaresDataGridViewTextBoxColumn
+            // 
+            this.importeDolaresDataGridViewTextBoxColumn.DataPropertyName = "ImporteDolares";
+            this.importeDolaresDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.importeDolaresDataGridViewTextBoxColumn.HeaderText = "ImporteDolares";
+            this.importeDolaresDataGridViewTextBoxColumn.Name = "importeDolaresDataGridViewTextBoxColumn";
+            // 
+            // estadoSunatDataGridViewTextBoxColumn
+            // 
+            this.estadoSunatDataGridViewTextBoxColumn.DataPropertyName = "EstadoSunat";
+            this.estadoSunatDataGridViewTextBoxColumn.FillWeight = 73.40665F;
+            this.estadoSunatDataGridViewTextBoxColumn.HeaderText = "EstadoSunat";
+            this.estadoSunatDataGridViewTextBoxColumn.Name = "estadoSunatDataGridViewTextBoxColumn";
+            // 
+            // listCpesDtoBindingSource
+            // 
+            this.listCpesDtoBindingSource.DataSource = typeof(PknoPlusCS.Modules.ValidationSunat.Domain.Dto.ListCpesDto);
+            // 
             // MainValidationSunat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -866,10 +867,11 @@ namespace PknoPlusCS.Modules
             this.ClientSize = new System.Drawing.Size(1421, 914);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimizeBox = false;
             this.Name = "MainValidationSunat";
-            this.Text = "ERP PECAMP";
+            this.Text = "ERP PECANO";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainValidationSunat_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainValidationSunat_FormClosed);
@@ -881,11 +883,11 @@ namespace PknoPlusCS.Modules
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gunaDataGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.listCpesDtoBindingSource)).EndInit();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.listCpesDtoBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

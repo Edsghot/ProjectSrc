@@ -222,7 +222,7 @@ namespace PknoPlusCS.Modules
 
             gunaDataGrid.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "EstadoComprobante",
+                DataPropertyName = "EstadoCompro",
                 HeaderText = "Estado comprobante",
                 Name = "colEstadoCompro",
                 Width = 150,
@@ -687,7 +687,14 @@ namespace PknoPlusCS.Modules
                 datosFiltrados = datosFiltrados.Where(x => x.FechaEmision.Date <= fechaFin);
             }
 
+            var listaFiltrada = datosFiltrados.ToList();
             gunaDataGrid.DataSource = datosFiltrados.ToList();
+            lblTotalRegistro.Text = listaFiltrada.Count.ToString();
+
+            var sumaSoles = listaFiltrada.Sum(x => x.ImporteSoles);
+            var sumaDolares = listaFiltrada.Sum(x => x.ImporteDolares);
+            lblTotalSoles.Text = "S/ " + sumaSoles.ToString("N2");
+            lblTotalDolares.Text = "$ " + sumaDolares.ToString("N2");
         }
 
         private void ResetearFiltros()
